@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <main class="bg-black text-white">
-    Hello world.
-  </main>
+  <div class="flex flex-col gap-8">
+    <BlogSummary v-for="card in 10"></BlogSummary>
+  </div>
 </template>

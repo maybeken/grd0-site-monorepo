@@ -1901,6 +1901,7 @@ __metadata:
     eslint: "npm:^8.49.0"
     eslint-plugin-vue: "npm:^9.17.0"
     npm-run-all2: "npm:^6.1.2"
+    oh-vue-icons: "npm:^1.0.0-rc3"
     pinia: "npm:^2.1.7"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.0.3"
@@ -2582,6 +2583,21 @@ __metadata:
   version: 3.0.0
   resolution: "object-hash@npm:3.0.0"
   checksum: 10c0/a06844537107b960c1c8b96cd2ac8592a265186bfa0f6ccafe0d34eabdb526f6fa81da1f37c43df7ed13b12a4ae3457a16071603bcd39d8beddb5f08c37b0f47
+  languageName: node
+  linkType: hard
+
+"oh-vue-icons@npm:^1.0.0-rc3":
+  version: 1.0.0-rc3
+  resolution: "oh-vue-icons@npm:1.0.0-rc3"
+  dependencies:
+    vue-demi: "npm:^0.12.5"
+  peerDependencies:
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^2.0.0 || >=3.0.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  checksum: 10c0/2a1d3d776fe02c01f8fd6afd7a2f3fe7e4c26553fa3361966c0f5aec7cd1155303f470e19181d76cdffca44c914b00f4a5927364d43572460456f3dc2f007f6c
   languageName: node
   linkType: hard
 
@@ -3535,6 +3551,22 @@ __metadata:
     vue-demi-fix: bin/vue-demi-fix.js
     vue-demi-switch: bin/vue-demi-switch.js
   checksum: 10c0/303216e3e6ee3f6ab5631488dd00a767ef3760a0a14e580c0223b278d093dc9ada8164ecec6bf8d8e12034e0bdf8dbb947c0c6f83095c6a53030a4a6dcbd57ce
+  languageName: node
+  linkType: hard
+
+"vue-demi@npm:^0.12.5":
+  version: 0.12.5
+  resolution: "vue-demi@npm:0.12.5"
+  peerDependencies:
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^3.0.0-0 || ^2.6.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  bin:
+    vue-demi-fix: bin/vue-demi-fix.js
+    vue-demi-switch: bin/vue-demi-switch.js
+  checksum: 10c0/7c10377bf74e3ec81c5b5db91b6b4781b78df831f2e66fefa2aabf6da01d3ee08444f4aa4ec0dcf5cd345cdc6c09343558cb0aceb3f0716dba709a53eed745d1
   languageName: node
   linkType: hard
 
