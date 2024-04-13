@@ -3,7 +3,11 @@
     class="border-solid border-accent border-4 rounded-full" 
     :class="$props.size ? [`h-${$props.size}`, `w-${$props.size}`] : [`h-${defaultSize}`,`w-${defaultSize}`]"
   >
-    <img class="rounded-full" :src="$props.src" />
+    <img
+      class="rounded-full"
+      :class="$props.size ? [`h-${$props.size}`, `w-${$props.size}`] : [`h-${defaultSize}`,`w-${defaultSize}`]"
+      :src="$props.src"
+    />
   </div>
 </template>
 
