@@ -1,11 +1,8 @@
 <template>
   <div
-    class="border-solid border-accent border-4 rounded-full" 
-    :class="$props.size ? [`h-${$props.size}`, `w-${$props.size}`] : [`h-${defaultSize}`,`w-${defaultSize}`]"
+    class="border-solid border-accent border-4 rounded-full overflow-clip w-16 h-16" 
   >
     <img
-      class="rounded-full"
-      :class="$props.size ? [`h-${$props.size}`, `w-${$props.size}`] : [`h-${defaultSize}`,`w-${defaultSize}`]"
       :src="$props.src"
     />
   </div>
@@ -16,10 +13,10 @@ import { ref } from 'vue';
 
 interface Props {
   src: string;
-  size: number;
+  size: number; // Does not work
 };
 
 const $props = defineProps<Props>();
 
-const defaultSize = 16;
+// const defaultSize = 16;
 </script>
