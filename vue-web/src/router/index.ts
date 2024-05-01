@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import HomeView from '@/views/HomeView.vue';
 import NotFound from '@/views/NotFound.vue';
+import Editor from '@/views/Editor.vue';
 
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE;
 
@@ -26,6 +27,14 @@ const router = createRouter({
           component: HomeView,
         }
       ],
+    },
+    {
+      path: '/editor',
+      name: 'Editor',
+      meta: {
+        title: 'Editor',
+      },
+      component: Editor,
     },
     {
       path: '/:pathMatch(.*)',
