@@ -1,9 +1,10 @@
 <template>
   <div
-    class="border-solid border-accent border-4 rounded-full overflow-clip w-16 h-16" 
+    class="border-solid border-accent border-4 rounded-full overflow-clip w-16" 
   >
     <img
       :src="$props.src"
+      alt="Profile Picture"
     />
   </div>
 </template>
@@ -13,10 +14,7 @@ import { ref } from 'vue';
 
 interface Props {
   src: string;
-  size: number; // Does not work
 };
 
 const $props = defineProps<Props>();
-
-// const defaultSize = 16;
 </script>
