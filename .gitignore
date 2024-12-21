@@ -221,3 +221,7 @@ docs/_book
 test/
 
 # End of https://www.toptal.com/developers/gitignore/api/vue,node,visualstudiocode,linux,macos
+
+# Exclude assets folder content
+/assets/*
+!/assets/*.js
