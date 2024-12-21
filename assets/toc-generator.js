@@ -34,7 +34,7 @@ async function groupFilesByDirectory(files) {
     const filename = path_split.reverse()[0];
 
     return {
-      path: path ? `/${path.join('/')}` : '/',
+      path: path ? `/${path.reverse().join('/')}` : '/',
       filename,
     }
   });
