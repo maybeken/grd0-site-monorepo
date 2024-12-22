@@ -34,7 +34,7 @@ const parse2HTML = async (content: string) => {
   .use(remarkBreaks)
   .use(inspectUrls, {
     inspectEach(url) {
-      if (!url.url.includes('//')) {
+      if (!url.url.includes('//') && url?.node?.properties?.src) {
         url.node.properties.src = `//${ASSET_URL}${url.url}`;
       }
     },
