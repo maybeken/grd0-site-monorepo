@@ -13,6 +13,7 @@ import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import rehypeExternalLinks from 'rehype-external-links';
 import remarkBreaks from 'remark-breaks';
+import inspectUrls from '@jsdevtools/rehype-url-inspector';
 
 interface Props {
   md: string,
@@ -22,16 +23,29 @@ const $props = defineProps<Props>();
 
 const parsedContent = ref('');
 
+const ASSET_URL = import.meta.env.VITE_ASSETS_DOMAIN;
+
 const parse2HTML = async (content: string) => {
-  const html = await unified()
+  const processor = unified()
   .use(remarkParse)
   .use(remarkGfm)
+  .use(remarkRehype)
   .use(rehypeExternalLinks, { rel: ['nofollow'],target: '_blank' })
   .use(remarkBreaks)
-  .use(remarkRehype)
+  .use(inspectUrls, {
+    inspectEach(url) {
+      if (!url.url.includes('//')) {
+        url.node.properties.src = `//${ASSET_URL}${url.url}`;
+      }
+    },
+    selectors: [
+      "img[src]",
+    ]
+  })
   .use(rehypeSanitize)
-  .use(rehypeStringify)
-  .process(content);
+  .use(rehypeStringify);
+
+  const html = await processor.process(content);
 
   return String(html);
 };
