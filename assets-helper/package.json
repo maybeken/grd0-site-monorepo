@@ -1,0 +1,15 @@
+{
+  "name": "Assets Table of Content Generator",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "generate": "node toc-generator.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "exifreader": "^4.25.0"
+  }
+}

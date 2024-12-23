@@ -224,4 +224,3 @@ test/
 
 # Exclude assets folder content
 /assets/*
-!/assets/*.js

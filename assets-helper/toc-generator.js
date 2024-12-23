@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-const output_filename = 'output.json';
+const assets_directory = '../assets';
+const output_filename = 'files.json';
 const skip_file = [import.meta.filename.split('/').reverse()[0], output_filename];
 
 async function getAllFilesRecursively(directory) {
@@ -12,7 +13,7 @@ async function getAllFilesRecursively(directory) {
 
     for (let file of childFiles) {
       const fullPath = path.join(directory, file);
-      const relativePath = fullPath.replace(import.meta.dirname, '');
+      const relativePath = fullPath.replace(assets_directory, '');
 
       if (fs.statSync(fullPath).isDirectory()) {
         files = files.concat(await getAllFilesRecursively(fullPath));
@@ -55,8 +56,7 @@ async function flattenGroups(groups) {
 }
 
 async function main() {
-  let currentDir = process.cwd();
-  let allFiles = await getAllFilesRecursively(currentDir);
+  let allFiles = await getAllFilesRecursively(assets_directory);
 
   let grouped = await groupFilesByDirectory(allFiles);
 
