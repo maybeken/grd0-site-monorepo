@@ -1,18 +1,22 @@
 import fs from 'fs';
 import path from 'path';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import ExifReader from 'exifreader';
+
+dayjs.extend(customParseFormat);
 
 const assets_directory = '../assets';
 const output_filename = 'files.json';
-const skip_file = ['.DS_Store'];
+const skip_file = ['.DS_Store', output_filename];
 
 async function getAllFilesRecursively(directory) {
   let files = [];
+  
+  const childFiles = await fs.promises.readdir(directory);
 
-  try {
-    const childFiles = await fs.promises.readdir(directory);
-
-    for (let file of childFiles) {
+  for (let file of childFiles) {
+    try {
       const fullPath = path.join(directory, file);
       const relativePath = fullPath.replace(assets_directory, '');
 
@@ -21,17 +25,17 @@ async function getAllFilesRecursively(directory) {
       } else if (!(skip_file.includes(file))) {
         files.push(relativePath)
       }
+    } catch (err) {
+      console.error("Error: ", { err, file });
     }
-  } catch (err) {
-    console.error("Error: ", err);
   }
 
   return files;
 }
 
 async function groupFilesByDirectory(files) {
-  const group_actions = files.map(async (val) => {
-    const path_split = val.split('/');
+  const group_actions = files.map(async (file) => {
+    const path_split = file.split('/');
     const path = path_split.slice(1).reverse().slice(1);
     const filename = path_split.reverse()[0];
 
@@ -41,7 +45,7 @@ async function groupFilesByDirectory(files) {
     };
 
     try {
-      const { exif } = await ExifReader.load(assets_directory + val, {
+      const { exif } = await ExifReader.load(assets_directory + file, {
         expanded: true,
       });
 
@@ -49,7 +53,7 @@ async function groupFilesByDirectory(files) {
         return {
           ...basic_info,
           exif: {
-            datetime: exif.DateTime?.value[0] ?? undefined,
+            datetime: exif.DateTimeDigitized?.value[0] ? dayjs(exif.DateTimeDigitized.value[0], "YYYY:MM:DD H:mm:ss") : undefined,
             shutter: exif.ExposureTime?.description ?? undefined,
             fstop: exif.FNumber?.description ?? undefined,
             iso: exif.ISOSpeedRatings?.description ?? undefined,
@@ -62,7 +66,7 @@ async function groupFilesByDirectory(files) {
         };
       }
     } catch (err) {
-      console.error(err);
+      console.log(err, file);
     }
 
     return basic_info;

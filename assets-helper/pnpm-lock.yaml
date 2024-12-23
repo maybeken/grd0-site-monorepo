@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      customParseFormat:
+        specifier: link:dayjs/plugin/customParseFormat
+        version: link:dayjs/plugin/customParseFormat
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       exifreader:
         specifier: ^4.25.0
         version: 4.25.0
@@ -18,6 +24,9 @@ packages:
     resolution: {integrity: sha512-Su4xcxR0CPGwlDHNmVP09fqET9YxbyDXHaSob6JlBH7L6reTYaeim6zbk9o08UarO0L5GTRo3uzl0D+9lSxmvw==}
     engines: {node: '>=14.6'}
 
+  dayjs@1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
+
   exifreader@4.25.0:
     resolution: {integrity: sha512-lPyPXWTUuYgoKdKf3rw2EDoE9Zl7xHoy/ehPNeQ4gFVNLzfLyNMP4oEI+sP0/Czp5r/2i7cFhqg5MHsl4FYtyw==}
 
@@ -25,6 +34,8 @@ snapshots:
 
   '@xmldom/xmldom@0.9.6':
     optional: true
+
+  dayjs@1.11.13: {}
 
   exifreader@4.25.0:
     optionalDependencies:

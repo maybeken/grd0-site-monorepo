@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "customParseFormat": "link:dayjs/plugin/customParseFormat",
+    "dayjs": "^1.11.13",
     "exifreader": "^4.25.0"
   }
 }
