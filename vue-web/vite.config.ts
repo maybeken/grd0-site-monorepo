@@ -5,6 +5,20 @@ import vue from '@vitejs/plugin-vue'
 
 import Components from 'unplugin-vue-components/vite'
 
+function manualChunks (id: any) {
+  if (id.includes('/vue/') || id.includes('/@vue/')) {
+    return 'vue';
+  } else if (id.includes('/rehype/') || id.includes('/remark/')) {
+    return 'md';
+  } else if (id.includes('/icons/')) {
+    return 'icon';
+  } else if (id.includes('node_modules')) {
+    return 'vendor';
+  } else {
+    return 'main';
+  }
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -14,6 +28,13 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks
+      }
     }
   }
 })
