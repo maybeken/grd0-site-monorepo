@@ -6,9 +6,11 @@ import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 
 function manualChunks (id: any) {
-  if (id.includes('/vue/') || id.includes('/@vue/')) {
+  if (id.includes('/vue/') || id.includes('/vue-router/') || id.includes('/@vue/')) {
     return 'vue';
-  } else if (id.includes('/rehype/') || id.includes('/remark/')) {
+  } else if (id.includes('/alova/')) {
+    return 'alova';
+  } else if (id.includes('/rehype/') || id.includes('/remark/') || id.includes('micromark') || id.includes('markdown') || id.includes('/unified/')) {
     return 'md';
   } else if (id.includes('/icons/')) {
     return 'icon';
