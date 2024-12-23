@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import NotFound from '@/views/NotFound.vue';
 import Editor from '@/views/Editor.vue';
+import Gallery from '@/views/GalleryView.vue';
 
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE;
 
@@ -35,6 +36,14 @@ const router = createRouter({
         title: 'Editor',
       },
       component: Editor,
+    },
+    {
+      path: '/gallery',
+      name: 'Gallery',
+      meta: {
+        title: 'Gallery',
+      },
+      component: Gallery,
     },
     {
       path: '/:pathMatch(.*)',

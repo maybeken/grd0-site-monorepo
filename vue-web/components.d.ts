@@ -10,6 +10,8 @@ declare module 'vue' {
     BlogCard: typeof import('./src/components/BlogCard.vue')['default']
     BlogSummary: typeof import('./src/components/BlogSummary.vue')['default']
     DropdownBtn: typeof import('./src/components/DropdownBtn.vue')['default']
+    DropdownSelection: typeof import('./src/components/DropdownSelection.vue')['default']
+    GalleryCard: typeof import('./src/components/GalleryCard.vue')['default']
     MarkdownDisplay: typeof import('./src/components/MarkdownDisplay.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     ProfileIcon: typeof import('./src/components/ProfileIcon.vue')['default']
