@@ -1,12 +1,12 @@
 import { useRequest } from 'alova';
-import { alovaInstance } from './api';
+import { assetsInstance } from './api';
 
 import type { Ref } from 'vue';
 import type { AssetFileList } from '@/interfaces/Gallery';
 
 function listAssets(): Ref<AssetFileList> {
   try {
-    const { data } = useRequest(alovaInstance.Get<AssetFileList>('/files.json'));
+    const { data } = useRequest(assetsInstance.Get<AssetFileList>('/files.json'));
 
     return data;
   } catch(error: unknown) {
