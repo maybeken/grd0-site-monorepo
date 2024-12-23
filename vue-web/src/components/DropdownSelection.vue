@@ -1,7 +1,6 @@
 <template>
   <select
     class="px-4 py-2 rounded bg-background border-[1px] border-solid border-foreground"
-    :value="$props.selected"
     v-model="selected"
     @change="$emit('select', selected)"
   >
@@ -17,7 +16,7 @@ import { ref, watchEffect } from 'vue';
 interface Props {
   options?: string[];
   selected?: string;
-  stylize?: Function;
+  stylize?: (text: string) => string;
 }
 
 const $props = defineProps<Props>();

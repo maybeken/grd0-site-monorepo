@@ -3,11 +3,13 @@ import { ref, watch } from 'vue';
 import { listAssets } from '@/services/gallery';
 import { useGalleryStore } from '@/stores/gallery';
 
+import type { Asset, AssetFileList } from '@/interfaces/Gallery';
+
 const $store = useGalleryStore();
 const files = listAssets();
 
-function getGalleryList(files, filter) {
-  if (!files) return;
+function getGalleryList(files: AssetFileList): AssetFileList {
+  if (!files) return {};
 
   const list = Object.fromEntries(
     Object.entries(files).filter(
@@ -15,23 +17,27 @@ function getGalleryList(files, filter) {
     )
   );
 
-  if (filter) {
-    return list[filter];
-  }
-
-  return list ?? [];
+  return list;
 }
 
-function getCategoryList(list) {
-  if (!list) return;
+function getFileList(files: AssetFileList, filter: string): Asset[] {
+  if (!files) return [];
+
+  return files[filter] || [];
+}
+
+function getCategoryList(list: AssetFileList | undefined): string[] {
+  if (!list) return [];
 
   return Object.keys(list);
 }
 
 // Set default category
 watch(files, (newVal) => {
-  if (!$store.selected_category.value) {
-    $store.selected_category = getCategoryList(getGalleryList(newVal))[0];
+  if (newVal && !$store.selected_category) {
+    const full_list = getCategoryList(getGalleryList(newVal));
+
+    if (full_list) $store.selected_category = full_list[0];
   }
 })
 </script>
@@ -41,15 +47,15 @@ watch(files, (newVal) => {
     <DropdownSelection
       :options="getCategoryList(getGalleryList(files))"
       :selected="$store.selected_category"
-      :stylize="value => value.replace('/gallery/', '').replace(/(^\w|\s\w)/g, m => m.toUpperCase())"
-      @select="(newVal) => { $store.selected_category = newVal }"
+      :stylize="(value: string) => value.replace('/gallery/', '').replace(/(^\w|\s\w)/g, (m: string) => m.toUpperCase())"
+      @select="(newVal: string) => { $store.selected_category = newVal }"
     >
     </DropdownSelection>
   </div>
   <div class="py-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
     <GalleryCard
       :selected_category="$store.selected_category"
-      :list="getGalleryList(files, $store.selected_category)"
+      :list="getFileList(getGalleryList(files), $store.selected_category)"
     ></GalleryCard>
   </div>
 </template>
