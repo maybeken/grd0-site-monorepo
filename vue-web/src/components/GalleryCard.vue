@@ -1,14 +1,20 @@
 <template>
-  <div class="rounded-xl bg-shade">
-    <a :href="`//${ASSET_URL}${$props.category}/${image.filename}`" target="_blank">
-      <img class="p-1 rounded-xl w-full aspect-square"
-        :src="`//${ASSET_URL}/cdn-cgi/image/width=512,quality=75${$props.category}/${$props.image.filename}`" lazy />
-    </a>
-    <div class="p-2 pt-1 text-secondary text-xs">
-      <p class="pb-2 text-center">{{ details?.description }}</p>
+  <div class="flex flex-col gap-2 justify-end p-1 pb-2 rounded-xl bg-shade text-secondary text-xs">
+    <div>
+      <a :href="`//${ASSET_URL}${$props.category}/${image.filename}`" target="_blank">
+        <img class="rounded-xl w-full aspect-square cursor-zoom-in"
+          :src="`//${ASSET_URL}/cdn-cgi/image/width=512,quality=75${$props.category}/${$props.image.filename}`" lazy />
+      </a>
+    </div>
+    <div>
+      <p v-if="details?.description" class="text-center">{{ details?.description }}</p>
+    </div>
+    <div class="grow">
       <p class="text-center">{{ $props.image.exif?.equipment?.camera }} {{ $props.image.exif?.equipment?.lens }}</p>
       <p class="text-center">ISO {{ $props.image.exif?.iso }} | {{ $props.image.exif?.fstop }} | {{ $props.image.exif?.shutter }}s</p>
-      <p class="pt-2 text-right">{{ details?.tz_adjustment ? dayjs($props.image.exif?.datetime).add(details?.tz_adjustment, 'h').format('LLL') : dayjs($props.image.exif?.datetime).format('LLL') }}</p>
+    </div>
+    <div>
+      <p class="text-right">{{ details?.tz_adjustment ? dayjs($props.image.exif?.datetime).add(details?.tz_adjustment, 'h').format('YYYY/MM/DD hh:mm A') : dayjs($props.image.exif?.datetime).format('LLL') }}</p>
     </div>
   </div>
 </template>
@@ -34,6 +40,7 @@ interface Props {
 
 const $props = defineProps<Props>();
 const details = ref();
+const show_more = ref(false);
 
 function findGalleryDetail(gallery_details: GalleryDetail[], path: string, filename: string): GalleryDetail | null {
   if (!gallery_details) return null;
