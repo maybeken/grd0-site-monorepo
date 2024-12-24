@@ -15,7 +15,7 @@ importers:
         specifier: ^2.20.3
         version: 2.21.5
       dayjs:
-        specifier: ^1.11.10
+        specifier: ^1.11.13
         version: 1.11.13
       oh-vue-icons:
         specifier: ^1.0.0-rc3

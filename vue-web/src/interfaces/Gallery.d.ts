@@ -16,3 +16,10 @@ export interface Asset {
 export interface AssetFileList {
   [key: string]: Asset[],
 }
+
+export interface GalleryDetail {
+  path: string,
+  filename: string,
+  tz_adjustment?: number,
+  description?: string,
+}

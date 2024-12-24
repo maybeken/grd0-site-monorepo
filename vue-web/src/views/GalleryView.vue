@@ -54,8 +54,10 @@ watch(files, (newVal) => {
   </div>
   <div class="py-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
     <GalleryCard
-      :selected_category="$store.selected_category"
-      :list="getFileList(getGalleryList(files), $store.selected_category)"
+      v-for="img of getFileList(getGalleryList(files), $store.selected_category)"
+      :category="$store.selected_category"
+      :image="img"
+      :key="img.filename"
     ></GalleryCard>
   </div>
 </template>

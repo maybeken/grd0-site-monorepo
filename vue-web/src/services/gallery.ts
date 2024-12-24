@@ -1,8 +1,8 @@
 import { useRequest } from 'alova';
-import { assetsInstance } from './api';
+import { dataInstance, assetsInstance } from './api';
 
 import type { Ref } from 'vue';
-import type { AssetFileList } from '@/interfaces/Gallery';
+import type { AssetFileList, GalleryDetail } from '@/interfaces/Gallery';
 
 function listAssets(): Ref<AssetFileList> {
   try {
@@ -14,4 +14,14 @@ function listAssets(): Ref<AssetFileList> {
   }
 }
 
-export { listAssets };
+function getGalleryDetail(): Ref<GalleryDetail[]> {
+  try {
+    const { data } = useRequest(dataInstance.Get<GalleryDetail[]>('/galleryDetail.json'));
+
+    return data;
+  } catch(error: unknown) {
+    throw error;
+  }
+}
+
+export { listAssets, getGalleryDetail };
