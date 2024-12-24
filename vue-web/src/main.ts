@@ -7,12 +7,11 @@ import App from './App.vue';
 import router from './router';
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
-import { MdMenu, MdOpeninnewOutlined } from 'oh-vue-icons/icons';
-// import * as Icons from 'oh-vue-icons/icons';
+// Import on MD icons
+import * as MdIcons from 'oh-vue-icons/icons/md';
 
-// const icons = Object.values({ ...Icons });
-// addIcons(...icons);
-addIcons(MdMenu, MdOpeninnewOutlined);
+const icons = Object.values({ ...MdIcons });
+addIcons(...icons);
 
 const app = createApp(App);
 
