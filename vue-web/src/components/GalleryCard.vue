@@ -3,7 +3,7 @@
     <div>
       <a :href="`//${ASSET_URL}${$props.category}/${image.filename}`" target="_blank">
         <img class="rounded-xl w-full aspect-square cursor-zoom-in"
-          :src="`//${ASSET_URL}/cdn-cgi/image/width=512,quality=75${$props.category}/${$props.image.filename}`" lazy />
+          :src="`//${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${$props.category}/${$props.image.filename}`" lazy />
       </a>
     </div>
     <div>
@@ -40,7 +40,11 @@ interface Props {
 
 const $props = defineProps<Props>();
 const details = ref();
-const show_more = ref(false);
+
+const cdn_config = {
+  resolution: 768,
+  quality: 75,
+};
 
 function findGalleryDetail(gallery_details: GalleryDetail[], path: string, filename: string): GalleryDetail | null {
   if (!gallery_details) return null;
