@@ -32,6 +32,10 @@ function getCategoryList(list: AssetFileList | undefined): string[] {
   return Object.keys(list);
 }
 
+function formatCategoryName(value: string): string {
+  return value.replace('/gallery/', '').replace(/(^\w|\s\w)/g, (m: string) => m.toUpperCase())
+}
+
 // Set default category
 watch(files, (newVal) => {
   if (newVal && !$store.selected_category) {
@@ -47,7 +51,7 @@ watch(files, (newVal) => {
     <DropdownSelection
       :options="getCategoryList(getGalleryList(files))"
       :selected="$store.selected_category"
-      :stylize="(value: string) => value.replace('/gallery/', '').replace(/(^\w|\s\w)/g, (m: string) => m.toUpperCase())"
+      :stylize="formatCategoryName"
       @select="(newVal: string) => { $store.selected_category = newVal }"
     >
     </DropdownSelection>
