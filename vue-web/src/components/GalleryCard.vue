@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-2 justify-end p-1 pb-2 rounded-xl bg-shade text-secondary text-xs">
     <div>
       <a :href="`//${ASSET_URL}${$props.category}/${image.filename}`" target="_blank">
-        <img class="rounded-xl w-full aspect-square cursor-zoom-in"
+        <img class="rounded-xl w-full object-cover aspect-square cursor-zoom-in"
           :src="`//${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${$props.category}/${$props.image.filename}`" lazy />
       </a>
     </div>
