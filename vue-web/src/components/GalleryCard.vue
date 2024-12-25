@@ -3,7 +3,7 @@
     <div>
       <a :href="`//${ASSET_URL}${$props.category}/${image.filename}`" target="_blank">
         <img class="rounded-xl w-full object-cover aspect-square cursor-zoom-in"
-          :src="`//${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${$props.category}/${$props.image.filename}`" lazy />
+          :src="`//${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${$props.category}/${$props.image.filename}`" loading="lazy" />
       </a>
     </div>
     <div v-if="details?.description" class="px-1">
