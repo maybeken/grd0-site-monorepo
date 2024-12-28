@@ -2,7 +2,7 @@ import { useRequest } from 'alova';
 import { dataInstance, assetsInstance } from './api';
 
 import type { Ref } from 'vue';
-import type { AssetFileList, GalleryDetail } from '@/interfaces/Gallery';
+import type { AssetFileList, GalleryDetail, GalleryCategory } from '@/interfaces/Gallery';
 
 function listAssets(): Ref<AssetFileList> {
   try {
@@ -24,4 +24,14 @@ function getGalleryDetail(): Ref<GalleryDetail[]> {
   }
 }
 
-export { listAssets, getGalleryDetail };
+function getGalleryCategory(): Ref<GalleryCategory> {
+  try {
+    const { data } = useRequest(dataInstance.Get<GalleryCategory>('/galleryCategory.json'));
+
+    return data;
+  } catch(error: unknown) {
+    throw error;
+  }
+}
+
+export { listAssets, getGalleryDetail, getGalleryCategory };

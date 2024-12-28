@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { listAssets } from '@/services/gallery';
+import { listAssets, getGalleryCategory } from '@/services/gallery';
 import { useGalleryStore } from '@/stores/gallery';
 
-import type { Asset, AssetFileList } from '@/interfaces/Gallery';
+import type { Asset, AssetFileList, GalleryCategory } from '@/interfaces/Gallery';
 
 const $store = useGalleryStore();
 const files = listAssets();
+const gallery_category = getGalleryCategory();
 
 function getGalleryList(files: AssetFileList): AssetFileList {
   if (!files) return {};
@@ -33,10 +34,17 @@ function getCategoryList(list: AssetFileList | undefined): string[] {
 }
 
 function formatCategoryName(value: string): string {
-  return value.replace('/gallery/', '').replace(/(^\w|\s\w)/g, (m: string) => m.toUpperCase())
+  const category_id = value.replace('/gallery/', '');
+
+  if (gallery_category?.value && gallery_category?.value[category_id]) {
+    return gallery_category?.value[category_id];
+  }
+
+  return category_id.replace(/(^\w|\s\w)/g, (m: string) => m.toUpperCase())
 }
 
 // Set default category
+// TODO: Refactor to allow list of all photos
 watch(files, (newVal) => {
   if (newVal && !$store.selected_category) {
     const full_list = getCategoryList(getGalleryList(newVal));

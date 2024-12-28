@@ -23,3 +23,7 @@ export interface GalleryDetail {
   tz_adjustment?: number,
   description?: string,
 }
+
+export interface GalleryCategory {
+  [key: string]: string,
+}
