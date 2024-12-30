@@ -14,7 +14,7 @@
       <p class="text-center">ISO {{ $props.image.exif?.iso }} | {{ $props.image.exif?.fstop }} | {{ $props.image.exif?.shutter }}s</p>
     </div>
     <div class="px-1">
-      <p class="text-right">{{ details?.tz_adjustment ? dayjs($props.image.exif?.datetime).add(details?.tz_adjustment, 'h').format('YYYY/MM/DD hh:mm A') : dayjs($props.image.exif?.datetime).format('LLL') }}</p>
+      <p class="text-right">{{ details?.tz_adjustment ? dayjs($props.image.exif?.datetime).add(details?.tz_adjustment, 'h').format('LLL') : dayjs($props.image.exif?.datetime).format('LLL') }}</p>
     </div>
   </div>
 </template>
