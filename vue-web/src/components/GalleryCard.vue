@@ -49,9 +49,23 @@ const cdn_config = {
 function findGalleryDetail(gallery_details: GalleryDetail[], path: string, filename: string): GalleryDetail | null {
   if (!gallery_details) return null;
 
-  return gallery_details.find((val) => {
+  const file_detail = gallery_details.find((val) => {
     return val.path === path && val.filename === filename;
-  }) ?? null;
+  });
+
+  const folder_detail = gallery_details.find((val) => {
+    return val.path === path && val.filename === "*";
+  });
+
+  if (file_detail && folder_detail) {
+    return {...folder_detail, ...file_detail};
+  } else if (file_detail) {
+    return file_detail;
+  } else if (folder_detail) {
+    return folder_detail;
+  }
+
+  return null;
 }
 
 watch(gallery_details, (newVal: GalleryDetail[]) => {
