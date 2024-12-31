@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
 import { listAssets, getGalleryCategory } from '@/services/gallery';
 import { useGalleryStore } from '@/stores/gallery';
 
