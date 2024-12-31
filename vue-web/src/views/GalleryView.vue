@@ -3,6 +3,10 @@ import { watch } from 'vue';
 import { listAssets, getGalleryCategory } from '@/services/gallery';
 import { useGalleryStore } from '@/stores/gallery';
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
+
 import type { Asset, AssetFileList, GalleryCategory } from '@/interfaces/Gallery';
 
 const $store = useGalleryStore();
@@ -22,9 +26,9 @@ function getGalleryList(files: AssetFileList): AssetFileList {
 }
 
 function getFileList(files: AssetFileList, filter: string): Asset[] {
-  if (!files) return [];
+  if (!files || !filter) return [];
 
-  return files[filter] || [];
+  return files[filter].sort((a, b) => { return dayjs(a.exif?.datetime).unix() - dayjs(b.exif?.datetime).unix() }) || [];
 }
 
 function getCategoryList(list: AssetFileList | undefined): string[] {
