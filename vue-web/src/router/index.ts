@@ -18,16 +18,6 @@ const router = createRouter({
       meta: {
         title: 'Home',
       },
-      children: [
-        {
-          path: '/test',
-          name: 'test',
-          meta: {
-            title: 'Test',
-          },
-          component: HomeView,
-        }
-      ],
     },
     {
       path: '/editor',
