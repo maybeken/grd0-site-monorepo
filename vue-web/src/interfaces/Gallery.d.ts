@@ -10,7 +10,8 @@ export interface Asset {
       camera?: string,
       lens?: string,
     }
-  }
+  },
+  category?: string,
 };
   
 export interface AssetFileList {

@@ -28,13 +28,30 @@ function getGalleryList(files: AssetFileList): AssetFileList {
 function getFileList(files: AssetFileList, filter: string): Asset[] {
   if (!files || !filter) return [];
 
-  return files[filter].sort((a, b) => { return dayjs(a.exif?.datetime).unix() - dayjs(b.exif?.datetime).unix() }) || [];
+  let assets: Asset[] = [];
+
+  if (filter === 'all') {
+    for (const category in files) {
+      const assets_with_category = files[category].map((val) => { return {...val, category}; });
+
+      assets = [...assets, ...assets_with_category];
+    }
+  } else {
+    const filtered = files[filter] || [];
+    assets = filtered.map((val) => { return {...val, category: filter}; })
+  }
+
+  assets = assets.sort((a, b) => { return dayjs(a.exif?.datetime).unix() - dayjs(b.exif?.datetime).unix() });
+
+  return filter === 'all' ? assets.reverse() : assets;
 }
 
 function getCategoryList(list: AssetFileList | undefined): string[] {
-  if (!list) return [];
+  const default_category = 'all';
 
-  return Object.keys(list);
+  if (!list) return [default_category];
+
+  return [default_category, ...Object.keys(list)];
 }
 
 function formatCategoryName(value: string): string {
@@ -46,16 +63,6 @@ function formatCategoryName(value: string): string {
 
   return category_id.replace(/(^\w|\s\w)/g, (m: string) => m.toUpperCase())
 }
-
-// Set default category
-// TODO: Refactor to allow list of all photos
-watch(files, (newVal) => {
-  if (newVal && !$store.selected_category) {
-    const full_list = getCategoryList(getGalleryList(newVal));
-
-    if (full_list) $store.selected_category = full_list[0];
-  }
-})
 </script>
 
 <template>
