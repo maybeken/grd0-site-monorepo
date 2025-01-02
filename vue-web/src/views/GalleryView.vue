@@ -61,12 +61,13 @@ function getCategoryList(list: AssetFileList | undefined): string[] {
 
 function formatCategoryName(value: string): string {
   const category_id = value.replace('/gallery/', '');
+  let category_name = category_id;
 
-  if (gallery_category?.value && gallery_category?.value[category_id] && gallery_category?.value[category_id]?.title) {
-    return gallery_category?.value[category_id].title;
+  if (gallery_category?.value && gallery_category?.value[category_id]) {
+    category_name = gallery_category?.value[category_id].title || category_name;
   }
 
-  return category_id.replace(/(^\w|\s\w)/g, (m: string) => m.toUpperCase())
+  return category_name.replace(/(^\w|\s\w)/g, (m: string) => m.toUpperCase())
 }
 
 function getCategoryCover(value: string): string | undefined {
