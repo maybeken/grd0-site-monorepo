@@ -8,6 +8,12 @@ dayjs.extend(relativeTime);
 
 import type { Asset, AssetFileList, GalleryCategory } from '@/interfaces/Gallery';
 
+const ASSET_URL = import.meta.env.VITE_ASSETS_DOMAIN;
+const cdn_config = {
+  resolution: 768,
+  quality: 75,
+};
+
 const $store = useGalleryStore();
 const files = listAssets();
 const gallery_category = getGalleryCategory();
@@ -56,11 +62,19 @@ function getCategoryList(list: AssetFileList | undefined): string[] {
 function formatCategoryName(value: string): string {
   const category_id = value.replace('/gallery/', '');
 
-  if (gallery_category?.value && gallery_category?.value[category_id]) {
-    return gallery_category?.value[category_id];
+  if (gallery_category?.value && gallery_category?.value[category_id] && gallery_category?.value[category_id]?.title) {
+    return gallery_category?.value[category_id].title;
   }
 
   return category_id.replace(/(^\w|\s\w)/g, (m: string) => m.toUpperCase())
+}
+
+function getCategoryCover(value: string): string | undefined {
+  const category_id = value.replace('/gallery/', '');
+
+  if (gallery_category?.value && gallery_category?.value[category_id]) {
+    return gallery_category?.value[category_id].cover || undefined;
+  }
 }
 </script>
 
@@ -73,6 +87,15 @@ function formatCategoryName(value: string): string {
       @select="(newVal: string) => { $store.selected_category = newVal }"
     >
     </DropdownSelection>
+  </div>
+  <div class="py-2 relative rounded-xl" v-if="getCategoryCover($store.selected_category)">
+    <img
+      class="rounded-xl w-full object-cover object-center max-h-32 md:max-h-48 lg:max-h-96 blur-[2px] brightness-50"
+      :src="`//${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${$store.selected_category}/${getCategoryCover($store.selected_category)}`"
+    />
+    <div class="absolute top-1/2 text-center w-full">
+      <p class="px-4 md:text-2xl font-bold tracking-widest uppercase font-serif">{{ formatCategoryName($store.selected_category) }}</p>
+    </div>
   </div>
   <div class="py-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
     <GalleryCard

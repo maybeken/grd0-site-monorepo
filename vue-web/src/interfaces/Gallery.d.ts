@@ -26,5 +26,8 @@ export interface GalleryDetail {
 }
 
 export interface GalleryCategory {
-  [key: string]: string,
+  [key: string]: {
+    title?: string,
+    cover?: string,
+  },
 }
