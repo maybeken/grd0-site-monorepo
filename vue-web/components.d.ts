@@ -14,6 +14,7 @@ declare module 'vue' {
     GalleryCard: typeof import('./src/components/GalleryCard.vue')['default']
     MarkdownDisplay: typeof import('./src/components/MarkdownDisplay.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
+    NotFound: typeof import('./src/components/NotFound.vue')['default']
     ProfileIcon: typeof import('./src/components/ProfileIcon.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

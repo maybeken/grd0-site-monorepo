@@ -2,7 +2,7 @@ import { nextTick } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 import HomeView from '@/views/HomeView.vue';
-import NotFound from '@/views/NotFound.vue';
+import NotFound from '@/views/NotFoundView.vue';
 import Editor from '@/views/Editor.vue';
 import Gallery from '@/views/GalleryView.vue';
 
