@@ -3,14 +3,14 @@
     <div class="p-4 lg:max-w-[66%] mx-auto">
       <div class="py-4">
         <a :href="`/blog/${content.uri}`">
-          <h1 class="text-4xl font-black">{{ content.title }}</h1>
-          <h2 class="text-2xl py-2 text-secondary">{{ content.subtitle }}</h2>
+          <h1 class="font-black">{{ content.title }}</h1>
+          <h2 class="py-2 text-secondary">{{ content.subtitle }}</h2>
         </a>
       </div>
 
       <div class="flex gap-4">
-        <ProfileIcon class="w-16" :src="`//${ASSET_URL}/profile/${content.author.email}.jpg`"></ProfileIcon>
-        <div class="my-auto">
+        <ProfileIcon class="w-24 md:w-16" :src="`//${ASSET_URL}/profile/${content.author.email}.jpg`"></ProfileIcon>
+        <div class="my-auto text-sm md:text-md">
           <p class="text-secondary">{{ content.author.displayName }}</p>
           <p class="text-secondary italic">Posted At: {{ dayjs(content.created_at).calendar() }} | Last Edited: {{ dayjs(content.updated_at).calendar() }}</p>
         </div>

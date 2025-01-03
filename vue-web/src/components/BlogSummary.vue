@@ -11,7 +11,7 @@
 
         <div class="flex flex-col gap-2 hover:underline my-auto">
           <a :href="`/blog/${$props.uri}`">
-            <h1 class="text-4xl font-black">{{ $props.title }}</h1>
+            <h1 class="font-black">{{ $props.title }}</h1>
             <h2>{{ $props.subtitle }}</h2>
           </a>
         </div>
