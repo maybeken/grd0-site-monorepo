@@ -62,11 +62,11 @@ watch($props, async (oldVal, newVal) => {
 <style type="postcss">
 .markdown, .markdown * {
   h1 {
-    @apply text-2xl font-bold;
+    @apply text-2xl font-bold mt-8;
   }
 
   h2 {
-    @apply text-xl font-bold;
+    @apply text-xl font-bold mt-8;
   }
 
   a {
@@ -79,6 +79,14 @@ watch($props, async (oldVal, newVal) => {
 
   p {
     @apply py-2;
+  }
+  
+  blockquote {
+    @apply bg-accent px-4 py-2 text-sm rounded-xl text-secondary text-center mb-4;
+  }
+
+  img {
+    @apply rounded-xl;
   }
 }
 </style>
