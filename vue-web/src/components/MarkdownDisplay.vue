@@ -19,6 +19,11 @@ interface Props {
   md: string,
 };
 
+const cdn_config = {
+  resolution: 1024,
+  quality: 75,
+};
+
 const $props = defineProps<Props>();
 
 const parsedContent = ref('');
@@ -35,7 +40,7 @@ const parse2HTML = async (content: string) => {
   .use(inspectUrls, {
     inspectEach(url) {
       if (!url.url.includes('//') && url?.node?.properties?.src) {
-        url.node.properties.src = `//${ASSET_URL}${url.url}`;
+        url.node.properties.src = `//${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${url.url}`;
       }
     },
     selectors: [
@@ -86,7 +91,7 @@ watch($props, async (oldVal, newVal) => {
   }
 
   img {
-    @apply rounded-xl;
+    @apply rounded-xl w-full;
   }
 }
 </style>
