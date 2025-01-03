@@ -9,15 +9,17 @@
           <p class="text-secondary">Author: {{ $props.author.displayName }}</p>
         </div>
 
-        <div class="flex flex-col gap-2 hover:underline hover:cursor-pointer">
-          <h1 class="text-4xl font-black">{{ $props.title }}</h1>
-          <h2>{{ $props.subtitle }}</h2>
+        <div class="flex flex-col gap-2 hover:underline my-auto">
+          <a :href="`/blog/${$props.uri}`">
+            <h1 class="text-4xl font-black">{{ $props.title }}</h1>
+            <h2>{{ $props.subtitle }}</h2>
+          </a>
         </div>
       </div>
 
       <hr class="border-accent my-2" />
       
-      <div class="content px-2 py-2 text-justify h-fit">
+      <div class="content px-2 py-2 text-justify max-h-[66vh] overflow-hidden">
         <MarkdownDisplay :md="$props.content"></MarkdownDisplay>
       </div>
 

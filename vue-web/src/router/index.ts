@@ -5,6 +5,7 @@ import HomeView from '@/views/HomeView.vue';
 import NotFound from '@/views/NotFoundView.vue';
 import Editor from '@/views/Editor.vue';
 import Gallery from '@/views/GalleryView.vue';
+import Blog from '@/views/BlogView.vue';
 
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE;
 
@@ -17,6 +18,14 @@ const router = createRouter({
       component: HomeView,
       meta: {
         title: 'Home',
+      },
+    },
+    {
+      path: '/blog/:slug',
+      name: 'blog',
+      component: Blog,
+      meta: {
+        title: 'Blog',
       },
     },
     {
