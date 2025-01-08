@@ -5,12 +5,21 @@ import HomeView from '@/views/HomeView.vue';
 import NotFound from '@/views/NotFoundView.vue';
 import Editor from '@/views/BlogEditorView.vue';
 import Gallery from '@/views/GalleryView.vue';
+import GalleryEditor from '@/views/GalleryEditorView.vue';
 import Blog from '@/views/BlogView.vue';
 
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE;
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior: (to, from, savedPosition) => {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+      }
+    }
+  },
   routes: [
     {
       path: '/',
@@ -29,10 +38,10 @@ const router = createRouter({
       },
     },
     {
-      path: '/editor',
-      name: 'Editor',
+      path: '/blog/editor',
+      name: 'Blog Editor',
       meta: {
-        title: 'Editor',
+        title: 'Blog Editor',
       },
       component: Editor,
     },
@@ -43,6 +52,14 @@ const router = createRouter({
         title: 'Gallery',
       },
       component: Gallery,
+    },
+    {
+      path: '/gallery/editor',
+      name: 'Gallery Editor',
+      meta: {
+        title: 'Gallery Editor',
+      },
+      component: GalleryEditor,
     },
     {
       path: '/:pathMatch(.*)',
