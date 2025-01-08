@@ -16,7 +16,7 @@
           />
         </div>
 
-        <template v-for="item in filteredList">
+        <template v-for="item in filteredList" :key="item.link">
           <button
             class="w-48 p-2 hover:bg-shade rounded-lg"
             @click="navigateTo(item.link)"
@@ -68,6 +68,7 @@ const navigateTo = (url: string) => {
 };
 
 const onSearch = () => {
+  // TODO: Support search from blog post, gallery category, gallery image details
   filteredList.value = $props.items.filter((item) => { return item.displayName.toLowerCase().includes(searchText.value.toLowerCase()) });
 };
 </script>
