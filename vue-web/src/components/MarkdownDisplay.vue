@@ -14,6 +14,7 @@ import { unified } from 'unified';
 import rehypeExternalLinks from 'rehype-external-links';
 import remarkBreaks from 'remark-breaks';
 import inspectUrls from '@jsdevtools/rehype-url-inspector';
+import lazyLoadPlugin from 'rehype-plugin-image-native-lazy-loading'
 
 interface Props {
   md: string,
@@ -48,6 +49,8 @@ const parse2HTML = async (content: string) => {
     ]
   })
   .use(rehypeSanitize)
+  // @ts-expect-error: TS function overloading issue with upstream plugin
+  .use(lazyLoadPlugin)
   .use(rehypeStringify);
 
   const html = await processor.process(content);
