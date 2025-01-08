@@ -80,15 +80,13 @@ function getCategoryCover(value: string): string | undefined {
 </script>
 
 <template>
-  <div class="py-2">
-    <DropdownSelection
-      :options="getCategoryList(getGalleryList(files))"
-      :selected="$store.selected_category"
-      :stylize="formatCategoryName"
-      @select="(newVal: string) => { $store.selected_category = newVal }"
-    >
-    </DropdownSelection>
-  </div>
+  <DropdownSelection
+    :options="getCategoryList(getGalleryList(files))"
+    :selected="$store.selected_category"
+    :stylize="formatCategoryName"
+    @select="(newVal: string) => { $store.selected_category = newVal }"
+  >
+  </DropdownSelection>
   <div class="py-2 relative rounded-xl" v-if="getCategoryCover($store.selected_category)">
     <img
       class="rounded-xl w-full object-cover object-center max-h-32 md:max-h-48 lg:max-h-96 blur-[2px] brightness-50"
