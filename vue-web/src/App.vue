@@ -19,7 +19,7 @@ import SiteFooter from './components/SiteFooter.vue';
 
 <style type="postcss">
 body {
-  @apply bg-background text-foreground px-2 font-mono;
+  @apply bg-background text-foreground px-2 font-['Doto'];
 }
 
 h1 {

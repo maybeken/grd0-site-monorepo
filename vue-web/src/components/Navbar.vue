@@ -7,7 +7,7 @@
           </DropdownBtn>
         </div>
         <div class="content-center mx-auto">
-          <p class="text-xl text-secondary font-extrabold font-mono uppercase">Where Everything Starts And Ends</p>
+          <p class="text-lg lg:text-2xl text-secondary font-extrabold uppercase">Where Everything Starts And Ends</p>
         </div>
         <div class="content-center"></div>
       </div>
@@ -18,6 +18,7 @@
 const menuItems = [
   { displayName: 'Home', link: '/' },
   { displayName: 'Gallery', link: '/gallery' },
-  { displayName: 'Twitter', link: 'https://x.com/maybeken0' },
+  { displayName: 'YouTube', link: 'https://www.youtube.com/@maybeken' },
+  { displayName: 'X', link: 'https://x.com/maybeken0' },
 ];
 </script>
