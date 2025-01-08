@@ -1,10 +1,13 @@
 <template>
-  <div class="relative" @mouseleave="expanded = false">
-    <button class="p-2 md:p-4 border-accent border-solid border-[1px] rounded-lg" @click="expanded = !expanded">
+  <div class="relative z-20" @mouseleave="expanded = false">
+    <button
+      class="p-2 md:p-4 border-accent border-solid border-[1px] rounded-lg"
+      @click="expanded = !expanded" @mouseenter="expanded = true"
+    >
       <slot />
     </button>
 
-    <div v-show="expanded" class="absolute z-10 bg-background">
+    <div v-show="expanded" class="absolute z-10 bg-background motion-preset-slide-down motion-duration-500">
       <div class="flex flex-col border-accent border-solid border-[1px] rounded-lg">
         <div class="p-2">
           <input 

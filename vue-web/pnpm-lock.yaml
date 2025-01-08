@@ -99,6 +99,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.17
+      tailwindcss-motion:
+        specifier: ^1.0.1
+        version: 1.0.1(tailwindcss@3.4.17)
       typescript:
         specifier: ~5.4.0
         version: 5.4.5
@@ -1700,6 +1703,11 @@ packages:
   synckit@0.9.2:
     resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
     engines: {node: ^14.18.0 || >=16.0.0}
+
+  tailwindcss-motion@1.0.1:
+    resolution: {integrity: sha512-ZqarvI3XSclT46Dq1wOo9qG9Yx0TIyEtkMfTo8l0JuVKvO1WiSbvAECuTqdYHpC9Ml7abuJIk7u907SBHYprwQ==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
 
   tailwindcss@3.4.17:
     resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
@@ -3700,6 +3708,10 @@ snapshots:
     dependencies:
       '@pkgr/core': 0.1.1
       tslib: 2.8.1
+
+  tailwindcss-motion@1.0.1(tailwindcss@3.4.17):
+    dependencies:
+      tailwindcss: 3.4.17
 
   tailwindcss@3.4.17:
     dependencies:

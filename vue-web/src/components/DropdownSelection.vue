@@ -2,14 +2,14 @@
   <div id="category-btn" class="relative h-12">
     <div class="absolute top-0 h-12 z-10 w-full md:w-96 max-w-full">
       <div
-        class="flex px-4 py-2 w-full rounded-lg font-black bg-background border-[1px] border-solid border-foreground cursor-default"
+        class="flex px-4 py-2 w-full rounded-lg font-black bg-background border-[1px] border-solid border-foreground cursor-default z-20"
         @click="expanded = !expanded;"
       >
         <span class="grow">{{ stylize ? stylize(selected ?? "") : selected }}</span>
         <v-icon name="md-arrowdropdown"></v-icon>
       </div>
       <div
-        class="px-4 py-2 w-full bg-background border-[1px] border-solid border-foreground cursor-pointer"
+        class="px-4 py-2 w-full bg-background border-[1px] border-solid border-foreground cursor-pointer motion-preset-slide-down motion-duration-500"
         :class="displayButtonStylize(item, idx, $props.options?.length)"
         v-for="(item, idx) of $props.options" :key="item" :value="item"
         @click="clickButton(item)"
