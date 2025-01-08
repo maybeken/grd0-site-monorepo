@@ -31,23 +31,25 @@ const locations = ref([
     title: "I am Here",
     subtitle: "New Zealand",
     icon: "md-locationon",
-    color: "#00cc00",
+    color: "green",
     pos: [169.19502661886494, -45.04620545332485],
   },
   {
     title: "Home",
     subtitle: "Hong Kong",
     icon: "md-home-round",
-    color: "#cc3300",
+    color: "red",
     pos: [114.16891354088074, 22.31008594080594],
   },
 ]);
 
-function parseTailwindColor(code: string = "background"): string {
-  if (code[0] === "#") {
-    return `bg-[${code}]`;
-  }
+function parseTailwindColor(color: string = "default"): string {
+  const styles: { [key: string]: string } = {
+    default : 'bg-background',
+    red : 'bg-red-700',
+    green: 'bg-emerald-600',
+  };
 
-  return `bg-${code}`;
+  return styles[color] ?? styles['default'];
 }
 </script>
