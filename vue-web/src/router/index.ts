@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import HomeView from '@/views/HomeView.vue';
 import NotFound from '@/views/NotFoundView.vue';
-import Editor from '@/views/Editor.vue';
+import Editor from '@/views/BlogEditorView.vue';
 import Gallery from '@/views/GalleryView.vue';
 import Blog from '@/views/BlogView.vue';
 
