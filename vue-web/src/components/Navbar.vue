@@ -7,7 +7,7 @@
           </DropdownBtn>
         </div>
         <div class="content-center mx-auto">
-          <p class="text-lg lg:text-2xl text-secondary font-extrabold uppercase">Where Everything Starts And Ends</p>
+          <p class="text-base sm:text-xl lg:text-2xl text-secondary font-extrabold uppercase"><span class="hidden sm:inline">grd0.net | </span>Where Everything Starts And Ends</p>
         </div>
         <div class="content-center"></div>
       </div>
