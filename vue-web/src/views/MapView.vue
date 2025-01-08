@@ -1,5 +1,7 @@
 <template>
-  <ol-map class="w-full h-[50rem] max-h-screen">
+  <p class="text-xl py-2">Map of Places I've Been To</p>
+
+  <ol-map class="w-full h-[50rem] max-h-screen rounded-2xl overflow-hidden">
     <ol-view ref="view" :center="epsg4326toEpsg3857(map_center)" :zoom="zoom" projection="EPSG:3857" />
     <ol-tile-layer>
       <ol-source-osm />
