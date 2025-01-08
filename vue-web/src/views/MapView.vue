@@ -1,13 +1,13 @@
 <template>
   <ol-map class="w-full h-[50rem] max-h-screen">
-    <ol-view ref="view" :center="map_center" :zoom="zoom" projection="EPSG:4326" />
+    <ol-view ref="view" :center="epsg4326toEpsg3857(map_center)" :zoom="zoom" projection="EPSG:3857" />
     <ol-tile-layer>
       <ol-source-osm />
     </ol-tile-layer>
 
     <ol-overlay
       :position="item.pos"
-      v-for="(item, idx) in locations"
+      v-for="(item, idx) in locations.map((val) => { return {...val, pos: epsg4326toEpsg3857(val.pos)}})"
       :key="idx"
       :autoPan="true"
     >
@@ -23,8 +23,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const map_center = ref([100, 0]);
-const zoom = ref(3.3);
+const map_center = ref([70, 20]);
+const zoom = ref(2);
 
 const locations = ref([
   {
@@ -42,6 +42,17 @@ const locations = ref([
     pos: [114.16891354088074, 22.31008594080594],
   },
 ]);
+
+function epsg4326toEpsg3857(coordinates: number[]) {
+  let x = coordinates[0];
+  let y = coordinates[1];
+  x = (coordinates[0] * 20037508.34) / 180;
+  y =
+    Math.log(Math.tan(((90 + coordinates[1]) * Math.PI) / 360)) /
+    (Math.PI / 180);
+  y = (y * 20037508.34) / 180;
+  return [x, y];
+}
 
 function parseTailwindColor(color: string = "default"): string {
   const styles: { [key: string]: string } = {
