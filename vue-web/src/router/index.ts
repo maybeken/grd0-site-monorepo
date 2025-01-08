@@ -7,6 +7,7 @@ import Editor from '@/views/BlogEditorView.vue';
 import Gallery from '@/views/GalleryView.vue';
 import GalleryEditor from '@/views/GalleryEditorView.vue';
 import Blog from '@/views/BlogView.vue';
+import Map from '@/views/MapView.vue';
 
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE;
 
@@ -60,6 +61,14 @@ const router = createRouter({
         title: 'Gallery Editor',
       },
       component: GalleryEditor,
+    },
+    {
+      path: '/map',
+      name: 'map',
+      meta: {
+        title: 'Map',
+      },
+      component: Map,
     },
     {
       path: '/:pathMatch(.*)',
