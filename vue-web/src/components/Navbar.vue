@@ -18,6 +18,7 @@
 const menuItems = [
   { displayName: 'Home', link: '/' },
   { displayName: 'Gallery', link: '/gallery' },
+  { displayName: 'Traveler\'s Map', link: '/travel/map' },
   { displayName: 'YouTube', link: 'https://www.youtube.com/@maybeken' },
   { displayName: 'X', link: 'https://x.com/maybeken0' },
 ];

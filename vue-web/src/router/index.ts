@@ -63,10 +63,10 @@ const router = createRouter({
       component: GalleryEditor,
     },
     {
-      path: '/map',
+      path: '/travel/map',
       name: 'map',
       meta: {
-        title: 'Map',
+        title: 'Traveler\'s Map',
       },
       component: Map,
     },
