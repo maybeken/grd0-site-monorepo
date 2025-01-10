@@ -1,8 +1,15 @@
 <template>
   <p class="text-xl py-2">Map of Places I've Been To</p>
 
-  <ol-map class="w-full h-[50rem] max-h-screen rounded-2xl overflow-hidden">
-    <ol-view ref="view" :center="epsg4326toEpsg3857(map_center)" :zoom="zoom" projection="EPSG:3857" />
+  <ol-map v-if="locations" class="w-full h-[50rem] max-h-screen rounded-2xl overflow-hidden">
+    <ol-view
+      ref="view"
+      :center="epsg4326toEpsg3857(map_center)"
+      :zoom="zoom"
+      projection="EPSG:3857"
+      @change:resolution="resolution = $event.oldValue"
+      @click="console.log($event)"
+    />
     <ol-tile-layer>
       <ol-source-osm />
     </ol-tile-layer>
@@ -13,7 +20,11 @@
       :key="idx"
       :autoPan="true"
     >
-      <div class="px-4 py-2 rounded-r-2xl rounded-b-2xl" :class="parseTailwindColor(item.color)">
+      <div
+        v-show="(!item.displayAt || item.displayAt >= resolution) && (!item.hideAt || item.hideAt < resolution)"
+        class="px-4 py-2 rounded-r-2xl rounded-b-2xl motion-preset-fade"
+        :class="parseTailwindColor(item.color)"
+      >
         <v-icon v-if="item.icon" class="w-base" :class="item.title ? [`mr-1`] : []" :name="item.icon"></v-icon>
         <span class="text-base">{{ item.title || "" }}</span>
         <p v-if="item.subtitle" class="text-xs text-center italic font-thin">{{ item.subtitle }}</p>
@@ -28,6 +39,7 @@ import { getMapLocation } from "@/services/travelersMap";
 
 const map_center = ref([20, 70]);
 const zoom = ref(2);
+const resolution = ref(-1);
 
 const locations = getMapLocation();
 

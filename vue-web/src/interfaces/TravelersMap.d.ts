@@ -4,4 +4,6 @@ export interface MapLocation {
     color: string,
     pos: [number, number], // Record coordinate by North-East
     subtitle?: string,
+    displayAt?: number,
+    hideAt?: number,
 };
