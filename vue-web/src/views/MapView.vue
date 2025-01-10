@@ -24,33 +24,20 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { getMapLocation } from "@/services/travelersMap";
 
-const map_center = ref([70, 20]);
+const map_center = ref([20, 70]);
 const zoom = ref(2);
 
-const locations = ref([
-  {
-    title: "I am Here",
-    subtitle: "New Zealand",
-    icon: "md-locationon",
-    color: "green",
-    pos: [169.19502661886494, -45.04620545332485],
-  },
-  {
-    title: "Home",
-    subtitle: "Hong Kong",
-    icon: "md-home-round",
-    color: "red",
-    pos: [114.16891354088074, 22.31008594080594],
-  },
-]);
+const locations = getMapLocation();
 
 function epsg4326toEpsg3857(coordinates: number[]) {
-  let x = coordinates[0];
-  let y = coordinates[1];
-  x = (coordinates[0] * 20037508.34) / 180;
+  // Parse coordinates as North-East
+  let y = coordinates[0];
+  let x = coordinates[1];
+  x = (x * 20037508.34) / 180;
   y =
-    Math.log(Math.tan(((90 + coordinates[1]) * Math.PI) / 360)) /
+    Math.log(Math.tan(((90 + y) * Math.PI) / 360)) /
     (Math.PI / 180);
   y = (y * 20037508.34) / 180;
   return [x, y];
