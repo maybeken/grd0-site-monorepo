@@ -15,7 +15,6 @@
   "dependencies": {
     "@jsdevtools/rehype-url-inspector": "^2.0.2",
     "alova": "^2.20.3",
-    "css-has-pseudo": "^7.0.2",
     "dayjs": "^1.11.13",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.1.7",
@@ -28,7 +27,6 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.0",
     "unified": "^11.0.4",
-    "vite-bundle-visualizer": "^1.2.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
@@ -41,6 +39,7 @@
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.19",
+    "css-has-pseudo": "^7.0.2",
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
     "npm-run-all2": "^6.1.2",
@@ -51,6 +50,7 @@
     "typescript": "~5.4.0",
     "unplugin-vue-components": "^0.26.0",
     "vite": "^5.1.6",
+    "vite-bundle-visualizer": "^1.2.1",
     "vue-tsc": "^2.0.6"
   }
 }
