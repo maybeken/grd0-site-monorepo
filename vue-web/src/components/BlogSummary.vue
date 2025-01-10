@@ -1,6 +1,6 @@
 <template>
   <BlogCard>
-    <div class="p-4">
+    <div class="relative p-4">
       <div class="flex gap-6">
         <div class="flex flex-col">
           <div class="w-full">
@@ -21,6 +21,16 @@
       
       <div class="content px-2 py-2 text-justify max-h-[66vh] overflow-hidden">
         <MarkdownDisplay :md="$props.content"></MarkdownDisplay>
+      </div>
+
+      <div class="absolute bottom-0 left-0 h-28 w-full z-10 rounded-xl bg-gradient-to-t from-background from-33%">
+        <a :href="`/blog/${$props.uri}`">
+          <div class="flex flex-col flex-col-reverse h-28 w-full hover:cursor-hand hover:underline">
+            <div class="mx-auto my-8">
+              <p class="text-2xl">Continue to Read</p>
+            </div>
+          </div>
+        </a>
       </div>
 
       <hr class="border-accent my-2" />
