@@ -96,5 +96,13 @@ watch($props, async (oldVal, newVal) => {
   img {
     @apply rounded-xl w-full;
   }
+
+  p > img {
+    @apply grow object-cover w-[32%];
+  }
+
+  p:has(img) {
+    @apply flex flex-wrap gap-2;
+  }
 }
 </style>
