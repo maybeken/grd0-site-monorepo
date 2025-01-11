@@ -25,12 +25,12 @@
     >
       <div
         v-show="(!item.displayAt || item.displayAt >= resolution) && (!item.hideAt || item.hideAt < resolution)"
-        class="px-4 py-2 rounded-r-2xl rounded-b-2xl motion-preset-fade"
-        :class="parseTailwindColor(item.color)"
+        class="px-4 py-2 rounded-r-2xl rounded-b-2xl motion-preset-fade motion-duration-1000"
+        :class="[parseTailwindColor('bg', item.color), parseTailwindColor('text', item.textColor)]"
       >
         <v-icon v-if="item.icon" class="w-base" :class="item.title ? [`mr-1`] : []" :name="item.icon"></v-icon>
         <span class="text-base">{{ item.title || "" }}</span>
-        <p v-if="item.subtitle" class="text-xs text-center italic font-thin">{{ item.subtitle }}</p>
+        <p v-if="item.subtitle" class="text-xs text-center italic font-light">{{ item.subtitle }}</p>
       </div>
     </ol-overlay>
   </ol-map>
@@ -85,11 +85,23 @@ function epsg3857toEpsg4326(coordinates: number[]) {
   return [y, x];
 }
 
+function parseTailwindColor(type: string, color: string = "default"): string {
+  const background_styles: { [key: string]: string } = {
     default : 'bg-background',
     red : 'bg-red-700',
     green: 'bg-emerald-600',
+    blue: 'bg-sky-600',
+    sweden: 'bg-[#005293]',
   };
 
-  return styles[color] ?? styles['default'];
+  const text_styles: { [key: string]: string } = {
+    sweden: 'text-[#FFCD00]',
+  };
+
+  if (type === 'text') {
+    return text_styles[color] ?? '';
+  }
+
+  return background_styles[color] ?? background_styles['default'];
 }
 </script>

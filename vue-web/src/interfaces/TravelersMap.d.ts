@@ -6,4 +6,5 @@ export interface MapLocation {
     subtitle?: string,
     displayAt?: number,
     hideAt?: number,
+    textColor?: string,
 };
