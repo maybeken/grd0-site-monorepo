@@ -8,11 +8,14 @@
       :zoom="zoom"
       projection="EPSG:3857"
       @change:resolution="resolution = $event.oldValue"
-      @click="console.log($event)"
     />
     <ol-tile-layer>
       <ol-source-osm />
     </ol-tile-layer>
+
+    <ol-context-menu-control
+      :items="contextMenuItems"
+    />
 
     <ol-overlay
       :position="item.pos"
@@ -37,9 +40,27 @@
 import { ref } from "vue";
 import { getMapLocation } from "@/services/travelersMap";
 
+import type { Item } from "ol-contextmenu";
+
 const map_center = ref([20, 70]);
 const zoom = ref(2);
 const resolution = ref(-1);
+const contextMenuItems = ref<Item[]>([
+  {
+    text: `Coordinate`,
+    callback: (val) => {
+      const coordinates = epsg3857toEpsg4326(val.coordinate);
+      const title = prompt("Enter the title:");
+
+      navigator.clipboard.writeText(JSON.stringify({
+        title,
+        pos: coordinates,
+      }));
+
+      alert('Saved to clipboard!');
+    },
+  }
+]);
 
 const locations = getMapLocation();
 
@@ -55,8 +76,15 @@ function epsg4326toEpsg3857(coordinates: number[]) {
   return [x, y];
 }
 
-function parseTailwindColor(color: string = "default"): string {
-  const styles: { [key: string]: string } = {
+function epsg3857toEpsg4326(coordinates: number[]) {
+  let x = coordinates[0];
+  let y = coordinates[1];
+  x = (x * 180) / 20037508.34;
+  y = (y * 180) / 20037508.34;
+  y = (Math.atan(Math.pow(Math.E, y * (Math.PI / 180))) * 360) / Math.PI - 90;
+  return [y, x];
+}
+
     default : 'bg-background',
     red : 'bg-red-700',
     green: 'bg-emerald-600',

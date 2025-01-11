@@ -11,6 +11,7 @@ import {
   Layers,
   Sources,
   Interactions,
+  MapControls,
 } from "vue3-openlayers";
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
@@ -29,6 +30,7 @@ app.use(Map);
 app.use(Layers);
 app.use(Sources);
 app.use(Interactions);
+app.use(MapControls);
 
 app.component('v-icon', OhVueIcon);
 
