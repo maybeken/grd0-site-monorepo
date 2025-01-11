@@ -2,10 +2,8 @@
   <BlogCard v-if="content">
     <div class="p-4 lg:max-w-[66%] mx-auto">
       <div class="py-4">
-        <a :href="`/blog/${content.uri}`">
-          <h1 class="font-black">{{ content.title }}</h1>
-          <h2 class="py-2 text-secondary">{{ content.subtitle }}</h2>
-        </a>
+        <h1 class="font-black">{{ content.title }}</h1>
+        <h2 class="py-2 text-secondary">{{ content.subtitle }}</h2>
       </div>
 
       <div class="flex gap-4">

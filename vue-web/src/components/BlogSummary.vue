@@ -10,10 +10,10 @@
         </div>
 
         <div class="flex flex-col gap-2 hover:underline my-auto">
-          <a :href="`/blog/${$props.uri}`">
+          <router-link :to="`/blog/${$props.uri}`">
             <h1 class="font-black">{{ $props.title }}</h1>
             <h2>{{ $props.subtitle }}</h2>
-          </a>
+          </router-link>
         </div>
       </div>
 
@@ -24,13 +24,13 @@
       </div>
 
       <div class="absolute bottom-0 left-0 h-28 w-full z-10 rounded-xl bg-gradient-to-t from-background from-33%">
-        <a :href="`/blog/${$props.uri}`">
+        <router-link :to="`/blog/${$props.uri}`">
           <div class="flex flex-col flex-col-reverse h-28 w-full hover:cursor-hand hover:underline">
             <div class="mx-auto my-8">
               <p class="text-2xl">Continue to Read</p>
             </div>
           </div>
-        </a>
+        </router-link>
       </div>
 
       <hr class="border-accent my-2" />
