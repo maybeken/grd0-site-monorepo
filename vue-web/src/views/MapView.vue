@@ -1,5 +1,11 @@
 <template>
-  <p class="text-xl py-2">Map of Places I've Been To</p>
+  <div class="flex gap-2 py-2">
+    <p class="text-xl py-2 grow">Map of Places I've Been To</p>
+    <button class="rounded-xl px-4 border-2 border-dotted" @click="map_center = [20, 70]; zoom = 2;">
+      Re-Center
+      <v-icon name="md-undo"></v-icon>
+    </button>
+  </div>
 
   <ol-map v-if="locations" class="w-full h-[50rem] max-h-screen rounded-2xl overflow-hidden">
     <ol-view
@@ -24,7 +30,7 @@
       :autoPan="true"
     >
       <div
-        v-show="(!item.displayAt || item.displayAt >= resolution) && (!item.hideAt || item.hideAt < resolution)"
+        v-show="(!item.displayAt || item.displayAt >= resolution) && (!resolution || !item.hideAt || item.hideAt < resolution)"
         class="px-4 py-2 rounded-r-2xl rounded-b-2xl motion-preset-fade motion-duration-1000"
         :class="[parseTailwindColor('bg', item.color), parseTailwindColor('text', item.textColor)]"
       >
