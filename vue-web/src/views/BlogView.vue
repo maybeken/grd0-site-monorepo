@@ -9,7 +9,7 @@
       <div class="flex gap-4">
         <ProfileIcon class="w-24 md:w-16" :src="`//${ASSET_URL}/profile/${content.author.email}.jpg`"></ProfileIcon>
         <div class="my-auto text-sm md:text-md">
-          <p class="text-secondary">{{ content.author.displayName }}</p>
+          <p class="text-secondary">{{ content.author.display_name }}</p>
           <p class="text-secondary italic">Posted At: {{ dayjs(content.created_at).calendar() }} | Last Edited: {{ dayjs(content.updated_at).calendar() }}</p>
         </div>
       </div>

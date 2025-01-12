@@ -6,7 +6,7 @@
           <div class="w-full">
             <ProfileIcon class="mx-auto w-16" :src="`//${ASSET_URL}/profile/${$props.author.email}.jpg`"></ProfileIcon>
           </div>
-          <p class="text-secondary">Author: {{ $props.author.displayName }}</p>
+          <p class="text-secondary">Author: {{ $props.author.display_name }}</p>
         </div>
 
         <div class="flex flex-col gap-2 hover:underline my-auto">

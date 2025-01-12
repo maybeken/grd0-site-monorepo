@@ -2,7 +2,7 @@ export interface BlogPost {
   uri: string,
   author: {
     email: string,
-    displayName: string,
+    display_name: string,
   },
   title: string,
   subtitle: string,

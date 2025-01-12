@@ -119,7 +119,7 @@ const newArticle = () => {
     uri,
     author: {
       email: "ken.lam@grd0.net",
-      displayName: "Ken Lam",
+      display_name: "Ken Lam",
     },
     title: "",
     subtitle: "",
