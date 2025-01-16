@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col gap-2 justify-end p-1 pb-2 rounded-xl bg-shade text-secondary text-xs">
     <div>
-      <a :href="`//${ASSET_URL}${$props.image.category}/${$props.image.filename}`" target="_blank">
+      <a :href="`${ASSET_URL}${$props.image.category}/${$props.image.filename}`" target="_blank">
         <img class="rounded-xl w-full object-cover aspect-square cursor-zoom-in"
-          :src="`//${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${image.category}/${$props.image.filename}`" loading="lazy" />
+          :src="`${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${image.category}/${$props.image.filename}`" loading="lazy" />
       </a>
     </div>
     <div v-if="details?.description" class="px-1">
@@ -31,7 +31,7 @@ import type { Asset, GalleryDetail } from '@/interfaces/Gallery';
 
 const gallery_details = getGalleryDetail();
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_DOMAIN;
+const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 
 interface Props {
   category: string,

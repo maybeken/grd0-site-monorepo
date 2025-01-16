@@ -29,7 +29,7 @@ const $props = defineProps<Props>();
 
 const parsedContent = ref('');
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_DOMAIN;
+const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 
 const parse2HTML = async (content: string) => {
   const processor = unified()
@@ -41,7 +41,7 @@ const parse2HTML = async (content: string) => {
   .use(inspectUrls, {
     inspectEach(url) {
       if (!url.url.includes('//') && url?.node?.properties?.src) {
-        url.node.properties.src = `//${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${url.url}`;
+        url.node.properties.src = `${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${url.url}`;
       }
     },
     selectors: [

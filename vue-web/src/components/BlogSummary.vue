@@ -4,7 +4,7 @@
       <div class="flex gap-6">
         <div class="flex flex-col">
           <div class="w-full">
-            <ProfileIcon class="mx-auto w-16" :src="`//${ASSET_URL}/profile/${$props.author.email}.jpg`"></ProfileIcon>
+            <ProfileIcon class="mx-auto w-16" :src="`${ASSET_URL}/profile/${$props.author.email}.jpg`"></ProfileIcon>
           </div>
           <p class="text-secondary">Author: {{ $props.author.display_name }}</p>
         </div>
@@ -52,7 +52,7 @@ dayjs.extend(calendar);
 import type { BlogPost } from '@/interfaces/Blog';
 
 const $props = defineProps<BlogPost>();
-const ASSET_URL = import.meta.env.VITE_ASSETS_DOMAIN;
+const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 </script>
 
 <style type="poscss" scoped>

@@ -8,7 +8,7 @@ dayjs.extend(relativeTime);
 
 import type { Asset, AssetFileList, GalleryCategory } from '@/interfaces/Gallery';
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_DOMAIN;
+const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 const cdn_config = {
   resolution: 768,
   quality: 75,
@@ -90,7 +90,7 @@ function getCategoryCover(value: string): string | undefined {
   <div class="py-2 relative rounded-xl" v-if="getCategoryCover($store.selected_category)">
     <img
       class="rounded-xl w-full object-cover object-center max-h-32 md:max-h-48 lg:max-h-96 blur-[2px] brightness-50"
-      :src="`//${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${$store.selected_category}/${getCategoryCover($store.selected_category)}`"
+      :src="`${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${$store.selected_category}/${getCategoryCover($store.selected_category)}`"
     />
     <div class="absolute top-1/2 text-center w-full">
       <p class="px-4 md:text-2xl font-bold tracking-widest uppercase font-serif">{{ formatCategoryName($store.selected_category) }}</p>

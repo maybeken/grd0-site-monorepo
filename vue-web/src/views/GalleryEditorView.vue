@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import type { Ref } from 'vue';
 import type { Asset, AssetFileList, GalleryDetail } from '@/interfaces/Gallery';
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_DOMAIN;
+const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 const cdn_config = {
   resolution: 768,
   quality: 75,
@@ -80,7 +80,7 @@ watch(gallery_details_original, (newVal: GalleryDetail[]) => {
       <p class="capitalize">{{ img.category?.replace('/gallery/', '') }}</p>
       <img
         class="rounded-xl w-full object-cover aspect-square"
-        :src="`//${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${img.category}/${img.filename}`"
+        :src="`${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${img.category}/${img.filename}`"
         loading="lazy"
       />
     </div>

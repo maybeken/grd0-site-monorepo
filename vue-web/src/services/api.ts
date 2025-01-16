@@ -16,6 +16,6 @@ export const assetsInstance = createAlova({
   requestAdapter: GlobalFetch(),
   statesHook: VueHook,
   responsed: (response) => response.json(),
-  baseURL: `https://${ASSET_URL}`,
+  baseURL: `${ASSET_URL}`,
   timeout: 10000,
 });
