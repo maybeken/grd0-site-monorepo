@@ -1,20 +1,21 @@
 <template>
   <div
-    class="border-solid border-accent border-4 rounded-full overflow-clip w-16" 
+    class="border-solid border-accent border-4 rounded-full overflow-clip w-16 bg-secondary"
   >
     <img
-      :src="$props.src"
-      alt="Profile Picture"
+      v-if="src"
+      class="motion-preset-fade"
+      :src="src"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-
 interface Props {
   src: string;
 };
 
-const $props = defineProps<Props>();
+const {
+  src,
+} = defineProps<Props>();
 </script>

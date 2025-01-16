@@ -14,13 +14,13 @@ function listBlogPost(): Ref<BlogPost[]> {
   }
 }
 
-function getBlogPost(uri: string): Ref<BlogPost> | void {
+function getBlogPost(uri: string): {loading: Ref<boolean, boolean>, data: Ref<BlogPost>} | void {
   if (!uri) return;
 
   try {
-    const { data } = useRequest(dataInstance.Get<BlogPost>(`/blog/${uri}`));
+    const { loading, data } = useRequest(dataInstance.Get<BlogPost>(`/blog/${uri}`));
 
-    return data;
+    return { loading, data };
   } catch(error: unknown) {
     throw error;
   }
