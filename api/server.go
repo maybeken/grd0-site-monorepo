@@ -10,6 +10,7 @@ import (
 	"grd0.net/api/traveler_map"
 
 	"fmt"
+	"net/http"
 )
 
 func main() {
@@ -40,6 +41,10 @@ func main() {
 			return nil
 		},
 	}))
+
+	e.GET("/health", func(c echo.Context) error {
+		return c.String(http.StatusOK, "healthy")
+	})
 
 	e.GET("/blog", blog.GetBlog)
 	e.GET("/blog/:uri", blog.GetBlog)
