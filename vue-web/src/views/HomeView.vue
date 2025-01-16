@@ -8,10 +8,9 @@ const loading = response.loading;
 
 <template>
   <div class="flex flex-col gap-8">
-    <BlogSummary
-      v-if="loading"
-      :loading="loading"
-    ></BlogSummary>
+    <template v-if="loading">
+      <BlogSummary v-for="i in 5" :loading="loading"></BlogSummary>
+    </template>
     <BlogSummary
       v-for="blog in blogPost"
       :key="blog.uri"
