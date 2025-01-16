@@ -4,11 +4,11 @@ import { dataInstance } from './api';
 import type { Ref } from 'vue';
 import type { BlogPost } from '@/interfaces/Blog';
 
-function listBlogPost(): Ref<BlogPost[]> {
+function listBlogPost(): {loading: Ref<boolean, boolean>, data: Ref<BlogPost[]>} {
   try {
-    const { data } = useRequest(dataInstance.Get<BlogPost[]>('/blog'));
+    const { loading, data } = useRequest(dataInstance.Get<BlogPost[]>('/blog'));
 
-    return data;
+    return { loading, data };
   } catch(error: unknown) {
     throw error;
   }
