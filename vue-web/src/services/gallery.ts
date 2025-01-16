@@ -24,7 +24,9 @@ function listGallery(): Ref<GalleryDetail[]> {
   }
 }
 
-function getGalleryDetail(path: string): Ref<GalleryDetail> {
+function getGalleryDetail(path: string): Ref<GalleryDetail> | void {
+  if (!path) return;
+  
   try {
     const { data } = useRequest(dataInstance.Get<GalleryDetail>(`/gallery/${path}`));
 

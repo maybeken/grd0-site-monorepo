@@ -14,7 +14,9 @@ function listBlogPost(): Ref<BlogPost[]> {
   }
 }
 
-function getBlogPost(uri: string): Ref<BlogPost> {
+function getBlogPost(uri: string): Ref<BlogPost> | void {
+  if (!uri) return;
+
   try {
     const { data } = useRequest(dataInstance.Get<BlogPost>(`/blog/${uri}`));
 
