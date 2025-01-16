@@ -13,7 +13,7 @@ import (
 func main() {
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:8123", "https://grd0.net"},
+		AllowOrigins: []string{"http://localhost:5173", "https://grd0.net"},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 	e.Use(middleware.Decompress())
@@ -41,6 +41,11 @@ func main() {
 
 	e.GET("/blog", blog.GetBlog)
 	e.GET("/blog/:uri", blog.GetBlog)
+
+	e.GET("/gallery", blog.GetBlog)
+	e.GET("/gallery/category", blog.GetBlog)
+
+	e.GET("/travel/map", blog.GetBlog)
 
 	e.Logger.Fatal(e.Start(":8123"))
 }
