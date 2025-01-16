@@ -14,7 +14,7 @@ function manualChunks (id: any) {
     return 'md';
   } else if (id.includes('/icons/')) {
     return 'icon';
-  } else if (id.includes('/ol/') || id.includes('/openlayers/')) {
+  } else if (id.includes('/ol/') || id.includes('/vue3-openlayers/')) {
     return 'openlayers';
   } else if (id.includes('node_modules')) {
     return 'vendor';
