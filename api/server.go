@@ -55,5 +55,5 @@ func main() {
 
 	e.GET("/travel/map", traveler_map.GetMapLocation)
 
-	e.Logger.Fatal(e.Start(":8123"))
+	e.Logger.Fatal(e.Start(":80"))
 }
