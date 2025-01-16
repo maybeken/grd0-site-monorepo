@@ -1,0 +1,15 @@
+meta {
+  name: Get Gallery Detail
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/gallery/{{path}}
+  body: none
+  auth: none
+}
+
+vars:pre-request {
+  path: /gallery/new zealand
+}
