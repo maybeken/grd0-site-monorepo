@@ -6,6 +6,8 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 
 	"grd0.net/api/blog"
+	"grd0.net/api/gallery"
+	"grd0.net/api/traveler_map"
 
 	"fmt"
 )
@@ -42,10 +44,11 @@ func main() {
 	e.GET("/blog", blog.GetBlog)
 	e.GET("/blog/:uri", blog.GetBlog)
 
-	e.GET("/gallery", blog.GetBlog)
-	e.GET("/gallery/category", blog.GetBlog)
+	e.GET("/gallery", gallery.GetGalleryDetail)
+	e.GET("/gallery/:path", gallery.GetGalleryDetail)
+	e.GET("/gallery/category", gallery.GetGalleryCategory)
 
-	e.GET("/travel/map", blog.GetBlog)
+	e.GET("/travel/map", traveler_map.GetMapLocation)
 
 	e.Logger.Fatal(e.Start(":8123"))
 }
