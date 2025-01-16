@@ -26,7 +26,7 @@
           >
             {{ item.displayName }}
             <span v-if="item.link[0] !== '/'" class="absolute right-2">
-              <v-icon name="md-openinnew-outlined"></v-icon>
+              <v-icon name="md-openinnew"></v-icon>
             </span>
           </button>
         </template>
