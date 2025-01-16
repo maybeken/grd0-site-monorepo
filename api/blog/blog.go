@@ -40,8 +40,5 @@ func GetBlog(c echo.Context) error {
 		return post
 	}).([]schema.Blog)
 
-	return c.JSON(http.StatusOK, schema.Response[[]schema.Blog]{
-		Payload:    blog_posts,
-		StatusCode: 200,
-	})
+	return c.JSON(http.StatusOK, blog_posts)
 }
