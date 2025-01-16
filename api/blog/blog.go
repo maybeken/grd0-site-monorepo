@@ -28,7 +28,11 @@ func GetBlog(c echo.Context) error {
 			return post.Uri == uri
 		}).([]schema.Blog)
 
-		return c.JSON(http.StatusOK, blog_posts)
+		if len(blog_posts) > 0 {
+			return c.JSON(http.StatusOK, blog_posts[0])
+		}
+
+		return c.JSON(http.StatusNotFound, "")
 	}
 
 	blog_posts = funk.Map(blog_posts, func(post schema.Blog) schema.Blog {

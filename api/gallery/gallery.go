@@ -26,7 +26,11 @@ func GetGalleryDetail(c echo.Context) error {
 			return post.Path == path
 		}).([]schema.GalleryDetail)
 
-		return c.JSON(http.StatusOK, gallery_detail)
+		if len(gallery_detail) > 0 {
+			return c.JSON(http.StatusOK, gallery_detail[0])
+		}
+
+		return c.JSON(http.StatusNotFound, "")
 	}
 
 	return c.JSON(http.StatusOK, gallery_detail)
