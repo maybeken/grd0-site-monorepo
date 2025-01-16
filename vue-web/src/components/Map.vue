@@ -12,9 +12,9 @@
       v-for="(item, idx) in locations.map((val) => { return { ...val, pos: epsg4326toEpsg3857(val.pos) } })" :key="idx"
       :autoPan="true">
       <div
-        v-show="isDisplayOverlay(resolution, item.displayAt, item.hideAt)"
+        v-show="isDisplayOverlay(resolution, item.display_at, item.hide_at)"
         class="px-4 py-2 rounded-r-2xl rounded-b-2xl motion-preset-fade motion-duration-1000"
-        :class="[parseTailwindColor('bg', item.color), parseTailwindColor('text', item.textColor)]">
+        :class="[parseTailwindColor('bg', item.color), parseTailwindColor('text', item.text_color)]">
         <v-icon v-if="item.icon" class="w-base" :class="item.title ? [`mr-1`] : []" :name="item.icon"></v-icon>
         <span class="text-base">{{ item.title || "" }}</span>
         <p v-if="item.subtitle" class="text-xs text-center italic font-light">{{ item.subtitle }}</p>
@@ -97,10 +97,10 @@ function parseTailwindColor(type: string, color: string = "default"): string {
   return background_styles[color] ?? background_styles['default'];
 }
 
-function isDisplayOverlay(resolution: number, displayAt?: number, hideAt?: number): boolean {
+function isDisplayOverlay(resolution: number, display_at?: number, hide_at?: number): boolean {
 
-  const hide_flag = hideAt ? (!resolution ? true : resolution > hideAt) : true;
-  const display_flag = displayAt ? (!resolution ? false : displayAt >= resolution) : true;
+  const hide_flag = hide_at ? (!resolution ? true : resolution > hide_at) : true;
+  const display_flag = display_at ? (!resolution ? false : display_at >= resolution) : true;
 
   return hide_flag && display_flag;
 }

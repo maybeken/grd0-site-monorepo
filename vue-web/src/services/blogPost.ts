@@ -6,7 +6,7 @@ import type { BlogPost } from '@/interfaces/Blog';
 
 function listBlogPost(): Ref<BlogPost[]> {
   try {
-    const { data } = useRequest(dataInstance.Get<BlogPost[]>('/blogPost.json'));
+    const { data } = useRequest(dataInstance.Get<BlogPost[]>('/blog'));
 
     return data;
   } catch(error: unknown) {
@@ -14,4 +14,14 @@ function listBlogPost(): Ref<BlogPost[]> {
   }
 }
 
-export { listBlogPost };
+function getBlogPost(uri: string): Ref<BlogPost> {
+  try {
+    const { data } = useRequest(dataInstance.Get<BlogPost>(`/blog/${uri}`));
+
+    return data;
+  } catch(error: unknown) {
+    throw error;
+  }
+}
+
+export { listBlogPost, getBlogPost };

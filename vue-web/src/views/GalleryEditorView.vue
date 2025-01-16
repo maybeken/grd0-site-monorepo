@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { listAssets, getGalleryDetail } from '@/services/gallery';
+import { listAssets, listGallery } from '@/services/gallery';
 
 import dayjs from 'dayjs';
 
@@ -14,7 +14,7 @@ const cdn_config = {
 };
 
 const files = listAssets();
-const gallery_details_original = getGalleryDetail();
+const gallery_details_original = listGallery();
 
 const gallery_details: Ref<GalleryDetail[]> = ref([]);
 

@@ -14,9 +14,19 @@ function listAssets(): Ref<AssetFileList> {
   }
 }
 
-function getGalleryDetail(): Ref<GalleryDetail[]> {
+function listGallery(): Ref<GalleryDetail[]> {
   try {
-    const { data } = useRequest(dataInstance.Get<GalleryDetail[]>('/galleryDetail.json'));
+    const { data } = useRequest(dataInstance.Get<GalleryDetail[]>('/gallery'));
+
+    return data;
+  } catch(error: unknown) {
+    throw error;
+  }
+}
+
+function getGalleryDetail(path: string): Ref<GalleryDetail> {
+  try {
+    const { data } = useRequest(dataInstance.Get<GalleryDetail>(`/gallery/${path}`));
 
     return data;
   } catch(error: unknown) {
@@ -26,7 +36,7 @@ function getGalleryDetail(): Ref<GalleryDetail[]> {
 
 function getGalleryCategory(): Ref<GalleryCategory> {
   try {
-    const { data } = useRequest(dataInstance.Get<GalleryCategory>('/galleryCategory.json'));
+    const { data } = useRequest(dataInstance.Get<GalleryCategory>('/gallery/category'));
 
     return data;
   } catch(error: unknown) {
@@ -34,4 +44,4 @@ function getGalleryCategory(): Ref<GalleryCategory> {
   }
 }
 
-export { listAssets, getGalleryDetail, getGalleryCategory };
+export { listAssets, listGallery, getGalleryDetail, getGalleryCategory };

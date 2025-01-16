@@ -2,13 +2,14 @@ import { createAlova } from 'alova';
 import GlobalFetch from 'alova/GlobalFetch';
 import VueHook from 'alova/vue';
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_DOMAIN;
+const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const dataInstance = createAlova({
   requestAdapter: GlobalFetch(),
   statesHook: VueHook,
   responsed: (response) => response.json(),
-  baseURL: '/data',
+  baseURL: `${API_URL}`,
   timeout: 10000,
 });
 

@@ -25,11 +25,11 @@ import dayjs from 'dayjs';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat';
 dayjs.extend(LocalizedFormat);
 
-import { getGalleryDetail } from '@/services/gallery';
+import { listGallery } from '@/services/gallery';
 
 import type { Asset, GalleryDetail } from '@/interfaces/Gallery';
 
-const gallery_details = getGalleryDetail();
+const gallery_details = listGallery();
 
 const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 
