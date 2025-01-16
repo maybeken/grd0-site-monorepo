@@ -15,10 +15,9 @@ import {
 } from "vue3-openlayers";
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
-// Import on MD icons
-import * as MdIcons from 'oh-vue-icons/icons/md';
+import * as Icons from './icons';
 
-const icons = Object.values({ ...MdIcons });
+const icons = Object.values({ ...Icons });
 addIcons(...icons);
 
 const app = createApp(App);
