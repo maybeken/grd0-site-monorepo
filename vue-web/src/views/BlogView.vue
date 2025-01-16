@@ -7,9 +7,9 @@
       </div>
 
       <div class="flex gap-4">
-        <ProfileIcon class="w-24 md:w-16" :src="`${ASSET_URL}/profile/${content.author.email}.jpg`"></ProfileIcon>
+        <ProfileIcon class="w-24 md:w-16" :src="`${ASSET_URL}/profile/${content?.author?.email}.jpg`"></ProfileIcon>
         <div class="my-auto text-sm md:text-md">
-          <p class="text-secondary">{{ content.author.display_name }}</p>
+          <p class="text-secondary">{{ content?.author?.display_name }}</p>
           <p class="text-secondary italic">Posted At: {{ dayjs(content.created_at).calendar() }} | Last Edited: {{ dayjs(content.updated_at).calendar() }}</p>
         </div>
       </div>
@@ -27,15 +27,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { listBlogPost } from '@/services/blogPost';
+import { getBlogPost } from '@/services/blogPost';
 
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
-
-import type { Ref } from 'vue';
-import type { BlogPost } from '@/interfaces/Blog';
 
 dayjs.extend(calendar);
 
@@ -43,16 +39,7 @@ const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 
 const $route = useRoute();
 const uri = $route.params.slug;
+const uri_sanitized = typeof uri === "string" ? uri : uri[0];
 
-const blogPost = listBlogPost();
-const content: Ref<BlogPost | undefined> = ref();
-
-watch(
-  blogPost,
-  (newVal) => {
-    content.value = newVal.find((item) => {
-      return item.uri === uri;
-    });
-  },
-)
+const content = getBlogPost(uri_sanitized);
 </script>
