@@ -10,8 +10,8 @@ import (
 	"grd0.net/api/schema"
 )
 
-func ReadBlogs() ([]schema.Blog, error) {
-	file, err := os.Open("data/blogPost.json")
+func readFile[T any](filename string) (*T, error) {
+	file, err := os.Open("data/" + filename)
 
 	if err != nil {
 		fmt.Println("Error opening file:", err)
@@ -20,7 +20,7 @@ func ReadBlogs() ([]schema.Blog, error) {
 
 	defer file.Close()
 
-	var data []schema.Blog
+	var data T
 
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&data)
@@ -29,71 +29,35 @@ func ReadBlogs() ([]schema.Blog, error) {
 		return nil, err
 	}
 
-	return data, nil
+	return &data, nil
+}
+
+func ReadBlogs() ([]schema.Blog, error) {
+	data, err := readFile[[]schema.Blog]("blogPost.json")
+
+	return *data, err
 }
 
 func ReadGalleryDetail() ([]schema.GalleryDetail, error) {
-	file, err := os.Open("data/galleryDetail.json")
+	data, err := readFile[[]schema.GalleryDetail]("galleryDetail.json")
 
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return nil, err
-	}
-
-	defer file.Close()
-
-	var data []schema.GalleryDetail
-
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&data)
-	if err != nil {
-		fmt.Println("Error decoding JSON:", err)
-		return nil, err
-	}
-
-	return data, nil
+	return *data, err
 }
 
-func ReadGalleryCategory() ([]schema.GalleryCategory, error) {
-	file, err := os.Open("data/galleryCategory.json")
+func ReadGalleryCategory() (schema.GalleryCategory, error) {
+	data, err := readFile[schema.GalleryCategory]("galleryCategory.json")
 
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return nil, err
-	}
-
-	defer file.Close()
-
-	var data []schema.GalleryCategory
-
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&data)
-	if err != nil {
-		fmt.Println("Error decoding JSON:", err)
-		return nil, err
-	}
-
-	return data, nil
+	return *data, err
 }
 
 func ReadMapLocation() ([]schema.MapLocation, error) {
-	file, err := os.Open("data/travelersMap.json")
+	data, err := readFile[[]schema.MapLocation]("travelersMap.json")
 
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return nil, err
-	}
+	return *data, err
+}
 
-	defer file.Close()
+func ReadAsset() (schema.AssetFileList, error) {
+	data, err := readFile[schema.AssetFileList]("files.json")
 
-	var data []schema.MapLocation
-
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&data)
-	if err != nil {
-		fmt.Println("Error decoding JSON:", err)
-		return nil, err
-	}
-
-	return data, nil
+	return *data, err
 }

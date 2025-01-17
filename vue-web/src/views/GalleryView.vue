@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { listAssets, getGalleryCategory } from '@/services/gallery';
+import { ref } from 'vue';
+import { getGalleryCategory } from '@/services/gallery';
 import { useGalleryStore } from '@/stores/gallery';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
-
-import type { Asset, AssetFileList, GalleryCategory } from '@/interfaces/Gallery';
 
 const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 const cdn_config = {
@@ -15,53 +14,15 @@ const cdn_config = {
 };
 
 const $store = useGalleryStore();
-const files = listAssets();
 const response = getGalleryCategory();
 const gallery_category = response.data;
 const loading = response.loading;
 
-function getGalleryList(files: AssetFileList): AssetFileList {
-  if (!files) return {};
+const selected = ref($store.selected_category);
 
-  const list = Object.fromEntries(
-    Object.entries(files).filter(
-      ([key, val]) => key.indexOf('/gallery') === 0
-    )
-  );
+function formatCategoryName(value?: string): string | void {
+  if (!value) return;
 
-  return list;
-}
-
-function getFileList(files: AssetFileList, filter: string): Asset[] {
-  if (!files || !filter) return [];
-
-  let assets: Asset[] = [];
-
-  if (filter === 'all') {
-    for (const category in files) {
-      const assets_with_category = files[category].map((val) => { return { ...val, category }; });
-
-      assets = [...assets, ...assets_with_category];
-    }
-  } else {
-    const filtered = files[filter] || [];
-    assets = filtered.map((val) => { return { ...val, category: filter }; })
-  }
-
-  assets = assets.sort((a, b) => { return dayjs(a.exif?.datetime).unix() - dayjs(b.exif?.datetime).unix() });
-
-  return filter === 'all' ? assets.reverse() : assets;
-}
-
-function getCategoryList(list: AssetFileList | undefined): string[] {
-  const default_category = 'all';
-
-  if (!list) return [default_category];
-
-  return [default_category, ...Object.keys(list)];
-}
-
-function formatCategoryName(value: string): string {
   const category_id = value.replace('/gallery/', '');
   let category_name = category_id;
 
@@ -82,8 +43,8 @@ function getCategoryCover(value: string): string | undefined {
 </script>
 
 <template>
-  <DropdownSelection :options="getCategoryList(getGalleryList(files))" :selected="$store.selected_category"
-    :stylize="formatCategoryName" @select="(newVal: string) => { $store.selected_category = newVal }">
+  <DropdownSelection :disabled="loading" :options="gallery_category" :selected="$store.selected_category"
+    :stylize="formatCategoryName" @select="(newVal: string) => { $store.selected_category = newVal; selected = newVal; }">
   </DropdownSelection>
   <div class="py-2 relative rounded-xl" v-if="getCategoryCover($store.selected_category)">
     <img class="rounded-xl w-full object-cover object-center max-h-32 md:max-h-48 lg:max-h-96 blur-[2px] brightness-50"
@@ -94,12 +55,6 @@ function getCategoryCover(value: string): string | undefined {
     </div>
   </div>
   <div class="py-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
-    <template v-if="loading">
-      <GalleryCard v-for="i in 10" :loading="true"></GalleryCard>
-    </template>
-    <template v-else>
-      <GalleryCard v-for="img of getFileList(getGalleryList(files), $store.selected_category)"
-        :category="$store.selected_category" :image="img" :key="img.filename" :loading="loading"></GalleryCard>
-    </template>
+    <GalleryGrid :category="selected" :key="selected"></GalleryGrid>
   </div>
 </template>

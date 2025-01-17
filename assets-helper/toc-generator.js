@@ -6,7 +6,7 @@ import ExifReader from 'exifreader';
 
 dayjs.extend(customParseFormat);
 
-const assets_directory = '../assets';
+const assets_directory = '../api/data';
 const output_filename = 'files.json';
 const skip_file = ['.DS_Store', output_filename];
 

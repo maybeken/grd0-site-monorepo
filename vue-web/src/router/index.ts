@@ -5,7 +5,6 @@ import HomeView from '@/views/HomeView.vue';
 import NotFound from '@/views/NotFoundView.vue';
 import Editor from '@/views/BlogEditorView.vue';
 import Gallery from '@/views/GalleryView.vue';
-import GalleryEditor from '@/views/GalleryEditorView.vue';
 import Blog from '@/views/BlogView.vue';
 import Map from '@/views/MapView.vue';
 
@@ -53,14 +52,6 @@ const router = createRouter({
         title: 'Gallery',
       },
       component: Gallery,
-    },
-    {
-      path: '/gallery/editor',
-      name: 'Gallery Editor',
-      meta: {
-        title: 'Gallery Editor',
-      },
-      component: GalleryEditor,
     },
     {
       path: '/travel/map',

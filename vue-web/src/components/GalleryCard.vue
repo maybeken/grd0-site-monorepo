@@ -8,9 +8,9 @@
           loading="lazy" />
       </a>
     </div>
-    <div v-if="details?.description || loading" class="px-1">
+    <div v-if="gallery_details?.description || loading" class="px-1">
       <Skeleton h="md" w="full" :loading="loading">
-        <p class="text-justify">{{ details?.description }}</p>
+        <p class="text-justify">{{ gallery_details?.description }}</p>
       </Skeleton>
     </div>
     <div class="px-1 grow">
@@ -26,8 +26,8 @@
     <div class="px-1">
       <Skeleton class="ml-auto" h="sm" w="2/3" :loading="loading">
         <p class="text-center"></p>
-        <p class="text-right">{{ details?.tz_adjustment ?
-          dayjs($props.image?.exif?.datetime).add(details?.tz_adjustment, 'h').format('LLL') :
+        <p class="text-right">{{ gallery_details?.tz_adjustment ?
+          dayjs($props.image?.exif?.datetime).add(gallery_details?.tz_adjustment, 'h').format('LLL') :
           dayjs($props.image?.exif?.datetime).format('LLL') }}</p>
       </Skeleton>
     </div>
@@ -40,12 +40,10 @@ import dayjs from 'dayjs';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat';
 dayjs.extend(LocalizedFormat);
 
-import { listGallery } from '@/services/gallery';
+import { getGalleryDetail } from '@/services/gallery';
 
-import type { Asset, GalleryDetail } from '@/interfaces/Gallery';
+import type { Asset } from '@/interfaces/Gallery';
 import Skeleton from './Skeleton.vue';
-
-const gallery_details = listGallery();
 
 const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 
@@ -57,36 +55,11 @@ interface Props {
 const $props = defineProps<Props>();
 const details = ref();
 
+const response = getGalleryDetail($props.image?.category);
+const gallery_details = response?.data;
+
 const cdn_config = {
   resolution: 768,
   quality: 75,
 };
-
-function findGalleryDetail(gallery_details: GalleryDetail[], path: string, filename: string): GalleryDetail | null {
-  if (!gallery_details) return null;
-
-  const file_detail = gallery_details.find((val) => {
-    return val.path === path && val.filename === filename;
-  });
-
-  const folder_detail = gallery_details.find((val) => {
-    return val.path === path && val.filename === "*";
-  });
-
-  if (file_detail && folder_detail) {
-    return { ...folder_detail, ...file_detail };
-  } else if (file_detail) {
-    return file_detail;
-  } else if (folder_detail) {
-    return folder_detail;
-  }
-
-  return null;
-}
-
-watch(gallery_details, (newVal: GalleryDetail[]) => {
-  if (!newVal || !$props.image?.category) return;
-
-  details.value = findGalleryDetail(newVal, $props.image?.category, $props.image.filename);
-})
 </script>

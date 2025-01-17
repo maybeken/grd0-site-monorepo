@@ -10,11 +10,11 @@
       </div>
       <div
         class="px-4 py-2 w-full bg-background border-[1px] border-solid border-foreground cursor-pointer motion-preset-slide-down motion-duration-500"
-        :class="displayButtonStylize(item, idx, $props.options?.length)"
-        v-for="(item, idx) of $props.options" :key="item" :value="item"
-        @click="clickButton(item)"
+        v-for="(item, key, idx) of { all: {}, ...$props.options }" :key="key" :value="item"
+        :class="displayButtonStylize(`${key}`, idx, ($props.options ? Object.keys($props.options).length : 0))"
+        @click="clickButton(`${key}`)"
       >
-        {{ stylize ? stylize(item) : item }}
+        {{ stylize ? stylize(`${key}`) : key }}
       </div>
     </div>
   </div>
@@ -25,8 +25,10 @@
 import { ref, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 
+import type { GalleryCategory } from '@/interfaces/Gallery';
+
 interface Props {
-  options?: string[];
+  options?: GalleryCategory;
   selected?: string;
   stylize?: (text: string) => string;
 }
@@ -61,7 +63,7 @@ function displayButtonStylize(val: string, idx: number, max: number = -1) {
 }
 
 function clickButton(val: string) {
-  $emit('select', val);
+  $emit('select', val === 'all' ? val : `/gallery/${val}`);
   selected.value = val;
   expanded.value = !expanded.value;
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { listAssets, listGallery } from '@/services/gallery';
+import { listAssets } from '@/services/gallery';
 
 import dayjs from 'dayjs';
 
@@ -14,7 +14,6 @@ const cdn_config = {
 };
 
 const files = listAssets();
-const gallery_details_original = listGallery();
 
 const gallery_details: Ref<GalleryDetail[]> = ref([]);
 
@@ -43,32 +42,6 @@ function getFileList(files: AssetFileList): Asset[] {
 
   return assets.reverse();
 }
-
-function findGalleryDetail(gallery_details: GalleryDetail[], path: string, filename: string): GalleryDetail | null {
-  if (!gallery_details) return null;
-
-  const file_detail = gallery_details.find((val) => {
-    return val.path === path && val.filename === filename;
-  });
-
-  const folder_detail = gallery_details.find((val) => {
-    return val.path === path && val.filename === "*";
-  });
-
-  if (file_detail && folder_detail) {
-    return {...folder_detail, ...file_detail};
-  } else if (file_detail) {
-    return file_detail;
-  } else if (folder_detail) {
-    return folder_detail;
-  }
-
-  return null;
-}
-
-watch(gallery_details_original, (newVal: GalleryDetail[]) => {
-  gallery_details.value = newVal;
-})
 </script>
 
 <template>

@@ -2,35 +2,27 @@ import { useRequest } from 'alova';
 import { dataInstance, assetsInstance } from './api';
 
 import type { Ref } from 'vue';
-import type { AssetFileList, GalleryDetail, GalleryCategory } from '@/interfaces/Gallery';
+import type { Asset, GalleryDetail, GalleryCategory } from '@/interfaces/Gallery';
 
-function listAssets(): Ref<AssetFileList> {
+function listAssets(category?: string): { loading: Ref<boolean, boolean>, data: Ref<Asset[]> } | void {
+  if (!category) return;
+
   try {
-    const { data } = useRequest(assetsInstance.Get<AssetFileList>('/files.json'));
+    const { loading, data } = useRequest(dataInstance.Get<Asset[]>(`/gallery/${category}`));
 
-    return data;
+    return { loading, data };
   } catch(error: unknown) {
     throw error;
   }
 }
 
-function listGallery(): Ref<GalleryDetail[]> {
-  try {
-    const { data } = useRequest(dataInstance.Get<GalleryDetail[]>('/gallery'));
-
-    return data;
-  } catch(error: unknown) {
-    throw error;
-  }
-}
-
-function getGalleryDetail(path: string): Ref<GalleryDetail> | void {
+function getGalleryDetail(path?: string): { loading: Ref<boolean, boolean>, data: Ref<GalleryDetail> } | void {
   if (!path) return;
   
   try {
-    const { data } = useRequest(dataInstance.Get<GalleryDetail>(`/gallery/${path}`));
+    const { loading, data } = useRequest(dataInstance.Get<GalleryDetail>(`/gallery/${path}`));
 
-    return data;
+    return { loading, data };
   } catch(error: unknown) {
     throw error;
   }
@@ -46,4 +38,4 @@ function getGalleryCategory(): { loading: Ref<boolean, boolean>, data: Ref<Galle
   }
 }
 
-export { listAssets, listGallery, getGalleryDetail, getGalleryCategory };
+export { listAssets, getGalleryDetail, getGalleryCategory };
