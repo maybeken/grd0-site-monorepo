@@ -1,0 +1,16 @@
+meta {
+  name: Get Gallery Asset
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/gallery/{{category}}
+  body: none
+  auth: none
+}
+
+vars:pre-request {
+  category: /gallery/new zealand
+  ~category: all
+}
