@@ -1,11 +1,11 @@
 <template>
   <div class="p-4 lg:max-w-[66%] mx-auto">
-    <div class="py-4">
+    <div class="py-4 w-full">
       <h1 class="font-black">
-        <Skeleton :h="12" :w="'1/3'" :loading="loading">{{ $props?.content?.title }}</Skeleton>
+        <Skeleton h="md" w="1/3" :loading="loading">{{ $props?.content?.title }}</Skeleton>
       </h1>
       <h2 class="py-2 text-secondary">
-        <Skeleton :h="8" :w="'2/3'" :loading="loading">{{ $props?.content?.subtitle }}</Skeleton>
+        <Skeleton h="sm" w="2/3" :loading="loading">{{ $props?.content?.subtitle }}</Skeleton>
       </h2>
     </div>
 
@@ -14,10 +14,10 @@
         :src="$props?.content?.author?.email ? `${ASSET_URL}/profile/${$props?.content?.author?.email}.jpg` : ''">
       </ProfileIcon>
       <div class="my-auto text-sm md:text-md">
-        <Skeleton :w="32" :h="8" :loading="loading">
+        <Skeleton h="sm" w="lg" :loading="loading">
           <p class="text-secondary">{{ $props?.content?.author?.display_name }}</p>
         </Skeleton>
-        <Skeleton :w="96" :h="8" :loading="loading">
+        <Skeleton h="sm" w="md" :loading="loading">
           <p class="text-secondary italic">
             Posted At: {{ dayjs($props?.content?.created_at).calendar() }} |
             Last Edited: {{

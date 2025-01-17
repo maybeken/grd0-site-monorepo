@@ -3,21 +3,19 @@
     <div class="relative p-4">
       <div class="flex gap-6">
         <div class="flex flex-col">
-          <div class="w-full">
             <ProfileIcon class="mx-auto h-16 w-16"
               :src="$props?.author?.email ? `${ASSET_URL}/profile/${$props?.author?.email}.jpg` : ''"></ProfileIcon>
-          </div>
-          <Skeleton :h="6" :loading="loading">
+          <Skeleton h="xs" w="sm" :loading="loading">
             <p class="text-secondary">Author: {{ $props?.author?.display_name }}</p>
           </Skeleton>
         </div>
 
-        <div class="flex flex-col gap-2 hover:underline my-auto">
+        <div class="flex flex-col gap-2 hover:underline my-auto w-full">
           <router-link :to="`/blog/${$props?.uri}`">
-            <Skeleton :h="12" :w="64" :loading="loading">
+            <Skeleton h="md" w="1/3" :loading="loading">
               <h1 class="font-black">{{ $props?.title }}</h1>
             </Skeleton>
-            <Skeleton :h="8" :w="96" :loading="loading">
+            <Skeleton h="sm" w="2/3" :loading="loading">
               <h2>{{ $props.subtitle }}</h2>
             </Skeleton>
           </router-link>
@@ -27,7 +25,7 @@
       <hr class="border-accent my-2" />
 
       <div class="content px-2 py-2 text-justify max-h-[66vh] overflow-hidden">
-        <Skeleton :h="12" :w="'full'" :loading="loading">
+        <Skeleton h="md" w="full" :loading="loading">
           <MarkdownDisplay :md="$props?.content"></MarkdownDisplay>
         </Skeleton>
       </div>
@@ -47,7 +45,7 @@
 
       <div class="flex justify-end">
 
-        <Skeleton :h="8" :w="96" :loading="loading">
+        <Skeleton h="sm" w="xl" :loading="loading">
           <p class="text-accent italic">Posted At: {{ dayjs($props?.created_at).calendar() }} | Last Edited: {{
             dayjs($props?.updated_at).calendar() }}</p>
         </Skeleton>
@@ -63,7 +61,6 @@ import calendar from 'dayjs/plugin/calendar';
 dayjs.extend(calendar);
 
 import type { BlogPost } from '@/interfaces/Blog';
-import { load } from 'ol/Image';
 
 interface Props extends BlogPost {
   loading: boolean,
