@@ -3,10 +3,10 @@
     <div class="relative p-4">
       <div class="flex gap-6">
         <div class="flex flex-col">
-            <ProfileIcon class="mx-auto h-16 w-16"
-              :src="$props?.author?.email ? `${ASSET_URL}/profile/${$props?.author?.email}.jpg` : ''"></ProfileIcon>
+          <ProfileIcon class="mx-auto h-24 w-24"
+            :src="$props?.author?.email ? `${ASSET_URL}/profile/${$props?.author?.email}.jpg` : ''"></ProfileIcon>
           <Skeleton h="xs" w="sm" :loading="loading">
-            <p class="text-secondary">Author: {{ $props?.author?.display_name }}</p>
+            <p class="text-secondary text-center">{{ $props?.author?.display_name }}</p>
           </Skeleton>
         </div>
 
