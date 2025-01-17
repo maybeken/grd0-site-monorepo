@@ -60,8 +60,9 @@ import dayjs from 'dayjs';
 
 import { listBlogPost } from '@/services/blogPost';
 
-const blogPost = listBlogPost();
-const articles = listBlogPost();
+const response = listBlogPost();
+const blogPost = response?.data;
+const articles = response?.data;
 const selectedArticleUri = ref('');
 const selectedArticleTitle = ref('');
 const selectedArticleSubtitle = ref('');
