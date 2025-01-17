@@ -16,14 +16,16 @@ const cdn_config = {
 
 const $store = useGalleryStore();
 const files = listAssets();
-const gallery_category = getGalleryCategory();
+const response = getGalleryCategory();
+const gallery_category = response.data;
+const loading = response.loading;
 
 function getGalleryList(files: AssetFileList): AssetFileList {
   if (!files) return {};
 
   const list = Object.fromEntries(
     Object.entries(files).filter(
-        ([key, val]) => key.indexOf('/gallery') === 0
+      ([key, val]) => key.indexOf('/gallery') === 0
     )
   );
 
@@ -37,13 +39,13 @@ function getFileList(files: AssetFileList, filter: string): Asset[] {
 
   if (filter === 'all') {
     for (const category in files) {
-      const assets_with_category = files[category].map((val) => { return {...val, category}; });
+      const assets_with_category = files[category].map((val) => { return { ...val, category }; });
 
       assets = [...assets, ...assets_with_category];
     }
   } else {
     const filtered = files[filter] || [];
-    assets = filtered.map((val) => { return {...val, category: filter}; })
+    assets = filtered.map((val) => { return { ...val, category: filter }; })
   }
 
   assets = assets.sort((a, b) => { return dayjs(a.exif?.datetime).unix() - dayjs(b.exif?.datetime).unix() });
@@ -80,28 +82,24 @@ function getCategoryCover(value: string): string | undefined {
 </script>
 
 <template>
-  <DropdownSelection
-    :options="getCategoryList(getGalleryList(files))"
-    :selected="$store.selected_category"
-    :stylize="formatCategoryName"
-    @select="(newVal: string) => { $store.selected_category = newVal }"
-  >
+  <DropdownSelection :options="getCategoryList(getGalleryList(files))" :selected="$store.selected_category"
+    :stylize="formatCategoryName" @select="(newVal: string) => { $store.selected_category = newVal }">
   </DropdownSelection>
   <div class="py-2 relative rounded-xl" v-if="getCategoryCover($store.selected_category)">
-    <img
-      class="rounded-xl w-full object-cover object-center max-h-32 md:max-h-48 lg:max-h-96 blur-[2px] brightness-50"
-      :src="`${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${$store.selected_category}/${getCategoryCover($store.selected_category)}`"
-    />
+    <img class="rounded-xl w-full object-cover object-center max-h-32 md:max-h-48 lg:max-h-96 blur-[2px] brightness-50"
+      :src="`${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${$store.selected_category}/${getCategoryCover($store.selected_category)}`" />
     <div class="absolute top-1/2 text-center w-full">
-      <p class="px-4 md:text-2xl font-bold tracking-widest uppercase font-serif">{{ formatCategoryName($store.selected_category) }}</p>
+      <p class="px-4 md:text-2xl font-bold tracking-widest uppercase font-serif">{{
+        formatCategoryName($store.selected_category) }}</p>
     </div>
   </div>
   <div class="py-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
-    <GalleryCard
-      v-for="img of getFileList(getGalleryList(files), $store.selected_category)"
-      :category="$store.selected_category"
-      :image="img"
-      :key="img.filename"
-    ></GalleryCard>
+    <template v-if="loading">
+      <GalleryCard v-for="i in 10" :loading="true"></GalleryCard>
+    </template>
+    <template v-else>
+      <GalleryCard v-for="img of getFileList(getGalleryList(files), $store.selected_category)"
+        :category="$store.selected_category" :image="img" :key="img.filename" :loading="loading"></GalleryCard>
+    </template>
   </div>
 </template>

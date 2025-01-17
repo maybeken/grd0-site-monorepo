@@ -36,11 +36,11 @@ function getGalleryDetail(path: string): Ref<GalleryDetail> | void {
   }
 }
 
-function getGalleryCategory(): Ref<GalleryCategory> {
+function getGalleryCategory(): { loading: Ref<boolean, boolean>, data: Ref<GalleryCategory> } {
   try {
-    const { data } = useRequest(dataInstance.Get<GalleryCategory>('/gallery/category'));
+    const { loading, data } = useRequest(dataInstance.Get<GalleryCategory>('/gallery/category'));
 
-    return data;
+    return { loading, data };
   } catch(error: unknown) {
     throw error;
   }
