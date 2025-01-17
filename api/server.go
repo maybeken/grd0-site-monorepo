@@ -49,7 +49,6 @@ func main() {
 	e.GET("/blog", blog.GetBlog)
 	e.GET("/blog/:uri", blog.GetBlog)
 
-	e.GET("/gallery", gallery.GetGalleryDetail)
 	e.GET("/gallery/category", gallery.GetGalleryCategory)
 	e.GET("/gallery/category/:path", gallery.GetGalleryDetail)
 	e.GET("/gallery/:category", gallery.GetAsset)

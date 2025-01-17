@@ -35,7 +35,7 @@ func GetGalleryDetail(c echo.Context) error {
 		return c.JSON(http.StatusNotFound, "")
 	}
 
-	return c.JSON(http.StatusOK, gallery_detail)
+	return c.JSON(http.StatusBadRequest, "")
 }
 
 func GetGalleryCategory(c echo.Context) error {
