@@ -1,5 +1,13 @@
 <template>
-  <ol-map v-if="locations" class="w-full h-[50rem] max-h-screen rounded-2xl overflow-hidden">
+  <ol-map class="relative w-full h-[100vw] md:h-[50rem] max-h-screen rounded-2xl overflow-hidden">
+    <div v-if="loading" class="absolute top-0 left-0 bg-background opacity-50 w-full h-full z-10 motion-preset-fade motion-duration-1000">
+      <div class="flex w-full h-full">
+        <div class="mx-auto my-auto">
+          <v-icon scale="10" animation="spin-pulse" speed="slow" name="md-hourglassbottom"></v-icon>
+        </div>
+      </div>
+    </div>
+
     <ol-view ref="view" :center="epsg4326toEpsg3857($prop.map_center)" :zoom="$prop.zoom" projection="EPSG:3857"
       @change:resolution="resolution = $event.oldValue" />
     <ol-tile-layer>
@@ -8,9 +16,9 @@
 
     <ol-context-menu-control :items="contextMenuItems" />
 
-    <ol-overlay :position="item.pos"
+    <ol-overlay v-if="!loading" :position="item.pos"
       v-for="(item, idx) in locations.map((val) => { return { ...val, pos: epsg4326toEpsg3857(val.pos) } })" :key="idx"
-      :autoPan="true">
+      :autoPan="false">
       <div
         v-show="isDisplayOverlay(resolution, item.display_at, item.hide_at)"
         class="px-4 py-2 rounded-r-2xl rounded-b-2xl motion-preset-fade motion-duration-1000"
@@ -54,7 +62,9 @@ const contextMenuItems = ref<Item[]>([
   }
 ]);
 
-const locations = getMapLocation();
+const response = getMapLocation();
+const locations = response?.data;
+const loading = response?.loading;
 
 function epsg4326toEpsg3857(coordinates: number[]) {
   // Parse coordinates as North-East

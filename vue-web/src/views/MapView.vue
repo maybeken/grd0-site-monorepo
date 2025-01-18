@@ -1,17 +1,19 @@
 <template>
-  <div class="flex gap-2 py-2">
-    <p class="text-xl py-2 grow">Map of Places I've Been To</p>
-    <button class="rounded-xl px-4 border-2 border-dotted" @click="map_center = [20, 70]; zoom = 2;">
-      Re-Center
-      <v-icon name="md-undo"></v-icon>
-    </button>
-  </div>
+  <div class="px-2">
+    <div class="flex gap-2 py-2">
+      <p class="text-xl py-2 grow">Places I've Been To</p>
+      <button class="rounded-xl px-4 border-2 border-dotted" @click="map_center = [20, 70]; zoom = 2;">
+        Re-Center
+        <v-icon name="md-undo"></v-icon>
+      </button>
+    </div>
 
-  <Map
-    :map_center="map_center"
-    :zoom="zoom"
-  >
-  </Map>
+    <Map
+      :map_center="map_center"
+      :zoom="zoom"
+    >
+    </Map>
+  </div>
 </template>
 
 <script setup lang="ts">

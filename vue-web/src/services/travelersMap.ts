@@ -4,11 +4,11 @@ import { dataInstance } from './api';
 import type { Ref } from 'vue';
 import type { MapLocation } from '@/interfaces/TravelersMap';
 
-function getMapLocation(): Ref<MapLocation[]> {
+function getMapLocation(): { loading: Ref<boolean, boolean>, data: Ref<MapLocation[]> } {
   try {
-    const { data } = useRequest(dataInstance.Get<MapLocation[]>('/travel/map'));
+    const { loading, data } = useRequest(dataInstance.Get<MapLocation[]>('/travel/map'));
 
-    return data;
+    return { loading, data };
   } catch(error: unknown) {
     throw error;
   }
