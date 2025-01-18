@@ -4,30 +4,45 @@ import (
 	"encoding/json"
 
 	"fmt"
-
 	"os"
+	"sync"
 
 	"grd0.net/api/schema"
 )
 
-func readFile[T any](filename string) (*T, error) {
-	file, err := os.Open("data/" + filename)
+var (
+	cache = make(map[string]interface{})
+	mu    sync.RWMutex
+)
 
+func readFile[T any](filename string) (*T, error) {
+	mu.RLock()
+	if cachedData, found := cache[filename]; found {
+		mu.RUnlock()
+		return cachedData.(*T), nil
+	}
+	mu.RUnlock()
+
+	file, err := os.Open("data/" + filename)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return nil, err
 	}
-
+	fmt.Println("Cache not found, read file from disk:", filename)
 	defer file.Close()
 
 	var data T
-
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&data)
 	if err != nil {
 		fmt.Println("Error decoding JSON:", err)
 		return nil, err
 	}
+
+	// Cache the data
+	mu.Lock()
+	cache[filename] = &data
+	mu.Unlock()
 
 	return &data, nil
 }
