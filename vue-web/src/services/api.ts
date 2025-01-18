@@ -2,7 +2,6 @@ import { createAlova } from 'alova';
 import adapterFetch from 'alova/fetch';
 import VueHook from 'alova/vue';
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 const API_URL = import.meta.env.VITE_API_URL;
 
 const sessionStorageAdapter = {
@@ -30,12 +29,4 @@ export const dataInstance = createAlova({
     GET: 5 * 60 * 1000,
   },
   l1Cache: sessionStorageAdapter,
-});
-
-export const assetsInstance = createAlova({
-  requestAdapter: adapterFetch(),
-  statesHook: VueHook,
-  responded: (response) => response.json(),
-  baseURL: `${ASSET_URL}`,
-  timeout: 10000,
 });
