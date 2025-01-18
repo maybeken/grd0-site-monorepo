@@ -12,8 +12,8 @@ importers:
         specifier: ^2.0.2
         version: 2.0.2
       alova:
-        specifier: ^2.20.3
-        version: 2.21.5
+        specifier: ^3.2.8
+        version: 3.2.8
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -138,6 +138,9 @@ packages:
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
+
+  '@alova/shared@1.1.2':
+    resolution: {integrity: sha512-8q/gMHFpzm7XYcaUlsyTCMDRRhFnewwheTeObMjPl1+bFdr+wZuBEHEPYIyd8tyzLwfrqpBeonaMN2tlngM8EA==}
 
   '@antfu/utils@0.7.10':
     resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
@@ -716,9 +719,9 @@ packages:
   alien-signals@0.2.2:
     resolution: {integrity: sha512-cZIRkbERILsBOXTQmMrxc9hgpxglstn69zm+F1ARf4aPAzdAFYd6sBq87ErO0Fj3DV94tglcyHG5kQz9nDC/8A==}
 
-  alova@2.21.5:
-    resolution: {integrity: sha512-7CqSpxvjMCCMznXkzum/drugXxPpD+C0peYbFT3LqUkxyQ0RDdhcboDUbnfrUResi0Y8Cla7f3R1KFw0ywivow==}
-    engines: {node: '>= 0.12.0'}
+  alova@3.2.8:
+    resolution: {integrity: sha512-BCNcyBiRxvsAhSWsN65C9DHOX8lv6H7IdK4Aa8GHQOE0sYm/FAsCUJswBGfYUdHwrVrT9LJgiIFfk5LMz3BWyQ==}
+    engines: {node: '>= 18.0.0'}
 
   ansi-regex@5.0.1:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
@@ -1756,6 +1759,9 @@ packages:
   raf@3.4.1:
     resolution: {integrity: sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==}
 
+  rate-limiter-flexible@5.0.5:
+    resolution: {integrity: sha512-+/dSQfo+3FYwYygUs/V2BBdwGa9nFtakDwKt4l0bnvNB53TNT++QSFewwHX9qXrZJuMe9j+TUaU21lm5ARgqdQ==}
+
   rbush@4.0.1:
     resolution: {integrity: sha512-IP0UpfeWQujYC8Jg162rMNc01Rf0gWMMAb2Uxus/Q0qOFw4lCcq6ZnQEZwUoJqWyUGJ9th7JjwI4yIWo+uvoAQ==}
 
@@ -2259,6 +2265,8 @@ packages:
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
+
+  '@alova/shared@1.1.2': {}
 
   '@antfu/utils@0.7.10': {}
 
@@ -2811,7 +2819,10 @@ snapshots:
 
   alien-signals@0.2.2: {}
 
-  alova@2.21.5: {}
+  alova@3.2.8:
+    dependencies:
+      '@alova/shared': 1.1.2
+      rate-limiter-flexible: 5.0.5
 
   ansi-regex@5.0.1: {}
 
@@ -4015,6 +4026,8 @@ snapshots:
     dependencies:
       performance-now: 2.1.0
     optional: true
+
+  rate-limiter-flexible@5.0.5: {}
 
   rbush@4.0.1:
     dependencies:

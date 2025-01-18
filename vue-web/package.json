@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@jsdevtools/rehype-url-inspector": "^2.0.2",
-    "alova": "^2.20.3",
+    "alova": "^3.2.8",
     "dayjs": "^1.11.13",
     "oh-vue-icons": "^1.0.0-rc3",
     "ol": "^10.3.1",

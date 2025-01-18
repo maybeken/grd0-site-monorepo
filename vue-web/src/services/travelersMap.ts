@@ -1,4 +1,4 @@
-import { useRequest } from 'alova';
+import { useRequest } from 'alova/client';
 import { dataInstance } from './api';
 
 import type { Ref } from 'vue';
