@@ -21,7 +21,7 @@
     "ol": "^10.3.1",
     "ol-contextmenu": "^5.5.0",
     "ol-ext": "^4.0.24",
-    "pinia": "^2.1.7",
+    "pinia": "^2.3.0",
     "rehype-external-links": "^3.0.0",
     "rehype-plugin-image-native-lazy-loading": "^1.2.0",
     "rehype-sanitize": "^6.0.0",
