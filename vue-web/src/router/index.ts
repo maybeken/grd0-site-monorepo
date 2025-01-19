@@ -47,10 +47,17 @@ const router = createRouter({
     },
     {
       path: '/gallery',
-      name: 'Gallery',
+      name: 'Gallery Index',
       meta: {
         title: 'Gallery',
       },
+      children: [
+        {
+          name: 'Gallery',
+          path: '/gallery/:category',
+          component: Gallery,
+        }
+      ],
       component: Gallery,
     },
     {

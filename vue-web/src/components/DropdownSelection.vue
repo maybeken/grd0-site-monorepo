@@ -66,7 +66,5 @@ function clickButton(val: string) {
   $emit('select', val === 'all' ? val : `/gallery/${val}`);
   selected.value = val;
   expanded.value = !expanded.value;
-
-  $router.push({ hash: '#category-btn' });
 }
 </script>
