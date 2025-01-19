@@ -83,9 +83,11 @@ func GetAsset(c echo.Context) error {
 
 		return c.JSON(http.StatusOK, combined)
 	} else if category != "" {
-		if values, exists := asset_list[category]; exists {
+		formatted_category := "/gallery/" + category
+
+		if values, exists := asset_list[formatted_category]; exists {
 			with_category := funk.Map(values, func(item schema.Asset) schema.Asset {
-				item.Category = category
+				item.Category = formatted_category
 				return item
 			}).([]schema.Asset)
 

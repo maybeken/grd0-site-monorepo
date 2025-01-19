@@ -8,9 +8,9 @@
           loading="lazy" />
       </a>
     </div>
-    <div v-if="gallery_details?.description || loading" class="px-1">
+    <div v-if="details?.description || loading" class="px-1">
       <Skeleton h="md" w="full" :loading="loading">
-        <p class="text-justify">{{ gallery_details?.description }}</p>
+        <p class="text-justify">{{ details?.description }}</p>
       </Skeleton>
     </div>
     <div class="px-1 grow">
@@ -26,8 +26,8 @@
     <div class="px-1">
       <Skeleton class="ml-auto" h="sm" w="2/3" :loading="loading">
         <p class="text-center"></p>
-        <p class="text-right">{{ gallery_details?.tz_adjustment ?
-          dayjs($props.image?.exif?.datetime).add(gallery_details?.tz_adjustment, 'h').format('LLL') :
+        <p class="text-right">{{ details?.tz_adjustment ?
+          dayjs($props.image?.exif?.datetime).add(details?.tz_adjustment, 'h').format('LLL') :
           dayjs($props.image?.exif?.datetime).format('LLL') }}</p>
       </Skeleton>
     </div>
@@ -42,7 +42,7 @@ dayjs.extend(LocalizedFormat);
 
 import { getGalleryDetail } from '@/services/gallery';
 
-import type { Asset } from '@/interfaces/Gallery';
+import type { Asset, GalleryDetail } from '@/interfaces/Gallery';
 import Skeleton from './Skeleton.vue';
 
 const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
@@ -53,13 +53,28 @@ interface Props {
 }
 
 const $props = defineProps<Props>();
-const details = ref();
 
+const details = ref<GalleryDetail>();
 const response = getGalleryDetail($props.image?.category);
-const gallery_details = response?.data;
+const gallery_details = response?.data || ref([]);
 
 const cdn_config = {
   resolution: 768,
   quality: 75,
 };
+
+watch(gallery_details, (newVal) => {
+  const file_rule = newVal.find((item) => item.filename === $props.image?.filename);
+  const category_rule = newVal.find((item) => item.filename === '*');
+
+  if (category_rule) {
+    details.value = category_rule;
+
+    if (file_rule) {
+      details.value = file_rule;
+    }
+  } else if (file_rule) {
+    details.value = file_rule;
+  }
+});
 </script>

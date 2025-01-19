@@ -16,11 +16,11 @@ function listAssets(category?: string): { loading: Ref<boolean, boolean>, data: 
   }
 }
 
-function getGalleryDetail(path?: string): { loading: Ref<boolean, boolean>, data: Ref<GalleryDetail> } | void {
+function getGalleryDetail(path?: string): { loading: Ref<boolean, boolean>, data: Ref<GalleryDetail[]> } | void {
   if (!path) return;
   
   try {
-    const { loading, data } = useRequest(dataInstance.Get<GalleryDetail>(`/gallery/${path}`));
+    const { loading, data } = useRequest(dataInstance.Get<GalleryDetail[]>(`/gallery/category/${path}`));
 
     return { loading, data };
   } catch(error: unknown) {

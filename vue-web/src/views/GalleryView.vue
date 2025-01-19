@@ -73,6 +73,6 @@ function selectCategory(category: string): void {
     </div>
   </div>
   <div class="py-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
-    <GalleryGrid :category="selected_category === 'all' ? selected_category : `/gallery/${selected_category}`" :key="selected_category"></GalleryGrid>
+    <GalleryGrid :category="selected_category" :key="selected_category"></GalleryGrid>
   </div>
 </template>
