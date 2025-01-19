@@ -2,9 +2,11 @@
   <div class="px-2">
     <div class="flex gap-2 py-2">
       <p class="text-xl py-2 grow">Places I've Been To</p>
-      <button class="rounded-xl px-4 border-2 border-dotted" @click="map_center = [20, 70]; zoom = 2;">
-        Re-Center
-        <v-icon name="md-undo"></v-icon>
+      <button class="rounded-xl px-2 border-2 border-dotted" @click="map_center = [20, 70]; zoom = 2;">
+        <div class="flex gap-1">
+          <span class="pl-2">Re-Center</span>
+          <Icon icon="mynaui:center-focus" height="auto" />
+        </div>
       </button>
     </div>
 

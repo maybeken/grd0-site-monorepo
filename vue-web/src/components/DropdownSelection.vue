@@ -6,7 +6,7 @@
         @click="expanded = !expanded;"
       >
         <span class="grow">{{ stylize ? stylize(selected ?? "") : selected }}</span>
-        <v-icon name="md-arrowdropdown"></v-icon>
+        <Icon icon="mynaui:chevron-down" height="auto" />
       </div>
       <div
         class="px-4 py-2 w-full bg-background border-[1px] border-solid border-foreground cursor-pointer motion-preset-slide-down motion-duration-500"

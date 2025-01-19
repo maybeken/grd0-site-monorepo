@@ -3,7 +3,7 @@
     <div v-if="loading" class="absolute top-0 left-0 bg-background opacity-50 w-full h-full z-10 motion-preset-fade motion-duration-1000">
       <div class="flex w-full h-full">
         <div class="mx-auto my-auto">
-          <v-icon scale="10" animation="spin-pulse" speed="slow" name="md-hourglassbottom"></v-icon>
+          <Icon class="w-64 h-64 motion-preset-spin motion-duration-[5s]" icon="mynaui:spinner" />
         </div>
       </div>
     </div>
@@ -23,9 +23,11 @@
         v-show="isDisplayOverlay(resolution, item.display_at, item.hide_at)"
         class="px-4 py-2 rounded-r-2xl rounded-b-2xl motion-preset-fade motion-duration-1000"
         :class="[parseTailwindColor('bg', item.color), parseTailwindColor('text', item.text_color)]">
-        <v-icon v-if="item.icon" class="w-base" :class="item.title ? [`mr-1`] : []" :name="item.icon"></v-icon>
-        <span class="text-base">{{ item.title || "" }}</span>
-        <p v-if="item.subtitle" class="text-xs text-center italic font-light">{{ item.subtitle }}</p>
+        <div class="flex gap-1 pb-1">
+          <Icon v-if="item.icon" :class="item.title ? [`mr-1`] : []" :icon="item.icon" height="auto" />
+          <span class="text-base">{{ item.title || "" }}</span>
+        </div>
+        <p v-if="item.subtitle" class="text-xs text-left italic font-light">{{ item.subtitle }}</p>
       </div>
     </ol-overlay>
   </ol-map>

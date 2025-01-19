@@ -26,7 +26,7 @@
           >
             {{ item.displayName }}
             <span v-if="item.link[0] !== '/'" class="absolute right-2">
-              <v-icon name="md-openinnew"></v-icon>
+              <Icon icon="mynaui:external-link" height="auto" />
             </span>
           </button>
         </template>

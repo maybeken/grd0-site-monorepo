@@ -14,11 +14,7 @@ import {
   MapControls,
 } from "vue3-openlayers";
 
-import { OhVueIcon, addIcons } from 'oh-vue-icons';
-import * as Icons from './icons';
-
-const icons = Object.values({ ...Icons });
-addIcons(...icons);
+import { Icon } from "@iconify/vue";
 
 const app = createApp(App);
 
@@ -31,6 +27,6 @@ app.use(Sources);
 app.use(Interactions);
 app.use(MapControls);
 
-app.component('v-icon', OhVueIcon);
+app.component('Icon', Icon);
 
 app.mount('#app');

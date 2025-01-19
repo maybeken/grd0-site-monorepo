@@ -3,7 +3,7 @@
       <div class="flex w-full gap-4">
         <div class="content-center">
           <DropdownBtn :items="menuItems">
-            <v-icon name="md-menu"></v-icon>
+            <Icon icon="mynaui:menu" height="auto" />
           </DropdownBtn>
         </div>
         <div class="content-center mx-auto">
