@@ -10,27 +10,33 @@
     </div>
 
     <div class="flex gap-4">
-      <ProfileIcon class="w-24 h-24 md:h-16 md:w-16"
-        :src="$props?.content?.author?.email ? `${ASSET_URL}/profile/${$props?.content?.author?.email}.jpg` : ''">
-      </ProfileIcon>
+      <div class="h-24 w-24 md:h-16 md:w-16">
+        <ProfileIcon :src="$props?.content?.author?.email ? `${ASSET_URL}/profile/${$props?.content?.author?.email}.jpg` : ''"></ProfileIcon>
+      </div>
       <div class="my-auto text-sm md:text-md">
         <Skeleton h="sm" w="lg" :loading="loading">
-          <p class="text-secondary">{{ $props?.content?.author?.display_name }}</p>
+          <p class="text-secondary text-lg">{{ $props?.content?.author?.display_name }}</p>
         </Skeleton>
-        <Skeleton h="sm" w="md" :loading="loading">
-          <p class="text-secondary italic">
-            Posted At: {{ dayjs($props?.content?.created_at).calendar() }} |
-            Last Edited: {{
-              dayjs($props?.content?.updated_at).calendar() }}
-          </p>
-        </Skeleton>
+        <div class="md:flex gap-2 text-secondary italic">
+          <Skeleton h="xs" w="md" :loading="loading">
+            <p>
+              Posted At: {{ dayjs($props?.content?.created_at).calendar() }}
+            </p>
+          </Skeleton>
+          <p class="hidden md:block px-px">|</p>
+          <Skeleton h="xs" w="md" :loading="loading">
+            <p>
+              Last Edited: {{ dayjs($props?.content?.updated_at).calendar() }}
+            </p>
+          </Skeleton>
+        </div>
       </div>
     </div>
 
     <hr class="border-accent my-2" />
 
     <div class="content px-2 py-2 text-justify">
-      <Skeleton class="h-10 w-full" :loading="loading">
+      <Skeleton h="lg" w="full" :loading="loading">
         <MarkdownDisplay :md="$props?.content?.content"></MarkdownDisplay>
       </Skeleton>
     </div>

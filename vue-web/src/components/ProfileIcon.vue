@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border-solid border-accent border-4 rounded-full overflow-clip w-16 bg-secondary"
+    class="border-solid border-accent border-4 rounded-full overflow-clip h-full w-full bg-secondary"
   >
     <img
       v-if="src"
