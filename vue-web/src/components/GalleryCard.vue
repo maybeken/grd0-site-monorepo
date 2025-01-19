@@ -64,6 +64,8 @@ const cdn_config = {
 };
 
 watch(gallery_details, (newVal) => {
+  if (!newVal) return;
+  
   const file_rule = newVal.find((item) => item.filename === $props.image?.filename);
   const category_rule = newVal.find((item) => item.filename === '*');
 
