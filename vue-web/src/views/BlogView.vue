@@ -1,7 +1,9 @@
 <template>
-  <BlogCard v-if="content || loading">
-    <BlogDetail :content="content" :loading="loading"></BlogDetail>
-  </BlogCard>
+  <div v-if="content || loading">
+    <BlogCard class="py-4 px-16">
+      <BlogDetail :content="content" :loading="loading"></BlogDetail>
+    </BlogCard>
+  </div>
   <div v-else>
     <NotFound></NotFound>
   </div>
