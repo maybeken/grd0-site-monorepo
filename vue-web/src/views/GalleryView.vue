@@ -10,12 +10,6 @@ dayjs.extend(relativeTime);
 const $route = useRoute();
 const $router = useRouter();
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
-const cdn_config = {
-  resolution: 768,
-  quality: 75,
-};
-
 const response = getGalleryCategory();
 const gallery_category = response.data;
 const loading = response.loading;
@@ -65,8 +59,12 @@ function selectCategory(category: string): void {
     :stylize="formatCategoryName" @select="selectCategory">
   </DropdownSelection>
   <div class="py-2 relative rounded-xl" v-if="getCategoryCover(selected_category)">
-    <img class="rounded-xl w-full object-cover object-center max-h-32 md:max-h-48 lg:max-h-96 blur-[2px] brightness-50"
-      :src="`${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}/gallery/${selected_category}/${getCategoryCover(selected_category)}`" />
+    <CDNImage
+      class="rounded-xl w-full object-cover object-center max-h-32 md:max-h-48 lg:max-h-96 blur-[2px] brightness-50"
+      :resolution="768"
+      :quality="75"
+      :src="`/gallery/${selected_category}/${getCategoryCover(selected_category)}`"
+    ></CDNImage>
     <div class="absolute top-1/2 text-center w-full">
       <p class="px-4 md:text-2xl font-bold tracking-widest uppercase font-serif">{{
         formatCategoryName(selected_category) }}</p>

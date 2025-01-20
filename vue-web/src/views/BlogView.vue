@@ -16,8 +16,6 @@ import calendar from 'dayjs/plugin/calendar';
 
 dayjs.extend(calendar);
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
-
 const $route = useRoute();
 const uri = $route.params.slug;
 const uri_sanitized = typeof uri === "string" ? uri : uri[0];

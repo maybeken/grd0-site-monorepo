@@ -49,8 +49,6 @@ import calendar from 'dayjs/plugin/calendar';
 
 dayjs.extend(calendar);
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
-
 import type { BlogPost } from '@/interfaces/Blog';
 
 const $props = defineProps<{

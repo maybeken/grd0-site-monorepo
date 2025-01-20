@@ -68,7 +68,6 @@ interface Props extends BlogPost {
 };
 
 const $props = defineProps<Props>();
-const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 </script>
 
 <style type="poscss" scoped>

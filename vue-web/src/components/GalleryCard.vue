@@ -3,9 +3,12 @@
     <div>
       <a :href="$props.image?.filename ? `${ASSET_URL}${$props.image?.category}/${$props.image?.filename}` : ''"
         target="_blank">
-        <img class="rounded-xl w-full object-cover aspect-square cursor-zoom-in bg-secondary"
-          :src="$props.image?.filename ? `${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${$props.image?.category}/${$props.image?.filename}` : ''"
-          loading="lazy" />
+        <CDNImage
+          class="rounded-xl w-full object-cover aspect-square cursor-zoom-in"
+          :resolution="768"
+          :quality="75"
+          :uri="`${$props.image?.category}/${$props.image?.filename}`"
+        ></CDNImage>
       </a>
     </div>
     <div v-if="details?.description || loading" class="px-1">
@@ -57,11 +60,6 @@ const $props = defineProps<Props>();
 const details = ref<GalleryDetail>();
 const response = getGalleryDetail($props.image?.category);
 const gallery_details = response?.data || ref([]);
-
-const cdn_config = {
-  resolution: 768,
-  quality: 75,
-};
 
 watch(gallery_details, (newVal) => {
   if (!newVal) return;
