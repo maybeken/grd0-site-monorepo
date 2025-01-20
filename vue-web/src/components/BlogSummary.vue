@@ -4,7 +4,7 @@
       <div class="flex gap-6">
         <div class="flex flex-col">
           <div class="h-24 w-24">
-            <ProfileIcon class="mx-auto" :src="$props?.author?.email ? `${ASSET_URL}/profile/${$props?.author?.email}.jpg` : ''"></ProfileIcon>
+            <ProfileIcon class="mx-auto" :email="$props?.author?.email ?? ''"></ProfileIcon>
           </div>
           <Skeleton h="xs" w="sm" :loading="loading">
             <p class="text-secondary text-center">{{ $props?.author?.display_name }}</p>

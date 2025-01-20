@@ -11,7 +11,7 @@
 
     <div class="flex gap-4">
       <div class="h-24 w-24 md:h-16 md:w-16">
-        <ProfileIcon :src="$props?.content?.author?.email ? `${ASSET_URL}/profile/${$props?.content?.author?.email}.jpg` : ''"></ProfileIcon>
+        <ProfileIcon :email="$props?.content?.author?.email ?? ''"></ProfileIcon>
       </div>
       <div class="my-auto text-sm md:text-md">
         <Skeleton h="sm" w="lg" :loading="loading">
