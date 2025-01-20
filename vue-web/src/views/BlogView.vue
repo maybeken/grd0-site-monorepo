@@ -1,6 +1,6 @@
 <template>
   <BlogCard v-if="content || loading">
-    <BlogDetail :content="content" :loading="loading || false"></BlogDetail>
+    <BlogDetail :content="content" :loading="loading"></BlogDetail>
   </BlogCard>
   <div v-else>
     <NotFound></NotFound>
