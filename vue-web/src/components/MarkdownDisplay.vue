@@ -16,20 +16,15 @@ import remarkBreaks from 'remark-breaks';
 import inspectUrls from '@jsdevtools/rehype-url-inspector';
 import lazyLoadPlugin from 'rehype-plugin-image-native-lazy-loading'
 
+import { generateResizedSrc, generateSrcset } from '@/helpers/cdn';
+
 interface Props {
   md: string,
-};
-
-const cdn_config = {
-  resolution: 1024,
-  quality: 75,
 };
 
 const $props = defineProps<Props>();
 
 const parsedContent = ref('');
-
-const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 
 const parse2HTML = async (content: string) => {
   const processor = unified()
@@ -41,8 +36,12 @@ const parse2HTML = async (content: string) => {
   .use(inspectUrls, {
     inspectEach(url) {
       if (!url.url.includes('//') && url?.node?.properties?.src) {
-        url.node.properties.src = `${ASSET_URL}/cdn-cgi/image/width=${cdn_config.resolution},quality=${cdn_config.quality}${url.url}`;
+        url.node.properties.src = generateResizedSrc(url.url, 1024);
+        url.node.properties.srcset = generateSrcset(url.url, 75);
+        url.node.properties.loading = 'lazy';
       }
+
+      return url;
     },
     selectors: [
       "img[src]",
