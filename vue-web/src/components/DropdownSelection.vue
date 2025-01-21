@@ -9,7 +9,7 @@
         <Icon icon="mynaui:chevron-down" height="auto" />
       </div>
       <div
-        class="px-4 py-2 w-full bg-background border-[1px] border-solid border-foreground cursor-pointer motion-preset-slide-down motion-duration-500"
+        class="px-4 py-2 w-full bg-background bg-opacity-50 backdrop-blur-sm border-[1px] border-solid border-foreground cursor-pointer motion-preset-slide-down motion-duration-500"
         v-for="(item, key, idx) of { all: {}, ...$props.options }" :key="key" :value="item"
         :class="displayButtonStylize(`${key}`, idx, ($props.options ? Object.keys($props.options).length : 0))"
         @click="clickButton(`${key}`)"
@@ -48,7 +48,7 @@ function displayButtonStylize(val: string, idx: number, max: number = -1) {
   if (expanded.value) {
     if (idx === 0) {
       style = [...style, 'rounded-t-lg'];
-    } else if (idx === max - 1) {
+    } else if (idx === max) {
       style = [...style, 'rounded-b-lg'];
     }
 
