@@ -22,8 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
 import type { GalleryCategory } from '@/interfaces/Gallery';
 
@@ -38,7 +37,6 @@ const $emit = defineEmits<{
   select: [value?: string]
 }>()
 
-const $router = useRouter();
 const selected = ref($props.selected);
 const expanded = ref(false);
 
