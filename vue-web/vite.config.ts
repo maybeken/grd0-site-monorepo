@@ -27,9 +27,7 @@ function manualChunks (id: any) {
 export default defineConfig({
   plugins: [
     vue(),
-    Components({
-      excludeNames: ["Map"],
-    }),
+    Components(),
   ],
   resolve: {
     alias: {

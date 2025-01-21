@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-() => import("@/components/Map.vue");
 
 const map_center = ref([20, 70]);
 const zoom = ref(2);
