@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getGalleryCategory } from '@/services/gallery';
+import { formatCategoryName, getCategoryCover } from '@/helpers/category';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -23,27 +24,6 @@ watch($route, (to, from) => {
   selected_category.value = uri_stripped;
 })
 
-function formatCategoryName(value?: string): string | void {
-  if (!value) return;
-
-  const category_id = value.replace('/gallery/', '');
-  let category_name = category_id;
-
-  if (gallery_category?.value && gallery_category?.value[category_id]) {
-    category_name = gallery_category?.value[category_id].title || category_name;
-  }
-
-  return category_name.replace(/(^\w|\s\w)/g, (m: string) => m.toUpperCase())
-}
-
-function getCategoryCover(value: string): string | undefined {
-  const category_id = value.replace('/gallery/', '');
-
-  if (gallery_category?.value && gallery_category?.value[category_id]) {
-    return gallery_category?.value[category_id].cover || undefined;
-  }
-}
-
 function selectCategory(category: string): void {
   if (category === 'all') {
     $router.push({ path: '/gallery' });
@@ -56,9 +36,9 @@ function selectCategory(category: string): void {
 
 <template>
   <DropdownSelection :disabled="loading" :options="gallery_category" :selected="selected_category"
-    :stylize="formatCategoryName" @select="selectCategory">
+    :stylize="(val: string) => formatCategoryName(gallery_category, val)" @select="selectCategory">
   </DropdownSelection>
-  <div class="py-2 relative rounded-xl" v-if="getCategoryCover(selected_category)">
+  <div class="py-2 relative rounded-xl" v-if="getCategoryCover(gallery_category, selected_category)">
     <CDNImage
       class="rounded-xl w-full object-cover object-center max-h-32 md:max-h-48 lg:max-h-96 blur-[2px] brightness-50"
       :resolution="768"
@@ -67,7 +47,7 @@ function selectCategory(category: string): void {
     ></CDNImage>
     <div class="absolute top-1/2 text-center w-full">
       <p class="px-4 md:text-2xl font-bold tracking-widest uppercase font-serif">{{
-        formatCategoryName(selected_category) }}</p>
+        formatCategoryName(gallery_category, selected_category) }}</p>
     </div>
   </div>
   <div class="py-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
