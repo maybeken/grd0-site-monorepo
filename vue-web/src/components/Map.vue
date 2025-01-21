@@ -1,5 +1,5 @@
 <template>
-  <ol-map class="relative w-full h-[100vw] md:h-[50rem] max-h-screen rounded-2xl overflow-hidden">
+  <Map.OlMap class="relative w-full h-[100vw] md:h-[50rem] max-h-screen rounded-2xl overflow-hidden">
     <div v-if="loading" class="absolute top-0 left-0 bg-background opacity-50 w-full h-full z-10 motion-preset-fade motion-duration-1000">
       <div class="flex w-full h-full">
         <div class="mx-auto my-auto">
@@ -8,15 +8,15 @@
       </div>
     </div>
 
-    <ol-view ref="view" :center="epsg4326toEpsg3857($prop.map_center)" :zoom="$prop.zoom" projection="EPSG:3857"
+    <Map.OlView ref="view" :center="epsg4326toEpsg3857($prop.map_center)" :zoom="$prop.zoom" projection="EPSG:3857"
       @change:resolution="resolution = $event.oldValue" />
-    <ol-tile-layer>
-      <ol-source-osm />
-    </ol-tile-layer>
+    <Layers.OlTileLayer>
+      <Sources.OlSourceOsm />
+    </Layers.OlTileLayer>
 
-    <ol-context-menu-control :items="contextMenuItems" />
+    <MapControls.OlContextMenuControl :items="contextMenuItems" />
 
-    <ol-overlay v-if="!loading" :position="item.pos"
+    <Map.OlOverlay v-if="!loading" :position="item.pos"
       v-for="(item, idx) in locations.map((val) => { return { ...val, pos: epsg4326toEpsg3857(val.pos) } })" :key="idx"
       :autoPan="false">
       <div
@@ -29,13 +29,19 @@
         </div>
         <p v-if="item.subtitle" class="text-xs text-left italic font-light">{{ item.subtitle }}</p>
       </div>
-    </ol-overlay>
-  </ol-map>
+    </Map.OlOverlay>
+  </Map.OlMap>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import { getMapLocation } from "@/services/travelersMap";
+import {
+  Map,
+  Layers,
+  Sources,
+  MapControls,
+} from "vue3-openlayers";
 
 import type { Item } from "ol-contextmenu";
 

@@ -1,13 +1,6 @@
 import { nextTick } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
-import HomeView from '@/views/HomeView.vue';
-import NotFound from '@/views/NotFoundView.vue';
-import Editor from '@/views/BlogEditorView.vue';
-import Gallery from '@/views/GalleryView.vue';
-import Blog from '@/views/BlogView.vue';
-import Map from '@/views/MapView.vue';
-
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE;
 
 const router = createRouter({
@@ -24,7 +17,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: () => import('@/views/HomeView.vue'),
       meta: {
         title: 'Home',
       },
@@ -32,7 +25,7 @@ const router = createRouter({
     {
       path: '/blog/:slug',
       name: 'blog',
-      component: Blog,
+      component: () => import('@/views/BlogView.vue'),
       meta: {
         title: 'Blog',
       },
@@ -43,7 +36,7 @@ const router = createRouter({
       meta: {
         title: 'Blog Editor',
       },
-      component: Editor,
+      component: () => import('@/views/BlogEditorView.vue'),
     },
     {
       path: '/gallery',
@@ -55,10 +48,10 @@ const router = createRouter({
         {
           name: 'Gallery',
           path: '/gallery/:category',
-          component: Gallery,
+          component: () => import('@/views/GalleryView.vue'),
         }
       ],
-      component: Gallery,
+      component: () => import('@/views/GalleryView.vue'),
     },
     {
       path: '/travel/map',
@@ -66,7 +59,7 @@ const router = createRouter({
       meta: {
         title: 'Traveler\'s Map',
       },
-      component: Map,
+      component: () => import('@/views/MapView.vue'),
     },
     {
       path: '/:pathMatch(.*)',
@@ -74,7 +67,7 @@ const router = createRouter({
       meta: {
         title: 'Page Not Found',
       },
-      component: NotFound
+      component: () => import('@/views/NotFoundView.vue'),
     },
   ]
 });
