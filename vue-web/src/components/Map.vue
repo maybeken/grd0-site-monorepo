@@ -46,7 +46,7 @@ import {
 import type { Item } from "ol-contextmenu";
 
 interface Props {
-  map_center: [number, number],
+  map_center: number[],
   zoom: number,
 };
 

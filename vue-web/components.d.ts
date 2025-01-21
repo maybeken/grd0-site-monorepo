@@ -15,7 +15,6 @@ declare module 'vue' {
     DropdownSelection: typeof import('./src/components/DropdownSelection.vue')['default']
     GalleryCard: typeof import('./src/components/GalleryCard.vue')['default']
     GalleryGrid: typeof import('./src/components/GalleryGrid.vue')['default']
-    Map: typeof import('./src/components/Map.vue')['default']
     MarkdownDisplay: typeof import('./src/components/MarkdownDisplay.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     NotFound: typeof import('./src/components/NotFound.vue')['default']
