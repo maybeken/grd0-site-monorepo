@@ -6,7 +6,8 @@ import ExifReader from 'exifreader';
 
 dayjs.extend(customParseFormat);
 
-const assets_directory = '../api/data';
+const assets_directory = '../assets';
+const output_directory = '../api/data';
 const output_filename = 'files.json';
 const skip_file = ['.DS_Store', output_filename];
 
@@ -98,7 +99,7 @@ async function main() {
 
   let grouped = await groupFilesByDirectory(allFiles);
 
-  fs.writeFile(assets_directory + '/' + output_filename, JSON.stringify(grouped), 'utf8', (err) => {
+  fs.writeFile(output_directory + '/' + output_filename, JSON.stringify(grouped), 'utf8', (err) => {
     if (err) {
       console.log("Error writing file");
       return;
