@@ -63,7 +63,7 @@ function selectCategory(category: string): void {
       class="rounded-xl w-full object-cover object-center max-h-32 md:max-h-48 lg:max-h-96 blur-[2px] brightness-50"
       :resolution="768"
       :quality="75"
-      :src="`/gallery/${selected_category}/${getCategoryCover(selected_category)}`"
+      :uri="`/gallery/${selected_category}/${getCategoryCover(gallery_category, selected_category)}`"
     ></CDNImage>
     <div class="absolute top-1/2 text-center w-full">
       <p class="px-4 md:text-2xl font-bold tracking-widest uppercase font-serif">{{
