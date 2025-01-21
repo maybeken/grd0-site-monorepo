@@ -1,15 +1,13 @@
 <template>
   <div class="flex flex-col gap-2 justify-end p-1 pb-2 rounded-xl bg-shade text-secondary text-xs">
     <div>
-      <a :href="$props.image?.filename ? `${ASSET_URL}${$props.image?.category}/${$props.image?.filename}` : ''"
-        target="_blank">
-        <CDNImage
-          class="rounded-xl w-full object-cover aspect-square cursor-zoom-in"
-          :resolution="768"
-          :quality="75"
-          :uri="`${$props.image?.category}/${$props.image?.filename}`"
-        ></CDNImage>
-      </a>
+      <CDNImage
+        class="rounded-xl w-full object-cover aspect-square lg:cursor-zoom-in"
+        :resolution="768"
+        :quality="75"
+        :uri="`${$props.image?.category}/${$props.image?.filename}`"
+        @click="zoomImage(`${$props.image?.category}/${$props.image?.filename}`)"
+      ></CDNImage>
     </div>
     <div v-if="details?.description || loading" class="px-1">
       <Skeleton h="md" w="full" :loading="loading">
@@ -48,8 +46,6 @@ import { getGalleryDetail } from '@/services/gallery';
 import type { Asset, GalleryDetail } from '@/interfaces/Gallery';
 import Skeleton from './Skeleton.vue';
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
-
 interface Props {
   image?: Asset,
   loading: boolean,
@@ -60,6 +56,10 @@ const $props = defineProps<Props>();
 const details = ref<GalleryDetail>();
 const response = getGalleryDetail($props.image?.category);
 const gallery_details = response?.data || ref([]);
+
+const $emit = defineEmits<{
+  zoom: [uri?: string]
+}>();
 
 watch(gallery_details, (newVal) => {
   if (!newVal) return;
@@ -77,4 +77,8 @@ watch(gallery_details, (newVal) => {
     details.value = file_rule;
   }
 });
+
+function zoomImage(val: string) {
+  $emit('zoom', val);
+};
 </script>
