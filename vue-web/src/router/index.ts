@@ -1,5 +1,8 @@
 import { nextTick } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
+import { formatCategoryName } from '@/helpers/category';
+import { getGalleryCategory } from '@/services/gallery';
+import { getBlogPost } from '@/services/blogPost';
 
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE;
 
@@ -24,7 +27,7 @@ const router = createRouter({
     },
     {
       path: '/blog/:slug',
-      name: 'blog',
+      name: 'Blog',
       component: () => import('@/views/BlogView.vue'),
       meta: {
         title: 'Blog',
@@ -79,5 +82,28 @@ router.afterEach((to, from) => {
       document.title = to.meta.title ? `${DEFAULT_TITLE} | ${to.meta.title}` : DEFAULT_TITLE;
   });
 });
+
+router.beforeEach(async(to, from, next) => {
+  const name = to.name;
+  const params = to.params;
+  const title = to.meta.title;
+
+  if (name === "Blog" && params.slug) {
+    const slug = typeof params.slug === 'string' ? params.slug : params.slug[0];
+    const response = getBlogPost(slug);
+    const blog_title = response?.data.value.title || "";
+
+    to.meta.title = `${title} - ${blog_title}`
+  } else if (name === "Gallery" && params.category) {
+    const response = getGalleryCategory();
+    const category = typeof params.category === 'string' ? params.category : params.category[0];
+    const album = formatCategoryName(response?.data.value, category);
+    
+    to.meta.title = `${title} - ${album}`
+  }
+
+  next();
+})
+
 
 export default router
