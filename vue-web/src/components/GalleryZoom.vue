@@ -5,7 +5,9 @@
         <div class="flex flex-row-reverse gap-4">
           <button @click="$emit('close')"><Icon icon="mynaui:x-circle" height="auto"></Icon></button>
         </div>
-        <img class="w-full rounded-xl" :src="`${ASSET_URL}${uri}`" />
+        <div class="max-h-screen overflow-scroll">
+          <img class="w-full rounded-xl" :src="`${ASSET_URL}${uri}`" />
+        </div>
       </div>
     </div>
   </div>
