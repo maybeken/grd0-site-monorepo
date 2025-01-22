@@ -21,6 +21,7 @@
 
         <template v-for="item in filteredList" :key="item.link">
           <button
+            v-if="!item.hidden || searchText"
             class="w-48 p-2 hover:bg-shade rounded-lg"
             @click="navigateTo(item.link)"
           >
@@ -51,6 +52,7 @@ interface Props {
   items: {
     displayName: string;
     link: string;
+    hidden: boolean;
   }[];
 }
 

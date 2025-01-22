@@ -21,5 +21,7 @@ const menuItems = [
   { displayName: 'Traveler\'s Map', link: '/travel/map' },
   { displayName: 'YouTube', link: 'https://www.youtube.com/@maybeken' },
   { displayName: 'X', link: 'https://x.com/maybeken0' },
+  { displayName: 'Tool - Editor', link: '/blog/editor', hidden: true },
+  { displayName: 'Tool - Dot Matrix', link: '/tool/dotmatrix', hidden: true },
 ];
 </script>
