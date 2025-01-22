@@ -16,6 +16,7 @@ declare module 'vue' {
     GalleryCard: typeof import('./src/components/GalleryCard.vue')['default']
     GalleryGrid: typeof import('./src/components/GalleryGrid.vue')['default']
     GalleryZoom: typeof import('./src/components/GalleryZoom.vue')['default']
+    Icon: typeof import('./src/components/Icon.vue')['default']
     Map: typeof import('./src/components/Map.vue')['default']
     MarkdownDisplay: typeof import('./src/components/MarkdownDisplay.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
