@@ -72,6 +72,20 @@ const router = createRouter({
       },
       component: () => import('@/views/NotFoundView.vue'),
     },
+    {
+      path: '/tool',
+      name: 'Tool',
+      children: [
+        {
+          path: 'dotmatrix',
+          name: 'Dot Matrix',
+          meta: {
+            title: 'Dot Matrix Generator',
+          },
+          component: () => import('@/views/DotMatrix.vue'),
+        },
+      ],
+    }
   ]
 });
 
