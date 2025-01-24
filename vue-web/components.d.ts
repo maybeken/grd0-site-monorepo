@@ -26,5 +26,6 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SiteFooter: typeof import('./src/components/SiteFooter.vue')['default']
     Skeleton: typeof import('./src/components/Skeleton.vue')['default']
+    YouTube: typeof import('./src/components/YouTube.vue')['default']
   }
 }
