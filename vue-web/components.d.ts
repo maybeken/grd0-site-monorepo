@@ -19,6 +19,7 @@ declare module 'vue' {
     Icon: typeof import('./src/components/Icon.vue')['default']
     Map: typeof import('./src/components/Map.vue')['default']
     MarkdownDisplay: typeof import('./src/components/MarkdownDisplay.vue')['default']
+    MenuLinkBtn: typeof import('./src/components/MenuLinkBtn.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     NotFound: typeof import('./src/components/NotFound.vue')['default']
     ProfileIcon: typeof import('./src/components/ProfileIcon.vue')['default']
