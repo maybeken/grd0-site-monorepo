@@ -5,10 +5,9 @@
         <p class="text-xl">Places I've Been To<span class="motion-preset-blink">_</span></p>
         <p class="text-sm">(Zoom in to see more)</p>
       </div>
-      <button class="rounded-xl p-2 border-2 border-dotted" @click="map_center = [20, 70]; zoom = 2;">
-        <div class="flex gap-1">
-          <span class="pl-2">Re-Center</span>
-          <Icon icon="mynaui:center-focus" height="auto" />
+      <button class="rounded-full p-2 border-2 border-dotted" @click="map_center = [20, 70]; zoom = 2;" title="Re-center">
+        <div class="flex flex-col gap-2">
+          <Icon class="mx-auto" icon="mynaui:redo" height="auto" />
         </div>
       </button>
     </div>
