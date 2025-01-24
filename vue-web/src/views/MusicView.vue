@@ -10,7 +10,7 @@
     </div>
 
     <div class="flex flex-col md:flex-row gap-4">
-      <div class="flex flex-col gap-2 w-full md:w-2/3 mx-auto">
+      <div class="sticky top-16 md:relative flex flex-col gap-2 pb-4 w-full md:w-2/3 mx-auto bg-background">
         <div class="flex place-content-center">
           <img class="rounded-xl w-full md:w-1/2 lg:w-1/3 aspect-square object-cover"
             :src="`https://i.ytimg.com/vi_webp/${getCurrentSong(current)}/maxresdefault.webp`" loading="lazy" />
@@ -58,18 +58,21 @@
         </div>
       </div>
       
-      <div class="flex flex-col gap-2 w-full md:w-1/3 pt-8 md:pt-0 mr-auto">
+      <div class="flex flex-col gap-2 w-full md:w-1/3 mr-auto">
         <div>
           <p class="text-lg font-bold">Playlist</p>
         </div>
 
-        <div
-          class="flex border-b py-2 max-w-full overflow-scroll cursor-pointer"
-          v-for="(song, idx) in playlist"
-          :key="idx"
-          @click="changeSong(idx, true)"
-        >
-          <p>{{ idx + 1 }}. {{ song.title }} - {{ song.artist }}</p>
+        <div class="h-fit md:h-[50vh] overflow-scroll">
+          <div
+            class="flex border-b py-2 rounded-full max-w-full overflow-x-scroll cursor-pointer"
+            :class="current === idx ? ['bg-accent'] : []"
+            v-for="(song, idx) in playlist"
+            :key="idx"
+            @click="changeSong(idx, true)"
+          >
+            <p class="px-4 text-nowrap">{{ idx + 1 }}. {{ song.title }} - {{ song.artist }}</p>
+          </div>
         </div>
       </div>
     </div>
