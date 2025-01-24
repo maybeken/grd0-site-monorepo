@@ -2,6 +2,7 @@ package blog
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/labstack/echo/v4"
 
@@ -42,6 +43,16 @@ func GetBlog(c echo.Context) error {
 		}
 
 		return post
+	}).([]schema.Blog)
+
+	blog_posts = funk.Filter(blog_posts, func(post schema.Blog) bool {
+		publish_time, err := time.Parse(time.RFC3339, post.PublishedAt)
+
+		if err != nil {
+			return false
+		}
+
+		return publish_time.Before(time.Now())
 	}).([]schema.Blog)
 
 	return c.JSON(http.StatusOK, blog_posts)

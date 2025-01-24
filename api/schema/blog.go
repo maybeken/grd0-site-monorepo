@@ -6,11 +6,12 @@ type Author struct {
 }
 
 type Blog struct {
-	Uri       string `json:"uri"`
-	Author    Author `json:"author"`
-	Title     string `json:"title"`
-	SubTitle  string `json:"subtitle"`
-	Content   string `json:"content"`
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
+	Uri         string `json:"uri"`
+	Author      Author `json:"author"`
+	Title       string `json:"title"`
+	SubTitle    string `json:"subtitle"`
+	Content     string `json:"content"`
+	CreatedAt   string `json:"created_at"`
+	UpdatedAt   string `json:"updated_at"`
+	PublishedAt string `json:"published_at"`
 }
