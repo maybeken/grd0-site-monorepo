@@ -1,5 +1,5 @@
 <template>
-  <div class="hidden lg:block fixed top-0 left-0 w-screen h-lvh z-50 bg-shade bg-opacity-50 backdrop-blur-sm motion-preset-fade-lg">
+  <div class="hidden lg:block fixed top-0 left-0 w-screen h-lvh z-50 bg-shade bg-opacity-50 backdrop-blur-xs motion-preset-fade-lg">
     <div class="flex w-full h-full" @click="$emit('close')">
       <div class="w-2/3 h-fit mx-auto my-auto p-4 rounded-2xl bg-shade text-secondary" @click="(event) => event.stopImmediatePropagation()">
         <div class="flex flex-row-reverse gap-4">

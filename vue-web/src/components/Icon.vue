@@ -14,7 +14,7 @@ interface Props extends IconProps {
 const $props = defineProps<Props>();
 </script>
 
-<style type="postcss" scoped>
+<style lang="postcss" scoped>
 .dotify {
   -webkit-mask-image: url("/dot-matrix.svg");
   mask-image: url("/dot-matrix.svg");

@@ -124,9 +124,3 @@ function isDisplayOverlay(resolution: number, display_at?: number, hide_at?: num
   return hide_flag && display_flag;
 }
 </script>
-
-<style lang="postcss">
-.ol-layer {
-  @apply invert hue-rotate-180;
-}
-</style>

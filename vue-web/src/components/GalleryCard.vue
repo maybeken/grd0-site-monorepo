@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 justify-end p-1 pb-2 rounded-xl bg-shade text-secondary text-xs">
+  <div class="flex flex-col gap-2 justify-end p-1 pb-2 rounded-xl bg-shade text-secondary text-sm">
     <div>
       <CDNImage
         class="rounded-xl w-full object-cover aspect-square lg:cursor-zoom-in"

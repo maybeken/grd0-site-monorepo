@@ -32,9 +32,9 @@
       </div>
 
       <div v-if="!loading"
-        class="absolute bottom-0 left-0 h-28 w-full z-10 rounded-xl bg-gradient-to-t from-background from-33%">
+        class="absolute bottom-0 left-0 h-28 w-full z-10 rounded-xl bg-linear-to-t from-background from-33%">
         <router-link :to="`/blog/${$props?.uri}`">
-          <div class="flex flex-col flex-col-reverse h-28 w-full hover:cursor-hand hover:underline">
+          <div class="flex flex-col-reverse h-28 w-full hover:cursor-pointer hover:underline">
             <div class="mx-auto my-8">
               <p class="text-2xl">Continue to Read</p>
             </div>
@@ -70,8 +70,8 @@ interface Props extends BlogPost {
 const $props = defineProps<Props>();
 </script>
 
-<style type="poscss" scoped>
-.content::first-letter {
+<style lang="postcss" scoped>
+.content:first-letter {
   @apply text-2xl font-semibold;
 }
 </style>

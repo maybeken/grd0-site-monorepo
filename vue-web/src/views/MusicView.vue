@@ -24,7 +24,7 @@
         <div class="flex place-content-center">
           <div class="relative w-full md:w-1/2 lg:w-1/3">
             <div
-              class="absolute left-0 z-20 h-2 rounded-2xl bg-gradient-to-r from-indigo-500 from-0% via-sky-500 via-50% to-emerald-500 to-100%"
+              class="absolute left-0 z-20 h-2 rounded-2xl bg-linear-to-r from-indigo-500 from-0% via-sky-500 via-50% to-emerald-500 to-100%"
               :style="`width: ${current_time / duration * 100}%`"></div>
             <div class="absolute left-0 z-10 h-2 rounded-2xl bg-accent w-full"></div>
           </div>

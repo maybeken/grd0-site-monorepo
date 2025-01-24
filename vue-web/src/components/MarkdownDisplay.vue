@@ -66,42 +66,5 @@ watch($props, async (oldVal, newVal) => {
 })
 </script>
 
-<style type="postcss">
-.markdown, .markdown * {
-  h1 {
-    @apply text-2xl font-bold mt-8;
-  }
-
-  h2 {
-    @apply text-xl font-bold mt-8;
-  }
-
-  a {
-    @apply hover:underline font-medium;
-  }
-
-  hr {
-    @apply border-accent mt-2 mb-4;
-  }
-
-  p {
-    @apply py-2;
-  }
-  
-  blockquote {
-    @apply bg-accent px-4 py-2 text-sm rounded-xl text-secondary text-center mb-4;
-  }
-
-  img {
-    @apply rounded-xl w-full;
-  }
-
-  p > img {
-    @apply grow object-cover w-[32%];
-  }
-
-  p:has(img) {
-    @apply flex flex-wrap gap-2;
-  }
-}
+<style lang="postcss">
 </style>

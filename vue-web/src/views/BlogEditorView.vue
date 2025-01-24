@@ -158,5 +158,5 @@ const resetValues = () => {
 };
 </script>
 
-<style type="postcss" scoped>
+<style lang="postcss" scoped>
 </style>
