@@ -13,7 +13,7 @@
       <div class="flex flex-col gap-2 w-full md:w-2/3 mx-auto">
         <div class="flex place-content-center">
           <img class="rounded-xl w-full md:w-1/2 lg:w-1/3 aspect-square object-cover"
-            :src="`https://i.ytimg.com/vi_webp/${getCurrentSong(current)}/sddefault.webp`" loading="lazy" />
+            :src="`https://i.ytimg.com/vi_webp/${getCurrentSong(current)}/maxresdefault.webp`" loading="lazy" />
         </div>
 
         <div class="flex flex-col text-center place-content-center">
