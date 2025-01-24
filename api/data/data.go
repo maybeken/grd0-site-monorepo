@@ -23,7 +23,7 @@ func readFile[T any](filename string) (*T, error) {
 	}
 	mu.RUnlock()
 
-	file, err := os.Open("data/" + filename)
+	file, err := os.Open("data/files/" + filename)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return nil, err
