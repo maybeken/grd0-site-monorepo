@@ -15,7 +15,7 @@
         </div>
 
         <MenuLinkBtn v-for="item in filteredList" :key="item.link" :display-name="item.displayName" :link="item.link"
-          :hidden="item.hidden" :onNavigate="navigateTo"></MenuLinkBtn>
+          :hidden="searchText == '' && item.hidden" :onNavigate="navigateTo"></MenuLinkBtn>
 
         <button v-if="filteredList.length === 0" class="w-48 p-2 hover:bg-shade rounded-lg disabled:bg-background"
           disabled>
