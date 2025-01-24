@@ -6,7 +6,7 @@
     </div>
 
     <div>
-      <p class="text-2xl">Music Matters</p>
+      <p class="text-2xl font-bold">Music Matters<span class="motion-preset-blink">_</span></p>
     </div>
 
     <div class="flex flex-col md:flex-row gap-4">
@@ -54,7 +54,7 @@
 
         <div class="pt-4 mx-auto">
           <p class="text-lg text-center font-bold">What's the meaning of this?</p>
-          <p>{{ playlist[current].description || "Nothing specified." }}</p>
+          <p class="text-justify">{{ playlist[current].description || "Nothing specified." }}<span class="motion-preset-blink">_</span></p>
         </div>
       </div>
       

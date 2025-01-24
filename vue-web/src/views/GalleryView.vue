@@ -35,6 +35,9 @@ function selectCategory(category: string): void {
 </script>
 
 <template>
+  <div class="pb-4">
+    <p class="text-2xl font-bold">Captures The Moment<span class="motion-preset-blink">_</span></p>
+  </div>
   <DropdownSelection :disabled="loading" :options="gallery_category" :selected="selected_category"
     :stylize="(val: string) => formatCategoryName(gallery_category, val)" @select="selectCategory">
   </DropdownSelection>
