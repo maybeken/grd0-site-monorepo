@@ -76,3 +76,9 @@ func ReadAsset() (schema.AssetFileList, error) {
 
 	return *data, err
 }
+
+func ReadMusic() ([]schema.Music, error) {
+	data, err := readFile[[]schema.Music]("music.json")
+
+	return *data, err
+}

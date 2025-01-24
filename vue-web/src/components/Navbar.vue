@@ -14,7 +14,7 @@
       </div>
 
       <div class="hidden md:flex w-full place-content-center gap-4">
-        <MenuLinkBtn v-for="item in menuItems.filter(item => !item.hidden)" :key="item.link" :display-name="item.displayName" :link="item.link"
+        <MenuLinkBtn v-for="item in menuItems.filter(item => !item.hidden && item.link.startsWith('/'))" :key="item.link" :display-name="item.displayName" :link="item.link"
           :hidden="item.hidden" :onNavigate="navigateTo"></MenuLinkBtn>
       </div>
     </nav>
@@ -29,6 +29,7 @@ const menuItems = [
   { displayName: 'Home', link: '/' },
   { displayName: 'Gallery', link: '/gallery' },
   { displayName: 'Traveler\'s Map', link: '/travel/map' },
+  { displayName: 'LISTEN TO ME!', link: '/music' },
   { displayName: 'YouTube', link: 'https://www.youtube.com/@maybeken' },
   { displayName: 'X', link: 'https://x.com/maybeken0' },
   { displayName: 'Tool - Editor', link: '/blog/editor', hidden: true },

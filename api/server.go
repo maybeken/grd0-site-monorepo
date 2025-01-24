@@ -15,6 +15,7 @@ import (
 	"grd0.net/api/aws_lambda"
 	"grd0.net/api/blog"
 	"grd0.net/api/gallery"
+	"grd0.net/api/music"
 	"grd0.net/api/traveler_map"
 )
 
@@ -55,6 +56,8 @@ func main() {
 	e.GET("/gallery/:category", gallery.GetAsset)
 
 	e.GET("/travel/map", traveler_map.GetMapLocation)
+
+	e.GET("/music", music.GetMusic)
 
 	isLambda := os.Getenv("LAMBDA")
 
