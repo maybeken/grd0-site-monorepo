@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-4 h-screen">
+  <div class="flex gap-4 h-lvh">
     <div class="flex flex-col gap-2 w-1/2">
       File:
       <div class="flex flex-col gap-2 bg-secondary text-black font-mono p-2 rounded-lg">
@@ -49,7 +49,7 @@
     <div class="flex flex-col gap-2 w-1/2">
       Preview:
 
-      <MarkdownDisplay :md="selectedArticleContent"></MarkdownDisplay>
+      <MarkdownDisplay class="overflow-y-scroll" :md="selectedArticleContent"></MarkdownDisplay>
     </div>
   </div>
 </template>

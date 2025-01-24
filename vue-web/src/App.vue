@@ -8,7 +8,7 @@ import SiteFooter from './components/SiteFooter.vue';
     <Navbar></Navbar>
   </header>
 
-  <main class="container mx-auto py-4">
+  <main class="container mx-auto py-4 min-h-lvh">
     <RouterView />
   </main>
 

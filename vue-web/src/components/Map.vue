@@ -1,5 +1,5 @@
 <template>
-  <Map.OlMap class="relative w-full h-[100vw] md:h-[50rem] max-h-screen rounded-2xl overflow-hidden">
+  <Map.OlMap class="relative w-full h-[100vw] md:h-[50rem] max-h-lvh rounded-2xl overflow-hidden">
     <div v-if="loading" class="absolute top-0 left-0 bg-background opacity-50 w-full h-full z-10 motion-preset-fade motion-duration-1000">
       <div class="flex w-full h-full">
         <div class="mx-auto my-auto">
