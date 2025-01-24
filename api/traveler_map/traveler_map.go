@@ -9,11 +9,11 @@ import (
 )
 
 func GetMapLocation(c echo.Context) error {
-	blog_posts, err := data.ReadMapLocation()
+	map_loc, err := data.ReadMapLocation()
 
 	if err != nil {
 		return err
 	}
 
-	return c.JSON(http.StatusOK, blog_posts)
+	return c.JSON(http.StatusOK, map_loc)
 }
