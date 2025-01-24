@@ -1,24 +1,24 @@
 <template>
   <div class="flex flex-col gap-4">
     <div class="hidden">
-      <YouTube :v="getCurrentSong(current)" :play="play" @onReady="onYouTubeReady"
+      <YouTube :v="getCurrentSong(current)?.v" :play="play" @onReady="onYouTubeReady"
         @initialDelivery="youTubeMessageHandler" @infoDelivery="youTubeMessageHandler"></YouTube>
     </div>
 
     <div>
-      <p class="text-2xl font-bold">Music Matters<Blinker /></p>
+      <p class="text-2xl font-bold">Music Matters<CursorBlink /></p>
     </div>
 
     <div class="flex flex-col md:flex-row gap-4">
       <div class="sticky top-16 md:relative flex flex-col gap-2 pb-4 w-full md:w-2/3 mx-auto bg-background">
         <div class="flex place-content-center">
           <img class="rounded-xl w-full md:w-1/2 lg:w-1/3 aspect-square object-cover"
-            :src="`https://i.ytimg.com/vi_webp/${getCurrentSong(current)}/maxresdefault.webp`" loading="lazy" />
+            :src="`https://i.ytimg.com/vi_webp/${getCurrentSong(current)?.v}/maxresdefault.webp`" loading="lazy" />
         </div>
 
         <div class="flex flex-col text-center place-content-center">
-          <p class="text-xl font-black">{{ title ?? playlist[current].title }}</p>
-          <p class="text-lg">{{ playlist[current].artist ?? "Unknown" }}</p>
+          <p class="text-xl font-black">{{ title ?? getCurrentSong(current)?.title }}</p>
+          <p class="text-lg">{{ getCurrentSong(current)?.artist ?? "Unknown" }}</p>
         </div>
 
         <div class="flex place-content-center">
@@ -40,21 +40,21 @@
             <Icon class="mx-auto" icon="mynaui:skip-back" height="1.5rem"></Icon>
           </button>
           <button class="h-16 w-16 rounded-full px-2 border border-white border-dotted disabled:opacity-50"
-            :disabled="loading" @click="play = !play">
+            :disabled="loading" @click="playSong">
             <div class="w-full">
               <Icon class="mx-auto" v-if="!play" icon="mynaui:play" height="2.5rem"></Icon>
               <Icon class="mx-auto" v-else icon="mynaui:pause" height="2.5rem"></Icon>
             </div>
           </button>
           <button class="my-auto h-12 w-12 rounded-full px-2 border border-white border-dotted disabled:opacity-50"
-            :disabled="current >= playlist.length - 1" @click="changeSong(1)">
+            :disabled="playlist && current >= playlist.length - 1" @click="changeSong(1)">
             <Icon class="mx-auto" icon="mynaui:skip-forward" height="1.5rem"></Icon>
           </button>
         </div>
 
         <div class="pt-4 mx-auto">
           <p class="text-lg text-center font-bold">What's the meaning of this?</p>
-          <p class="text-justify">{{ playlist[current].description || "Nothing specified." }}<CursorBlink /></p>
+          <p class="text-justify">{{ getCurrentSong(current)?.description || "Nothing specified." }}<CursorBlink /></p>
         </div>
       </div>
       
@@ -82,11 +82,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { InitialDeliveryMessage } from '@/interfaces/YouTube';
 import { getMusic } from '@/services/music';
-import Blinker from '@/components/CursorBlink.vue';
+
+import type { Music } from '@/interfaces/Music';
+import type { InitialDeliveryMessage, InfoDeliveryMessage } from '@/interfaces/YouTube';
 
 const loading = ref(true);
+const initialized = ref(false);
 const play = ref(false);
 const title = ref('');
 const author = ref('');
@@ -97,27 +99,39 @@ const current = ref(0);
 const response = getMusic();
 const playlist = response.data;
 
-function getCurrentSong(pos: number): string | void {
-  if (pos >= 0 && pos < playlist.value.length) return playlist.value[pos].v;
+function getCurrentSong(pos: number): Music | void {
+  if (!playlist?.value) return;
+
+  if (pos >= 0 && pos < playlist.value.length) return playlist.value[pos];
 }
 
 function onYouTubeReady(): void {
   current_time.value = 0;
   loading.value = false;
+
+  if (initialized.value) play.value = true;
 }
 
-function youTubeMessageHandler(message: InitialDeliveryMessage): void {
-  if (message.videoData?.title) {
+function youTubeMessageHandler(message: InitialDeliveryMessage | InfoDeliveryMessage): void {
+  if ('videoData' in message && message.videoData?.title) {
     title.value = message.videoData.title;
     author.value = message.videoData.author;
   }
 
-  if (message.currentTime) {
+  if ('currentTime' in message && message.currentTime) {
     current_time.value = message.currentTime;
   }
 
-  if (message.duration) {
+  if ('duration' in message && message.duration) {
     duration.value = message.duration;
+  }
+
+  if ('playerState' in message) {
+    const state = message.playerState;
+    
+    if (state == 0) {
+      changeSong(1);
+    }
   }
 }
 
@@ -144,5 +158,10 @@ function changeSong(to: number, relative: boolean = false): void {
   
   play.value = false;
   loading.value = true;
+}
+
+function playSong(): void {
+  initialized.value = true;
+  play.value = !play.value;
 }
 </script>
