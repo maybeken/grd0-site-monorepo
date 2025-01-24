@@ -3,7 +3,7 @@
     <div v-if="loading" class="absolute top-0 left-0 bg-background opacity-50 w-full h-full z-10 motion-preset-fade motion-duration-1000">
       <div class="flex w-full h-full">
         <div class="mx-auto my-auto">
-          <Icon class="w-64 h-64 motion-preset-spin motion-duration-[5s]" icon="mynaui:spinner" />
+          <Icon class="w-64 h-64 motion-preset-spin motion-duration-[5s]" icon="mynaui:spinner" dotify="false" />
         </div>
       </div>
     </div>
@@ -36,6 +36,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { getMapLocation } from "@/services/travelersMap";
+
 import {
   Map,
   Layers,
