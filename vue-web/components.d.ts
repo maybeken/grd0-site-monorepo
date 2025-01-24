@@ -11,6 +11,7 @@ declare module 'vue' {
     BlogDetail: typeof import('./src/components/BlogDetail.vue')['default']
     BlogSummary: typeof import('./src/components/BlogSummary.vue')['default']
     CDNImage: typeof import('./src/components/CDNImage.vue')['default']
+    CursorBlink: typeof import('./src/components/CursorBlink.vue')['default']
     DropdownBtn: typeof import('./src/components/DropdownBtn.vue')['default']
     DropdownSelection: typeof import('./src/components/DropdownSelection.vue')['default']
     GalleryCard: typeof import('./src/components/GalleryCard.vue')['default']

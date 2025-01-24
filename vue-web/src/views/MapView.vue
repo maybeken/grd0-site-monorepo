@@ -2,7 +2,7 @@
   <div class="px-2">
     <div class="flex gap-2 py-2">
       <div class="md:flex items-end mb-auto gap-2 grow font-bold">
-        <p class="text-xl">Places I've Been To<span class="motion-preset-blink">_</span></p>
+        <p class="text-xl">Places I've Been To<CursorBlink /></p>
         <p class="text-sm">(Zoom in to see more)</p>
       </div>
       <button class="rounded-full p-2 border-2 border-dotted" @click="map_center = [20, 70]; zoom = 2;" title="Re-center">

@@ -8,7 +8,7 @@
         </div>
         
         <div class="content-center mx-auto">
-          <p class="text-base sm:text-xl lg:text-2xl text-secondary font-extrabold uppercase"><span class="hidden sm:inline">grd0.net | </span>Where Everything Starts And Ends<span class="motion-preset-blink">_</span></p>
+          <p class="text-base sm:text-xl lg:text-2xl text-secondary font-extrabold uppercase"><span class="hidden sm:inline">grd0.net</span><span class="select-none"> | </span>Where Everything Starts And Ends<CursorBlink /></p>
         </div>
         <div class="content-center"></div>
       </div>

@@ -6,7 +6,7 @@
     </div>
 
     <div>
-      <p class="text-2xl font-bold">Music Matters<span class="motion-preset-blink">_</span></p>
+      <p class="text-2xl font-bold">Music Matters<Blinker /></p>
     </div>
 
     <div class="flex flex-col md:flex-row gap-4">
@@ -54,7 +54,7 @@
 
         <div class="pt-4 mx-auto">
           <p class="text-lg text-center font-bold">What's the meaning of this?</p>
-          <p class="text-justify">{{ playlist[current].description || "Nothing specified." }}<span class="motion-preset-blink">_</span></p>
+          <p class="text-justify">{{ playlist[current].description || "Nothing specified." }}<CursorBlink /></p>
         </div>
       </div>
       
@@ -84,6 +84,7 @@
 import { ref } from 'vue';
 import type { InitialDeliveryMessage } from '@/interfaces/YouTube';
 import { getMusic } from '@/services/music';
+import Blinker from '@/components/CursorBlink.vue';
 
 const loading = ref(true);
 const play = ref(false);
