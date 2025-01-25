@@ -16,19 +16,24 @@ var (
 )
 
 func readFile[T any](filename string) (*T, error) {
-	mu.RLock()
-	if cachedData, found := cache[filename]; found {
+	isLambda := os.Getenv("LAMBDA")
+
+	if isLambda == "TRUE" {
+		mu.RLock()
+		if cachedData, found := cache[filename]; found {
+			mu.RUnlock()
+			return cachedData.(*T), nil
+		}
 		mu.RUnlock()
-		return cachedData.(*T), nil
+
+		fmt.Println("Cache not found, read file from disk:", filename)
 	}
-	mu.RUnlock()
 
 	file, err := os.Open("data/files/" + filename)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return nil, err
 	}
-	fmt.Println("Cache not found, read file from disk:", filename)
 	defer file.Close()
 
 	var data T
@@ -39,10 +44,12 @@ func readFile[T any](filename string) (*T, error) {
 		return nil, err
 	}
 
-	// Cache the data
-	mu.Lock()
-	cache[filename] = &data
-	mu.Unlock()
+	if isLambda == "TRUE" {
+		// Cache the data
+		mu.Lock()
+		cache[filename] = &data
+		mu.Unlock()
+	}
 
 	return &data, nil
 }

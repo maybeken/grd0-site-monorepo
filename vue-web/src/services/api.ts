@@ -3,6 +3,7 @@ import adapterFetch from 'alova/fetch';
 import VueHook from 'alova/vue';
 
 const API_URL = import.meta.env.VITE_API_URL;
+const IS_DEV = import.meta.env.DEV;
 
 const sessionStorageAdapter = {
   set(key: string, value: unknown) {
@@ -28,5 +29,5 @@ export const dataInstance = createAlova({
   cacheFor: {
     GET: 5 * 60 * 1000,
   },
-  l1Cache: sessionStorageAdapter,
+  l1Cache: IS_DEV ? undefined : sessionStorageAdapter,
 });
