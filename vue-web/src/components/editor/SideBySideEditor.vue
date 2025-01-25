@@ -3,14 +3,18 @@
     <div class="flex flex-col gap-2 grow">
       <input class="text-3xl w-full" type="text" placeholder="Blog Post Title" v-model="editable_title" />
       <input class="text-2xl w-full" type="text" placeholder="Blog Post Subtitle" v-model="editable_subtitle" />
-      <div>Publish Date: <input class="w-64" type="text" v-model="editable_publish_date" />{{ dayjs(editable_publish_date).fromNow() }}</div>
+      <div class="flex gap-2">
+        <span>Publish Date: </span>
+        <input class="w-72 border border-dotted rounded-xl px-2" type="text" v-model="editable_publish_date" />
+        <span>{{ dayjs(editable_publish_date).fromNow() }}</span>
+      </div>
     </div>
 
     <div class="flex gap-2 mt-auto">
-      <button class="p-4 border rounded-full" title="New" @click="newPost">
+      <button class="p-4 border border-dotted rounded-full" title="New" @click="newPost">
         <Icon icon="mynaui:edit" height="2rem"></Icon>
       </button>
-      <button class="p-4 border rounded-full" title="Save" @click="savePost">
+      <button class="p-4 border border-dotted rounded-full" title="Save" @click="savePost">
         <Icon icon="mynaui:save" height="2rem"></Icon>
       </button>
     </div>

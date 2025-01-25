@@ -2,14 +2,14 @@
   <div id="category-btn" class="relative h-12">
     <div class="absolute top-0 h-12 z-10 w-full md:w-96 max-w-full">
       <div
-        class="flex px-4 py-2 w-full rounded-lg font-black bg-background border-[1px] border-solid border-foreground cursor-default z-20"
+        class="flex px-4 py-2 w-full rounded-lg font-black bg-background border border-dotted border-foreground cursor-default z-20"
         @click="expanded = !expanded;"
       >
         <span class="grow">{{ stylize ? stylize(selected ?? "") : selected }}</span>
         <Icon icon="mynaui:chevron-down" height="auto" />
       </div>
       <div
-        class="px-4 py-2 w-full bg-background bg-opacity-50 backdrop-blur-xs border-[1px] border-solid border-foreground cursor-pointer motion-preset-slide-down motion-duration-500"
+        class="px-4 py-2 w-full bg-background bg-opacity-50 backdrop-blur-xs border border-dotted border-foreground cursor-pointer motion-preset-slide-down motion-duration-500"
         v-for="(item, key, idx) of { all: {}, ...$props.options }" :key="key" :value="item"
         :class="displayButtonStylize(`${key}`, idx, ($props.options ? Object.keys($props.options).length : 0))"
         @click="clickButton(`${key}`)"

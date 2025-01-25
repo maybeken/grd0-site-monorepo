@@ -12,7 +12,7 @@
         <tr v-for="row of getPageItem(data || [], max_item, current_page)">
           <td class="py-2" v-for="(col, key) of columns">{{ col.formatter ? col.formatter(row[key]) : row[key] }}</td>
           <td class="flex gap-4 place-content-center py-2">
-            <button v-for="action of actions" class="rounded-xl border px-4 py-px"
+            <button v-for="action of actions" class="rounded-xl border border-dotted px-4 py-px"
               @click="$emit(action.name, row[action.data_key])">{{ action.display_name }}</button>
           </td>
         </tr>
