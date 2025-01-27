@@ -28,9 +28,13 @@ function getGalleryDetail(path?: string): { loading: Ref<boolean, boolean>, data
   }
 }
 
+function getGalleryCategoryRaw() {
+  return dataInstance.Get<GalleryCategory>('/gallery/category');
+}
+
 function getGalleryCategory(): { loading: Ref<boolean, boolean>, data: Ref<GalleryCategory> } {
   try {
-    const { loading, data } = useRequest(dataInstance.Get<GalleryCategory>('/gallery/category'));
+    const { loading, data } = useRequest(getGalleryCategoryRaw());
 
     return { loading, data };
   } catch(error: unknown) {
@@ -38,4 +42,4 @@ function getGalleryCategory(): { loading: Ref<boolean, boolean>, data: Ref<Galle
   }
 }
 
-export { listAssets, getGalleryDetail, getGalleryCategory };
+export { listAssets, getGalleryDetail, getGalleryCategoryRaw, getGalleryCategory };
