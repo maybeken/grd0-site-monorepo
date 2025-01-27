@@ -1,8 +1,8 @@
 <template>
   <img
     class="bg-secondary"
-    :src="`${ASSET_URL}/cdn-cgi/image/width=${resolution},quality=${quality},format=${format}${uri}`"
-    :srcset="generateSrcset(uri, quality)"
+    :src="uri ? `${ASSET_URL}/cdn-cgi/image/width=${resolution},quality=${quality},format=${format}${uri}` : ''"
+    :srcset="uri ? generateSrcset(uri, quality) : ''"
     loading="lazy"
   />
 </template>

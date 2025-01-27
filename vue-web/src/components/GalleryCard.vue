@@ -5,7 +5,7 @@
         class="rounded-xl w-full object-cover aspect-square lg:cursor-zoom-in"
         :resolution="768"
         :quality="75"
-        :uri="`${$props.image?.category}/${$props.image?.filename}`"
+        :uri="$props.image?.filename ? `${$props.image?.category}/${$props.image?.filename}` : ''"
         @click="zoomImage(`${$props.image?.category}/${$props.image?.filename}`)"
       ></CDNImage>
     </div>
