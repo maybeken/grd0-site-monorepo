@@ -5,12 +5,12 @@ meta {
 }
 
 get {
-  url: {{baseUrl}}/gallery/{{category}}
+  url: {{baseUrl}}/gallery/{{collection}}
   body: none
   auth: none
 }
 
 vars:pre-request {
-  category: new zealand
-  ~category: all
+  collection: new zealand
+  ~collection: all
 }

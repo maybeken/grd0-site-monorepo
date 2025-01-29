@@ -51,9 +51,9 @@ func main() {
 	e.GET("/blog", blog.GetBlog)
 	e.GET("/blog/:uri", blog.GetBlog)
 
-	e.GET("/gallery/category", gallery.GetGalleryCategory)
-	e.GET("/gallery/category/:path", gallery.GetGalleryDetail)
-	e.GET("/gallery/:category", gallery.GetAsset)
+	e.GET("/gallery/collection", gallery.GetGalleryCollection)
+	e.GET("/gallery/collection/:path", gallery.GetGalleryDetail)
+	e.GET("/gallery/:collection", gallery.GetAsset)
 
 	e.GET("/travel/map", traveler_map.GetMapLocation)
 

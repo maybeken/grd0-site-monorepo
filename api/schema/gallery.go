@@ -7,9 +7,9 @@ type GalleryDetail struct {
 	Description  string `json:"description,omitempty"`
 }
 
-type GalleryCategory map[string]GalleryCategoryDetail
+type GalleryCollection map[string]GalleryCollectionDetail
 
-type GalleryCategoryDetail struct {
+type GalleryCollectionDetail struct {
 	Title string `json:"title,omitempty"`
 	Cover string `json:"cover,omitempty"`
 }
@@ -29,9 +29,9 @@ type Exif struct {
 }
 
 type Asset struct {
-	Filename string `json:"filename"`
-	Exif     Exif   `json:"exif,omitempty"`
-	Category string `json:"category"`
+	Filename   string `json:"filename"`
+	Exif       Exif   `json:"exif,omitempty"`
+	Collection string `json:"collection"`
 }
 
 type AssetFileList map[string][]Asset

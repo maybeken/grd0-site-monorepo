@@ -38,18 +38,18 @@ func GetGalleryDetail(c echo.Context) error {
 	return c.JSON(http.StatusBadRequest, "")
 }
 
-func GetGalleryCategory(c echo.Context) error {
-	category, err := data.ReadGalleryCategory()
+func GetGalleryCollection(c echo.Context) error {
+	collection, err := data.ReadGalleryCollection()
 
 	if err != nil {
 		return err
 	}
 
-	return c.JSON(http.StatusOK, category)
+	return c.JSON(http.StatusOK, collection)
 }
 
 func GetAsset(c echo.Context) error {
-	category := c.Param("category")
+	collection := c.Param("collection")
 
 	asset_list, err := data.ReadAsset()
 
@@ -57,7 +57,7 @@ func GetAsset(c echo.Context) error {
 		return err
 	}
 
-	if category == "all" {
+	if collection == "all" {
 		filtered := make(schema.AssetFileList)
 
 		for key, values := range asset_list {
@@ -69,12 +69,12 @@ func GetAsset(c echo.Context) error {
 		}
 
 		combined := funk.FlatMap(filtered, func(key string, values []schema.Asset) []schema.Asset {
-			with_category := funk.Map(values, func(item schema.Asset) schema.Asset {
-				item.Category = key
+			with_collection := funk.Map(values, func(item schema.Asset) schema.Asset {
+				item.Collection = key
 				return item
 			}).([]schema.Asset)
 
-			return with_category
+			return with_collection
 		}).([]schema.Asset)
 
 		sort.Slice(combined, func(i, j int) bool {
@@ -82,20 +82,20 @@ func GetAsset(c echo.Context) error {
 		})
 
 		return c.JSON(http.StatusOK, combined)
-	} else if category != "" {
-		formatted_category := "/gallery/" + category
+	} else if collection != "" {
+		formatted_collection := "/gallery/" + collection
 
-		if values, exists := asset_list[formatted_category]; exists {
-			with_category := funk.Map(values, func(item schema.Asset) schema.Asset {
-				item.Category = formatted_category
+		if values, exists := asset_list[formatted_collection]; exists {
+			with_collection := funk.Map(values, func(item schema.Asset) schema.Asset {
+				item.Collection = formatted_collection
 				return item
 			}).([]schema.Asset)
 
-			sort.Slice(with_category, func(i, j int) bool {
-				return with_category[i].Exif.Datetime < with_category[j].Exif.Datetime
+			sort.Slice(with_collection, func(i, j int) bool {
+				return with_collection[i].Exif.Datetime < with_collection[j].Exif.Datetime
 			})
 
-			return c.JSON(http.StatusOK, with_category)
+			return c.JSON(http.StatusOK, with_collection)
 		}
 
 		return c.JSON(http.StatusNotFound, "")

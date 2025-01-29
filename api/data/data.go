@@ -66,8 +66,8 @@ func ReadGalleryDetail() ([]schema.GalleryDetail, error) {
 	return *data, err
 }
 
-func ReadGalleryCategory() (schema.GalleryCategory, error) {
-	data, err := readFile[schema.GalleryCategory]("galleryCategory.json")
+func ReadGalleryCollection() (schema.GalleryCollection, error) {
+	data, err := readFile[schema.GalleryCollection]("galleryCollection.json")
 
 	return *data, err
 }
