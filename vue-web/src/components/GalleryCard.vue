@@ -5,8 +5,8 @@
         class="rounded-xl w-full object-cover aspect-square lg:cursor-zoom-in"
         :resolution="768"
         :quality="75"
-        :uri="$props.image?.filename ? `${$props.image?.category}/${$props.image?.filename}` : ''"
-        @click="zoomImage(`${$props.image?.category}/${$props.image?.filename}`)"
+        :uri="$props.image?.filename ? `${$props.image?.collection}/${$props.image?.filename}` : ''"
+        @click="zoomImage(`${$props.image?.collection}/${$props.image?.filename}`)"
       ></CDNImage>
     </div>
     <div v-if="details?.description || loading" class="px-1">
@@ -54,7 +54,7 @@ interface Props {
 const $props = defineProps<Props>();
 
 const details = ref<GalleryDetail>();
-const response = getGalleryDetail($props.image?.category);
+const response = getGalleryDetail($props.image?.collection);
 const gallery_details = response?.data || ref([]);
 
 const $emit = defineEmits<{
@@ -65,10 +65,10 @@ watch(gallery_details, (newVal) => {
   if (!newVal) return;
   
   const file_rule = newVal.find((item) => item.filename === $props.image?.filename);
-  const category_rule = newVal.find((item) => item.filename === '*');
+  const collection_rule = newVal.find((item) => item.filename === '*');
 
-  if (category_rule) {
-    details.value = category_rule;
+  if (collection_rule) {
+    details.value = collection_rule;
 
     if (file_rule) {
       details.value = file_rule;

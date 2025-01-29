@@ -1,5 +1,5 @@
 <template>
-  <div id="category-btn" class="relative h-12">
+  <div class="relative h-12">
     <div class="absolute top-0 h-12 z-10 w-full md:w-96 max-w-full">
       <div
         class="flex px-4 py-2 w-full rounded-lg font-black bg-background border border-dotted border-foreground cursor-default z-20"
@@ -24,10 +24,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import type { GalleryCategory } from '@/interfaces/Gallery';
+import type { GalleryCollection } from '@/interfaces/Gallery';
 
 interface Props {
-  options?: GalleryCategory;
+  options?: GalleryCollection;
   selected?: string;
   stylize?: (text: string) => string;
 }

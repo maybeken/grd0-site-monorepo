@@ -2,13 +2,13 @@ import { useRequest } from 'alova/client';
 import { dataInstance } from './api';
 
 import type { Ref } from 'vue';
-import type { Asset, GalleryDetail, GalleryCategory } from '@/interfaces/Gallery';
+import type { Asset, GalleryDetail, GalleryCollection } from '@/interfaces/Gallery';
 
-function listAssets(category?: string): { loading: Ref<boolean, boolean>, data: Ref<Asset[]> } | void {
-  if (!category) return;
+function listAssets(collection?: string): { loading: Ref<boolean, boolean>, data: Ref<Asset[]> } | void {
+  if (!collection) return;
 
   try {
-    const { loading, data } = useRequest(dataInstance.Get<Asset[]>(`/gallery/${category}`));
+    const { loading, data } = useRequest(dataInstance.Get<Asset[]>(`/gallery/${collection}`));
 
     return { loading, data };
   } catch(error: unknown) {
@@ -20,7 +20,7 @@ function getGalleryDetail(path?: string): { loading: Ref<boolean, boolean>, data
   if (!path) return;
   
   try {
-    const { loading, data } = useRequest(dataInstance.Get<GalleryDetail[]>(`/gallery/category/${path}`));
+    const { loading, data } = useRequest(dataInstance.Get<GalleryDetail[]>(`/gallery/collection/${path}`));
 
     return { loading, data };
   } catch(error: unknown) {
@@ -28,13 +28,13 @@ function getGalleryDetail(path?: string): { loading: Ref<boolean, boolean>, data
   }
 }
 
-function getGalleryCategoryRaw() {
-  return dataInstance.Get<GalleryCategory>('/gallery/category');
+function getGalleryCollectionRaw() {
+  return dataInstance.Get<GalleryCollection>('/gallery/collection');
 }
 
-function getGalleryCategory(): { loading: Ref<boolean, boolean>, data: Ref<GalleryCategory> } {
+function getGalleryCollection(): { loading: Ref<boolean, boolean>, data: Ref<GalleryCollection> } {
   try {
-    const { loading, data } = useRequest(getGalleryCategoryRaw());
+    const { loading, data } = useRequest(getGalleryCollectionRaw());
 
     return { loading, data };
   } catch(error: unknown) {
@@ -42,4 +42,4 @@ function getGalleryCategory(): { loading: Ref<boolean, boolean>, data: Ref<Galle
   }
 }
 
-export { listAssets, getGalleryDetail, getGalleryCategoryRaw, getGalleryCategory };
+export { listAssets, getGalleryDetail, getGalleryCollectionRaw, getGalleryCollection };

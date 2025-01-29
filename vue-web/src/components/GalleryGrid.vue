@@ -12,11 +12,11 @@
 import { ref } from 'vue';
 import { listAssets } from '@/services/gallery';
 
-const { category = 'all' } = defineProps<{
-  category: string,
+const { collection = 'all' } = defineProps<{
+  collection: string,
 }>();
 
-let response = listAssets(category);
+let response = listAssets(collection);
 const asset_list = response?.data;
 const loading = response?.loading;
 

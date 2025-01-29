@@ -11,7 +11,7 @@ export interface Asset {
       lens?: string,
     }
   },
-  category?: string,
+  collection?: string,
 };
   
 export interface AssetFileList {
@@ -25,7 +25,7 @@ export interface GalleryDetail {
   description?: string,
 }
 
-export interface GalleryCategory {
+export interface GalleryCollection {
   [key: string]: {
     title?: string,
     cover?: string,

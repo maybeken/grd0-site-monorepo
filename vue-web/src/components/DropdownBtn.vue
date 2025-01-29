@@ -56,7 +56,7 @@ const navigateTo = (url: string) => {
 };
 
 const onSearch = () => {
-  // TODO: Support search from blog post, gallery category, gallery image details
+  // TODO: Support search from blog post, gallery collection, gallery image details
   filteredList.value = $props.items.filter((item) => { return item.displayName.toLowerCase().includes(searchText.value.toLowerCase()) });
 };
 </script>

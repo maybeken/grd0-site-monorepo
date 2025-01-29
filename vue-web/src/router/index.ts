@@ -1,7 +1,7 @@
 import { nextTick } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { formatCategoryName } from '@/helpers/category';
-import { getGalleryCategoryRaw } from '@/services/gallery';
+import { formatCollectionName } from '@/helpers/collection';
+import { getGalleryCollectionRaw } from '@/services/gallery';
 import { getBlogPostRaw } from '@/services/blogPost';
 
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE;
@@ -50,7 +50,7 @@ const router = createRouter({
       children: [
         {
           name: 'Gallery',
-          path: '/gallery/:category',
+          path: '/gallery/:collection',
           component: () => import('@/views/GalleryView.vue'),
         }
       ],
@@ -116,10 +116,10 @@ router.beforeEach(async (to, from, next) => {
     const blog_title = response?.title || "";
 
     to.meta.title = `${title} - ${blog_title}`
-  } else if (name === "Gallery" && params.category) {
-    const response = await getGalleryCategoryRaw();
-    const category = typeof params.category === 'string' ? params.category : params.category[0];
-    const album = formatCategoryName(response, category);
+  } else if (name === "Gallery" && params.collection) {
+    const response = await getGalleryCollectionRaw();
+    const collection = typeof params.collection === 'string' ? params.collection : params.collection[0];
+    const album = formatCollectionName(response, collection);
     
     to.meta.title = `${title} - ${album}`
   }
