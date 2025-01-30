@@ -4,7 +4,7 @@ import SiteFooter from './components/SiteFooter.vue';
 </script>
 
 <template>
-  <header class="sticky top-0 bg-background px-4 py-2 z-50">
+  <header class="sticky top-0 from-background from-90% bg-linear-to-b py-2 md:pb-4 z-50">
     <Navbar></Navbar>
   </header>
 
