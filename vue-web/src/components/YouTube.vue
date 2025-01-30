@@ -13,6 +13,7 @@ interface Props {
   v: string,
   play: boolean,
   stop: boolean,
+  seek: number,
 };
 
 const $emit = defineEmits(['onReady', 'initialDelivery', 'infoDelivery', 'apiInfoDelivery']);
@@ -27,8 +28,8 @@ function buildYtUrl(vid: string, autoplay: boolean = false, controls: boolean = 
   return `${base_url}/${vid}?autoplay=${autoplay ? 1 : 0}&controls=${controls ? 1 : 0}&origin=${origin}&playsinline=1&rel=0&enablejsapi=1`;
 }
 
-function sendYouTubeCommand(command: ApiActions): void {
-  iframe.value?.contentWindow?.postMessage(JSON.stringify({ event: "command", func: command }), '*');
+function sendYouTubeCommand(command: ApiActions, params: any = []): void {
+  iframe.value?.contentWindow?.postMessage(JSON.stringify({ event: "command", func: command, args: params }), '*');
 }
 
 function askYouTubeForMessage(): void {
@@ -54,6 +55,10 @@ watch($props, (newProp) => {
     sendYouTubeCommand(newProp.play ? 'playVideo' : 'pauseVideo');
   } else {
     sendYouTubeCommand('stopVideo');
+  }
+
+  if (newProp.seek > -1) {
+    sendYouTubeCommand('seekTo', [Math.round(newProp.seek), true]);
   }
 })
 </script>

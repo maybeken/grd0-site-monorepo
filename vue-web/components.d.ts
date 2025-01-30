@@ -21,6 +21,7 @@ declare module 'vue' {
     Map: typeof import('./src/components/Map.vue')['default']
     MarkdownDisplay: typeof import('./src/components/MarkdownDisplay.vue')['default']
     MenuLinkBtn: typeof import('./src/components/MenuLinkBtn.vue')['default']
+    MusicProgressbar: typeof import('./src/components/MusicProgressbar.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     NotFound: typeof import('./src/components/NotFound.vue')['default']
     PostTable: typeof import('./src/components/editor/PostTable.vue')['default']

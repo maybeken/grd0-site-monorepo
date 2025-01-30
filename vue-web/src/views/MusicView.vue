@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-4">
     <div class="hidden">
-      <YouTube :v="getCurrentSong(current)?.v" :play="play" @onReady="onYouTubeReady"
+      <YouTube :v="getCurrentSong(current)?.v" :play="play" :seek="seek" @onReady="onYouTubeReady"
         @initialDelivery="youTubeMessageHandler" @infoDelivery="youTubeMessageHandler"></YouTube>
     </div>
 
@@ -22,12 +22,7 @@
         </div>
 
         <div class="flex place-content-center">
-          <div class="relative w-full md:w-1/2 lg:w-1/3">
-            <div
-              class="absolute left-0 z-20 h-2 rounded-2xl bg-linear-to-r from-indigo-500 from-0% via-sky-500 via-50% to-emerald-500 to-100%"
-              :style="`width: ${current_time / duration * 100}%`"></div>
-            <div class="absolute left-0 z-10 h-2 rounded-2xl bg-accent w-full"></div>
-          </div>
+          <MusicProgressbar :progress="current_time" :duration="duration" @seek="(percentage: number) => seek = (duration * percentage)"></MusicProgressbar>
         </div>
 
         <div class="flex place-content-center">
@@ -86,6 +81,7 @@ import { getMusic } from '@/services/music';
 
 import type { Music } from '@/interfaces/Music';
 import type { InitialDeliveryMessage, InfoDeliveryMessage } from '@/interfaces/YouTube';
+import MusicProgressbar from '@/components/MusicProgressbar.vue';
 
 const loading = ref(true);
 const initialized = ref(false);
@@ -95,6 +91,7 @@ const author = ref('');
 const current_time = ref(0);
 const duration = ref(0);
 const current = ref(0);
+const seek = ref(-1);
 
 const response = getMusic();
 const playlist = response.data;
