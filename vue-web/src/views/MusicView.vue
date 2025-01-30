@@ -30,18 +30,18 @@
         </div>
 
         <div class="flex place-content-center">
-          <button class="my-auto h-12 w-12 rounded-full px-2 border border-white border-dotted disabled:opacity-50"
+          <button class="my-auto h-12 w-16 rounded-l-full -mr-2 px-2 border border-white border-dotted disabled:brightness-50"
             :disabled="current == 0" @click="changeSong(-1)">
             <Icon class="mx-auto" icon="mynaui:skip-back" height="1.5rem"></Icon>
           </button>
-          <button class="h-16 w-16 rounded-full px-2 border border-white border-dotted disabled:opacity-50"
+          <button class="h-18 w-18 rounded-full px-2 border border-white border-dotted bg-black z-10 disabled:brightness-50"
             :disabled="loading" @click="playSong">
             <div class="w-full">
               <Icon class="mx-auto" v-if="!play" icon="mynaui:play" height="2.5rem"></Icon>
               <Icon class="mx-auto" v-else icon="mynaui:pause" height="2.5rem"></Icon>
             </div>
           </button>
-          <button class="my-auto h-12 w-12 rounded-full px-2 border border-white border-dotted disabled:opacity-50"
+          <button class="my-auto h-12 w-16 rounded-r-full -ml-2 px-2 border border-white border-dotted disabled:brightness-50"
             :disabled="playlist && current >= playlist.length - 1" @click="changeSong(1)">
             <Icon class="mx-auto" icon="mynaui:skip-forward" height="1.5rem"></Icon>
           </button>
@@ -155,6 +155,7 @@ function changeSong(to: number, relative: boolean = false): void {
   
   play.value = false;
   loading.value = true;
+  seek.value = -1;
 }
 
 function playSong(): void {
