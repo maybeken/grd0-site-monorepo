@@ -60,7 +60,7 @@
 
         <div class="max-h-[50vh] overflow-scroll">
           <div
-            class="flex border-b py-2 rounded-full max-w-full overflow-x-scroll cursor-pointer"
+            class="flex border-b py-2 rounded-full max-w-full overflow-x-scroll cursor-pointer scrollbar-0"
             :class="current === idx ? ['bg-accent'] : []"
             v-for="(song, idx) in playlist"
             :key="idx"

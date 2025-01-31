@@ -69,3 +69,7 @@ button {
 .ol-layer {
   @apply invert hue-rotate-180;
 }
+
+#scrollbar-0 {
+  scrollbar-width: none;
+}
