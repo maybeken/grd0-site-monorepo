@@ -21,13 +21,13 @@
       :autoPan="false">
       <div
         v-show="isDisplayOverlay(resolution, item.display_at, item.hide_at)"
-        class="px-4 py-2 rounded-r-2xl rounded-b-2xl motion-preset-fade motion-duration-1000"
+        class="px-4 py-2 rounded-r-2xl rounded-b-2xl motion-preset-fade motion-duration-1000 max-w-72 select-none"
         :class="[parseTailwindColor('bg', item.color), parseTailwindColor('text', item.text_color)]">
         <div class="flex gap-1 pb-1">
           <Icon v-if="item.icon" :class="item.title ? [`mr-1`] : []" :icon="item.icon" height="auto" />
           <span class="text-base">{{ item.title || "" }}</span>
         </div>
-        <p v-if="item.subtitle" class="text-xs text-left italic font-light">{{ item.subtitle }}</p>
+        <p v-if="item.subtitle" class="text-xs italic font-light text-justify">{{ item.subtitle }}</p>
       </div>
     </Map.OlOverlay>
   </Map.OlMap>
@@ -98,11 +98,13 @@ function epsg3857toEpsg4326(coordinates: number[]) {
 
 function parseTailwindColor(type: string, color: string = "default"): string {
   const background_styles: { [key: string]: string } = {
-    default: 'bg-background',
-    red: 'bg-red-700',
-    green: 'bg-emerald-600',
-    blue: 'bg-sky-600',
-    sweden: 'bg-[#005293]',
+    default: 'bg-background/75',
+    red: 'bg-red-700/75',
+    green: 'bg-emerald-600/75',
+    blue: 'bg-sky-600/75',
+    orange: 'bg-orange-500/75',
+    sweden: 'bg-[#005293]/75',
+    white: 'bg-slate-500/75',
   };
 
   const text_styles: { [key: string]: string } = {
