@@ -14,7 +14,7 @@ import { unified } from 'unified';
 import rehypeExternalLinks from 'rehype-external-links';
 import remarkBreaks from 'remark-breaks';
 import inspectUrls from '@jsdevtools/rehype-url-inspector';
-// import lazyLoadPlugin from 'rehype-plugin-image-native-lazy-loading'
+import lazyLoadPlugin from 'rehype-plugin-image-native-lazy-loading'
 
 import { generateResizedSrc, generateSrcset } from '@/helpers/cdn';
 
@@ -48,10 +48,11 @@ const parse2HTML = async (content: string) => {
     ]
   })
   .use(rehypeSanitize)
-  // .use(lazyLoadPlugin)
+  // @ts-expect-error: TS function overloading issue with upstream plugin
+  .use(lazyLoadPlugin)
   .use(rehypeStringify);
 
-  const html = await processor.process(content);
+  const html = processor.processSync(content);
 
   return String(html);
 };
