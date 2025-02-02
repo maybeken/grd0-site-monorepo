@@ -14,7 +14,7 @@ import { unified } from 'unified';
 import rehypeExternalLinks from 'rehype-external-links';
 import remarkBreaks from 'remark-breaks';
 import inspectUrls from '@jsdevtools/rehype-url-inspector';
-import lazyLoadPlugin from 'rehype-plugin-image-native-lazy-loading'
+// import lazyLoadPlugin from 'rehype-plugin-image-native-lazy-loading'
 
 import { generateResizedSrc, generateSrcset } from '@/helpers/cdn';
 
@@ -32,21 +32,21 @@ const parse2HTML = async (content: string) => {
   .use(remarkGfm)
   .use(remarkRehype)
   .use(rehypeExternalLinks, { rel: ['nofollow'],target: '_blank' })
-  // .use(remarkBreaks)
-  // .use(inspectUrls, {
-  //   inspectEach(url) {
-  //     if (!url.url.includes('//') && url?.node?.properties?.src) {
-  //       url.node.properties.src = generateResizedSrc(url.url, 1024);
-  //       url.node.properties.srcset = generateSrcset(url.url, 75);
-  //       url.node.properties.loading = 'lazy';
-  //     }
+  .use(remarkBreaks)
+  .use(inspectUrls, {
+    inspectEach(url) {
+      if (!url.url.includes('//') && url?.node?.properties?.src) {
+        url.node.properties.src = generateResizedSrc(url.url, 1024);
+        url.node.properties.srcset = generateSrcset(url.url, 75);
+        url.node.properties.loading = 'lazy';
+      }
 
-  //     return url;
-  //   },
-  //   selectors: [
-  //     "img[src]",
-  //   ]
-  // })
+      return url;
+    },
+    selectors: [
+      "img[src]",
+    ]
+  })
   .use(rehypeSanitize)
   // .use(lazyLoadPlugin)
   .use(rehypeStringify);
