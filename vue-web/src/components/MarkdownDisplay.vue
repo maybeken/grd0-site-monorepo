@@ -48,8 +48,7 @@ const parse2HTML = async (content: string) => {
     ]
   })
   .use(rehypeSanitize)
-  // @ts-expect-error: TS function overloading issue with upstream plugin
-  .use(lazyLoadPlugin)
+  // .use(lazyLoadPlugin)
   .use(rehypeStringify);
 
   const html = await processor.process(content);
