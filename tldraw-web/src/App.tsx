@@ -4,8 +4,13 @@ import 'tldraw/tldraw.css'
 function App() {
   return (
     <div style={{ position: 'fixed', inset: 0 }}>
-			<Tldraw />
-		</div>
+      <Tldraw
+        inferDarkMode={true}
+        onMount={(editor) => {
+          editor.updateInstanceState({ isGridMode: true })
+        }}
+      />
+    </div>
   )
 }
 
