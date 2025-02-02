@@ -27,5 +27,16 @@ onMounted(() => {
     },
     false,
   );
+
+  window.addEventListener(
+    'keydown',
+    (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+        event.preventDefault();
+        sendCommand('save');
+      }
+    },
+    false,
+  );
 })
 </script>

@@ -1,12 +1,30 @@
 import { Tldraw, getSnapshot, loadSnapshot } from 'tldraw'
 import 'tldraw/tldraw.css'
 
+
+
 function App() {
   return (
     <div style={{ position: 'fixed', inset: 0 }}>
       <Tldraw
         inferDarkMode={true}
         onMount={(editor) => {
+          window.addEventListener(
+            'keydown',
+            (event) => {
+              if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+                event.preventDefault();
+                
+                const { document } = getSnapshot(editor.store)
+
+                window.parent.postMessage({
+                  save: document,
+                }, origin)
+              }
+            },
+            false,
+          );
+
           window.addEventListener('message', ({data}) => {
             if (data.event === 'command') {
               if (data.func === 'save') {
