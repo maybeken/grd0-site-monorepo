@@ -95,7 +95,7 @@ const router = createRouter({
           component: () => import('@/views/DotMatrix.vue'),
         },
         {
-          path: 'whiteboard',
+          path: 'draw',
           name: 'Tldraw',
           meta: {
             title: 'tldraw;',
