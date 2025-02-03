@@ -18,7 +18,6 @@ declare module 'vue' {
     GalleryGrid: typeof import('./src/components/GalleryGrid.vue')['default']
     GalleryZoom: typeof import('./src/components/GalleryZoom.vue')['default']
     Icon: typeof import('./src/components/Icon.vue')['default']
-    Map: typeof import('./src/components/Map.vue')['default']
     MarkdownDisplay: typeof import('./src/components/MarkdownDisplay.vue')['default']
     MenuLinkBtn: typeof import('./src/components/MenuLinkBtn.vue')['default']
     MusicProgressbar: typeof import('./src/components/MusicProgressbar.vue')['default']

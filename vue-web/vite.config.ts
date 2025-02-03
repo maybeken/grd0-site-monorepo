@@ -7,30 +7,14 @@ import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import Components from 'unplugin-vue-components/vite'
 
-function manualChunks(id: any) {
-  if (id.includes('/vue/') || id.includes('/vue-router/') || id.includes('/@vue/')) {
-    return 'vue';
-  } else if (id.includes('/alova/')) {
-    return 'alova';
-  } else if (id.includes('/rehype/') || id.includes('/remark/') || id.includes('micromark') || id.includes('markdown') || id.includes('/unified/')) {
-    return 'md';
-  } else if (id.includes('/icons/')) {
-    return 'icon';
-  } else if (id.includes('/ol/') || id.includes('/vue3-openlayers/')) {
-    return 'openlayers';
-  } else if (id.includes('node_modules')) {
-    return 'vendor';
-  } else {
-    return 'main';
-  }
-}
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     tailwindcss(),
-    Components(),
+    Components({
+      excludeNames: ['Map'],
+    }),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['/assets/pwa-192x192.png', '/assets/pwa-512x512.png', '/assets/pwa-maskable-192x192.png', '/assets/pwa-maskable-512x512.png'],
@@ -71,11 +55,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks
-      }
-    }
-  }
 })
