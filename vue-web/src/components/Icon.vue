@@ -16,7 +16,7 @@ const $props = defineProps<Props>();
 
 <style lang="postcss" scoped>
 .dotify {
-  -webkit-mask-image: url("/dot-matrix.svg");
-  mask-image: url("/dot-matrix.svg");
+  -webkit-mask-image: url("/assets/dot-matrix.svg");
+  mask-image: url("/assets/dot-matrix.svg");
 }
 </style>
