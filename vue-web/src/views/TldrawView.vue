@@ -3,12 +3,12 @@
 
   <div>
     <textarea class="w-full h-96 border rounded-xl px-2 text-xs" v-model="content"></textarea>
-    <div class="flex py-2">
+    <div class="flex gap-2 py-2">
       <button class="px-4 border rounded-xl" @click="sendCommand('save')">Save</button>
       <button class="px-4 border rounded-xl" @click="sendCommand('load', { payload: base64Encode ? decompressFromBase64(content) : content })">Load</button>
-      <div class="flex gap-2 px-4">
-        <button class="min-w-8 min-h-8 bg-accent rounded-full" @click="base64Encode = !base64Encode">
-          <Icon class="mx-auto my-auto" v-if="base64Encode" icon="mynaui:check" height="auto"></Icon>
+      <div class="flex gap-2">
+        <button class="min-w-8 min-h-8 bg-accent rounded-full" :class="base64Encode ? 'bg-green-800' : 'bg-accent'" @click="base64Encode = !base64Encode">
+          <Icon class="mx-auto my-auto" v-if="base64Encode" icon="mynaui:check" height="1.5rem"></Icon>
         </button>
         <p class="my-auto text-sm">LZ Compressed + Base64</p>
       </div>
