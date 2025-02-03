@@ -63,6 +63,9 @@ importers:
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
+      lz-string:
+        specifier: ^1.5.0
+        version: 1.5.0
       ol:
         specifier: ^10.4.0
         version: 10.4.0

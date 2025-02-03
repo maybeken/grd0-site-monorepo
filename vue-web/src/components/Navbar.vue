@@ -34,6 +34,7 @@ const menuItems = [
   { displayName: 'X', link: 'https://x.com/maybeken0' },
   { displayName: 'Tool - Editor', link: '/blog/editor', hidden: true },
   { displayName: 'Tool - Dot Matrix', link: '/tool/dotmatrix', hidden: true },
+  { displayName: 'Tool - tldraw;', link: '/tool/draw', hidden: true },
 ];
 
 const navigateTo = (url: string) => {
