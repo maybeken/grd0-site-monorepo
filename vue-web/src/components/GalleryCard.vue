@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-2 justify-end p-1 pb-2 rounded-xl bg-shade text-secondary text-sm">
-    <div>
+    <div class="relative">
       <CDNImage
         class="rounded-xl w-full object-cover aspect-square lg:cursor-zoom-in"
         :resolution="768"
@@ -8,6 +8,16 @@
         :uri="$props.image?.filename ? `${$props.image?.collection}/${$props.image?.filename}` : ''"
         @click="zoomImage(`${$props.image?.collection}/${$props.image?.filename}`)"
       ></CDNImage>
+      <div class="lg:hidden absolute right-0 bottom-0 ml-auto">
+        <button
+          class="px-2 mr-px mb-px border border-accent bg-background/75 rounded-xl disabled:brightness-50 disabled:bg-accent/75 disabled:border-secondary"
+          title="Download"
+          :disabled="loading"
+          @click="downloadImage($props.image?.filename ? `${$props.image?.collection}/${$props.image?.filename}` : '')"
+        >
+          <Icon icon="mynaui:cloud-download" height="3rem" />
+        </button>
+      </div>
     </div>
     <div v-if="details?.description || loading" class="px-1">
       <Skeleton h="md" w="full" :loading="loading">
@@ -57,6 +67,8 @@ const details = ref<GalleryDetail>();
 const response = getGalleryDetail($props.image?.collection);
 const gallery_details = response?.data || ref([]);
 
+const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
+
 const $emit = defineEmits<{
   zoom: [uri?: string]
 }>();
@@ -80,5 +92,18 @@ watch(gallery_details, (newVal) => {
 
 function zoomImage(val: string) {
   $emit('zoom', val);
+};
+
+function downloadImage(val: string) {
+  // create element <a> for download PDF
+  const link = document.createElement('a');
+  link.href = `${ASSET_URL}${val}`;
+  link.target = '_blank';
+  link.download = val.split('/').reverse()[0];
+
+  // Simulate a click on the element <a>
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 };
 </script>
