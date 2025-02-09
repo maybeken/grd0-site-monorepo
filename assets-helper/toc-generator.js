@@ -10,6 +10,7 @@ const assets_directory = '../assets';
 const output_directory = '../api/data/files';
 const output_filename = 'files.json';
 const skip_file = ['.DS_Store', output_filename];
+const skip_suffix = ['.zip'];
 
 async function getAllFilesRecursively(directory) {
   let files = [];
@@ -20,10 +21,11 @@ async function getAllFilesRecursively(directory) {
     try {
       const fullPath = path.join(directory, file);
       const relativePath = fullPath.replace(assets_directory, '');
+      const suffix = '.' + file.split('.').reverse()[0];
 
       if (fs.statSync(fullPath).isDirectory()) {
         files = files.concat(await getAllFilesRecursively(fullPath));
-      } else if (!(skip_file.includes(file))) {
+      } else if (!(skip_file.includes(file) || skip_suffix.includes(suffix))) {
         files.push(relativePath)
       }
     } catch (err) {
