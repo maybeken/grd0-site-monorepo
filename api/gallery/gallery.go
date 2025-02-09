@@ -59,12 +59,23 @@ func GetAsset(c echo.Context) error {
 
 	if collection == "all" {
 		filtered := make(schema.AssetFileList)
+		collections, err := data.ReadGalleryCollection()
 
-		for key, values := range asset_list {
+		if err != nil {
+			return err
+		}
+
+		for key, value := range asset_list {
 			// Check if the key starts with the specified prefix
 			if strings.HasPrefix(key, "/gallery") {
-				// Add the key-value pair to the filtered map
-				filtered[key] = values
+
+				// Check if the file is in a publicly listed collection
+				for collection := range collections {
+					if strings.HasPrefix(key, "/gallery/"+collection) {
+						// Add the key-value pair to the filtered map
+						filtered[key] = value
+					}
+				}
 			}
 		}
 
