@@ -1,18 +1,17 @@
 package handler
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
-	"github.com/uptrace/bun"
+	"gorm.io/gorm"
 )
 
 type (
 	Handler struct {
-		DB     *bun.DB
+		DB     *gorm.DB
 		Logger *logrus.Logger
 	}
 )
@@ -46,7 +45,7 @@ func (h *Handler) GetHealthcheck(c echo.Context) error {
 	db := h.DB
 
 	var version string
-	if err := db.NewSelect().ColumnExpr("sqlite_version()").Scan(context.Background(), &version); err != nil {
+	if err := db.Raw("SELECT sqlite_version()").Scan(&version).Error; err != nil {
 		return ErrorResponseConstructor(c, http.StatusInternalServerError, fmt.Sprintf("%s", err))
 	}
 

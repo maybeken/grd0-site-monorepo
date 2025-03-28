@@ -1,27 +1,21 @@
 package schema
 
 import (
-	"context"
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/uptrace/bun"
+	"gorm.io/gorm"
 )
 
 type BaseColumns struct {
-	ID        string    `bun:",type:uuid,pk" json:"id"`
-	CreatedAt time.Time `bun:"$created_at,nullzero,notnull" json:"created_at"`
-	UpdatedAt time.Time `bun:"$updated_at,nullzero,notnull" json:"updated_at"`
+	ID        uuid.UUID      `gorm:"primaryKey" json:"id"`
+	CreatedAt time.Time      `gorm:"autoCreateTime:milli" json:"created_at"`
+	UpdatedAt time.Time      `gorm:"autoUpdateTime:milli" json:"updated_at"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 }
 
-func (u *BaseColumns) BeforeAppendModel(ctx context.Context, query bun.Query) error {
-	switch query.(type) {
-	case *bun.InsertQuery:
-		u.ID = uuid.NewString()
-		u.CreatedAt = time.Now().UTC()
-		u.UpdatedAt = time.Now().UTC()
-	case *bun.UpdateQuery:
-		u.UpdatedAt = time.Now().UTC()
-	}
-	return nil
+func (t *BaseColumns) BeforeCreate(tx *gorm.DB) (err error) {
+	t.ID = uuid.New()
+
+	return
 }

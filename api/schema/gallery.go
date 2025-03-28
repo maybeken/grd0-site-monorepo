@@ -1,11 +1,6 @@
 package schema
 
-import (
-	"github.com/uptrace/bun"
-)
-
 type GalleryDetail struct {
-	bun.BaseModel
 	BaseColumns
 
 	Path         string `json:"path"`
@@ -17,7 +12,6 @@ type GalleryDetail struct {
 type GalleryCollection map[string]GalleryCollectionDetail
 
 type GalleryCollectionDetail struct {
-	bun.BaseModel
 	BaseColumns
 
 	Title string `json:"title,omitempty"`

@@ -17,13 +17,9 @@ func main() {
 	log := utils.InitiateLogger()
 
 	db_path := utils.GetEnvWithFallback("DB_PATH", "data/api.db")
-	database.BackupDatabase(db_path)
 
 	db := database.OpenDatabase(db_path)
-	defer db.Close()
-
-	database.DropTablesIfExists(db) // Dev purpose only!
-	database.CreateTablesIfNotExists(db)
+	database.AutoMigrate(db)
 
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
