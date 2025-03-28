@@ -1,4 +1,4 @@
-package gallery
+package handler
 
 import (
 	"net/http"
@@ -14,7 +14,7 @@ import (
 	"grd0.net/api/schema"
 )
 
-func GetGalleryDetail(c echo.Context) error {
+func (h *Handler) GetGalleryDetail(c echo.Context) error {
 	path := c.Param("path")
 
 	gallery_detail, err := data.ReadGalleryDetail()
@@ -38,7 +38,7 @@ func GetGalleryDetail(c echo.Context) error {
 	return c.JSON(http.StatusBadRequest, "")
 }
 
-func GetGalleryCollection(c echo.Context) error {
+func (h *Handler) GetGalleryCollection(c echo.Context) error {
 	collection, err := data.ReadGalleryCollection()
 
 	if err != nil {
@@ -48,7 +48,7 @@ func GetGalleryCollection(c echo.Context) error {
 	return c.JSON(http.StatusOK, collection)
 }
 
-func GetAsset(c echo.Context) error {
+func (h *Handler) GetAsset(c echo.Context) error {
 	collection := c.Param("collection")
 
 	asset_list, err := data.ReadAsset()

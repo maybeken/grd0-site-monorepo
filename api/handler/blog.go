@@ -1,4 +1,4 @@
-package blog
+package handler
 
 import (
 	"net/http"
@@ -15,7 +15,7 @@ import (
 
 const CONTENT_MAX = 1024
 
-func GetBlog(c echo.Context) error {
+func (h *Handler) GetBlog(c echo.Context) error {
 	uri := c.Param("uri")
 
 	blog_posts, err := data.ReadBlogs()

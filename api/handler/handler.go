@@ -1,0 +1,64 @@
+package handler
+
+import (
+	"context"
+	"fmt"
+	"net/http"
+
+	"github.com/labstack/echo/v4"
+	"github.com/sirupsen/logrus"
+	"github.com/uptrace/bun"
+)
+
+type (
+	Handler struct {
+		DB     *bun.DB
+		Logger *logrus.Logger
+	}
+)
+
+func RegisterRouter(e *echo.Echo, h *Handler) {
+	e.GET("/health", h.GetHealthcheck)
+
+	e.GET("/blog", h.GetBlog)
+	e.GET("/blog/:uri", h.GetBlog)
+
+	e.GET("/gallery/collection", h.GetGalleryCollection)
+	e.GET("/gallery/collection/:path", h.GetGalleryDetail)
+	e.GET("/gallery/:collection", h.GetAsset)
+
+	e.GET("/travel/map", h.GetMapLocation)
+
+	e.GET("/music", h.GetMusic)
+}
+
+type ErrorResponseBody struct {
+	TraceID string `json:"trace_id"`
+	Error   string `json:"error"`
+}
+
+type HealthcheckResponseBody struct {
+	Status        string `json:"status"`
+	SQLiteVersion string `json:"sqlite_version"`
+}
+
+func (h *Handler) GetHealthcheck(c echo.Context) error {
+	db := h.DB
+
+	var version string
+	if err := db.NewSelect().ColumnExpr("sqlite_version()").Scan(context.Background(), &version); err != nil {
+		return ErrorResponseConstructor(c, http.StatusInternalServerError, fmt.Sprintf("%s", err))
+	}
+
+	return c.JSON(http.StatusOK, HealthcheckResponseBody{
+		Status:        "Healthy",
+		SQLiteVersion: version,
+	})
+}
+
+func ErrorResponseConstructor(c echo.Context, status int, message string) error {
+	return c.JSON(status, ErrorResponseBody{
+		TraceID: c.Response().Header().Get(echo.HeaderXRequestID),
+		Error:   fmt.Sprintf("%s", message),
+	})
+}

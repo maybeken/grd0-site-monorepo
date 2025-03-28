@@ -1,4 +1,4 @@
-package music
+package handler
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"grd0.net/api/data"
 )
 
-func GetMusic(c echo.Context) error {
+func (h *Handler) GetMusic(c echo.Context) error {
 	music, err := data.ReadMusic()
 
 	if err != nil {

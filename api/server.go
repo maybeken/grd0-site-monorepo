@@ -1,22 +1,27 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
 	"golang.org/x/time/rate"
+	"grd0.net/api/database"
+	"grd0.net/api/handler"
+	"grd0.net/api/utils"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-
-	"grd0.net/api/blog"
-	"grd0.net/api/gallery"
-	"grd0.net/api/music"
-	"grd0.net/api/traveler_map"
 )
 
 func main() {
+	log := utils.InitiateLogger()
+
+	db := database.OpenDatabase(utils.GetEnvWithFallback("DB_PATH", "api.db"))
+	defer db.Close()
+
+	database.DropTablesIfExists(db) // Dev purpose only!
+	database.CreateTablesIfNotExists(db)
+
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:5173", "https://grd0.net"},
@@ -24,37 +29,12 @@ func main() {
 	}))
 	e.Use(middleware.RequestID())
 
-	skipper := func(c echo.Context) bool {
-		// Skip health check endpoint
-		return c.Request().URL.Path == "/health"
-	}
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
-		LogStatus: true,
-		LogURI:    true,
-		Skipper:   skipper,
-		BeforeNextFunc: func(c echo.Context) {
-			c.Set("customValueFromContext", 42)
-		},
-		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
-			fmt.Printf("REQUEST: uri: %v, status: %v\n", v.URI, v.Status)
-			return nil
-		},
+		LogURI:        true,
+		LogStatus:     true,
+		Skipper:       utils.EchoLogSkipper,
+		LogValuesFunc: utils.EchoLogValueFunc,
 	}))
-
-	e.GET("/health", func(c echo.Context) error {
-		return c.String(http.StatusOK, "healthy")
-	})
-
-	e.GET("/blog", blog.GetBlog)
-	e.GET("/blog/:uri", blog.GetBlog)
-
-	e.GET("/gallery/collection", gallery.GetGalleryCollection)
-	e.GET("/gallery/collection/:path", gallery.GetGalleryDetail)
-	e.GET("/gallery/:collection", gallery.GetAsset)
-
-	e.GET("/travel/map", traveler_map.GetMapLocation)
-
-	e.GET("/music", music.GetMusic)
 
 	rateLimitConfig := middleware.RateLimiterConfig{
 		Store: middleware.NewRateLimiterMemoryStoreWithConfig(
@@ -76,6 +56,9 @@ func main() {
 	e.Use(middleware.GzipWithConfig(middleware.GzipConfig{
 		Level: 5,
 	}))
+
+	h := &handler.Handler{DB: db, Logger: log}
+	handler.RegisterRouter(e, h)
 
 	e.Logger.Fatal(e.Start(":80"))
 }

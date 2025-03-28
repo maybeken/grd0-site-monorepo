@@ -1,9 +1,16 @@
 package schema
 
+import (
+	"github.com/uptrace/bun"
+)
+
 type GeoLocation struct {
 }
 
 type MapLocation struct {
+	bun.BaseModel
+	BaseColumns
+
 	Title     string    `json:"title"`
 	Subtitle  string    `json:"subtitle,omitempty"`
 	Icon      string    `json:"icon"`

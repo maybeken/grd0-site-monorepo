@@ -1,4 +1,4 @@
-package traveler_map
+package handler
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"grd0.net/api/data"
 )
 
-func GetMapLocation(c echo.Context) error {
+func (h *Handler) GetMapLocation(c echo.Context) error {
 	map_loc, err := data.ReadMapLocation()
 
 	if err != nil {
