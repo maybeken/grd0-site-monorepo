@@ -3,7 +3,6 @@ module grd0.net/api
 go 1.22
 
 require (
-	github.com/aws/aws-lambda-go v1.47.0
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/thoas/go-funk v0.9.3
 	golang.org/x/time v0.9.0
