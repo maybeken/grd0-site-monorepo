@@ -16,7 +16,10 @@ import (
 func main() {
 	log := utils.InitiateLogger()
 
-	db := database.OpenDatabase(utils.GetEnvWithFallback("DB_PATH", "api.db"))
+	db_path := utils.GetEnvWithFallback("DB_PATH", "data/api.db")
+	database.BackupDatabase(db_path)
+
+	db := database.OpenDatabase(db_path)
 	defer db.Close()
 
 	database.DropTablesIfExists(db) // Dev purpose only!

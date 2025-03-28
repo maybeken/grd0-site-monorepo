@@ -3,8 +3,10 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/oiime/logrusbun"
 	"github.com/sirupsen/logrus"
@@ -56,4 +58,49 @@ func OpenDatabase(path string) *bun.DB {
 	db.AddQueryHook(logrusbun.NewQueryHook(logrusbun.QueryHookOptions{QueryLevel: logrus.DebugLevel, ErrorLevel: logrus.ErrorLevel, Logger: log}))
 
 	return db
+}
+
+func BackupDatabase(path string) {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		return
+	} else {
+		max_try := 1
+		origin_name := filepath.Base(path)
+
+		for i := range max_try {
+			new_name := fmt.Sprintf("%s.%d.db", strings.TrimSuffix(origin_name, ".db"), i+1)
+			new_path := filepath.Join(filepath.Dir(path), new_name)
+
+			// if _, err := os.Stat(new_path); os.IsExist(err) {
+			// 	continue
+			// }
+
+			copyFile(path, new_path)
+			break
+		}
+	}
+}
+
+func copyFile(src, dst string) error {
+	// Open the source file
+	sourceFile, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer sourceFile.Close()
+
+	// Create the destination file
+	destinationFile, err := os.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer destinationFile.Close()
+
+	// Copy the contents from the source file to the destination file
+	_, err = io.Copy(destinationFile, sourceFile)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
