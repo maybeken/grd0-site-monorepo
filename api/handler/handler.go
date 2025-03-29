@@ -16,8 +16,13 @@ type (
 	}
 )
 
-func RegisterRouter(e *echo.Echo, h *Handler) {
+func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	e.GET("/health", h.GetHealthcheck)
+
+	r := e.Group("")
+	r.Use(auth_guard)
+
+	e.POST("/login", h.Login)
 
 	e.GET("/blog", h.GetBlog)
 	e.GET("/blog/:uri", h.GetBlog)

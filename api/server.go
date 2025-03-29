@@ -11,6 +11,9 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	"github.com/golang-jwt/jwt/v5"
+	echojwt "github.com/labstack/echo-jwt/v4"
 )
 
 func main() {
@@ -57,7 +60,12 @@ func main() {
 	}))
 
 	h := &handler.Handler{DB: db, Logger: log}
-	handler.RegisterRouter(e, h)
+	handler.RegisterRouter(e, h, echojwt.WithConfig(echojwt.Config{
+		NewClaimsFunc: func(c echo.Context) jwt.Claims {
+			return new(handler.JwtCustomClaims)
+		},
+		SigningKey: []byte(utils.GetEnv("JWT_SECRET")),
+	}))
 
 	e.Logger.Fatal(e.Start(":80"))
 }
