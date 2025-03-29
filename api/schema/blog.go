@@ -3,14 +3,14 @@ package schema
 type Author struct {
 	BaseColumns
 
-	Email       string `json:"email"`
+	Email       string `gorm:"uniqueIndex" json:"email"`
 	DisplayName string `json:"display_name"`
 }
 
 type Blog struct {
 	BaseColumns
 
-	Uri         string `gorm:",notnull" json:"uri"`
+	Uri         string `gorm:"uniqueIndex" json:"uri"`
 	AuthorID    string `gorm:",notnull" json:"author_id"`
 	Author      Author `json:"author"`
 	Title       string `json:"title"`

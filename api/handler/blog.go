@@ -1,14 +1,13 @@
 package handler
 
 import (
+	"errors"
 	"net/http"
 	"time"
 
 	"github.com/labstack/echo/v4"
-
 	"github.com/thoas/go-funk"
-
-	"grd0.net/api/data"
+	"gorm.io/gorm"
 
 	"grd0.net/api/schema"
 )
@@ -18,23 +17,23 @@ const CONTENT_MAX = 1024
 func (h *Handler) GetBlog(c echo.Context) error {
 	uri := c.Param("uri")
 
-	blog_posts, err := data.ReadBlogs()
-
-	if err != nil {
-		return err
-	}
+	db := h.DB
 
 	if uri != "" {
-		blog_posts = funk.Filter(blog_posts, func(post schema.Blog) bool {
-			return post.Uri == uri
-		}).([]schema.Blog)
+		post := schema.Blog{
+			Uri: uri,
+		}
+		error := db.Where(&post).Preload("Author").Take(&post).Error
 
-		if len(blog_posts) > 0 {
-			return c.JSON(http.StatusOK, blog_posts[0])
+		if errors.Is(error, gorm.ErrRecordNotFound) {
+			return c.JSON(http.StatusNotFound, "")
 		}
 
-		return c.JSON(http.StatusNotFound, "")
+		return c.JSON(http.StatusOK, post)
 	}
+
+	var blog_posts []schema.Blog
+	db.Where("published_at <= ?", time.Now()).Preload("Author").Find(&blog_posts)
 
 	blog_posts = funk.Map(blog_posts, func(post schema.Blog) schema.Blog {
 		if len(post.Content) > CONTENT_MAX {
@@ -45,15 +44,31 @@ func (h *Handler) GetBlog(c echo.Context) error {
 		return post
 	}).([]schema.Blog)
 
-	blog_posts = funk.Filter(blog_posts, func(post schema.Blog) bool {
-		publish_time, err := time.Parse(time.RFC3339, post.PublishedAt)
-
-		if err != nil {
-			return false
-		}
-
-		return publish_time.Before(time.Now())
-	}).([]schema.Blog)
-
 	return c.JSON(http.StatusOK, blog_posts)
+}
+
+func (h *Handler) UpsertBlog(c echo.Context) error {
+	uri := c.Param("uri")
+
+	db := h.DB
+
+	var post schema.Blog
+	if err := c.Bind(&post); err != nil {
+		return ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
+	}
+
+	existing_post := schema.Blog{
+		Uri: uri,
+	}
+	error := db.Select("id").Where(&existing_post).Take(&existing_post).Error
+
+	if errors.Is(error, gorm.ErrRecordNotFound) {
+		post.Uri = uri
+		db.Create(&post)
+	} else {
+		id := existing_post.ID
+		db.Model(schema.Blog{}).Where("id = ?", id).Updates(&post)
+	}
+
+	return c.JSON(http.StatusOK, nil)
 }

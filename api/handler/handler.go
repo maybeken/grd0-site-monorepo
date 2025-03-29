@@ -26,6 +26,7 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 
 	e.GET("/blog", h.GetBlog)
 	e.GET("/blog/:uri", h.GetBlog)
+	r.PUT("/blog/:uri", h.UpsertBlog)
 
 	e.GET("/gallery/collection", h.GetGalleryCollection)
 	e.GET("/gallery/collection/:path", h.GetGalleryDetail)
