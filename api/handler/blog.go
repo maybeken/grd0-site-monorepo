@@ -33,7 +33,7 @@ func (h *Handler) GetBlog(c echo.Context) error {
 	}
 
 	var blog_posts []schema.Blog
-	db.Where("published_at <= ?", time.Now()).Preload("Author").Find(&blog_posts)
+	db.Where("published_at <= ?", time.Now()).Preload("Author").Order("published_at").Find(&blog_posts)
 
 	blog_posts = funk.Map(blog_posts, func(post schema.Blog) schema.Blog {
 		if len(post.Content) > CONTENT_MAX {
