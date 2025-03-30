@@ -6,6 +6,8 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
+	"github.com/markbates/goth/gothic"
+
 	"grd0.net/api/utils"
 )
 
@@ -14,19 +16,45 @@ type JwtCustomClaims struct {
 	jwt.RegisteredClaims
 }
 
+func (h *Handler) Login(c echo.Context) error {
+	q := c.Request().URL.Query()
+	q.Add("provider", "nextcloud")
+	c.Request().URL.RawQuery = q.Encode()
+
+	req := c.Request()
+	res := c.Response().Writer
+	if gothUser, err := gothic.CompleteUserAuth(res, req); err == nil {
+		return c.JSON(http.StatusOK, gothUser)
+	}
+	gothic.BeginAuthHandler(res, req)
+	return nil
+}
+
 type LoginResponseBody struct {
 	Token     string    `json:"token"`
 	ExpiresAt time.Time `json:"expires_at"`
 }
 
-func (h *Handler) Login(c echo.Context) error {
+func (h *Handler) LoginCallback(c echo.Context) error {
+	req := c.Request()
+	res := c.Response().Writer
+	user, err := gothic.CompleteUserAuth(res, req)
+	if err != nil {
+		return c.String(http.StatusBadRequest, err.Error())
+	}
+
+	email := user.Email
+	issuer := user.Provider
+
+	h.Logger.Infof("Authentication from %s for %s", issuer, email)
+
 	expires_at := time.Now().Add(time.Hour * 72)
 
 	// Set custom claims
 	claims := &JwtCustomClaims{
-		"ken.lam@grd0.net",
+		email,
 		jwt.RegisteredClaims{
-			Issuer:    "api.grd0.net",
+			Issuer:    issuer,
 			NotBefore: jwt.NewNumericDate(time.Now()),
 			ExpiresAt: jwt.NewNumericDate(expires_at),
 		},

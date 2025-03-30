@@ -12,6 +12,9 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
+	"github.com/markbates/goth"
+	"github.com/markbates/goth/providers/nextcloud"
+
 	"github.com/golang-jwt/jwt/v5"
 	echojwt "github.com/labstack/echo-jwt/v4"
 )
@@ -23,6 +26,10 @@ func main() {
 
 	db := database.OpenDatabase(db_path)
 	database.AutoMigrate(db)
+
+	goth.UseProviders(
+		nextcloud.NewCustomisedDNS(utils.GetEnv("NEXTCLOUD_CLIENT_KEY"), utils.GetEnv("NEXTCLOUD_CLIENT_SECRET"), "https://api.grd0.net/auth/callback", utils.GetEnv("NEXTCLOUD_URL")),
+	)
 
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
