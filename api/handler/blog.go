@@ -56,6 +56,7 @@ func (h *Handler) UpsertBlog(c echo.Context) error {
 	if err := c.Bind(&post); err != nil {
 		return ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
 	}
+	post.Uri = uri
 
 	existing_post := schema.Blog{
 		Uri: uri,
@@ -63,12 +64,11 @@ func (h *Handler) UpsertBlog(c echo.Context) error {
 	error := db.Select("id").Where(&existing_post).Take(&existing_post).Error
 
 	if errors.Is(error, gorm.ErrRecordNotFound) {
-		post.Uri = uri
 		db.Create(&post)
 	} else {
 		id := existing_post.ID
 		db.Model(schema.Blog{}).Where("id = ?", id).Updates(&post)
 	}
 
-	return c.JSON(http.StatusOK, nil)
+	return c.JSON(http.StatusOK, &post)
 }
