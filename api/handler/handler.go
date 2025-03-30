@@ -35,6 +35,7 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	e.GET("/travel/map", h.GetMapLocation)
 
 	e.GET("/music", h.GetMusic)
+	r.POST("/music", h.AddMusic)
 }
 
 type ErrorResponseBody struct {
