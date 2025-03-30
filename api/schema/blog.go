@@ -11,7 +11,7 @@ type Blog struct {
 	BaseColumns
 
 	Uri         string `gorm:"uniqueIndex" json:"uri"`
-	AuthorID    string `gorm:",notnull" json:"author_id"`
+	AuthorID    string `gorm:",notnull" json:"-"`
 	Author      Author `json:"author"`
 	Title       string `json:"title"`
 	SubTitle    string `json:"subtitle"`
