@@ -1,5 +1,9 @@
 package schema
 
+import (
+	"github.com/google/uuid"
+)
+
 type Author struct {
 	BaseColumns
 
@@ -10,11 +14,11 @@ type Author struct {
 type Blog struct {
 	BaseColumns
 
-	Uri         string `gorm:"uniqueIndex" json:"uri"`
-	AuthorID    string `gorm:",notnull" json:"-"`
-	Author      Author `json:"author"`
-	Title       string `json:"title"`
-	SubTitle    string `json:"subtitle"`
-	Content     string `json:"content"`
-	PublishedAt string `json:"published_at"`
+	Uri         string    `gorm:"uniqueIndex" json:"uri"`
+	AuthorID    uuid.UUID `gorm:",notnull" json:"-"`
+	Author      Author    `json:"author"`
+	Title       string    `json:"title"`
+	SubTitle    string    `json:"subtitle"`
+	Content     string    `json:"content"`
+	PublishedAt string    `json:"published_at"`
 }
