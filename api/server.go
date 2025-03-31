@@ -27,6 +27,7 @@ func main() {
 	db := database.OpenDatabase(db_path)
 	database.AutoMigrate(db)
 
+	// TODO: Migrate to egothic
 	goth.UseProviders(
 		nextcloud.NewCustomisedDNS(utils.GetEnv("NEXTCLOUD_CLIENT_KEY"), utils.GetEnv("NEXTCLOUD_CLIENT_SECRET"), "https://api.grd0.net/auth/callback", utils.GetEnv("NEXTCLOUD_URL")),
 	)
@@ -34,7 +35,7 @@ func main() {
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:5173", "https://grd0.net"},
-		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization},
 	}))
 	e.Use(middleware.RequestID())
 
