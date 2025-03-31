@@ -35,7 +35,40 @@ func (h *Handler) GetBlog(c echo.Context) error {
 	}
 
 	var blog_posts []schema.Blog
-	db.Where("published_at <= ?", time.Now()).Preload("Author").Order("published_at").Find(&blog_posts)
+	db.Where("published_at NOT NULL AND published_at <= ?", time.Now()).Preload("Author").Order("published_at").Find(&blog_posts)
+
+	blog_posts = funk.Map(blog_posts, func(post schema.Blog) schema.Blog {
+		if len(post.Content) > CONTENT_MAX {
+			post.Content = post.Content[0:CONTENT_MAX]
+			post.Content = post.Content + "..."
+		}
+
+		return post
+	}).([]schema.Blog)
+
+	return c.JSON(http.StatusOK, blog_posts)
+}
+
+func (h *Handler) GetBlogByAdmin(c echo.Context) error {
+	uri := c.Param("uri")
+
+	db := h.DB
+
+	if uri != "" {
+		post := schema.Blog{
+			Uri: uri,
+		}
+		error := db.Where(&post).Preload("Author").Take(&post).Error
+
+		if errors.Is(error, gorm.ErrRecordNotFound) {
+			return c.JSON(http.StatusNotFound, "")
+		}
+
+		return c.JSON(http.StatusOK, post)
+	}
+
+	var blog_posts []schema.Blog
+	db.Preload("Author").Order("updated_at").Find(&blog_posts)
 
 	blog_posts = funk.Map(blog_posts, func(post schema.Blog) schema.Blog {
 		if len(post.Content) > CONTENT_MAX {
