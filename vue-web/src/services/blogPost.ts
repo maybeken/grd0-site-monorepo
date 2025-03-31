@@ -34,4 +34,22 @@ function getBlogPost(uri: string): {loading: Ref<boolean, boolean>, data: Ref<Bl
   }
 }
 
-export { listBlogPostRaw, listBlogPost, getBlogPostRaw, getBlogPost };
+function listBlogPostAdminRaw() {
+  return dataInstance.Get<BlogPost[]>('/blog/all', {
+    headers: {
+      "Authorization": `Bearer ${sessionStorage.getItem("jwt_token")}` || undefined,
+    },
+  });
+}
+
+function listBlogPostAdmin(): {loading: Ref<boolean, boolean>, data: Ref<BlogPost[]>} {
+  try {
+    const { loading, data } = useRequest(listBlogPostAdminRaw());
+
+    return { loading, data };
+  } catch(error: unknown) {
+    throw error;
+  }
+}
+
+export { listBlogPostRaw, listBlogPostAdmin, listBlogPost, getBlogPostRaw, getBlogPost };

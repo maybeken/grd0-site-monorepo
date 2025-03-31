@@ -16,10 +16,10 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
-import { listBlogPost } from '@/services/blogPost';
+import { listBlogPostAdmin } from '@/services/blogPost';
 import SideBySideEditor from '@/components/editor/SideBySideEditor.vue';
 
-const response = listBlogPost();
+const response = listBlogPostAdmin();
 const articles = response?.data;
 const columns = {
   title: {
