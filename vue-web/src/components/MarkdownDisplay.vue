@@ -20,6 +20,7 @@ import { generateResizedSrc, generateSrcset } from '@/helpers/cdn';
 
 interface Props {
   md: string,
+  lazy_loading: boolean,
 };
 
 const $props = defineProps<Props>();
@@ -38,7 +39,6 @@ const parse2HTML = async (content: string) => {
       if (!url.url.includes('//') && url?.node?.properties?.src) {
         url.node.properties.src = generateResizedSrc(url.url, 1024);
         url.node.properties.srcset = generateSrcset(url.url, 75);
-        url.node.properties.loading = 'lazy';
       }
 
       return url;
@@ -47,10 +47,15 @@ const parse2HTML = async (content: string) => {
       "img[src]",
     ]
   })
-  .use(rehypeSanitize)
-  // @ts-expect-error: TS function overloading issue with upstream plugin
-  .use(lazyLoadPlugin)
-  .use(rehypeStringify);
+  .use(rehypeSanitize);
+
+  if ($props.lazy_loading != false) {
+    processor
+      // @ts-expect-error: TS function overloading issue with upstream plugin
+    .use(lazyLoadPlugin)
+  }
+
+  processor.use(rehypeStringify);
 
   const html = processor.processSync(content);
 

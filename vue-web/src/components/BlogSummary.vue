@@ -27,7 +27,7 @@
 
       <div class="content px-2 py-2 text-justify max-h-[66vh] overflow-hidden">
         <Skeleton h="md" w="full" :loading="loading">
-          <MarkdownDisplay :md="$props?.content"></MarkdownDisplay>
+          <MarkdownDisplay :md="$props?.content" :lazy_loading="false"></MarkdownDisplay>
         </Skeleton>
       </div>
 
