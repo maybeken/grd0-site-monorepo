@@ -150,15 +150,17 @@ func (h *Handler) GetAsset(c echo.Context) error {
 	asset_list, err := data.ReadAsset()
 
 	if err != nil {
-		return err
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 	}
+
+	db := h.DB
 
 	if collection == "all" {
 		filtered := make(schema.AssetFileList)
-		collections, err := data.ReadGalleryCollection()
 
-		if err != nil {
-			return err
+		var collections []schema.GalleryCollectionDetail
+		if err := db.Find(&collections).Error; err != nil {
+			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 		}
 
 		for key, value := range asset_list {
@@ -166,8 +168,8 @@ func (h *Handler) GetAsset(c echo.Context) error {
 			if strings.HasPrefix(key, "/gallery") {
 
 				// Check if the file is in a publicly listed collection
-				for collection := range collections {
-					if strings.HasPrefix(key, "/gallery/"+collection) {
+				for _, collection := range collections {
+					if strings.HasPrefix(key, "/gallery/"+collection.Path) {
 						// Add the key-value pair to the filtered map
 						filtered[key] = value
 					}
