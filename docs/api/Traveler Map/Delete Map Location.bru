@@ -1,0 +1,32 @@
+meta {
+  name: Delete Map Location
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/travel/map/:slug
+  body: none
+  auth: bearer
+}
+
+params:path {
+  slug: I%20am%20Here
+}
+
+auth:bearer {
+  token: {{jwt_token}}
+}
+
+body:json {
+  {
+    "title": "I am Here",
+    "subtitle": "New Zealand",
+    "icon": "mynaui:location-user",
+    "color": "blue",
+    "pos": [
+      -45.04620545332485,
+      169.19502661886494
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+meta {
+  name: Upsert Music
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/music
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{jwt_token}}
+}
+
+body:json {
+  {
+    "title": "Give Life Back to Music",
+    "artist": "Daft Punk",
+    "v": "zKSsP2084nU",
+    "description": "Music bring us to life. Give life back to music.",
+    "sorting": 10
+  }
+}
