@@ -58,16 +58,12 @@ func (h *Handler) UpsertBlog(c echo.Context) error {
 	}
 	post.Uri = uri
 
-	existing_post := schema.Blog{
-		Uri: uri,
-	}
-	error := db.Select("id").Where(&existing_post).Take(&existing_post).Error
-
-	if errors.Is(error, gorm.ErrRecordNotFound) {
-		db.Create(&post)
-	} else {
-		id := existing_post.ID
-		db.Model(schema.Blog{}).Where("id = ?", id).Updates(&post)
+	if err := db.Create(&post).Error; errors.Is(err, gorm.ErrDuplicatedKey) {
+		if err := db.Model(schema.Blog{}).Where("uri = ?", post.Uri).Updates(&post).Error; err != nil {
+			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+		}
+	} else if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, &post)
