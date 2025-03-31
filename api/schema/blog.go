@@ -1,6 +1,8 @@
 package schema
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 )
 
@@ -20,5 +22,5 @@ type Blog struct {
 	Title       string    `json:"title"`
 	SubTitle    string    `json:"subtitle"`
 	Content     string    `json:"content"`
-	PublishedAt string    `json:"published_at"`
+	PublishedAt time.Time `gorm:"default:null" json:"published_at"`
 }
