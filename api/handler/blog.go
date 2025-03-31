@@ -2,12 +2,14 @@ package handler
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/thoas/go-funk"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 
 	"grd0.net/api/schema"
 )
@@ -58,8 +60,17 @@ func (h *Handler) UpsertBlog(c echo.Context) error {
 	}
 	post.Uri = uri
 
-	if err := db.Create(&post).Error; errors.Is(err, gorm.ErrDuplicatedKey) {
-		if err := db.Model(schema.Blog{}).Where("uri = ?", post.Uri).Updates(&post).Error; err != nil {
+	var author schema.Author
+	if err := db.Where("email = ?", post.Author.Email).First(&author).Error; errors.Is(err, gorm.ErrRecordNotFound) {
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, fmt.Sprintf("Author %s not found", post.Author.Email))
+	} else if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+	post.AuthorID = author.ID
+	post.Author = author
+
+	if err := db.Omit(clause.Associations).Create(&post).Error; errors.Is(err, gorm.ErrDuplicatedKey) {
+		if err := db.Omit(clause.Associations).Model(schema.Blog{}).Where("uri = ?", post.Uri).Updates(&post).Error; err != nil {
 			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 		}
 	} else if err != nil {
