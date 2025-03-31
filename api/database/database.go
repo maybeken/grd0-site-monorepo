@@ -40,7 +40,8 @@ func OpenDatabase(path string) *gorm.DB {
 	}
 
 	db, err := gorm.Open(sqlite.Open(path), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
+		Logger:         logger.Default.LogMode(logger.Info),
+		TranslateError: true,
 	})
 	if err != nil {
 		panic(err)
