@@ -1,0 +1,28 @@
+meta {
+  name: Upsert Map Location
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/travel/map
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{jwt_token}}
+}
+
+body:json {
+  {
+    "title": "I am Here",
+    "subtitle": "New Zealand",
+    "icon": "mynaui:location-user",
+    "color": "blue",
+    "pos": [
+      -45.04620545332485,
+      169.19502661886494
+    ]
+  }
+}
