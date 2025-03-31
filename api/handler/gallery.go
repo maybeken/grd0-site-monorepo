@@ -19,25 +19,71 @@ import (
 func (h *Handler) GetGalleryDetail(c echo.Context) error {
 	path := c.Param("path")
 
-	gallery_detail, err := data.ReadGalleryDetail()
+	if path == "" {
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "")
+	}
+
+	db := h.DB
+
+	var gallery_detail []schema.GalleryDetail
+	if err := db.Where("path = ?", path).Find(&gallery_detail).Error; err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, gallery_detail)
+}
+
+func (h *Handler) UpsertGalleryDetail(c echo.Context) error {
+	path := c.Param("path")
+
+	if path == "" {
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "")
+	}
+
+	db := h.DB
+
+	var gallery_detail schema.GalleryDetail
+	if err := c.Bind(&gallery_detail); err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
+	}
+	gallery_detail.Path = path
+
+	if err := db.Create(&gallery_detail).Error; errors.Is(err, gorm.ErrDuplicatedKey) {
+		if err := db.Unscoped().Model(schema.GalleryDetail{}).Where("path = ? AND filename = ?", path, gallery_detail.Filename).Updates(&gallery_detail).Update("deleted_at", nil).Error; err != nil {
+			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+		}
+	} else if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, &gallery_detail)
+}
+
+func (h *Handler) DeleteGalleryDetail(c echo.Context) error {
+	path := c.Param("path")
+
+	var gallery_detail schema.GalleryDetail
+	if err := c.Bind(&gallery_detail); err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
+	}
+
+	if path == "" || gallery_detail.Filename == "" {
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "")
+	}
+
+	db := h.DB
+
+	res := db.Where("path = ? AND filename = ?", path, gallery_detail.Filename).Delete(&schema.GalleryDetail{})
+	row_count := res.RowsAffected
+	err := res.Error
 
 	if err != nil {
-		return err
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	} else if row_count <= 0 {
+		return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
 	}
 
-	if path != "" {
-		gallery_detail = funk.Filter(gallery_detail, func(post schema.GalleryDetail) bool {
-			return post.Path == path
-		}).([]schema.GalleryDetail)
-
-		if len(gallery_detail) > 0 {
-			return c.JSON(http.StatusOK, gallery_detail)
-		}
-
-		return c.JSON(http.StatusNotFound, "")
-	}
-
-	return c.JSON(http.StatusBadRequest, "")
+	return c.JSON(http.StatusAccepted, nil)
 }
 
 func (h *Handler) GetGalleryCollection(c echo.Context) error {

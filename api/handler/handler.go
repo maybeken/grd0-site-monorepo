@@ -34,6 +34,8 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	r.PUT("/blog/:uri", h.UpsertBlog)
 
 	e.GET("/gallery/details/:path", h.GetGalleryDetail)
+	r.PUT("/gallery/details/:path", h.UpsertGalleryDetail)
+	r.DELETE("/gallery/details/:path", h.DeleteGalleryDetail)
 
 	e.GET("/gallery/collection", h.GetGalleryCollection)
 	r.PUT("/gallery/collection", h.UpsertGalleryCollection)

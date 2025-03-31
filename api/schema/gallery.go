@@ -3,8 +3,8 @@ package schema
 type GalleryDetail struct {
 	BaseColumns
 
-	Path         string `json:"path"`
-	Filename     string `json:"filename"`
+	Path         string `gorm:"index:,unique,composite:filepath" json:"path"`
+	Filename     string `gorm:"index:,unique,composite:filepath" json:"filename"`
 	TzAdjustment int8   `json:"tz_adjustment,omitempty"`
 	Description  string `json:"description,omitempty"`
 }
