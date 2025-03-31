@@ -1,10 +1,11 @@
 package database
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
-	"gorm.io/driver/sqlite"
+	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
@@ -39,7 +40,7 @@ func OpenDatabase(path string) *gorm.DB {
 		panic(err)
 	}
 
-	db, err := gorm.Open(sqlite.Open(path), &gorm.Config{
+	db, err := gorm.Open(sqlite.Open(fmt.Sprintf("%s?_pragma=foreign_keys(1)", path)), &gorm.Config{
 		Logger:         logger.Default.LogMode(logger.Info),
 		TranslateError: true,
 	})
