@@ -79,3 +79,21 @@ func (h *Handler) UpsertBlog(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, &post)
 }
+
+func (h *Handler) DeleteBlog(c echo.Context) error {
+	uri := c.Param("uri")
+
+	db := h.DB
+
+	res := db.Model(schema.Blog{}).Where("uri = ?", uri).Update("published_at", nil)
+	err := res.Error
+	row_count := res.RowsAffected
+
+	if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	} else if row_count <= 0 {
+		return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
+	}
+
+	return c.JSON(http.StatusOK, uri)
+}
