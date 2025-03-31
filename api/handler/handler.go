@@ -46,6 +46,8 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	e.GET("/gallery/:collection", h.GetAsset)
 
 	e.GET("/travel/map", h.GetMapLocation)
+	r.PUT("/travel/map", h.UpsertMapLocation)
+	r.DELETE("/travel/map/:slug", h.DeleteMapLocation)
 
 	e.GET("/music", h.GetMusic)
 	r.PUT("/music", h.UpsertMusic)
