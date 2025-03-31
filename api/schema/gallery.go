@@ -14,6 +14,7 @@ type GalleryCollection map[string]GalleryCollectionDetail
 type GalleryCollectionDetail struct {
 	BaseColumns
 
+	Path  string `gorm:"uniqueIndex" json:"path,omitempty"`
 	Title string `json:"title,omitempty"`
 	Cover string `json:"cover,omitempty"`
 }

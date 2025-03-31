@@ -1,11 +1,13 @@
 package handler
 
 import (
+	"errors"
 	"net/http"
 	"sort"
 	"strings"
 
 	"github.com/labstack/echo/v4"
+	"gorm.io/gorm"
 
 	"github.com/thoas/go-funk"
 
@@ -39,13 +41,61 @@ func (h *Handler) GetGalleryDetail(c echo.Context) error {
 }
 
 func (h *Handler) GetGalleryCollection(c echo.Context) error {
-	collection, err := data.ReadGalleryCollection()
+	db := h.DB
 
-	if err != nil {
-		return err
+	var collections []schema.GalleryCollectionDetail
+
+	if err := db.Order("updated_at DESC").Find(&collections).Error; err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, collection)
+	collection_by_key := make(schema.GalleryCollection, len(collections))
+
+	for _, collection := range collections {
+		modified_collection := collection
+		modified_collection.Path = ""
+
+		collection_by_key[collection.Path] = modified_collection
+	}
+
+	return c.JSON(http.StatusOK, collection_by_key)
+}
+
+func (h *Handler) UpsertGalleryCollection(c echo.Context) error {
+	db := h.DB
+
+	var collection schema.GalleryCollectionDetail
+	if err := c.Bind(&collection); err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
+	}
+
+	if err := db.Create(&collection).Error; errors.Is(err, gorm.ErrDuplicatedKey) {
+		if err := db.Unscoped().Model(schema.GalleryCollectionDetail{}).Where("path = ?", collection.Path).Updates(&collection).Update("deleted_at", nil).Error; err != nil {
+			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+		}
+	} else if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, &collection)
+}
+
+func (h *Handler) DeleteGalleryCollection(c echo.Context) error {
+	path := c.Param("path")
+
+	db := h.DB
+
+	res := db.Where("path = ?", path).Delete(&schema.GalleryCollectionDetail{})
+	row_count := res.RowsAffected
+	err := res.Error
+
+	if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	} else if row_count <= 0 {
+		return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
+	}
+
+	return c.JSON(http.StatusAccepted, nil)
 }
 
 func (h *Handler) GetAsset(c echo.Context) error {
