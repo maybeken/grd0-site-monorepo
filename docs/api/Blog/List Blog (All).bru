@@ -1,0 +1,15 @@
+meta {
+  name: List Blog (All)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/blog/all
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{jwt_token}}
+}

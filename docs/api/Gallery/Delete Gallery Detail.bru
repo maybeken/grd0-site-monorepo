@@ -1,0 +1,25 @@
+meta {
+  name: Delete Gallery Detail
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{baseUrl}}/gallery/details/:path
+  body: json
+  auth: bearer
+}
+
+params:path {
+  path: /gallery/new zealand
+}
+
+auth:bearer {
+  token: {{jwt_token}}
+}
+
+body:json {
+  {
+    "filename": "DSC01000.jpg"
+  }
+}

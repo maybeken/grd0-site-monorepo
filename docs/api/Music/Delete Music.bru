@@ -1,0 +1,19 @@
+meta {
+  name: Delete Music
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/music/:v
+  body: none
+  auth: bearer
+}
+
+params:path {
+  v: zKSsP2084nU
+}
+
+auth:bearer {
+  token: {{jwt_token}}
+}

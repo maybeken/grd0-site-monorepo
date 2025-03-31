@@ -1,0 +1,22 @@
+meta {
+  name: Upsert Gallery Collection
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/gallery/collection
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{jwt_token}}
+}
+
+body:json {
+  {
+    "path": "taiwan roadtrip 2024",
+    "title": "Taiwan Roadtrip @ 2024"
+  }
+}
