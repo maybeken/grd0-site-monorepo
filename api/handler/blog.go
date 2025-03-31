@@ -54,7 +54,7 @@ func (h *Handler) UpsertBlog(c echo.Context) error {
 
 	var post schema.Blog
 	if err := c.Bind(&post); err != nil {
-		return ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
 	}
 	post.Uri = uri
 

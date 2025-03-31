@@ -58,7 +58,7 @@ func (h *Handler) GetHealthcheck(c echo.Context) error {
 
 	var version string
 	if err := db.Raw("SELECT sqlite_version()").Scan(&version).Error; err != nil {
-		return ErrorResponseConstructor(c, http.StatusInternalServerError, fmt.Sprintf("%s", err))
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, fmt.Sprintf("%s", err))
 	}
 
 	return c.JSON(http.StatusOK, HealthcheckResponseBody{
@@ -67,7 +67,7 @@ func (h *Handler) GetHealthcheck(c echo.Context) error {
 	})
 }
 
-func ErrorResponseConstructor(c echo.Context, status int, message string) error {
+func (h *Handler) ErrorResponseConstructor(c echo.Context, status int, message string) error {
 	return c.JSON(status, ErrorResponseBody{
 		TraceID: c.Response().Header().Get(echo.HeaderXRequestID),
 		Error:   fmt.Sprintf("%s", message),

@@ -22,7 +22,7 @@ func (h *Handler) AddMusic(c echo.Context) error {
 
 	var music schema.Music
 	if err := c.Bind(&music); err != nil {
-		return ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
 	}
 
 	db.Create(&music)
