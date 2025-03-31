@@ -36,7 +36,7 @@
         <router-link :to="`/blog/${$props?.uri}`">
           <div class="flex flex-col-reverse h-28 w-full hover:cursor-pointer hover:underline">
             <div class="mx-auto my-8">
-              <p class="text-2xl">Continue to Read</p>
+              <p class="text-xl">Continue to Read</p>
             </div>
           </div>
         </router-link>

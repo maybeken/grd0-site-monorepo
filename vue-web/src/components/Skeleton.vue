@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="rounded-full overflow-hidden bg-linear-to-r from-accent via-secondary to-accent blur-xs" :class="[h_options[h], w_options[w]]">
-    <div class="bg-linear-to-r from-secondary to-accent rounded-full h-full w-full motion-translate-x-loop-100 motion-duration-1000 motion-ease-spring-smooth"></div>
+    <div class="bg-linear-to-r from-secondary to-accent h-full w-full motion-translate-x-loop-100/reset motion-duration-2500 motion-ease-spring-smooth"></div>
   </div>
   <slot v-else />
 </template>
