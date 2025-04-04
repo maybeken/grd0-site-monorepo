@@ -1,14 +1,14 @@
 <template>
   <img
     class="bg-secondary"
-    :src="uri ? `${ASSET_URL}/cdn-cgi/image/fit=scale-down,onerror=redirect,width=${resolution},quality=${quality},format=${format}${uri}` : ''"
+    :src="uri ? generateResizedSrc(uri, resolution, quality) : ''"
     :srcset="uri ? generateSrcset(uri, quality) : ''"
     loading="lazy"
   />
 </template>
 
 <script setup lang="ts">
-import { generateSrcset } from '@/helpers/cdn';
+import { generateResizedSrc, generateSrcset } from '@/helpers/cdn';
 
 interface Props {
   uri: string,
@@ -22,5 +22,4 @@ const {
   resolution = 768,
   quality = 75,
 } = defineProps<Props>();
-const format = 'jpeg';
 </script>
