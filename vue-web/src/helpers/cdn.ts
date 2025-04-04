@@ -3,7 +3,7 @@ const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
 export function generateSrcset(uri: string, quality: number = 85, format: string = 'avif'): string {
   let srcset: string[] = [];
 
-  for (const size of [240, 320, 640, 960, 1024]) {
+  for (const size of [240, 320, 640, 960, 1024, 1920]) {
     srcset = [...srcset, `${generateResizedSrc(uri, size, quality, format)} ${size}w`]
   }
 
