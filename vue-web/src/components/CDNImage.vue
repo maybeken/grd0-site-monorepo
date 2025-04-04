@@ -1,7 +1,7 @@
 <template>
   <img
     class="bg-secondary"
-    :src="uri ? `${ASSET_URL}/cdn-cgi/image/width=${resolution},quality=${quality},format=${format}${uri}` : ''"
+    :src="uri ? `${ASSET_URL}/cdn-cgi/image/fit=scale-down,width=${resolution},quality=${quality},format=${format}${uri}` : ''"
     :srcset="uri ? generateSrcset(uri, quality) : ''"
     loading="lazy"
   />
