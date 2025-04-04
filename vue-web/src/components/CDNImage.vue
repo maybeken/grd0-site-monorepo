@@ -22,5 +22,5 @@ const {
   resolution = 768,
   quality = 75,
 } = defineProps<Props>();
-const format = 'avif';
+const format = 'jpeg';
 </script>
