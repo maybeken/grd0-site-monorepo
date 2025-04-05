@@ -1,0 +1,19 @@
+meta {
+  name: Request Blog Attachment
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/blog/attachment/:key
+  body: none
+  auth: bearer
+}
+
+params:path {
+  key: image.png
+}
+
+auth:bearer {
+  token: {{jwt_token}}
+}
