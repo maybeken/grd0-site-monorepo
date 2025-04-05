@@ -1,4 +1,14 @@
-## Build & Deploy to AWS Lambda
+## Environment Variables
 
-1. Run `build.sh` to create Go binary & ZIP package the required files.
-2. Run `deploy.sh` to call the AWS CLI to deploy the package
+```bash
+LOG_LEVEL=INFO
+JWT_SECRET=secret
+SESSION_SECRET=secret
+NEXTCLOUD_URL=
+NEXTCLOUD_CLIENT_KEY=
+NEXTCLOUD_CLIENT_SECRET=
+S3_ENDPOINT=
+S3_ACCESS_KEY_ID=
+S3_SECRET_ACCESS_KEY=
+S3_BUCKET=
+```
