@@ -12,6 +12,8 @@ import (
 	"gorm.io/gorm/clause"
 
 	"grd0.net/api/schema"
+	"grd0.net/api/storage"
+	"grd0.net/api/utils"
 )
 
 const CONTENT_MAX = 1024
@@ -129,4 +131,29 @@ func (h *Handler) DeleteBlog(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, uri)
+}
+
+type PresignedUrlResponseBody struct {
+	Url       string `json:"url"`
+	ObjectKey string `json:"key"`
+}
+
+func (h *Handler) GeneratePresignedUrl(c echo.Context) error {
+	key := c.Param("key")
+
+	s3 := h.S3
+	year := time.Now().Year()
+	month := time.Now().Month()
+	path := fmt.Sprintf("blog/%d/%d/%s", year, month, key)
+
+	url, err := s3.GeneratePresignedUrl(storage.S3PUT, utils.GetEnvWithFallback("S3_BUCKET", "assets-grd0-net"), path, 60)
+
+	if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusAccepted, PresignedUrlResponseBody{
+		Url:       url.String(),
+		ObjectKey: path,
+	})
 }

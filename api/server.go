@@ -7,6 +7,7 @@ import (
 	"golang.org/x/time/rate"
 	"grd0.net/api/database"
 	"grd0.net/api/handler"
+	"grd0.net/api/storage"
 	"grd0.net/api/utils"
 
 	"github.com/labstack/echo/v4"
@@ -31,6 +32,12 @@ func main() {
 	goth.UseProviders(
 		nextcloud.NewCustomisedDNS(utils.GetEnv("NEXTCLOUD_CLIENT_KEY"), utils.GetEnv("NEXTCLOUD_CLIENT_SECRET"), "https://api.grd0.net/auth/callback", utils.GetEnv("NEXTCLOUD_URL")),
 	)
+
+	s3client, err := storage.InitiateClient(utils.GetEnv("S3_ENDPOINT"), utils.GetEnv("S3_ACCESS_KEY_ID"), utils.GetEnv("S3_SECRET_ACCESS_KEY"))
+
+	if err != nil {
+		panic(err)
+	}
 
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
@@ -67,7 +74,7 @@ func main() {
 		Level: 5,
 	}))
 
-	h := &handler.Handler{DB: db, Logger: log}
+	h := &handler.Handler{DB: db, Logger: log, S3: s3client}
 	handler.RegisterRouter(e, h, echojwt.WithConfig(echojwt.Config{
 		NewClaimsFunc: func(c echo.Context) jwt.Claims {
 			return new(handler.JwtCustomClaims)

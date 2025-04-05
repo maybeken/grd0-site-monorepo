@@ -7,12 +7,15 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
+
+	"grd0.net/api/storage"
 )
 
 type (
 	Handler struct {
 		DB     *gorm.DB
 		Logger *logrus.Logger
+		S3     *storage.S3
 	}
 )
 
@@ -34,6 +37,7 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	r.GET("/blog/all", h.GetBlogByAdmin)
 	r.PUT("/blog/:uri", h.UpsertBlog)
 	r.DELETE("/blog/:uri", h.DeleteBlog)
+	r.PUT("/blog/attachment/:key", h.GeneratePresignedUrl)
 
 	e.GET("/gallery/details/:path", h.GetGalleryDetail)
 	r.PUT("/gallery/details/:path", h.UpsertGalleryDetail)
