@@ -1,3 +1,0 @@
-[submodule "api/data/files"]
-	path = api/data/files
-	url = git@gitlab.com:grd0.net/grd0-site-data.git

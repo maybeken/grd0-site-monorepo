@@ -1,2 +1,2 @@
 #!/bin/bash
-rclone sync -P ../assets cloudflare:/assets-grd0-net/
+rclone copy -P ../assets cloudflare:/assets-grd0-net/
