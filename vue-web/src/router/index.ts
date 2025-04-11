@@ -6,6 +6,13 @@ import { getBlogPostRaw } from '@/services/blogPost';
 
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE;
 
+declare module 'vue-router' {
+  interface RouteMeta {
+    title?: string
+    url?: string
+  }
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior: (to, from, savedPosition) => {
@@ -73,6 +80,43 @@ const router = createRouter({
         title: 'Music Matters',
       },
       component: () => import('@/views/MusicView.vue'),
+    },
+    {
+      path: '/redirect',
+      component: () => import('@/views/RedirectView.vue'),
+      meta: {
+        title: 'Redirecting...',
+      },
+      beforeEnter(to, from) {
+        if (!to.meta.url) return
+        
+        window.location.href = to.meta.url;
+      },
+      children: [
+        {
+          path: 'auth/login',
+          name: 'login',
+          component: {},
+          meta: {
+            url: `${import.meta.env.VITE_API_URL}/auth/login`,
+          },
+        },
+        {
+          path: 'auth/callback',
+          name: 'callback',
+          component: {},
+          beforeEnter(to, from, next) {
+            if (!to.query.token || typeof to.query.token !== 'string') {
+              next({ name: 'login' })
+              return
+            }
+
+            const token = to.query.token;
+            sessionStorage.setItem('jwt_token', token);
+            next({ path: '/' })
+          },
+        },
+      ],
     },
     {
       path: '/:pathMatch(.*)',

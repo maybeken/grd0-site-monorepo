@@ -23,6 +23,9 @@ const sessionStorageAdapter = {
 export const dataInstance = createAlova({
   requestAdapter: adapterFetch(),
   statesHook: VueHook,
+  beforeRequest: (method) => {
+    method.config.headers.Authorization = `Bearer ${sessionStorage.getItem("jwt_token")}`;
+  },
   responded: (response) => response.json(),
   baseURL: `${API_URL}`,
   timeout: 10000,
