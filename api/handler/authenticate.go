@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -28,11 +29,6 @@ func (h *Handler) Login(c echo.Context) error {
 	}
 	gothic.BeginAuthHandler(res, req)
 	return nil
-}
-
-type LoginResponseBody struct {
-	Token     string    `json:"token"`
-	ExpiresAt time.Time `json:"expires_at"`
 }
 
 func (h *Handler) LoginCallback(c echo.Context) error {
@@ -69,8 +65,5 @@ func (h *Handler) LoginCallback(c echo.Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusOK, LoginResponseBody{
-		Token:     t,
-		ExpiresAt: expires_at,
-	})
+	return c.Redirect(http.StatusTemporaryRedirect, fmt.Sprintf("%s?token=%s&expires_at=%d", utils.GetEnv("AUTH_CALLBACK_URL"), t, expires_at.UnixMilli()))
 }
