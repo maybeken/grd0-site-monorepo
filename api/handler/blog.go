@@ -145,16 +145,16 @@ func (h *Handler) GeneratePresignedUrl(c echo.Context) error {
 	s3 := h.S3
 	year := time.Now().UTC().Year()
 	month := time.Now().UTC().Format("01")
-	path := fmt.Sprintf("blog/%d/%s/%s", year, month, url.PathEscape(key))
+	path := fmt.Sprintf("blog/%d/%s/%s", year, month, key)
 
-	url, err := s3.GeneratePresignedUrl(storage.S3PUT, utils.GetEnvWithFallback("S3_BUCKET", "assets-grd0-net"), path, 60)
+	presigned_url, err := s3.GeneratePresignedUrl(storage.S3PUT, utils.GetEnvWithFallback("S3_BUCKET", "assets-grd0-net"), path, 60)
 
 	if err != nil {
 		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 	}
 
 	return c.JSON(http.StatusAccepted, PresignedUrlResponseBody{
-		Url:       url.String(),
-		ObjectKey: path,
+		Url:       presigned_url.String(),
+		ObjectKey: url.PathEscape(path),
 	})
 }
