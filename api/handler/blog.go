@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/labstack/echo/v4"
@@ -144,7 +145,7 @@ func (h *Handler) GeneratePresignedUrl(c echo.Context) error {
 	s3 := h.S3
 	year := time.Now().UTC().Year()
 	month := time.Now().UTC().Format("01")
-	path := fmt.Sprintf("blog/%d/%s/%s", year, month, key)
+	path := fmt.Sprintf("blog/%d/%s/%s", year, month, url.PathEscape(key))
 
 	url, err := s3.GeneratePresignedUrl(storage.S3PUT, utils.GetEnvWithFallback("S3_BUCKET", "assets-grd0-net"), path, 60)
 
