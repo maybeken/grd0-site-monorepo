@@ -13,9 +13,6 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/providers/nextcloud"
-
 	"github.com/golang-jwt/jwt/v5"
 	echojwt "github.com/labstack/echo-jwt/v4"
 )
@@ -27,11 +24,6 @@ func main() {
 
 	db := database.OpenDatabase(db_path)
 	database.AutoMigrate(db)
-
-	// TODO: Migrate to egothic
-	goth.UseProviders(
-		nextcloud.NewCustomisedDNS(utils.GetEnv("NEXTCLOUD_CLIENT_KEY"), utils.GetEnv("NEXTCLOUD_CLIENT_SECRET"), "https://api.grd0.net/auth/callback", utils.GetEnv("NEXTCLOUD_URL")),
-	)
 
 	s3client, err := storage.InitiateClient(utils.GetEnv("S3_ENDPOINT"), utils.GetEnv("S3_ACCESS_KEY_ID"), utils.GetEnv("S3_SECRET_ACCESS_KEY"))
 
@@ -79,7 +71,7 @@ func main() {
 		NewClaimsFunc: func(c echo.Context) jwt.Claims {
 			return new(handler.JwtCustomClaims)
 		},
-		SigningKey: []byte(utils.GetEnv("JWT_SECRET")),
+		SigningKey: []byte(utils.GetEnv("AUTH_JWT_SECRET")),
 	}))
 
 	e.Logger.Fatal(e.Start(":80"))
