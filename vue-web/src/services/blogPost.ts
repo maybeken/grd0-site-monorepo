@@ -2,7 +2,7 @@ import { useRequest } from 'alova/client';
 import { dataInstance } from './api';
 
 import type { Ref } from 'vue';
-import type { BlogPost } from '@/interfaces/Blog';
+import type { BlogPost, Attachment } from '@/interfaces/Blog';
 
 function listBlogPostRaw() {
   return dataInstance.Get<BlogPost[]>('/blog');
@@ -52,4 +52,8 @@ function upsertBlogPostRaw(url: string, blog_post: BlogPost) {
   return dataInstance.Put<BlogPost>(`/blog/${url}`, blog_post);
 }
 
-export { listBlogPostRaw, listBlogPostAdmin, listBlogPost, getBlogPostRaw, getBlogPost, upsertBlogPostRaw };
+function requestBlogAttachmentRaw(path: string) {
+  return dataInstance.Put<Attachment>(`/blog/attachment/${path}`);
+}
+
+export { listBlogPostRaw, listBlogPostAdmin, listBlogPost, getBlogPostRaw, getBlogPost, upsertBlogPostRaw, requestBlogAttachmentRaw };

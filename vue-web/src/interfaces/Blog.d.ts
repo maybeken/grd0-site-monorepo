@@ -11,3 +11,8 @@ export interface BlogPost {
   updated_at: string,
   published_at: string,
 };
+
+export interface Attachment {
+  url: string,
+  key: string,
+}
