@@ -6,7 +6,7 @@
       <div class="flex gap-2">
         <span>Publish Date: </span>
         <input class="w-72 border border-dotted rounded-xl px-2" type="text" v-model="editable_publish_date" />
-        <span>{{ dayjs(editable_publish_date).fromNow() }}</span>
+        <span>{{ dayjs(editable_publish_date) <= dayjs('0001-01-01T00:00:00.000Z') ? "Unpublished" : dayjs(editable_publish_date).fromNow() }}</span>
       </div>
     </div>
 
@@ -53,7 +53,7 @@ const post = response?.data;
 const editable_content = ref(post?.value?.content || '');
 const editable_title = ref(post?.value?.title || '');
 const editable_subtitle = ref(post?.value?.subtitle || '');
-const editable_publish_date = ref(dayjs(post?.value?.published_at).toISOString() || dayjs().toISOString());
+const editable_publish_date = ref(post?.value ? dayjs(post?.value?.published_at).toISOString() : dayjs("0001-01-01T00:00:00Z").toISOString());
 
 function newPost(): void {
   const confirmed = confirm('Are you sure to create new post? Any unsaved changes will be erased!');

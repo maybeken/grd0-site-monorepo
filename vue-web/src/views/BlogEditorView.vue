@@ -17,7 +17,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
 import { listBlogPostAdmin } from '@/services/blogPost';
-import SideBySideEditor from '@/components/editor/SideBySideEditor.vue';
 
 const response = listBlogPostAdmin();
 const articles = response?.data;
@@ -35,9 +34,10 @@ const columns = {
       if (!data) return 'Unpublished';
 
       const publish_date = dayjs(data);
-      const published = publish_date.isBefore(dayjs());
 
-      if (published) {
+      if (publish_date <= dayjs("0001-01-01T00:00:00.000Z")) {
+        return `Unpublished`;
+      } else if (publish_date.isBefore(dayjs())) {
         return `Published (${publish_date.fromNow()})`;
       }
 
