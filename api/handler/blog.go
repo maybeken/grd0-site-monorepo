@@ -142,9 +142,9 @@ func (h *Handler) GeneratePresignedUrl(c echo.Context) error {
 	key := c.Param("key")
 
 	s3 := h.S3
-	year := time.Now().Year()
-	month := time.Now().Month()
-	path := fmt.Sprintf("blog/%d/%d/%s", year, month, key)
+	year := time.Now().UTC().Year()
+	month := time.Now().UTC().Format("01")
+	path := fmt.Sprintf("blog/%d/%s/%s", year, month, key)
 
 	url, err := s3.GeneratePresignedUrl(storage.S3PUT, utils.GetEnvWithFallback("S3_BUCKET", "assets-grd0-net"), path, 60)
 
