@@ -59,7 +59,10 @@ const editable_publish_date = ref(post?.value ? dayjs(post?.value?.published_at)
 function newPost(): void {
   const confirmed = confirm('Are you sure to create new post? Any unsaved changes will be erased!');
 
-  if (confirmed) $emit('new')
+  if (confirmed) {
+    const uri = prompt('What is the new post uri?');
+    $emit('new', uri);
+  }
 }
 
 async function savePost() {

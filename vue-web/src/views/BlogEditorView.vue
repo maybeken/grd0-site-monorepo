@@ -5,7 +5,7 @@
     </div>
 
     <div>
-      <SideBySideEditor :uri="selected" :key="selected" @new="selected = ''"></SideBySideEditor>
+      <SideBySideEditor :uri="selected" :key="selected" @new="(uri: string) => { selected = uri }"></SideBySideEditor>
     </div>
   </div>
 </template>
