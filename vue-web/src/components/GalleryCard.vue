@@ -8,7 +8,7 @@
         :uri="$props.image?.filename ? `${$props.image?.collection}/${$props.image?.filename}` : ''"
         @click="zoomImage(`${$props.image?.collection}/${$props.image?.filename}`)"
       ></CDNImage>
-      <div class="lg:hidden absolute right-0 bottom-0 ml-auto">
+      <div class="absolute right-0 bottom-0 ml-auto">
         <button
           class="px-2 mr-px mb-px border border-accent bg-background/75 rounded-xl disabled:brightness-50 disabled:bg-accent/75 disabled:border-secondary"
           title="Download"
@@ -97,7 +97,7 @@ function zoomImage(val: string) {
 function downloadImage(val: string) {
   // create element <a> for download PDF
   const link = document.createElement('a');
-  link.href = `${ASSET_URL}${val}`;
+  link.href = `${ASSET_URL}${val}?download`;
   link.target = '_blank';
   link.download = val.split('/').reverse()[0];
 
