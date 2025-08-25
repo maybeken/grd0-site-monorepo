@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-16 h-fit">
     <div class="w-full">
-      <PostTable :columns="columns" :actions="actions" :data="articles" @edit="(uri: string) => selected = uri"></PostTable>
+      <PostTable :columns="columns" :actions="actions" :data="articles" @edit="(uri: string) => selected = uri" @delete="unpublishPost"></PostTable>
     </div>
 
     <div>
@@ -16,7 +16,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
-import { listBlogPostAdmin } from '@/services/blogPost';
+import { deleteBlogPostRaw, listBlogPostAdmin } from '@/services/blogPost';
 
 const response = listBlogPostAdmin();
 const articles = response?.data;
@@ -51,6 +51,19 @@ const actions = [
 ]
 
 const selected = ref("");
+
+async function unpublishPost(uri: string) {
+  const confirmed = confirm("Are you sure to unpublish the post?");
+
+  if (confirmed) {
+    try {
+      await deleteBlogPostRaw(uri);
+      alert("Done.");
+    } catch(error) {
+      alert("Failed.");
+    }
+  }
+}
 </script>
 
 <style lang="postcss" scoped>

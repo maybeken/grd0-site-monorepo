@@ -56,4 +56,8 @@ function requestBlogAttachmentRaw(path: string) {
   return adminInstance.Put<Attachment>(`/blog/attachment/${path}`);
 }
 
-export { listBlogPostRaw, listBlogPostAdmin, listBlogPost, getBlogPostRaw, getBlogPost, upsertBlogPostRaw, requestBlogAttachmentRaw };
+function deleteBlogPostRaw(url: string) {
+  return adminInstance.Delete(`/blog/${url}`);
+}
+
+export { listBlogPostRaw, listBlogPostAdmin, listBlogPost, getBlogPostRaw, getBlogPost, upsertBlogPostRaw, requestBlogAttachmentRaw, deleteBlogPostRaw };
