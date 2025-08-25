@@ -20,7 +20,20 @@ const sessionStorageAdapter = {
     sessionStorage.clear();
   }
 };
+
 export const dataInstance = createAlova({
+  requestAdapter: adapterFetch(),
+  statesHook: VueHook,
+  responded: (response) => response.json(),
+  baseURL: `${API_URL}`,
+  timeout: 10000,
+  cacheFor: {
+    GET: 5 * 60 * 1000,
+  },
+  l1Cache: IS_DEV ? undefined : sessionStorageAdapter,
+});
+
+export const adminInstance = createAlova({
   requestAdapter: adapterFetch(),
   statesHook: VueHook,
   beforeRequest: (method) => {
@@ -29,8 +42,4 @@ export const dataInstance = createAlova({
   responded: (response) => response.json(),
   baseURL: `${API_URL}`,
   timeout: 10000,
-  cacheFor: {
-    GET: 5 * 60 * 1000,
-  },
-  l1Cache: IS_DEV ? undefined : sessionStorageAdapter,
 });

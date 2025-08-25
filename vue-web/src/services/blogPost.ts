@@ -1,5 +1,5 @@
 import { useRequest } from 'alova/client';
-import { dataInstance } from './api';
+import { dataInstance, adminInstance } from './api';
 
 import type { Ref } from 'vue';
 import type { BlogPost, Attachment } from '@/interfaces/Blog';
@@ -35,7 +35,7 @@ function getBlogPost(uri: string): {loading: Ref<boolean, boolean>, data: Ref<Bl
 }
 
 function listBlogPostAdminRaw() {
-  return dataInstance.Get<BlogPost[]>('/blog/all');
+  return adminInstance.Get<BlogPost[]>('/blog/all');
 }
 
 function listBlogPostAdmin(): {loading: Ref<boolean, boolean>, data: Ref<BlogPost[]>} {
@@ -49,11 +49,11 @@ function listBlogPostAdmin(): {loading: Ref<boolean, boolean>, data: Ref<BlogPos
 }
 
 function upsertBlogPostRaw(url: string, blog_post: BlogPost) {
-  return dataInstance.Put<BlogPost>(`/blog/${url}`, blog_post);
+  return adminInstance.Put<BlogPost>(`/blog/${url}`, blog_post);
 }
 
 function requestBlogAttachmentRaw(path: string) {
-  return dataInstance.Put<Attachment>(`/blog/attachment/${path}`);
+  return adminInstance.Put<Attachment>(`/blog/attachment/${path}`);
 }
 
 export { listBlogPostRaw, listBlogPostAdmin, listBlogPost, getBlogPostRaw, getBlogPost, upsertBlogPostRaw, requestBlogAttachmentRaw };
