@@ -16,12 +16,25 @@ const gallery_collection = response.data;
 const loading = response.loading;
 
 const uri = $route.params.collection ?? 'all';
-const selected_collection = ref(typeof uri === "string" ? uri : uri[0]);
+
+let selected_collection = ref('');
+
+if (typeof uri === 'string') {
+  selected_collection.value = uri;
+} else if (Array.isArray(uri) && uri.length > 0) {
+  selected_collection.value = uri[0]!;
+}
 
 watch($route, (to, from) => {
   const uri = to.params.collection ?? 'all';
-  const uri_stripped = typeof uri === "string" ? uri : uri[0];
-  selected_collection.value = uri_stripped;
+
+  let selected_collection = ref('');
+
+  if (typeof uri === 'string') {
+    selected_collection.value = uri;
+  } else if (Array.isArray(uri) && uri.length > 0) {
+    selected_collection.value = uri[0]!;
+  }
 })
 
 function selectCollection(collection: string): void {

@@ -99,7 +99,9 @@ function downloadImage(val: string) {
   const link = document.createElement('a');
   link.href = `${ASSET_URL}${val}?download`;
   link.target = '_blank';
-  link.download = val.split('/').reverse()[0];
+
+  const path_split = val.split('/').reverse();
+  link.download = path_split[0] ?? '';
 
   // Simulate a click on the element <a>
   document.body.appendChild(link);

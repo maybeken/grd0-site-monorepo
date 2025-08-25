@@ -166,16 +166,19 @@ router.beforeEach(async (to, from, next) => {
 
   if (name === "Blog" && params.slug) {
     const slug = typeof params.slug === 'string' ? params.slug : params.slug[0];
-    const response = await getBlogPostRaw(slug);
-    const blog_title = response?.title || "";
 
-    to.meta.title = `${title} - ${blog_title}`
+    if (slug) {
+      const response = await getBlogPostRaw(slug);
+      const blog_title = response?.title || "";
+
+      to.meta.title = `${title} - ${blog_title}`;
+    }
   } else if (name === "Gallery" && params.collection) {
     const response = await getGalleryCollectionRaw();
     const collection = typeof params.collection === 'string' ? params.collection : params.collection[0];
     const album = formatCollectionName(response, collection);
     
-    to.meta.title = `${title} - ${album}`
+    to.meta.title = `${title} - ${album}`;
   }
 
   next();

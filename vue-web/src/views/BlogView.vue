@@ -20,7 +20,13 @@ dayjs.extend(calendar);
 
 const $route = useRoute();
 const uri = $route.params.slug;
-const uri_sanitized = typeof uri === "string" ? uri : uri[0];
+let uri_sanitized: string = '';
+
+if (typeof uri === 'string') {
+  uri_sanitized = uri;
+} else if (Array.isArray(uri) && uri.length > 0) {
+  uri_sanitized = uri[0]!;
+}
 
 const response = getBlogPost(uri_sanitized);
 const content = response?.data;
