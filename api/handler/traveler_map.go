@@ -53,7 +53,7 @@ func (h *Handler) UpsertMapLocation(c echo.Context) error {
 
 	err := db.Clauses(clause.OnConflict{
 		Columns:   []clause.Column{{Name: "slug"}},
-		DoUpdates: clause.AssignmentColumns([]string{"title", "subtitle", "icon", "color", "longtitue", "latitude", "display_at", "hide_at", "text_color", "updated_at"}),
+		DoUpdates: clause.AssignmentColumns([]string{"title", "subtitle", "icon", "color", "longitude", "latitude", "display_at", "hide_at", "text_color", "updated_at"}),
 	}).Create(&map_loc).Error
 
 	if err != nil {
