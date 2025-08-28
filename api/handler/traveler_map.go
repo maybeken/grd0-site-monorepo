@@ -1,12 +1,12 @@
 package handler
 
 import (
-	"errors"
 	"net/http"
 	"net/url"
+	"time"
 
 	"github.com/labstack/echo/v4"
-	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 
 	"grd0.net/api/schema"
 )
@@ -49,11 +49,14 @@ func (h *Handler) UpsertMapLocation(c echo.Context) error {
 		map_loc.Slug = url.PathEscape(map_loc.Slug)
 	}
 
-	if err := db.Create(&map_loc).Error; errors.Is(err, gorm.ErrDuplicatedKey) {
-		if err := db.Unscoped().Model(schema.MapLocation{}).Where("slug = ?", map_loc.Slug).Updates(&map_loc).Update("deleted_at", nil).Error; err != nil {
-			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
-		}
-	} else if err != nil {
+	map_loc.UpdatedAt = time.Now()
+
+	err := db.Clauses(clause.OnConflict{
+		Columns:   []clause.Column{{Name: "slug"}},
+		DoUpdates: clause.AssignmentColumns([]string{"title", "subtitle", "icon", "color", "longtitue", "latitude", "display_at", "hide_at", "text_color", "updated_at"}),
+	}).Create(&map_loc).Error
+
+	if err != nil {
 		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 	}
 
