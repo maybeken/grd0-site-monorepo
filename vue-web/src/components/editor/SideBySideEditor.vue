@@ -22,8 +22,7 @@
 
   <div class="flex gap-4" @dragover.prevent="" @drop.prevent="fileUpload">
     <div class="w-1/2">
-      <textarea class="w-full h-full rounded-xl p-4 bg-accent shadow-inner shadow-background"
-      placeholder="Markdown Contents Here" v-model="editable_content"></textarea>
+      <div class="w-full h-full rounded-xl overflow-hidden" ref="editor"></div>
     </div>
 
     <div class="w-1/2 max-h-lvh overflow-y-scroll">
@@ -33,7 +32,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
+// @ts-ignore
+import OverType from 'overtype';
 import { getBlogPost, upsertBlogPostRaw, requestBlogAttachmentRaw } from '@/services/blogPost';
 
 import dayjs from 'dayjs';
@@ -43,6 +44,9 @@ dayjs.extend(relativeTime);
 interface Props {
   uri: string;
 }
+
+const editor = ref();
+const ot_editor = ref();
 
 const { uri } = defineProps<Props>();
 const $emit = defineEmits(['new']);
@@ -55,6 +59,27 @@ const editable_content = ref(post?.value?.content || '');
 const editable_title = ref(post?.value?.title || '');
 const editable_subtitle = ref(post?.value?.subtitle || '');
 const editable_publish_date = ref(post?.value ? dayjs(post?.value?.published_at).toISOString() : dayjs("0001-01-01T00:00:00Z").toISOString());
+
+onMounted(() => {
+  const [overtype] = new OverType(editor.value, {
+    theme: 'cave',
+    toolbar: true,
+    showStats: true,
+    smartLists: true,
+    placeholder: 'Markdown Contents Here',
+    onChange: (value: string) => {
+      if (editable_content.value !== value) {
+        editable_content.value = value;
+      }
+    },
+  });
+
+  ot_editor.value = overtype;
+});
+
+watch([editable_content], (val) => {
+  ot_editor.value.setValue(val || '');
+});
 
 function newPost(): void {
   const confirmed = confirm('Are you sure to create new post? Any unsaved changes will be erased!');

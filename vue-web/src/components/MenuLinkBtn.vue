@@ -15,7 +15,7 @@
 interface Props {
   displayName: string;
   link: string;
-  hidden: boolean;
+  hidden?: boolean;
   onNavigate: Function;
 }
 
