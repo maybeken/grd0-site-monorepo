@@ -28,8 +28,6 @@ if (typeof uri === 'string') {
 watch($route, (to, from) => {
   const uri = to.params.collection ?? 'all';
 
-  let selected_collection = ref('');
-
   if (typeof uri === 'string') {
     selected_collection.value = uri;
   } else if (Array.isArray(uri) && uri.length > 0) {
