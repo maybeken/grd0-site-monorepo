@@ -21,7 +21,7 @@ interface Props {
 }
 
 const $emit = defineEmits<{
-  close: null,
+  close: [],
 }>();
 const { uri } = defineProps<Props>();
 </script>
