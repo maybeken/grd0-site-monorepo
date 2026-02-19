@@ -22,7 +22,9 @@
       <div
         v-show="isDisplayOverlay(resolution, item.display_at, item.hide_at)"
         class="px-4 py-2 rounded-r-2xl rounded-b-2xl motion-preset-fade motion-duration-1000 max-w-72 select-none"
-        :class="[parseTailwindColor('bg', item.color), parseTailwindColor('text', item.text_color)]">
+        :class="[parseTailwindColor('bg', item.color), parseTailwindColor('text', item.text_color)]"
+        @wheel.prevent=""
+      >
         <div class="flex gap-1 pb-1">
           <Icon v-if="item.icon" :class="item.title ? [`mr-1`] : []" :icon="item.icon" height="auto" />
           <span class="text-base">{{ item.title || "" }}</span>
