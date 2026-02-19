@@ -26,9 +26,9 @@ import { useRouter } from 'vue-router';
 const $router = useRouter();
 
 const menuItems = [
-  { displayName: 'Home', link: '/' },
   { displayName: 'Gallery', link: '/gallery' },
   { displayName: 'Traveler\'s Map', link: '/travel/map' },
+  { displayName: 'Blog', link: '/blog' },
   { displayName: 'LISTEN TO ME!', link: '/music' },
   { displayName: 'YouTube', link: 'https://www.youtube.com/@maybeken' },
   { displayName: 'LinkedIn', link: 'https://www.linkedin.com/in/maybeken/' },

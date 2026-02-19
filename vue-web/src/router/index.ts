@@ -29,9 +29,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/HomeView.vue'),
+      redirect: '/gallery',
       meta: {
         title: 'Home',
+      },
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: () => import('@/views/HomeView.vue'),
+      meta: {
+        title: 'Blog',
       },
     },
     {
