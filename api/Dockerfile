@@ -3,6 +3,7 @@ FROM golang:1.24-alpine AS builder
 WORKDIR /build
 ENV GOPROXY=direct
 ADD . .
+RUN apk add git
 RUN cd api; go build -o ../grd0_blog_api
 
 # Final stage
