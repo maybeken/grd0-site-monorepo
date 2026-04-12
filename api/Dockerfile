@@ -1,7 +1,7 @@
 # Build stage
 FROM golang:1.24-alpine AS builder
 WORKDIR /build
-ENV GOPROXY=https://goproxy.io,direct
+ENV GOPROXY=direct
 ADD . .
 RUN cd api; go build -o ../grd0_blog_api
 
