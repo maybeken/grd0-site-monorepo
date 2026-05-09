@@ -15,4 +15,7 @@ import SiteFooter from './components/SiteFooter.vue';
   <footer class="container mx-auto pb-8">
     <SiteFooter></SiteFooter>
   </footer>
+
+  <Modal />
+  <ToastContainer />
 </template>

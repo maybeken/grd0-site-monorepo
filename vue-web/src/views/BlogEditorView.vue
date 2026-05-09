@@ -11,56 +11,64 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-dayjs.extend(relativeTime);
+import { ref } from 'vue'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
 
-import { deleteBlogPostRaw, listBlogPostAdmin } from '@/services/blogPost';
+import { deleteBlogPostRaw, listBlogPostAdmin } from '@/services/blogPost'
+import { useModal } from '@/composables/useModal'
+import { useToast } from '@/composables/useToast'
 
-const response = listBlogPostAdmin();
-const articles = response?.data;
+const modal = useModal()
+const toast = useToast()
+
+const response = listBlogPostAdmin()
+const articles = response?.data
 const columns = {
   title: {
-    display_name: "Title",
+    display_name: 'Title',
   },
   uri: {
-    display_name: "URI",
-    formatter: (uri: string) => `/blog/${uri}`
+    display_name: 'URI',
+    formatter: (uri: string) => `/blog/${uri}`,
   },
   published_at: {
-    display_name: "Published",
+    display_name: 'Published',
     formatter: (data: string) => {
-      if (!data) return 'Unpublished';
+      if (!data) return 'Unpublished'
 
-      const publish_date = dayjs(data);
+      const publish_date = dayjs(data)
 
-      if (publish_date <= dayjs("0001-01-01T00:00:00.000Z")) {
-        return `Unpublished`;
+      if (publish_date <= dayjs('0001-01-01T00:00:00.000Z')) {
+        return 'Unpublished'
       } else if (publish_date.isBefore(dayjs())) {
-        return `Published (${publish_date.fromNow()})`;
+        return `Published (${publish_date.fromNow()})`
       }
 
-      return `Scheduled (${publish_date.fromNow()})`;
+      return `Scheduled (${publish_date.fromNow()})`
     },
-  }
-};
+  },
+}
 const actions = [
   { name: 'edit', display_name: 'Edit', data_key: 'uri' },
   { name: 'delete', display_name: 'Delete', data_key: 'uri' },
 ]
 
-const selected = ref("");
+const selected = ref('')
 
 async function unpublishPost(uri: string) {
-  const confirmed = confirm("Are you sure to unpublish the post?");
+  const confirmed = await modal.confirm(
+    'Are you sure to unpublish the post?',
+    'Unpublish Post'
+  )
 
   if (confirmed) {
     try {
-      await deleteBlogPostRaw(uri);
-      alert("Done.");
-    } catch(error) {
-      alert("Failed.");
+      await deleteBlogPostRaw(uri)
+      toast.success('Post unpublished.')
+    } catch {
+      toast.error('Failed to unpublish post.')
     }
   }
 }

@@ -21,6 +21,7 @@ declare module 'vue' {
     Icon: typeof import('./src/components/Icon.vue')['default']
     MarkdownDisplay: typeof import('./src/components/MarkdownDisplay.vue')['default']
     MenuLinkBtn: typeof import('./src/components/MenuLinkBtn.vue')['default']
+    Modal: typeof import('./src/components/Modal.vue')['default']
     MusicProgressbar: typeof import('./src/components/MusicProgressbar.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     NotFound: typeof import('./src/components/NotFound.vue')['default']
@@ -31,6 +32,7 @@ declare module 'vue' {
     SideBySideEditor: typeof import('./src/components/editor/SideBySideEditor.vue')['default']
     SiteFooter: typeof import('./src/components/SiteFooter.vue')['default']
     Skeleton: typeof import('./src/components/Skeleton.vue')['default']
+    ToastContainer: typeof import('./src/components/ToastContainer.vue')['default']
     YouTube: typeof import('./src/components/YouTube.vue')['default']
   }
 }
