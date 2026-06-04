@@ -51,7 +51,7 @@ async function groupFilesByDirectory(files) {
       const { exif } = await ExifReader.load(assets_directory + file, {
         expanded: true,
       });
-
+      
       if (exif) {
         return {
           ...basic_info,
@@ -60,7 +60,7 @@ async function groupFilesByDirectory(files) {
             shutter: exif.ExposureTime?.description ?? undefined,
             fstop: exif.FNumber?.description ?? undefined,
             iso: exif.ISOSpeedRatings?.description ?? undefined,
-            focal: exif.FocalLengthIn35mmFilm?.description ?? undefined,
+            focal: exif.FocalLengthIn35mmFilm?.value ?? undefined,
             equipment: {
               camera: exif.Make || exif.Model ? `${exif.Make?.description} ${exif.Model?.description}` : undefined,
               lens: exif.LensModel?.description ?? undefined,
