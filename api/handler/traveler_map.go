@@ -68,7 +68,7 @@ func (h *Handler) DeleteMapLocation(c echo.Context) error {
 
 	db := h.DB
 
-	res := db.Where("slug = ?", slug).Delete(&schema.MapLocation{})
+	res := db.Where("slug = ?", slug).Unscoped().Delete(&schema.MapLocation{})
 	row_count := res.RowsAffected
 	err := res.Error
 
