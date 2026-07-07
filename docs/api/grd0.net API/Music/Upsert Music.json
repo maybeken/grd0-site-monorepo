@@ -1,0 +1,21 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/music",
+    "method": "PUT",
+    "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Give Life Back to Music\",\n  \"artist\": \"Daft Punk\",\n  \"v\": \"zKSsP2084nU\",\n  \"description\": \"Music bring us to life. Give life back to music.\",\n  \"sorting\": 10\n}"
+    },
+    "headers": [
+        {
+            "name": "Content-Type",
+            "value": "application/json"
+        }
+    ],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 2
+}

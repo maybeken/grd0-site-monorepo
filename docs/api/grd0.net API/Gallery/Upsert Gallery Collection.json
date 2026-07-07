@@ -1,0 +1,21 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/gallery/collection",
+    "method": "PUT",
+    "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"path\": \"vancouver 2025\",\n  \"title\": \"Vancouver @ 2025\",\n  \"cover\": \"DSC05337.jpg\"\n}"
+    },
+    "headers": [
+        {
+            "name": "Content-Type",
+            "value": "application/json"
+        }
+    ],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 1
+}

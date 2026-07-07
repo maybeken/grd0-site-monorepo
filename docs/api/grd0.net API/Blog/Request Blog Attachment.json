@@ -1,0 +1,15 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/blog/attachment/:key",
+    "method": "PUT",
+    "body": {
+        "mimeType": "No Body"
+    },
+    "headers": [],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 5
+}

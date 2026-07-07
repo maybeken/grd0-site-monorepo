@@ -1,0 +1,15 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/gallery/collection/:collection",
+    "method": "DELETE",
+    "body": {
+        "mimeType": "No Body"
+    },
+    "headers": [],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 2
+}

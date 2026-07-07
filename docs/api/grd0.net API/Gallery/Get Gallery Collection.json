@@ -1,0 +1,23 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/gallery/collection",
+    "method": "GET",
+    "body": {
+        "mimeType": "No Body"
+    },
+    "headers": [
+        {
+            "name": "accept-encoding",
+            "value": "gzip,deflate,br"
+        },
+        {
+            "name": "origin",
+            "value": "https://grd0.net"
+        }
+    ],
+    "parameters": [],
+    "authentication": {
+        "type": "No Auth"
+    },
+    "sortOrder": 0
+}

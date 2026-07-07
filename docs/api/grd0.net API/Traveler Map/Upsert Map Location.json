@@ -1,0 +1,21 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/travel/map",
+    "method": "PUT",
+    "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"slug\": \"o-canada\",\n    \"title\": \"Beautiful British Columbia\",\n    \"subtitle\": \"Scenic and wonderful, just... Too expensive\",\n    \"pos\": [49.26261894183838,236.8833252858159],\n    \"icon\": \"mynaui:mountain\",\n    \"color\": \"red\",\n    \"created_at\": \"{{CURRENT_TIMESTAMP_8601}}\"\n}"
+    },
+    "headers": [
+        {
+            "name": "Content-Type",
+            "value": "application/json"
+        }
+    ],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 1
+}

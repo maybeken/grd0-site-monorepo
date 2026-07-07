@@ -1,0 +1,16 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/travel/map/:slug",
+    "method": "DELETE",
+    "body": {
+        "mimeType": "No Body",
+        "text": "{\n    \"slug\": \"\"\n}"
+    },
+    "headers": [],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 2
+}
