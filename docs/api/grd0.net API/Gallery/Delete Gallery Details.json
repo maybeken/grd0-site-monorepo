@@ -1,0 +1,27 @@
+{
+    "_type": "request",
+    "method": "DELETE",
+    "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"filename\": \"DSC04844.jpg\"\n}"
+    },
+    "url": "{{BASE_URL}}/gallery/details/:path",
+    "sortOrder": 7,
+    "parameters": [],
+    "pathParameters": [
+        {
+            "name": "path",
+            "value": "/gallery/vancouver 2025"
+        }
+    ],
+    "headers": [
+        {
+            "name": "Content-Type",
+            "value": "application/json"
+        }
+    ],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    }
+}

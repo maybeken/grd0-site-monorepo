@@ -11,5 +11,5 @@
         "type": "bearer",
         "token": "{{TOKEN}}"
     },
-    "sortOrder": 2
+    "sortOrder": 3
 }

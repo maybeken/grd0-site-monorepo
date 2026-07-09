@@ -1,0 +1,27 @@
+{
+    "_type": "request",
+    "method": "PUT",
+    "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"filename\": \"DSC04869.jpg\",\n    \"tz_adjustment\": -19,\n    \"description\": \"Cow goes moo\"\n}"
+    },
+    "url": "{{BASE_URL}}/gallery/details/:path",
+    "sortOrder": 6,
+    "parameters": [],
+    "pathParameters": [
+        {
+            "name": "path",
+            "value": "/gallery/vancouver 2025"
+        }
+    ],
+    "headers": [
+        {
+            "name": "Content-Type",
+            "value": "application/json"
+        }
+    ],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    }
+}

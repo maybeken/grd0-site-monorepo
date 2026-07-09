@@ -17,5 +17,5 @@
         "type": "bearer",
         "token": "{{TOKEN}}"
     },
-    "sortOrder": 1
+    "sortOrder": 2
 }

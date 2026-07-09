@@ -1,0 +1,27 @@
+{
+    "_type": "request",
+    "method": "PUT",
+    "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"filename\": \"*\",\n    \"tz_adjustment\": -19,\n    \"description\": \"\"\n}"
+    },
+    "url": "{{BASE_URL}}/gallery/details/:path",
+    "sortOrder": 5,
+    "parameters": [],
+    "pathParameters": [
+        {
+            "name": "path",
+            "value": "/gallery/vancouver 2025"
+        }
+    ],
+    "headers": [
+        {
+            "name": "Content-Type",
+            "value": "application/json"
+        }
+    ],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    }
+}
