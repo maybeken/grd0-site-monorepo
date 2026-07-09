@@ -1,3 +1,8 @@
 packages:
   - 'vue-web'
   - 'tldraw-web'
+allowBuilds:
+  '@swc/core': true
+  '@tailwindcss/oxide': true
+  core-js: true
+  esbuild: true
