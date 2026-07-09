@@ -7,7 +7,7 @@ function App() {
   return (
     <div style={{ position: 'fixed', inset: 0 }}>
       <Tldraw
-        inferDarkMode={true}
+        colorScheme='dark'
         onMount={(editor) => {
           window.addEventListener(
             'keydown',
