@@ -4,8 +4,8 @@
   "main": "index.js",
   "compatibility_date": "2026-07-08",
   "workers_dev": true,
-  "route": {
-    // "pattern": "grd0.net/sitemap.xml",
-    // "zone_name": "grd0.net",
-  },
+//   "route": {
+//     "pattern": "grd0.net/sitemap.xml",
+//     "zone_name": "grd0.net",
+//   },
 }
