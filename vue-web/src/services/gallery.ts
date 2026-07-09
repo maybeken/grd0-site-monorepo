@@ -20,7 +20,7 @@ function getGalleryDetail(path?: string): { loading: Ref<boolean, boolean>, data
   if (!path) return;
   
   try {
-    const { loading, data } = useRequest(dataInstance.Get<GalleryDetail[]>(`/gallery/collection/${path}`));
+    const { loading, data } = useRequest(dataInstance.Get<GalleryDetail[]>(`/gallery/details/${path}`));
 
     return { loading, data };
   } catch(error: unknown) {
