@@ -1,4 +1,5 @@
 _collapsed
+_environments
 *.responses.json
 *.messages.json
 .env
