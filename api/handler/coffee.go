@@ -120,7 +120,7 @@ func (h *Handler) GetCoffeeTastings(c echo.Context) error {
 	db := h.DB
 
 	var tastings []schema.TastingNote
-	db.Preload("Bean").Preload("Equipment").Order("pinned DESC").Order("tasted_at DESC").Find(&tastings)
+	db.Preload("Bean").Preload("Equipment").Preload("Grinder").Order("pinned DESC").Order("tasted_at DESC").Find(&tastings)
 
 	return c.JSON(http.StatusOK, tastings)
 }
@@ -135,9 +135,19 @@ func (h *Handler) UpsertCoffeeTasting(c echo.Context) error {
 
 	tasting.BeanID = tasting.Bean.ID
 	tasting.EquipmentID = tasting.Equipment.ID
+	tasting.GrinderID = tasting.Grinder.ID
 
 	if tasting.TastedAt.IsZero() {
 		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Tasted date is required.")
+	}
+
+	if tasting.GrinderID != uuid.Nil {
+		var equipment schema.BrewEquipment
+		db.First(&equipment, "id = ?", tasting.GrinderID)
+
+		if equipment.Type == nil || *equipment.Type != "Grinder" {
+			return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Grinder ID provided is not a grinder.")
+		}
 	}
 
 	if tasting.ID != uuid.Nil {
@@ -154,7 +164,7 @@ func (h *Handler) UpsertCoffeeTasting(c echo.Context) error {
 		}
 	}
 
-	db.Preload("Bean").Preload("Equipment").First(&tasting, "id = ?", tasting.ID)
+	db.Preload("Bean").Preload("Equipment").Preload("Grinder").First(&tasting, "id = ?", tasting.ID)
 
 	return c.JSON(http.StatusOK, tasting)
 }
