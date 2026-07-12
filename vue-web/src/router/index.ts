@@ -1,10 +1,10 @@
-import { nextTick } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
-import { formatCollectionName } from '@/helpers/collection';
-import { getGalleryCollectionRaw } from '@/services/gallery';
-import { getBlogPostRaw } from '@/services/blogPost';
+import { nextTick } from 'vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import { formatCollectionName } from '@/helpers/collection'
+import { getGalleryCollectionRaw } from '@/services/gallery'
+import { getBlogPostRaw } from '@/services/blogPost'
 
-const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE;
+const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -19,11 +19,11 @@ const router = createRouter({
     if (to.hash) {
       return {
         el: to.hash,
-        behavior: 'smooth',
+        behavior: 'smooth'
       }
     }
 
-    return { top: 0, behavior: 'smooth', };
+    return { top: 0, behavior: 'smooth' }
   },
   routes: [
     {
@@ -31,78 +31,78 @@ const router = createRouter({
       name: 'home',
       redirect: '/gallery',
       meta: {
-        title: 'Home',
-      },
+        title: 'Home'
+      }
     },
     {
       path: '/blog',
       name: 'blog',
       component: () => import('@/views/HomeView.vue'),
       meta: {
-        title: 'Blog',
-      },
+        title: 'Blog'
+      }
     },
     {
       path: '/blog/:slug',
       name: 'Blog',
       component: () => import('@/views/BlogView.vue'),
       meta: {
-        title: 'Blog',
-      },
+        title: 'Blog'
+      }
     },
     {
       path: '/blog/editor',
       name: 'Blog Editor',
       meta: {
-        title: 'Blog Editor',
+        title: 'Blog Editor'
       },
-      component: () => import('@/views/BlogEditorView.vue'),
+      component: () => import('@/views/BlogEditorView.vue')
     },
     {
       path: '/gallery',
       name: 'Gallery Index',
       meta: {
-        title: 'Gallery',
+        title: 'Gallery'
       },
       children: [
         {
           name: 'Gallery',
           path: '/gallery/:collection',
-          component: () => import('@/views/GalleryView.vue'),
+          component: () => import('@/views/GalleryView.vue')
         }
       ],
-      component: () => import('@/views/GalleryView.vue'),
+      component: () => import('@/views/GalleryView.vue')
     },
     {
       path: '/travel/map',
       name: 'map',
       meta: {
-        title: 'Traveler\'s Map',
+        title: "Traveler's Map"
       },
-      component: () => import('@/views/MapView.vue'),
+      component: () => import('@/views/MapView.vue')
     },
     {
       path: '/music',
       name: 'music',
       meta: { title: 'Music Matters' },
-      component: () => import('@/views/MusicView.vue'),
+      component: () => import('@/views/MusicView.vue')
     },
     {
       path: '/coffee',
       name: 'coffee',
       meta: { title: 'Coffee Taste Log' },
-      component: () => import('@/views/CoffeeView.vue'),
+      component: () => import('@/views/CoffeeView.vue')
     },
     {
       path: '/redirect',
       component: () => import('@/views/RedirectView.vue'),
       meta: {
-        title: 'Redirecting...',
+        title: 'Redirecting...'
       },
       beforeEnter(to, from) {
         if (!to.meta.url) return
-        
-        window.location.href = to.meta.url;
+
+        window.location.href = to.meta.url
       },
       children: [
         {
@@ -110,8 +110,8 @@ const router = createRouter({
           name: 'login',
           component: {},
           meta: {
-            url: `${import.meta.env.VITE_API_URL}/auth/login`,
-          },
+            url: `${import.meta.env.VITE_API_URL}/auth/login`
+          }
         },
         {
           path: 'auth/callback',
@@ -123,20 +123,20 @@ const router = createRouter({
               return
             }
 
-            const token = to.query.token;
-            sessionStorage.setItem('jwt_token', token);
+            const token = to.query.token
+            sessionStorage.setItem('jwt_token', token)
             next({ path: '/' })
-          },
-        },
-      ],
+          }
+        }
+      ]
     },
     {
       path: '/:pathMatch(.*)',
       name: '404-not-found',
       meta: {
-        title: 'Page Not Found',
+        title: 'Page Not Found'
       },
-      component: () => import('@/views/NotFoundView.vue'),
+      component: () => import('@/views/NotFoundView.vue')
     },
     {
       path: '/tool',
@@ -146,55 +146,55 @@ const router = createRouter({
           path: 'dotmatrix',
           name: 'Dot Matrix',
           meta: {
-            title: 'Dot Matrix Generator',
+            title: 'Dot Matrix Generator'
           },
-          component: () => import('@/views/DotMatrix.vue'),
+          component: () => import('@/views/DotMatrix.vue')
         },
         {
           path: 'draw',
           name: 'Tldraw',
           meta: {
-            title: 'tldraw;',
+            title: 'tldraw;'
           },
-          component: () => import('@/views/TldrawView.vue'),
-        },
-      ],
+          component: () => import('@/views/TldrawView.vue')
+        }
+      ]
     }
   ]
-});
+})
 
 router.afterEach((to, from) => {
   // Use next tick to handle router history correctly
   // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
   nextTick(() => {
-      document.title = to.meta.title ? `${DEFAULT_TITLE} | ${to.meta.title}` : DEFAULT_TITLE;
-  });
-});
-
-router.beforeEach(async (to, from, next) => {
-  const name = to.name;
-  const params = to.params;
-  const title = to.meta.title;
-
-  if (name === "Blog" && params.slug) {
-    const slug = typeof params.slug === 'string' ? params.slug : params.slug[0];
-
-    if (slug) {
-      const response = await getBlogPostRaw(slug);
-      const blog_title = response?.title || "";
-
-      to.meta.title = `${title} - ${blog_title}`;
-    }
-  } else if (name === "Gallery" && params.collection) {
-    const response = await getGalleryCollectionRaw();
-    const collection = typeof params.collection === 'string' ? params.collection : params.collection[0];
-    const album = formatCollectionName(response, collection);
-    
-    to.meta.title = `${title} - ${album}`;
-  }
-
-  next();
+    document.title = to.meta.title ? `${DEFAULT_TITLE} | ${to.meta.title}` : DEFAULT_TITLE
+  })
 })
 
+router.beforeEach(async (to, from, next) => {
+  const name = to.name
+  const params = to.params
+  const title = to.meta.title
+
+  if (name === 'Blog' && params.slug) {
+    const slug = typeof params.slug === 'string' ? params.slug : params.slug[0]
+
+    if (slug) {
+      const response = await getBlogPostRaw(slug)
+      const blog_title = response?.title || ''
+
+      to.meta.title = `${title} - ${blog_title}`
+    }
+  } else if (name === 'Gallery' && params.collection) {
+    const response = await getGalleryCollectionRaw()
+    const collection =
+      typeof params.collection === 'string' ? params.collection : params.collection[0]
+    const album = formatCollectionName(response, collection)
+
+    to.meta.title = `${title} - ${album}`
+  }
+
+  next()
+})
 
 export default router

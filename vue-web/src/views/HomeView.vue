@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { listBlogPost } from '@/services/blogPost';
+import { listBlogPost } from '@/services/blogPost'
 
-const response = listBlogPost();
-const blogPost = response.data;
-const loading = response.loading;
+const response = listBlogPost()
+const blogPost = response.data
+const loading = response.loading
 </script>
 
 <template>

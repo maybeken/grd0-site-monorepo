@@ -8,18 +8,14 @@
 </template>
 
 <script setup lang="ts">
-import { generateResizedSrc, generateSrcset } from '@/helpers/cdn';
+import { generateResizedSrc, generateSrcset } from '@/helpers/cdn'
 
 interface Props {
-  uri: string,
-  resolution: number;
-  quality: number;
-};
+  uri: string
+  resolution: number
+  quality: number
+}
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
-const {
-  uri,
-  resolution = 768,
-  quality = 75,
-} = defineProps<Props>();
+const ASSET_URL = import.meta.env.VITE_ASSETS_URL
+const { uri, resolution = 768, quality = 75 } = defineProps<Props>()
 </script>

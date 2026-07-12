@@ -13,12 +13,9 @@
 </template>
 
 <script setup lang="ts">
-
 interface Props {
-  email: string;
-};
+  email: string
+}
 
-const {
-  email,
-} = defineProps<Props>();
+const { email } = defineProps<Props>()
 </script>

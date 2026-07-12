@@ -2,7 +2,9 @@
   <div class="flex flex-col gap-4">
     <div>
       <p class="text-2xl font-bold">My Coffee Journey<CursorBlink /></p>
-      <p class="italic font-light">Just a list of the coffee I have tried for my own reference, nothing special here.</p>
+      <p class="italic font-light">
+        Just a list of the coffee I have tried for my own reference, nothing special here.
+      </p>
     </div>
 
     <div v-if="loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -20,7 +22,12 @@
     </div>
 
     <div>
-      <p class="text-xs">Equipment illustration icon by <a href="https://dribbble.com/alvin-arief?ref=svgrepo.com" target="_blank">Alvin Arief</a> in CC Attribution License via <a href="https://www.svgrepo.com/" target="_blank">SVG Repo</a>.</p>
+      <p class="text-xs">
+        Equipment illustration icon by
+        <a href="https://dribbble.com/alvin-arief?ref=svgrepo.com" target="_blank">Alvin Arief</a>
+        in CC Attribution License via
+        <a href="https://www.svgrepo.com/" target="_blank">SVG Repo</a>.
+      </p>
     </div>
   </div>
 </template>

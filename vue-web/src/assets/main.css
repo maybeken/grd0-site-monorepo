@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap')
-layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap') layer(base);
 
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "tailwindcss-motion";
 
 @theme {
@@ -28,7 +27,8 @@ button {
   @apply cursor-pointer;
 }
 
-.markdown, .markdown * {
+.markdown,
+.markdown * {
   h1 {
     @apply text-2xl font-bold mt-8;
   }
@@ -48,7 +48,7 @@ button {
   p {
     @apply py-2;
   }
-  
+
   blockquote {
     @apply bg-accent px-4 py-2 text-sm rounded-xl text-secondary text-center mb-4;
   }

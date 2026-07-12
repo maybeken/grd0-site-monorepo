@@ -31,8 +31,10 @@
         </Skeleton>
       </div>
 
-      <div v-if="!loading"
-        class="absolute bottom-0 left-0 h-28 w-full z-10 rounded-xl bg-linear-to-t from-background from-33%">
+      <div
+        v-if="!loading"
+        class="absolute bottom-0 left-0 h-28 w-full z-10 rounded-xl bg-linear-to-t from-background from-33%"
+      >
         <router-link :to="`/blog/${$props?.uri}`">
           <div class="flex flex-col-reverse h-28 w-full hover:cursor-pointer hover:underline">
             <div class="mx-auto my-8">
@@ -45,10 +47,11 @@
       <hr class="border-accent my-2" />
 
       <div class="flex justify-end">
-
         <Skeleton h="sm" w="xl" :loading="loading">
-          <p class="text-accent italic">Posted At: {{ dayjs($props?.created_at).calendar() }} | Last Edited: {{
-            dayjs($props?.updated_at).calendar() }}</p>
+          <p class="text-accent italic">
+            Posted At: {{ dayjs($props?.created_at).calendar() }} | Last Edited:
+            {{ dayjs($props?.updated_at).calendar() }}
+          </p>
         </Skeleton>
       </div>
     </div>
@@ -56,18 +59,18 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs';
-import calendar from 'dayjs/plugin/calendar';
+import dayjs from 'dayjs'
+import calendar from 'dayjs/plugin/calendar'
 
-dayjs.extend(calendar);
+dayjs.extend(calendar)
 
-import type { BlogPost } from '@/interfaces/Blog';
+import type { BlogPost } from '@/interfaces/Blog'
 
 interface Props extends BlogPost {
-  loading: boolean,
-};
+  loading: boolean
+}
 
-const $props = defineProps<Props>();
+const $props = defineProps<Props>()
 </script>
 
 <style lang="postcss" scoped>

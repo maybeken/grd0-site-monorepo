@@ -5,26 +5,31 @@
         <p class="text-xl">Places I've Been To<CursorBlink /></p>
         <p class="text-sm">(Zoom in to see more)</p>
       </div>
-      <button class="rounded-full p-2 border-2 border-dotted" @click="map_center = [20, 70]; zoom = 2;" title="Re-center">
+      <button
+        class="rounded-full p-2 border-2 border-dotted"
+        @click="
+          () => {
+            map_center = [20, 70]
+            zoom = 2
+          }
+        "
+        title="Re-center"
+      >
         <div class="flex flex-col gap-2">
           <Icon class="mx-auto" icon="mynaui:redo" height="auto" />
         </div>
       </button>
     </div>
 
-    <Map
-      :map_center="map_center"
-      :zoom="zoom"
-    >
-    </Map>
+    <Map :map_center="map_center" :zoom="zoom"> </Map>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineAsyncComponent } from "vue";
+import { ref, defineAsyncComponent } from 'vue'
 
-const Map = defineAsyncComponent(() => import('@/components/Map.vue'));
+const Map = defineAsyncComponent(() => import('@/components/Map.vue'))
 
-const map_center = ref([20, 70]);
-const zoom = ref(2);
+const map_center = ref([20, 70])
+const zoom = ref(2)
 </script>

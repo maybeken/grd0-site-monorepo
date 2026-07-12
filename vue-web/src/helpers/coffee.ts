@@ -13,7 +13,7 @@ export const GRIND_SIZES = [
   'Medium',
   'Medium-Coarse',
   'Coarse',
-  'Extra Coarse',
+  'Extra Coarse'
 ] as const
 
 export const EQUIPMENT_IMAGE_MAP: Record<string, string> = {
@@ -23,7 +23,7 @@ export const EQUIPMENT_IMAGE_MAP: Record<string, string> = {
   'Moka Pot': mokaPot,
   // 'Cold Brew': coldBrew,
   Syphon: syphon,
-  Other: beans,
+  Other: beans
 } as const
 
 export const EQUIPMENT_TYPES = Object.keys(EQUIPMENT_IMAGE_MAP)
@@ -35,7 +35,7 @@ export const TASTE_DIMENSIONS = [
   'nutty',
   'spice',
   'floral',
-  'green',
+  'green'
 ] as const
 
 export const DEFAULT_EQUIPMENT_IMAGE = beans

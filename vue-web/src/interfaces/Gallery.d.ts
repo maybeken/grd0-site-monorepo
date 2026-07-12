@@ -1,33 +1,33 @@
 export interface Asset {
-  filename: string,
+  filename: string
   exif?: {
-    datetime?: string,
-    shutter?: string,
-    fstop?: number,
-    iso?: number,
-    focal?: number,
+    datetime?: string
+    shutter?: string
+    fstop?: number
+    iso?: number
+    focal?: number
     equipment?: {
-      camera?: string,
-      lens?: string,
+      camera?: string
+      lens?: string
     }
-  },
-  collection?: string,
-};
-  
+  }
+  collection?: string
+}
+
 export interface AssetFileList {
-  [key: string]: Asset[],
+  [key: string]: Asset[]
 }
 
 export interface GalleryDetail {
-  path: string,
-  filename: string,
-  tz_adjustment?: number,
-  description?: string,
+  path: string
+  filename: string
+  tz_adjustment?: number
+  description?: string
 }
 
 export interface GalleryCollection {
   [key: string]: {
-    title?: string,
-    cover?: string,
-  },
+    title?: string
+    cover?: string
+  }
 }

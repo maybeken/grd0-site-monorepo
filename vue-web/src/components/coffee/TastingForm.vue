@@ -22,7 +22,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="flex flex-col gap-1">
         <label class="text-sm font-semibold">Bean</label>
-        <select v-model="form.bean.id" class="bg-background border border-accent/40 rounded px-2 py-1 text-sm">
+        <select
+          v-model="form.bean.id"
+          class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
+        >
           <option value="">Select bean...</option>
           <option v-for="b in beans" :key="b.id" :value="b.id">{{ b.name }}</option>
         </select>
@@ -30,7 +33,10 @@
 
       <div class="flex flex-col gap-1">
         <label class="text-sm font-semibold">Equipment</label>
-        <select v-model="form.equipment.id" class="bg-background border border-accent/40 rounded px-2 py-1 text-sm">
+        <select
+          v-model="form.equipment.id"
+          class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
+        >
           <option value="">Select equipment...</option>
           <option v-for="e in equipmentList" :key="e.id" :value="e.id">{{ e.name }}</option>
         </select>
@@ -137,17 +143,16 @@
         <div class="flex flex-col gap-1">
           <label class="text-xs">Ratio</label>
           <div class="flex items-center gap-1">
-            <span class="text-xs">{{ computedRatio != null ? '1:' + computedRatio.toFixed(1) : 'IDK' }}</span>
+            <span class="text-xs">{{
+              computedRatio != null ? '1:' + computedRatio.toFixed(1) : 'IDK'
+            }}</span>
           </div>
         </div>
 
         <div class="flex flex-col gap-1">
           <label class="text-xs">Brew Time</label>
           <div class="flex items-center gap-1">
-            <BrewTimeInput
-              v-model="form.brew_time"
-              :disabled="idkFields.brew_time"
-            />
+            <BrewTimeInput v-model="form.brew_time" :disabled="idkFields.brew_time" />
             <IdkToggle v-model="idkFields.brew_time" />
           </div>
         </div>
@@ -218,7 +223,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  tasting: null,
+  tasting: null
 })
 
 const emit = defineEmits<{
@@ -231,7 +236,7 @@ const saving = ref(false)
 
 const tasteDimensions = TASTE_DIMENSIONS.map((d) => ({
   key: `taste_${d}`,
-  label: d,
+  label: d
 }))
 
 function createEmptyForm(): TastingNote {
@@ -256,7 +261,7 @@ function createEmptyForm(): TastingNote {
     taste_floral: null,
     taste_green: null,
     overall_notes: null,
-    rating: null,
+    rating: null
   }
 }
 
@@ -277,7 +282,7 @@ const idkFields = reactive<Record<string, boolean>>({
   taste_nutty: false,
   taste_spice: false,
   taste_floral: false,
-  taste_green: false,
+  taste_green: false
 })
 
 const computedRatio = computed(() => {

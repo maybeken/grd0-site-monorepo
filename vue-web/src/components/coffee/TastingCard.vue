@@ -6,9 +6,7 @@
       <span class="md:hidden">{{ formatDate(tasting.tasted_at, true) }}</span>
       <span class="select-none">|</span>
       <span class="opacity-70">{{ equipment?.name }}</span>
-      <span v-if="tasting.rating != null" class="ml-auto">
-        {{ tasting.rating }}/10
-      </span>
+      <span v-if="tasting.rating != null" class="ml-auto"> {{ tasting.rating }}/10 </span>
     </div>
 
     <div class="flex items-center">
@@ -19,7 +17,7 @@
           class="w-full h-full object-contain grayscale brightness-400"
         />
       </div>
-      
+
       <div class="md:hidden w-2/2 my-0 w-1/2 px-2">
         <TasteRadarChart
           :taste-fruity="tasting.taste_fruity"
@@ -41,20 +39,76 @@
           <span v-if="tasting.bean?.roaster"> · {{ tasting.bean.roaster }}</span>
         </div>
         <div class="opacity-70">
-          <span :class="{ 'opacity-50': tasting.bean.process == null }">{{ tasting.bean.process || 'IDK ¯\_(ツ)_/¯' }}</span>
+          <span :class="{ 'opacity-50': tasting.bean.process == null }">{{
+            tasting.bean.process || 'IDK ¯\_(ツ)_/¯'
+          }}</span>
         </div>
 
-        <div class="flex flex-wrap gap-x-2 place-content-between my-1 text-xs md:block md:space-y-0.5">
-          <div>Variety: <span :class="{ 'opacity-50': tasting.bean.variety == null }">{{ tasting.bean.variety || 'IDK ¯\_(ツ)_/¯' }}</span></div>
-          <div>Altitude: <span :class="{ 'opacity-50': tasting.bean.altitude == null }">{{ tasting.bean.altitude || 'IDK ¯\_(ツ)_/¯' }}</span></div>
-          <div>Grind: <span :class="{ 'opacity-50': tasting.grind_size == null }">{{ tasting.grind_size || 'IDK ¯\_(ツ)_/¯' }}</span></div>
-          <div>Grind Setting: <span :class="{ 'opacity-50': tasting.grind_setting == null }">{{ tasting.grind_setting ?? 'IDK ¯\_(ツ)_/¯' }}</span></div>
-          <div>Dose: <span :class="{ 'opacity-50': tasting.coffee_dose == null }">{{ tasting.coffee_dose != null ? tasting.coffee_dose + ' g' : 'IDK ¯\_(ツ)_/¯' }}</span></div>
-          <div>Water: <span :class="{ 'opacity-50': tasting.water_in == null }">{{ tasting.water_in != null ? tasting.water_in + ' ml' : 'IDK ¯\_(ツ)_/¯' }}</span></div>
-          <div>Yield: <span :class="{ 'opacity-50': tasting.coffee_out == null }">{{ tasting.coffee_out != null ? tasting.coffee_out + ' ml' : 'IDK ¯\_(ツ)_/¯' }}</span></div>
-          <div>Ratio: <span :class="{ 'opacity-50': tasting.ratio == null }">{{ tasting.ratio != null ? '1:' + tasting.ratio.toFixed(1) : 'IDK ¯\_(ツ)_/¯' }}</span></div>
-          <div>Brew Time: <span :class="{ 'opacity-50': tasting.brew_time == null }">{{ formatBrewTime(tasting.brew_time) }}</span></div>
-          <div>Water Temp: <span :class="{ 'opacity-50': tasting.water_temperature == null }">{{ tasting.water_temperature != null ? tasting.water_temperature + '°C' : 'IDK ¯\_(ツ)_/¯' }}</span></div>
+        <div
+          class="flex flex-wrap gap-x-2 place-content-between my-1 text-xs md:block md:space-y-0.5"
+        >
+          <div>
+            Variety:
+            <span :class="{ 'opacity-50': tasting.bean.variety == null }">{{
+              tasting.bean.variety || 'IDK ¯\_(ツ)_/¯'
+            }}</span>
+          </div>
+          <div>
+            Altitude:
+            <span :class="{ 'opacity-50': tasting.bean.altitude == null }">{{
+              tasting.bean.altitude || 'IDK ¯\_(ツ)_/¯'
+            }}</span>
+          </div>
+          <div>
+            Grind:
+            <span :class="{ 'opacity-50': tasting.grind_size == null }">{{
+              tasting.grind_size || 'IDK ¯\_(ツ)_/¯'
+            }}</span>
+          </div>
+          <div>
+            Grind Setting:
+            <span :class="{ 'opacity-50': tasting.grind_setting == null }">{{
+              tasting.grind_setting ?? 'IDK ¯\_(ツ)_/¯'
+            }}</span>
+          </div>
+          <div>
+            Dose:
+            <span :class="{ 'opacity-50': tasting.coffee_dose == null }">{{
+              tasting.coffee_dose != null ? tasting.coffee_dose + ' g' : 'IDK ¯\_(ツ)_/¯'
+            }}</span>
+          </div>
+          <div>
+            Water:
+            <span :class="{ 'opacity-50': tasting.water_in == null }">{{
+              tasting.water_in != null ? tasting.water_in + ' ml' : 'IDK ¯\_(ツ)_/¯'
+            }}</span>
+          </div>
+          <div>
+            Yield:
+            <span :class="{ 'opacity-50': tasting.coffee_out == null }">{{
+              tasting.coffee_out != null ? tasting.coffee_out + ' ml' : 'IDK ¯\_(ツ)_/¯'
+            }}</span>
+          </div>
+          <div>
+            Ratio:
+            <span :class="{ 'opacity-50': tasting.ratio == null }">{{
+              tasting.ratio != null ? '1:' + tasting.ratio.toFixed(1) : 'IDK ¯\_(ツ)_/¯'
+            }}</span>
+          </div>
+          <div>
+            Brew Time:
+            <span :class="{ 'opacity-50': tasting.brew_time == null }">{{
+              formatBrewTime(tasting.brew_time)
+            }}</span>
+          </div>
+          <div>
+            Water Temp:
+            <span :class="{ 'opacity-50': tasting.water_temperature == null }">{{
+              tasting.water_temperature != null
+                ? tasting.water_temperature + '°C'
+                : 'IDK ¯\_(ツ)_/¯'
+            }}</span>
+          </div>
         </div>
       </div>
 

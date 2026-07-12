@@ -10,25 +10,25 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
-import { getBlogPost } from '@/services/blogPost';
+import { useRoute } from 'vue-router'
+import { getBlogPost } from '@/services/blogPost'
 
-import dayjs from 'dayjs';
-import calendar from 'dayjs/plugin/calendar';
+import dayjs from 'dayjs'
+import calendar from 'dayjs/plugin/calendar'
 
-dayjs.extend(calendar);
+dayjs.extend(calendar)
 
-const $route = useRoute();
-const uri = $route.params.slug;
-let uri_sanitized: string = '';
+const $route = useRoute()
+const uri = $route.params.slug
+let uri_sanitized: string = ''
 
 if (typeof uri === 'string') {
-  uri_sanitized = uri;
+  uri_sanitized = uri
 } else if (Array.isArray(uri) && uri.length > 0) {
-  uri_sanitized = uri[0]!;
+  uri_sanitized = uri[0]!
 }
 
-const response = getBlogPost(uri_sanitized);
-const content = response?.data;
-const loading = response?.loading;
+const response = getBlogPost(uri_sanitized)
+const content = response?.data
+const loading = response?.loading
 </script>

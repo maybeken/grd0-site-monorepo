@@ -18,15 +18,11 @@
       </Skeleton>
       <div class="md:flex gap-2 text-secondary italic">
         <Skeleton h="xs" w="md" :loading="loading">
-          <p>
-            Posted At: {{ dayjs($props?.content?.created_at).calendar() }}
-          </p>
+          <p>Posted At: {{ dayjs($props?.content?.created_at).calendar() }}</p>
         </Skeleton>
         <p class="hidden md:block px-px">|</p>
         <Skeleton h="xs" w="md" :loading="loading">
-          <p>
-            Last Edited: {{ dayjs($props?.content?.updated_at).calendar() }}
-          </p>
+          <p>Last Edited: {{ dayjs($props?.content?.updated_at).calendar() }}</p>
         </Skeleton>
       </div>
     </div>
@@ -42,15 +38,15 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs';
-import calendar from 'dayjs/plugin/calendar';
+import dayjs from 'dayjs'
+import calendar from 'dayjs/plugin/calendar'
 
-dayjs.extend(calendar);
+dayjs.extend(calendar)
 
-import type { BlogPost } from '@/interfaces/Blog';
+import type { BlogPost } from '@/interfaces/Blog'
 
 const $props = defineProps<{
-  content?: BlogPost,
-  loading: boolean,
-}>();
+  content?: BlogPost
+  loading: boolean
+}>()
 </script>

@@ -79,5 +79,5 @@ export {
   getCoffeeTastingsRaw,
   getCoffeeTastings,
   upsertCoffeeTastingRaw,
-  deleteCoffeeTastingRaw,
+  deleteCoffeeTastingRaw
 }

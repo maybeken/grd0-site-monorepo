@@ -13,7 +13,11 @@
           class="px-2 mr-px mb-px border border-accent bg-background/75 rounded-xl disabled:brightness-50 disabled:bg-accent/75 disabled:border-secondary"
           title="Download"
           :disabled="loading"
-          @click="downloadImage($props.image?.filename ? `${$props.image?.collection}/${$props.image?.filename}` : '')"
+          @click="
+            downloadImage(
+              $props.image?.filename ? `${$props.image?.collection}/${$props.image?.filename}` : ''
+            )
+          "
         >
           <Icon icon="mynaui:cloud-download" height="3rem" />
         </button>
@@ -26,86 +30,94 @@
     </div>
     <div class="px-1 grow">
       <Skeleton h="sm" w="full" :loading="loading">
-        <p class="text-center">{{ $props.image?.exif?.equipment?.camera }} {{ $props.image?.exif?.equipment?.lens }}</p>
+        <p class="text-center">
+          {{ $props.image?.exif?.equipment?.camera }} {{ $props.image?.exif?.equipment?.lens }}
+        </p>
       </Skeleton>
       <Skeleton h="sm" w="full" :loading="loading">
         <p class="text-center"></p>
-        <p class="text-center">ISO {{ $props.image?.exif?.iso }} | {{ $props.image?.exif?.fstop }} | {{
-          $props.image?.exif?.shutter }}s</p>
+        <p class="text-center">
+          ISO {{ $props.image?.exif?.iso }} | {{ $props.image?.exif?.fstop }} |
+          {{ $props.image?.exif?.shutter }}s
+        </p>
       </Skeleton>
     </div>
     <div class="px-1">
       <Skeleton class="ml-auto" h="sm" w="2/3" :loading="loading">
         <p class="text-center"></p>
-        <p class="text-right">{{ details?.tz_adjustment ?
-          dayjs($props.image?.exif?.datetime).add(details?.tz_adjustment, 'h').format('LLL') :
-          dayjs($props.image?.exif?.datetime).format('LLL') }}</p>
+        <p class="text-right">
+          {{
+            details?.tz_adjustment
+              ? dayjs($props.image?.exif?.datetime).add(details?.tz_adjustment, 'h').format('LLL')
+              : dayjs($props.image?.exif?.datetime).format('LLL')
+          }}
+        </p>
       </Skeleton>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import dayjs from 'dayjs';
-import LocalizedFormat from 'dayjs/plugin/localizedFormat';
-dayjs.extend(LocalizedFormat);
+import { ref, watch } from 'vue'
+import dayjs from 'dayjs'
+import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+dayjs.extend(LocalizedFormat)
 
-import { getGalleryDetail } from '@/services/gallery';
+import { getGalleryDetail } from '@/services/gallery'
 
-import type { Asset, GalleryDetail } from '@/interfaces/Gallery';
-import Skeleton from './Skeleton.vue';
+import type { Asset, GalleryDetail } from '@/interfaces/Gallery'
+import Skeleton from './Skeleton.vue'
 
 interface Props {
-  image?: Asset,
-  loading: boolean,
+  image?: Asset
+  loading: boolean
 }
 
-const $props = defineProps<Props>();
+const $props = defineProps<Props>()
 
-const details = ref<GalleryDetail>();
-const response = getGalleryDetail($props.image?.collection);
-const gallery_details = response?.data || ref([]);
+const details = ref<GalleryDetail>()
+const response = getGalleryDetail($props.image?.collection)
+const gallery_details = response?.data || ref([])
 
-const ASSET_URL = import.meta.env.VITE_ASSETS_URL;
+const ASSET_URL = import.meta.env.VITE_ASSETS_URL
 
 const $emit = defineEmits<{
   zoom: [uri?: string]
-}>();
+}>()
 
 watch(gallery_details, (newVal) => {
-  if (!newVal) return;
-  
-  const file_rule = newVal.find((item) => item.filename === $props.image?.filename);
-  const collection_rule = newVal.find((item) => item.filename === '*');
+  if (!newVal) return
+
+  const file_rule = newVal.find((item) => item.filename === $props.image?.filename)
+  const collection_rule = newVal.find((item) => item.filename === '*')
 
   if (collection_rule) {
-    details.value = collection_rule;
+    details.value = collection_rule
 
     if (file_rule) {
-      details.value = file_rule;
+      details.value = file_rule
     }
   } else if (file_rule) {
-    details.value = file_rule;
+    details.value = file_rule
   }
-});
+})
 
 function zoomImage(val: string) {
-  $emit('zoom', val);
-};
+  $emit('zoom', val)
+}
 
 function downloadImage(val: string) {
   // create element <a> for download PDF
-  const link = document.createElement('a');
-  link.href = `${ASSET_URL}${val}?download`;
-  link.target = '_blank';
+  const link = document.createElement('a')
+  link.href = `${ASSET_URL}${val}?download`
+  link.target = '_blank'
 
-  const path_split = val.split('/').reverse();
-  link.download = path_split[0] ?? '';
+  const path_split = val.split('/').reverse()
+  link.download = path_split[0] ?? ''
 
   // Simulate a click on the element <a>
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
 </script>

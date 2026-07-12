@@ -3,20 +3,20 @@
 </template>
 
 <script setup lang="ts">
-import { Icon as Iconify } from "@iconify/vue";
+import { Icon as Iconify } from '@iconify/vue'
 
-import type { IconProps } from "@iconify/vue";
+import type { IconProps } from '@iconify/vue'
 
 interface Props extends IconProps {
-  dotify?: string,
+  dotify?: string
 }
 
-const $props = defineProps<Props>();
+const $props = defineProps<Props>()
 </script>
 
 <style lang="postcss" scoped>
 .dotify {
-  -webkit-mask-image: url("/assets/dot-matrix.svg");
-  mask-image: url("/assets/dot-matrix.svg");
+  -webkit-mask-image: url('/assets/dot-matrix.svg');
+  mask-image: url('/assets/dot-matrix.svg');
 }
 </style>

@@ -11,24 +11,35 @@
     </div>
   </div>
   <div class="flex mx-auto bg-white w-64">
-    <svg id="svg" xmlns="http://www.w3.org/2000/svg" :viewBox="`${-(finest * size + gap * size * 2)} ${-(finest * size + gap * size * 2)} ${(finest * size + gap * size * 2) * 2} ${(finest * size + gap * size * 2) * 2}`" fill="black">
+    <svg
+      id="svg"
+      xmlns="http://www.w3.org/2000/svg"
+      :viewBox="`${-(finest * size + gap * size * 2)} ${-(finest * size + gap * size * 2)} ${(finest * size + gap * size * 2) * 2} ${(finest * size + gap * size * 2) * 2}`"
+      fill="black"
+    >
       <g v-for="x in Array.from({ length: 2 * finest + 1 }, (_, i) => i - finest)" :key="x">
-        <circle v-for="y in Array.from({ length: 2 * finest + 1 }, (_, i) => i - finest)" :cx="x * (size * 2 + gap)" :cy="y * (size * 2 + gap)" :r="size" :key="y"/>
+        <circle
+          v-for="y in Array.from({ length: 2 * finest + 1 }, (_, i) => i - finest)"
+          :cx="x * (size * 2 + gap)"
+          :cy="y * (size * 2 + gap)"
+          :r="size"
+          :key="y"
+        />
       </g>
     </svg>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const size = ref(8);
-const gap = ref(8);
-const finest = ref(1);
+const size = ref(8)
+const gap = ref(8)
+const finest = ref(1)
 
-function getSvg(){
+function getSvg() {
   // @ts-expect-error
-  navigator.clipboard.writeText(document.getElementById('svg').outerHTML);
-  alert("Copied to clipboard!");
+  navigator.clipboard.writeText(document.getElementById('svg').outerHTML)
+  alert('Copied to clipboard!')
 }
 </script>

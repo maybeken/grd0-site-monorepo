@@ -18,7 +18,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  disabled: false,
+  disabled: false
 })
 const emit = defineEmits<{
   'update:modelValue': [value: number | null]

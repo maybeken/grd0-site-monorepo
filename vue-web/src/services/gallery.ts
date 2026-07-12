@@ -1,45 +1,51 @@
-import { useRequest } from 'alova/client';
-import { dataInstance } from './api';
+import { useRequest } from 'alova/client'
+import { dataInstance } from './api'
 
-import type { Ref } from 'vue';
-import type { Asset, GalleryDetail, GalleryCollection } from '@/interfaces/Gallery';
+import type { Ref } from 'vue'
+import type { Asset, GalleryDetail, GalleryCollection } from '@/interfaces/Gallery'
 
-function listAssets(collection?: string): { loading: Ref<boolean, boolean>, data: Ref<Asset[]> } | void {
-  if (!collection) return;
+function listAssets(
+  collection?: string
+): { loading: Ref<boolean, boolean>; data: Ref<Asset[]> } | void {
+  if (!collection) return
 
   try {
-    const { loading, data } = useRequest(dataInstance.Get<Asset[]>(`/gallery/${collection}`));
+    const { loading, data } = useRequest(dataInstance.Get<Asset[]>(`/gallery/${collection}`))
 
-    return { loading, data };
-  } catch(error: unknown) {
-    throw error;
+    return { loading, data }
+  } catch (error: unknown) {
+    throw error
   }
 }
 
-function getGalleryDetail(path?: string): { loading: Ref<boolean, boolean>, data: Ref<GalleryDetail[]> } | void {
-  if (!path) return;
-  
-  try {
-    const { loading, data } = useRequest(dataInstance.Get<GalleryDetail[]>(`/gallery/details/${path}`));
+function getGalleryDetail(
+  path?: string
+): { loading: Ref<boolean, boolean>; data: Ref<GalleryDetail[]> } | void {
+  if (!path) return
 
-    return { loading, data };
-  } catch(error: unknown) {
-    throw error;
+  try {
+    const { loading, data } = useRequest(
+      dataInstance.Get<GalleryDetail[]>(`/gallery/details/${path}`)
+    )
+
+    return { loading, data }
+  } catch (error: unknown) {
+    throw error
   }
 }
 
 function getGalleryCollectionRaw() {
-  return dataInstance.Get<GalleryCollection>('/gallery/collection');
+  return dataInstance.Get<GalleryCollection>('/gallery/collection')
 }
 
-function getGalleryCollection(): { loading: Ref<boolean, boolean>, data: Ref<GalleryCollection> } {
+function getGalleryCollection(): { loading: Ref<boolean, boolean>; data: Ref<GalleryCollection> } {
   try {
-    const { loading, data } = useRequest(getGalleryCollectionRaw());
+    const { loading, data } = useRequest(getGalleryCollectionRaw())
 
-    return { loading, data };
-  } catch(error: unknown) {
-    throw error;
+    return { loading, data }
+  } catch (error: unknown) {
+    throw error
   }
 }
 
-export { listAssets, getGalleryDetail, getGalleryCollectionRaw, getGalleryCollection };
+export { listAssets, getGalleryDetail, getGalleryCollectionRaw, getGalleryCollection }

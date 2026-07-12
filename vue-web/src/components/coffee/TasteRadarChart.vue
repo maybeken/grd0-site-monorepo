@@ -17,7 +17,7 @@ import {
   LineElement,
   Filler,
   Tooltip,
-  Legend,
+  Legend
 } from 'chart.js'
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
@@ -43,7 +43,7 @@ const values = computed(() => [
   props.tasteNutty,
   props.tasteSpice,
   props.tasteFloral,
-  props.tasteGreen,
+  props.tasteGreen
 ])
 
 const hasData = computed(() => values.value.some((v) => v != null))
@@ -57,9 +57,9 @@ const chartData = computed(() => ({
       borderColor: 'rgba(99, 102, 241, 0.8)',
       borderWidth: 2,
       pointBackgroundColor: 'rgba(99, 102, 241, 1)',
-      pointRadius: 3,
-    },
-  ],
+      pointRadius: 3
+    }
+  ]
 }))
 
 const chartOptions = {
@@ -71,22 +71,22 @@ const chartOptions = {
       max: 10,
       ticks: {
         stepSize: 2,
-        display: false,
+        display: false
       },
       pointLabels: {
-        font: { size: 10 },
+        font: { size: 10 }
       },
       grid: {
-        color: 'rgba(255, 255, 255, 0.1)',
+        color: 'rgba(255, 255, 255, 0.1)'
       },
       angleLines: {
-        color: 'rgba(255, 255, 255, 0.1)',
-      },
-    },
+        color: 'rgba(255, 255, 255, 0.1)'
+      }
+    }
   },
   plugins: {
     legend: { display: false },
-    tooltip: { enabled: true },
-  },
+    tooltip: { enabled: true }
+  }
 }
 </script>

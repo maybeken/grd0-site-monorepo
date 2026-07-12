@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import SiteFooter from './components/SiteFooter.vue';
+import SiteFooter from './components/SiteFooter.vue'
 </script>
 
 <template>

@@ -1,7 +1,7 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const useGalleryStore = defineStore('gallery', {
   state: () => {
-    return { selected_collection: 'all' }; 
-  },
+    return { selected_collection: 'all' }
+  }
 })

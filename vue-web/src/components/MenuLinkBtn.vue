@@ -13,15 +13,11 @@
 
 <script setup lang="ts">
 interface Props {
-  displayName: string;
-  link: string;
-  hidden?: boolean;
-  onNavigate: Function;
+  displayName: string
+  link: string
+  hidden?: boolean
+  onNavigate: Function
 }
 
-const {
-  displayName,
-  link,
-  hidden,
-} = defineProps<Props>();
+const { displayName, link, hidden } = defineProps<Props>()
 </script>
