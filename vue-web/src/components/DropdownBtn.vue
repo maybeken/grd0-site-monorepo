@@ -1,8 +1,7 @@
 <template>
-  <div class="relative z-20" @mouseleave="expanded = false">
+  <div class="relative z-20" @click="expanded = !expanded" @mouseleave="expanded = false">
     <button
       class="p-2 md:p-4 border-foreground border-dotted border rounded-lg"
-      @click="expanded = !expanded"
       @mouseenter="expanded = true"
     >
       <slot />
