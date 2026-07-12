@@ -28,6 +28,7 @@ const $router = useRouter();
 const menuItems = [
   { displayName: 'Gallery', link: '/gallery' },
   { displayName: 'Traveler\'s Map', link: '/travel/map' },
+  { displayName: 'Bean Soup', link: '/coffee' },
   { displayName: 'Blog', link: '/blog' },
   { displayName: 'LISTEN TO ME!', link: '/music' },
   { displayName: 'Instagram', link: 'https://www.instagram.com/maybe_ken/' },
