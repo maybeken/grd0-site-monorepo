@@ -2,7 +2,7 @@
     <TastingForm :beans="beans" :equipment-list="equipment"></TastingForm>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { getCoffeeBeans, getCoffeeEquipment } from '@/services/coffee'
 
 const { data: beans } = getCoffeeBeans();
