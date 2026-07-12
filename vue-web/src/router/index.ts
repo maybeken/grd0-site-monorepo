@@ -84,10 +84,14 @@ const router = createRouter({
     {
       path: '/music',
       name: 'music',
-      meta: {
-        title: 'Music Matters',
-      },
+      meta: { title: 'Music Matters' },
       component: () => import('@/views/MusicView.vue'),
+    },
+    {
+      path: '/coffee',
+      name: 'coffee',
+      meta: { title: 'Coffee Taste Log' },
+      component: () => import('@/views/CoffeeView.vue'),
     },
     {
       path: '/redirect',

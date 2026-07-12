@@ -1,0 +1,21 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/coffee/tasting/:id",
+    "method": "DELETE",
+    "body": {
+        "mimeType": "No Body"
+    },
+    "headers": [],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 8,
+    "pathParameters": [
+        {
+            "name": "id",
+            "value": "ac2c72b3-843c-49a0-a893-72faf6515e60"
+        }
+    ]
+}
