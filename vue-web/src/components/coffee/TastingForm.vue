@@ -151,6 +151,19 @@
             <IdkToggle v-model="idkFields.brew_time" />
           </div>
         </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="text-xs">Water Temp (°C)</label>
+          <div class="flex items-center gap-1">
+            <input
+              type="number"
+              v-model.number="form.water_temperature"
+              :disabled="idkFields.water_temperature"
+              class="bg-background border border-accent/40 rounded px-1 py-0.5 text-xs w-16 disabled:opacity-50"
+            />
+            <IdkToggle v-model="idkFields.water_temperature" />
+          </div>
+        </div>
       </div>
     </fieldset>
 
@@ -234,6 +247,7 @@ function createEmptyForm(): TastingNote {
     coffee_out: null,
     ratio: null,
     brew_time: null,
+    water_temperature: null,
     taste_fruity: null,
     taste_sour: null,
     taste_sweetness: null,
@@ -255,6 +269,7 @@ const idkFields = reactive<Record<string, boolean>>({
   water_in: false,
   coffee_out: false,
   brew_time: false,
+  water_temperature: false,
   rating: false,
   taste_fruity: false,
   taste_sour: false,

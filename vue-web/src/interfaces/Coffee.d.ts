@@ -32,6 +32,7 @@ export interface TastingNote {
   coffee_out?: number | null
   ratio?: number | null
   brew_time?: number | null
+  water_temperature?: number | null
   taste_fruity?: number | null
   taste_sour?: number | null
   taste_sweetness?: number | null

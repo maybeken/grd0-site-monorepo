@@ -53,7 +53,8 @@
           <div>Water: <span :class="{ 'opacity-50': tasting.water_in == null }">{{ tasting.water_in != null ? tasting.water_in + ' ml' : 'IDK ¯\_(ツ)_/¯' }}</span></div>
           <div>Yield: <span :class="{ 'opacity-50': tasting.coffee_out == null }">{{ tasting.coffee_out != null ? tasting.coffee_out + ' ml' : 'IDK ¯\_(ツ)_/¯' }}</span></div>
           <div>Ratio: <span :class="{ 'opacity-50': tasting.ratio == null }">{{ tasting.ratio != null ? '1:' + tasting.ratio.toFixed(1) : 'IDK ¯\_(ツ)_/¯' }}</span></div>
-          <div>Time: <span :class="{ 'opacity-50': tasting.brew_time == null }">{{ formatBrewTime(tasting.brew_time) }}</span></div>
+          <div>Brew Time: <span :class="{ 'opacity-50': tasting.brew_time == null }">{{ formatBrewTime(tasting.brew_time) }}</span></div>
+          <div>Water Temp: <span :class="{ 'opacity-50': tasting.water_temperature == null }">{{ tasting.water_temperature != null ? tasting.water_temperature + '°C' : 'IDK ¯\_(ツ)_/¯' }}</span></div>
         </div>
       </div>
 

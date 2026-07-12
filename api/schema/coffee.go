@@ -41,7 +41,8 @@ type TastingNote struct {
 	WaterIn      *int     `json:"water_in"`
 	CoffeeOut    *int     `json:"coffee_out"`
 	Ratio        *float64 `json:"ratio"`
-	BrewTime     *int     `json:"brew_time"`
+	BrewTime        *int     `json:"brew_time"`
+	WaterTemperature *int    `json:"water_temperature"`
 
 	TasteFruity    *int `json:"taste_fruity"`
 	TasteSour      *int `json:"taste_sour"`
