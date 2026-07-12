@@ -1,6 +1,6 @@
 {
     "_type": "request",
-    "url": "{{BASE_URL}}/blog",
+    "url": "{{BASE_URL}}/coffee/tastings",
     "method": "GET",
     "body": {
         "mimeType": "No Body"
@@ -10,6 +10,5 @@
     "authentication": {
         "type": "No Auth"
     },
-    "sortOrder": 0,
-    "pathParameters": []
+    "sortOrder": 6
 }

@@ -1,0 +1,21 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/coffee/bean/:id",
+    "method": "DELETE",
+    "body": {
+        "mimeType": "No Body"
+    },
+    "headers": [],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 2,
+    "pathParameters": [
+        {
+            "name": "id",
+            "value": "03db0a59-37ea-409c-a518-6f68ee47dcec"
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+[
+    {
+        "_id": "4kqORZAVh_nrGOSGPziFi",
+        "type": "script",
+        "name": null,
+        "code": {
+            "pre_request": "",
+            "post_request": "rf.setEnvVar(\"BEAN_UUID\", rf.response.getBodyJSON().ID)"
+        },
+        "enabled": true,
+        "createdAt": 1783819005046,
+        "updatedAt": 1783819026114
+    }
+]

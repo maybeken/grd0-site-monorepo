@@ -1,0 +1,21 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/coffee/equipment",
+    "method": "PUT",
+    "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Hario V60\",\n  \"type\": \"Pour Over\",\n  \"description\": \"Classic pour over dripper\"\n}"
+    },
+    "headers": [
+        {
+            "name": "Content-Type",
+            "value": "application/json"
+        }
+    ],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 4
+}
