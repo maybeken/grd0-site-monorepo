@@ -4,7 +4,7 @@
     "method": "PUT",
     "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"bean\": { \"id\": \"{{BEAN_UUID}}\" },\n  \"equipment\": { \"id\": \"{{EQUIPMENT_UUID}}\" },\n  \"grind_size\": \"Medium-Fine\",\n  \"grind_setting\": 2.1,\n  \"coffee_dose\": 20,\n  \"water_in\": 240,\n  \"coffee_out\": 240,\n  \"ratio\": 12.0,\n  \"brew_time\": 120,\n  \"taste_fruity\": 6,\n  \"taste_sour\": 8,\n  \"taste_sweetness\": 5,\n  \"taste_nutty\": 0,\n  \"taste_spice\": 4,\n  \"taste_floral\": 0,\n  \"taste_green\": 0,\n  \"overall_notes\": \"Could use a bit more tempurature to get the aroma\",\n  \"rating\": 7,\n  \"tasted_at\": \"{{CURRENT_TIMESTAMP_8601}}\",\n  \"pinned\": false\n}"
+        "text": "{\n  \"bean\": { \"id\": \"{{BEAN_UUID}}\" },\n  \"equipment\": { \"id\": \"{{EQUIPMENT_UUID}}\" },\n  \"grind_size\": \"Medium-Fine\",\n  \"grind_setting\": 2.1,\n  \"coffee_dose\": 20,\n  \"water_in\": 240,\n  \"coffee_out\": 240,\n  \"ratio\": 12.0,\n  \"brew_time\": 120,\n  \"water_temperature\": 90,\n  \"taste_fruity\": 6,\n  \"taste_sour\": 8,\n  \"taste_sweetness\": 5,\n  \"taste_nutty\": 0,\n  \"taste_spice\": 4,\n  \"taste_floral\": 0,\n  \"taste_green\": 0,\n  \"overall_notes\": \"Could use a bit more tempurature to get the aroma\",\n  \"rating\": 7,\n  \"tasted_at\": \"{{CURRENT_TIMESTAMP_8601}}\",\n  \"pinned\": false\n}"
     },
     "headers": [
         {
