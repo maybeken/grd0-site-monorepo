@@ -51,7 +51,9 @@
 - [x] 8.6 Write Playwright test to verify "IDK" displays for null fields
 - [x] 8.7 Write Playwright test to verify equipment images render correctly
 - [x] 8.8 Run `cd vue-web && pnpm exec playwright test` to execute visual verification tests
+- [x] 8.9 Update sitemap generator for the additional page added
 
-## 9. Documentation
+## 9. Documentation & Post-Implementation
 
 - [x] 9.1 Create `docs/api/coffee.json` in Restfox collection format documenting all coffee API endpoints (GET/PUT/DELETE for beans, equipment, tastings)
+- [x] 9.2 Manually verify and modify the code for quality check
