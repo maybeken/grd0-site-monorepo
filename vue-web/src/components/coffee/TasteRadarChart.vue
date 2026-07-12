@@ -25,25 +25,31 @@ ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, 
 interface Props {
   tasteFruity?: number | null
   tasteSour?: number | null
+  tasteFermented?: number | null
   tasteSweetness?: number | null
   tasteNutty?: number | null
   tasteSpice?: number | null
   tasteFloral?: number | null
   tasteGreen?: number | null
+  tasteTobacco?: number | null
+  tasteBitter?: number | null
 }
 
 const props = defineProps<Props>()
 
-const labels = ['Fruity', 'Sour', 'Sweetness', 'Nutty', 'Spice', 'Floral', 'Green']
+const labels = ['Nutty', 'Spice', 'Fruity', 'Sour', 'Fermented', 'Sweetness', 'Floral', 'Green', 'Tobacco', 'Bitter']
 
 const values = computed(() => [
-  props.tasteFruity,
-  props.tasteSour,
-  props.tasteSweetness,
   props.tasteNutty,
   props.tasteSpice,
+  props.tasteFruity,
+  props.tasteSour,
+  props.tasteFermented,
+  props.tasteSweetness,
   props.tasteFloral,
-  props.tasteGreen
+  props.tasteGreen,
+  props.tasteTobacco,
+  props.tasteBitter,
 ])
 
 const hasData = computed(() => values.value.some((v) => v != null))
@@ -67,7 +73,7 @@ const chartOptions = {
   maintainAspectRatio: true,
   scales: {
     r: {
-      min: 0,
+      min: -1,
       max: 10,
       ticks: {
         stepSize: 2,

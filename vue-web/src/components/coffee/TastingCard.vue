@@ -60,7 +60,13 @@
             }}</span>
           </div>
           <div>
-            Grind:
+            Grinder:
+            <span :class="{ 'opacity-50': tasting.grinder?.name == null }">{{
+              tasting.grinder?.name || 'IDK ¯\_(ツ)_/¯'
+            }}</span>
+          </div>
+          <div>
+            Grind Size:
             <span :class="{ 'opacity-50': tasting.grind_size == null }">{{
               tasting.grind_size || 'IDK ¯\_(ツ)_/¯'
             }}</span>
@@ -116,11 +122,14 @@
         <TasteRadarChart
           :taste-fruity="tasting.taste_fruity"
           :taste-sour="tasting.taste_sour"
+          :taste-fermented="tasting.taste_fermented"
           :taste-sweetness="tasting.taste_sweetness"
           :taste-nutty="tasting.taste_nutty"
           :taste-spice="tasting.taste_spice"
           :taste-floral="tasting.taste_floral"
           :taste-green="tasting.taste_green"
+          :taste-tobacco="tasting.taste_tobacco"
+          :taste-bitter="tasting.taste_bitter"
         />
       </div>
     </div>
