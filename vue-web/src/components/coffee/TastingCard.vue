@@ -14,7 +14,7 @@
         <img
           :src="equipmentImage"
           :alt="equipment?.type || 'Equipment'"
-          class="w-full h-full object-contain grayscale brightness-400"
+          class="w-full h-full object-contain grayscale brightness-400 dotify"
         />
       </div>
 
@@ -174,3 +174,11 @@ function formatBrewTime(seconds: number | null | undefined): string {
   return `${mins}:${String(secs).padStart(2, '0')}`
 }
 </script>
+
+<style lang="postcss" scoped>
+.dotify {
+  -webkit-mask-image: url('/assets/dot-matrix.svg');
+  mask-image: url('/assets/dot-matrix.svg');
+  mask-size: 3rem;
+}
+</style>
