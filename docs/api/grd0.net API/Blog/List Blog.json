@@ -10,5 +10,6 @@
     "authentication": {
         "type": "No Auth"
     },
-    "sortOrder": 0
+    "sortOrder": 0,
+    "pathParameters": []
 }

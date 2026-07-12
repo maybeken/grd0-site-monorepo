@@ -1,0 +1,14 @@
+[
+    {
+        "_id": "2ApiT45LWkKe_D0RPz0YQ",
+        "type": "script",
+        "name": null,
+        "code": {
+            "pre_request": "",
+            "post_request": "rf.setEnvVar(\"EQUIPMENT_UUID\", rf.response.getBodyJSON().ID)"
+        },
+        "enabled": true,
+        "createdAt": 1783819061670,
+        "updatedAt": 1783819066548
+    }
+]

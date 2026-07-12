@@ -14,6 +14,7 @@ declare module 'vue' {
     BlogCard: typeof import('./src/components/BlogCard.vue')['default']
     BlogDetail: typeof import('./src/components/BlogDetail.vue')['default']
     BlogSummary: typeof import('./src/components/BlogSummary.vue')['default']
+    BrewTimeInput: typeof import('./src/components/coffee/BrewTimeInput.vue')['default']
     CDNImage: typeof import('./src/components/CDNImage.vue')['default']
     CursorBlink: typeof import('./src/components/CursorBlink.vue')['default']
     DropdownBtn: typeof import('./src/components/DropdownBtn.vue')['default']
@@ -22,6 +23,7 @@ declare module 'vue' {
     GalleryGrid: typeof import('./src/components/GalleryGrid.vue')['default']
     GalleryZoom: typeof import('./src/components/GalleryZoom.vue')['default']
     Icon: typeof import('./src/components/Icon.vue')['default']
+    IdkToggle: typeof import('./src/components/coffee/IdkToggle.vue')['default']
     MarkdownDisplay: typeof import('./src/components/MarkdownDisplay.vue')['default']
     MenuLinkBtn: typeof import('./src/components/MenuLinkBtn.vue')['default']
     MusicProgressbar: typeof import('./src/components/MusicProgressbar.vue')['default']
@@ -34,6 +36,9 @@ declare module 'vue' {
     SideBySideEditor: typeof import('./src/components/editor/SideBySideEditor.vue')['default']
     SiteFooter: typeof import('./src/components/SiteFooter.vue')['default']
     Skeleton: typeof import('./src/components/Skeleton.vue')['default']
+    TasteRadarChart: typeof import('./src/components/coffee/TasteRadarChart.vue')['default']
+    TastingCard: typeof import('./src/components/coffee/TastingCard.vue')['default']
+    TastingForm: typeof import('./src/components/coffee/TastingForm.vue')['default']
     YouTube: typeof import('./src/components/YouTube.vue')['default']
   }
 }
