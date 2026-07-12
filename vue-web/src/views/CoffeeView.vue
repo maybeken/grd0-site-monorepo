@@ -21,7 +21,7 @@
       <TastingCard v-for="tasting in tastings" :key="tasting.id" :tasting="tasting" />
     </div>
 
-    <div>
+    <div class="hidden md:block ">
       <p class="text-xs">
         Equipment illustration icon by
         <a href="https://dribbble.com/alvin-arief?ref=svgrepo.com" target="_blank">Alvin Arief</a>

@@ -10,7 +10,7 @@
     </div>
 
     <div class="flex items-center">
-      <div class="w-1/2 md:w-full h-32 overflow-hidden md:flex-shrink-0">
+      <div class="hidden md:block w-full h-32 overflow-hidden md:flex-shrink-0">
         <img
           :src="equipmentImage"
           :alt="equipment?.type || 'Equipment'"
