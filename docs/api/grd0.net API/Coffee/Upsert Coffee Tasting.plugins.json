@@ -1,0 +1,14 @@
+[
+    {
+        "_id": "fXEVD0cTRGxG91DkXJJ3S",
+        "type": "script",
+        "name": null,
+        "code": {
+            "pre_request": "rf.setEnvVar(\"CURRENT_TIMESTAMP_8601\", (new Date()).toISOString())",
+            "post_request": ""
+        },
+        "enabled": true,
+        "createdAt": 1783824525844,
+        "updatedAt": 1783824525844
+    }
+]

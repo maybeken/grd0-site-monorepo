@@ -4,7 +4,7 @@
     "method": "PUT",
     "body": {
         "mimeType": "application/json",
-        "text": "{\n    \"ID\": \"67079010-47ef-45e7-af5b-30bb7082b118\",\n    \"name\": \"Ethiopian Yirgacheffe\",\n    \"origin\": \"Ethiopia\",\n    \"roaster\": \"Local Roaster\",\n    \"roast_date\": \"2026-07-12T00:02:16Z\",\n    \"variety\": \"Heirloom\",\n    \"process\": \"Washed\",\n    \"altitude\": \"1800\",\n    \"description\": \"Bright and floral\"\n}"
+        "text": "{\n    \"name\": \"Cinnamon Leche\",\n    \"origin\": \"Colombia\",\n    \"roaster\": \"Native Coffee Co\",\n    \"roast_date\": \"2026-07-03T00:00:00Z\",\n    \"variety\": \"Castillo\",\n    \"process\": \"Double Anaerobic, Thermal Shock\",\n    \"altitude\": \"\",\n    \"description\": \"Cinnamon, Apple, Horchata, Choclate, Creamy\"\n}"
     },
     "headers": [
         {

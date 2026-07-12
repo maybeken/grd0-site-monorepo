@@ -4,7 +4,7 @@
     "method": "PUT",
     "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"name\": \"Hario V60\",\n  \"type\": \"Pour Over\",\n  \"description\": \"Classic pour over dripper\"\n}"
+        "text": "{\n  \"name\": \"Hario Immersion Dripper SWITCH\",\n  \"type\": \"Pour Over\",\n  \"description\": \"Lazy way to get a pour over with easily reproducible results.\"\n}"
     },
     "headers": [
         {
