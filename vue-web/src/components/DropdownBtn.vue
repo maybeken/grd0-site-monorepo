@@ -19,6 +19,7 @@
             placeholder="Search..."
             v-model="searchText"
             @input="onSearch"
+            @click="expanded = !expanded"
           />
         </div>
 
