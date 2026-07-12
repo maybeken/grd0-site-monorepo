@@ -27,7 +27,7 @@
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
         >
           <option value="">Select bean...</option>
-          <option v-for="b in beans" :key="b.id" :value="b.id">{{ b.name }}</option>
+          <option v-for="b in beans" :key="b.id" :value="b.id">{{ b.roaster }} {{ b.name }} ({{ b.roast_date?.split("T")[0]?.replace(/-/g, "/") }})</option>
         </select>
       </div>
 
@@ -38,7 +38,7 @@
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
         >
           <option value="">Select equipment...</option>
-          <option v-for="e in equipmentList" :key="e.id" :value="e.id">{{ e.name }}</option>
+          <option v-for="e in (equipmentList || []).filter(e => e.type !== 'Grinder')" :key="e.id" :value="e.id">{{ e.name }}</option>
         </select>
       </div>
     </div>
@@ -64,14 +64,29 @@
             :disabled="idkFields.rating"
             class="bg-background border border-accent/40 rounded px-2 py-1 text-sm w-20 disabled:opacity-50"
           />
-          <IdkToggle v-model="idkFields.rating" />
         </div>
       </div>
     </div>
 
     <fieldset class="border border-accent/20 rounded p-3">
       <legend class="text-sm font-bold px-1">Brew Recipe</legend>
+
       <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="flex flex-col gap-1">
+          <label class="text-xs">Grinder</label>
+          <div class="flex items-center gap-1">
+            <select
+              v-model="form.grinder!.id"
+              :disabled="idkFields.grinder"
+              class="bg-background border border-accent/40 rounded px-1 py-0.5 text-xs flex-1 disabled:opacity-50"
+            >
+              <option value="">Select equipment...</option>
+              <option v-for="e in (equipmentList || []).filter(e => e.type === 'Grinder')" :key="e.id" :value="e.id">{{ e.name }}</option>
+            </select>
+            <IdkToggle v-model="idkFields.grinder" />
+          </div>
+        </div>
+
         <div class="flex flex-col gap-1">
           <label class="text-xs">Grind Size</label>
           <div class="flex items-center gap-1">
@@ -186,7 +201,6 @@
               :disabled="(idkFields as any)[dim.key]"
               class="bg-background border border-accent/40 rounded px-1 py-0.5 text-xs w-14 disabled:opacity-50"
             />
-            <IdkToggle v-model="(idkFields as any)[dim.key]" />
           </div>
         </div>
       </div>
@@ -223,7 +237,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  tasting: null
+  tasting: null,
 })
 
 const emit = defineEmits<{
@@ -243,8 +257,9 @@ function createEmptyForm(): TastingNote {
   return {
     bean: { name: '' },
     equipment: { name: '' },
-    tasted_at: new Date().toISOString(),
+    tasted_at: new Date().toISOString().split("T")[0]!,
     pinned: false,
+    grinder: { name: '' },
     grind_size: null,
     grind_setting: null,
     coffee_dose: null,
@@ -268,6 +283,7 @@ function createEmptyForm(): TastingNote {
 const form = reactive<TastingNote>(createEmptyForm())
 
 const idkFields = reactive<Record<string, boolean>>({
+  grider: false,
   grind_size: false,
   grind_setting: false,
   coffee_dose: false,
@@ -276,13 +292,6 @@ const idkFields = reactive<Record<string, boolean>>({
   brew_time: false,
   water_temperature: false,
   rating: false,
-  taste_fruity: false,
-  taste_sour: false,
-  taste_sweetness: false,
-  taste_nutty: false,
-  taste_spice: false,
-  taste_floral: false,
-  taste_green: false
 })
 
 const computedRatio = computed(() => {

@@ -47,6 +47,7 @@ const menuItems = [
   { displayName: 'Buy me ☕', link: 'https://ko-fi.com/maybeken' },
   { displayName: 'CMS - Login', link: '/redirect/auth/login', hidden: true },
   { displayName: 'Tool - Editor', link: '/blog/editor', hidden: true },
+  { displayName: 'Tool - Tasting Editor', link: '/coffee/editor', hidden: true },
   { displayName: 'Tool - Dot Matrix', link: '/tool/dotmatrix', hidden: true },
   { displayName: 'Tool - tldraw;', link: '/tool/draw', hidden: true }
 ]

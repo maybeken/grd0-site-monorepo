@@ -94,6 +94,14 @@ const router = createRouter({
       component: () => import('@/views/CoffeeView.vue')
     },
     {
+      path: '/coffee/editor',
+      name: 'Coffee Tasting Editor',
+      meta: {
+        title: 'Coffee Tasting Editor'
+      },
+      component: () => import('@/views/CoffeeEditorView.vue'),
+    },
+    {
       path: '/redirect',
       component: () => import('@/views/RedirectView.vue'),
       meta: {

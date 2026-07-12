@@ -31,11 +31,14 @@ export const EQUIPMENT_TYPES = Object.keys(EQUIPMENT_IMAGE_MAP)
 export const TASTE_DIMENSIONS = [
   'fruity',
   'sour',
-  'sweetness',
+  'femented',
   'nutty',
   'spice',
+  'sweetness',
   'floral',
-  'green'
+  'green',
+  'tobacco',
+  'bitter',
 ] as const
 
 export const DEFAULT_EQUIPMENT_IMAGE = beans
