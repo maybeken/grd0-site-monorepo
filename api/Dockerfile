@@ -4,7 +4,7 @@ WORKDIR /build
 ENV GOPROXY=direct
 ADD . .
 RUN apk add git
-RUN cd api; go build -o ../grd0_blog_api
+RUN cd api; go build -o /build/grd0_blog_api
 
 # Final stage
 FROM alpine:latest

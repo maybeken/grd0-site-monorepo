@@ -56,6 +56,18 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	e.GET("/music", h.GetMusic)
 	r.PUT("/music", h.UpsertMusic)
 	r.DELETE("/music/:v", h.DeleteMusic)
+
+	e.GET("/coffee/beans", h.GetCoffeeBeans)
+	r.PUT("/coffee/bean", h.UpsertCoffeeBean)
+	r.DELETE("/coffee/bean/:id", h.DeleteCoffeeBean)
+
+	e.GET("/coffee/equipment", h.GetCoffeeEquipment)
+	r.PUT("/coffee/equipment", h.UpsertCoffeeEquipment)
+	r.DELETE("/coffee/equipment/:id", h.DeleteCoffeeEquipment)
+
+	e.GET("/coffee/tastings", h.GetCoffeeTastings)
+	r.PUT("/coffee/tasting", h.UpsertCoffeeTasting)
+	r.DELETE("/coffee/tasting/:id", h.DeleteCoffeeTasting)
 }
 
 type ErrorResponseBody struct {

@@ -9,10 +9,13 @@ import (
 var tables = []interface{}{
 	&schema.Author{},
 	&schema.Blog{},
+	&schema.BrewEquipment{},
+	&schema.CoffeeBean{},
 	&schema.GalleryDetail{},
 	&schema.GalleryCollectionDetail{},
 	&schema.MapLocation{},
 	&schema.Music{},
+	&schema.TastingNote{},
 }
 
 func AutoMigrate(db *gorm.DB) {
