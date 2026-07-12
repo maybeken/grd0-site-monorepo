@@ -4,7 +4,7 @@ const pages = [
   { path: 'blog', dynamic: listBlogUri },
   { path: 'travel/map' },
   { path: 'music' },
-  { path: 'coffee' },
+  { path: 'coffee' }, // 20260712 Coffee Page
 ];
 
 async function siteMapConstruct(base_url) {
