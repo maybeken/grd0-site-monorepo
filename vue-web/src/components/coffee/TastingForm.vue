@@ -338,7 +338,10 @@ for (const key of Object.keys(idkFields)) {
 async function save() {
   saving.value = true
   try {
-    await upsertCoffeeTastingRaw({ ...form })
+    await upsertCoffeeTastingRaw({
+      ...form,
+      tasted_at: (new Date(form.tasted_at)).toISOString(),
+    })
     emit('saved')
   } catch (e) {
     alert('Failed to save tasting')
