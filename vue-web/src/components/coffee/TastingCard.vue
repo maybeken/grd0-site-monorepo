@@ -1,11 +1,17 @@
 <template>
-  <div class="h-fit bg-background rounded-xl overflow-hidden flex flex-col border border-accent/20">
+  <div class="p-2 h-fit bg-background rounded-xl overflow-hidden flex flex-col border border-accent/20">
     <div class="flex items-top md:items-center p-2 gap-1 font-bold text-sm">
       <Icon v-if="tasting.pinned" icon="mynaui:pin" height="14" />
-      <span class="hidden md:block">{{ formatDate(tasting.tasted_at) }}</span>
-      <span class="md:hidden">{{ formatDate(tasting.tasted_at, true) }}</span>
-      <span class="select-none">|</span>
-      <span class="opacity-70">{{ equipment?.name }}</span>
+      <div class="hidden md:block">
+        <span>{{ formatDate(tasting.tasted_at) }}</span>
+        <span class="select-none">|</span>
+        <span class="opacity-70">{{ equipment?.name }}</span>
+      </div>
+      <div class="md:hidden">
+        <p>{{ formatDate(tasting.tasted_at, true) }}</p>
+        <p class="opacity-70">{{ equipment?.name }}</p>
+      </div>
+
       <span v-if="tasting.rating != null" class="ml-auto"> {{ tasting.rating }}/10 </span>
     </div>
 
@@ -45,7 +51,7 @@
         </div>
 
         <div
-          class="flex flex-wrap gap-x-2 place-content-between my-1 text-xs md:block md:space-y-0.5"
+          class="grid grid-cols-2 gap-x-2 place-content-between my-1 text-xs md:block md:space-y-0.5"
         >
           <div>
             Variety:
