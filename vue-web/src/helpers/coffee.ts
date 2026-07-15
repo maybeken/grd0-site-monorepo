@@ -17,13 +17,14 @@ export const GRIND_SIZES = [
 ] as const
 
 export const EQUIPMENT_IMAGE_MAP: Record<string, string> = {
+  Grinder: beans,
   'Pour Over': dripper,
   Espresso: portaFilter,
   'French Press': frenchPress,
   'Moka Pot': mokaPot,
   // 'Cold Brew': coldBrew,
   Syphon: syphon,
-  Other: beans
+  Other: beans,
 } as const
 
 export const EQUIPMENT_TYPES = Object.keys(EQUIPMENT_IMAGE_MAP)

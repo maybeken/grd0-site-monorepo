@@ -11,6 +11,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BeanForm: typeof import('./src/components/coffee/BeanForm.vue')['default']
     BlogCard: typeof import('./src/components/BlogCard.vue')['default']
     BlogDetail: typeof import('./src/components/BlogDetail.vue')['default']
     BlogSummary: typeof import('./src/components/BlogSummary.vue')['default']
@@ -19,6 +20,7 @@ declare module 'vue' {
     CursorBlink: typeof import('./src/components/CursorBlink.vue')['default']
     DropdownBtn: typeof import('./src/components/DropdownBtn.vue')['default']
     DropdownSelection: typeof import('./src/components/DropdownSelection.vue')['default']
+    EquipmentForm: typeof import('./src/components/coffee/EquipmentForm.vue')['default']
     GalleryCard: typeof import('./src/components/GalleryCard.vue')['default']
     GalleryGrid: typeof import('./src/components/GalleryGrid.vue')['default']
     GalleryZoom: typeof import('./src/components/GalleryZoom.vue')['default']

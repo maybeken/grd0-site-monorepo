@@ -21,25 +21,126 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Bean</label>
+        <div class="flex items-center justify-between">
+          <label class="text-sm font-semibold">Bean</label>
+          <button
+            v-if="!showQuickAddBean"
+            type="button"
+            @click="showQuickAddBean = true"
+            class="text-xs text-accent hover:underline"
+          >
+            + new
+          </button>
+        </div>
         <select
           v-model="form.bean.id"
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
         >
           <option value="">Select bean...</option>
-          <option v-for="b in beans" :key="b.id" :value="b.id">{{ b.roaster }} {{ b.name }} ({{ b.roast_date?.split("T")[0]?.replace(/-/g, "/") }})</option>
+          <option v-for="b in beans" :key="b.id" :value="b.id">
+            {{ b.roaster }} {{ b.name }} ({{ b.roast_date?.split('T')[0]?.replace(/-/g, '/') }})
+          </option>
         </select>
+        <div
+          v-if="showQuickAddBean"
+          class="flex flex-col gap-2 p-2 rounded border border-accent/20 bg-accent/5"
+        >
+          <input
+            v-model="quickBean.name"
+            placeholder="Bean name *"
+            class="bg-background border border-accent/40 rounded px-2 py-1 text-xs"
+          />
+          <div class="grid grid-cols-2 gap-2">
+            <input
+              v-model="quickBean.roaster"
+              placeholder="Roaster"
+              class="bg-background border border-accent/40 rounded px-2 py-1 text-xs"
+            />
+            <input
+              v-model="quickBean.origin"
+              placeholder="Origin"
+              class="bg-background border border-accent/40 rounded px-2 py-1 text-xs"
+            />
+          </div>
+          <div class="flex gap-2 justify-end">
+            <button
+              type="button"
+              @click="cancelQuickBean"
+              class="px-2 py-0.5 rounded text-xs border border-accent/40 hover:bg-accent/10"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              :disabled="quickBeanSaving || !quickBean.name.trim()"
+              @click="saveQuickBean"
+              class="px-2 py-0.5 rounded text-xs bg-accent text-background font-semibold hover:brightness-110 disabled:opacity-50"
+            >
+              {{ quickBeanSaving ? '...' : 'Add' }}
+            </button>
+          </div>
+        </div>
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Equipment</label>
+        <div class="flex items-center justify-between">
+          <label class="text-sm font-semibold">Equipment</label>
+          <button
+            v-if="!showQuickAddEquipment"
+            type="button"
+            @click="showQuickAddEquipment = true"
+            class="text-xs text-accent hover:underline"
+          >
+            + new
+          </button>
+        </div>
         <select
           v-model="form.equipment.id"
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
         >
           <option value="">Select equipment...</option>
-          <option v-for="e in (equipmentList || []).filter(e => e.type !== 'Grinder')" :key="e.id" :value="e.id">{{ e.name }}</option>
+          <option
+            v-for="e in (equipmentList || []).filter((e) => e.type !== 'Grinder')"
+            :key="e.id"
+            :value="e.id"
+          >
+            {{ e.name }}
+          </option>
         </select>
+        <div
+          v-if="showQuickAddEquipment"
+          class="flex flex-col gap-2 p-2 rounded border border-accent/20 bg-accent/5"
+        >
+          <input
+            v-model="quickEquipment.name"
+            placeholder="Equipment name *"
+            class="bg-background border border-accent/40 rounded px-2 py-1 text-xs"
+          />
+          <select
+            v-model="quickEquipment.type"
+            class="bg-background border border-accent/40 rounded px-2 py-1 text-xs"
+          >
+            <option :value="null">Select type...</option>
+            <option v-for="t in equipmentTypes" :key="t" :value="t">{{ t }}</option>
+          </select>
+          <div class="flex gap-2 justify-end">
+            <button
+              type="button"
+              @click="cancelQuickEquipment"
+              class="px-2 py-0.5 rounded text-xs border border-accent/40 hover:bg-accent/10"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              :disabled="quickEquipmentSaving || !quickEquipment.name.trim()"
+              @click="saveQuickEquipment"
+              class="px-2 py-0.5 rounded text-xs bg-accent text-background font-semibold hover:brightness-110 disabled:opacity-50"
+            >
+              {{ quickEquipmentSaving ? '...' : 'Add' }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -81,7 +182,13 @@
               class="bg-background border border-accent/40 rounded px-1 py-0.5 text-xs flex-1 disabled:opacity-50"
             >
               <option value="">Select equipment...</option>
-              <option v-for="e in (equipmentList || []).filter(e => e.type === 'Grinder')" :key="e.id" :value="e.id">{{ e.name }}</option>
+              <option
+                v-for="e in (equipmentList || []).filter((e) => e.type === 'Grinder')"
+                :key="e.id"
+                :value="e.id"
+              >
+                {{ e.name }}
+              </option>
             </select>
             <IdkToggle v-model="idkFields.grinder" />
           </div>
@@ -225,8 +332,12 @@
 <script setup lang="ts">
 import { ref, computed, watch, reactive } from 'vue'
 import type { CoffeeBean, BrewEquipment, TastingNote } from '@/interfaces/Coffee'
-import { GRIND_SIZES, TASTE_DIMENSIONS } from '@/helpers/coffee'
-import { upsertCoffeeTastingRaw } from '@/services/coffee'
+import { GRIND_SIZES, TASTE_DIMENSIONS, EQUIPMENT_TYPES } from '@/helpers/coffee'
+import {
+  upsertCoffeeTastingRaw,
+  upsertCoffeeBeanRaw,
+  upsertCoffeeEquipmentRaw
+} from '@/services/coffee'
 import IdkToggle from './IdkToggle.vue'
 import BrewTimeInput from './BrewTimeInput.vue'
 
@@ -237,16 +348,35 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  tasting: null,
+  tasting: null
 })
 
 const emit = defineEmits<{
   saved: []
   cancel: []
+  beanAdded: [bean: CoffeeBean]
+  equipmentAdded: [equipment: BrewEquipment]
 }>()
 
 const isEdit = computed(() => !!props.tasting?.id)
 const saving = ref(false)
+
+const showQuickAddBean = ref(false)
+const quickBeanSaving = ref(false)
+const quickBean = reactive({
+  name: '',
+  roaster: null as string | null,
+  origin: null as string | null
+})
+
+const showQuickAddEquipment = ref(false)
+const quickEquipmentSaving = ref(false)
+const quickEquipment = reactive({
+  name: '',
+  type: null as string | null
+})
+
+const equipmentTypes = EQUIPMENT_TYPES
 
 const tasteDimensions = TASTE_DIMENSIONS.map((d) => ({
   key: `taste_${d}`,
@@ -257,7 +387,7 @@ function createEmptyForm(): TastingNote {
   return {
     bean: { name: '' },
     equipment: { name: '' },
-    tasted_at: new Date().toISOString().split("T")[0]!,
+    tasted_at: new Date().toISOString().split('T')[0]!,
     pinned: false,
     grinder: { name: '' },
     grind_size: null,
@@ -291,7 +421,7 @@ const idkFields = reactive<Record<string, boolean>>({
   coffee_out: false,
   brew_time: false,
   water_temperature: false,
-  rating: false,
+  rating: false
 })
 
 const computedRatio = computed(() => {
@@ -335,12 +465,62 @@ for (const key of Object.keys(idkFields)) {
   )
 }
 
+function cancelQuickBean() {
+  showQuickAddBean.value = false
+  quickBean.name = ''
+  quickBean.roaster = null
+  quickBean.origin = null
+}
+
+async function saveQuickBean() {
+  if (!quickBean.name.trim()) return
+  quickBeanSaving.value = true
+  try {
+    const newBean = await upsertCoffeeBeanRaw({
+      name: quickBean.name.trim(),
+      roaster: quickBean.roaster?.trim() || null,
+      origin: quickBean.origin?.trim() || null
+    })
+    emit('beanAdded', newBean)
+    form.bean = newBean
+    cancelQuickBean()
+  } catch {
+    alert('Failed to add bean')
+  } finally {
+    quickBeanSaving.value = false
+  }
+}
+
+function cancelQuickEquipment() {
+  showQuickAddEquipment.value = false
+  quickEquipment.name = ''
+  quickEquipment.type = null
+}
+
+async function saveQuickEquipment() {
+  if (!quickEquipment.name.trim()) return
+  quickEquipmentSaving.value = true
+  try {
+    const newEquipment = await upsertCoffeeEquipmentRaw({
+      name: quickEquipment.name.trim(),
+      type: quickEquipment.type || null
+    })
+    emit('equipmentAdded', newEquipment)
+    form.equipment = newEquipment
+    cancelQuickEquipment()
+  } catch {
+    alert('Failed to add equipment')
+  } finally {
+    quickEquipmentSaving.value = false
+  }
+}
+
 async function save() {
   saving.value = true
   try {
     await upsertCoffeeTastingRaw({
       ...form,
-      tasted_at: (new Date(form.tasted_at)).toISOString(),
+      tasted_at: new Date(form.tasted_at).toISOString()
     })
     emit('saved')
   } catch (e) {
