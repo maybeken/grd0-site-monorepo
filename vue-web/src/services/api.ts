@@ -1,4 +1,4 @@
-import { createAlova } from 'alova'
+import { createAlova, invalidateCache } from 'alova'
 import adapterFetch from 'alova/fetch'
 import VueHook from 'alova/vue'
 
@@ -39,7 +39,13 @@ export const adminInstance = createAlova({
   beforeRequest: (method) => {
     method.config.headers.Authorization = `Bearer ${sessionStorage.getItem('jwt_token')}`
   },
-  responded: (response) => response.json(),
+  responded: (response) => {
+    if (response.ok) {
+      invalidateCache()
+    }
+
+    return response.json()
+  },
   baseURL: `${API_URL}`,
   timeout: 10000
 })
