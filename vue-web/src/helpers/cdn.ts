@@ -16,5 +16,5 @@ export function generateResizedSrc(
   quality: number = 85,
   format: string = 'jpeg'
 ): string {
-  return `${ASSET_URL}/cdn-cgi/image/fit=scale-down,onerror=redirect,width=${size},quality=${quality},format=${format}${uri}`
+  return `${ASSET_URL}/cdn-cgi/image/fit=scale-down,onerror=redirect,width=${size},quality=${quality},format=${format}${encodeURI(uri)}`
 }
