@@ -1,14 +1,14 @@
 <template>
   <div class="flex flex-col gap-4">
     <div class="hidden">
-      <YouTube
+      <YouTubeEmbed
         :v="getCurrentSong(current)?.v"
         :play="play"
         :seek="seek"
         @onReady="onYouTubeReady"
         @initialDelivery="youTubeMessageHandler"
         @infoDelivery="youTubeMessageHandler"
-      ></YouTube>
+      ></YouTubeEmbed>
     </div>
 
     <div>
@@ -31,11 +31,11 @@
         </div>
 
         <div class="flex place-content-center">
-          <MusicProgressbar
+          <MusicProgressBar
             :progress="current_time"
             :duration="duration"
             @seek="(percentage: number) => (seek = duration * percentage)"
-          ></MusicProgressbar>
+          ></MusicProgressBar>
         </div>
 
         <div class="flex place-content-center">
@@ -104,7 +104,7 @@ import { getMusic } from '@/services/music'
 
 import type { Music } from '@/interfaces/Music'
 import type { InitialDeliveryMessage, InfoDeliveryMessage } from '@/interfaces/YouTube'
-import MusicProgressbar from '@/components/MusicProgressbar.vue'
+import MusicProgressBar from '@/components/music/MusicProgressBar.vue'
 
 const loading = ref(true)
 const initialized = ref(false)

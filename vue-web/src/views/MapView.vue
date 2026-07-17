@@ -21,14 +21,14 @@
       </button>
     </div>
 
-    <Map :map_center="map_center" :zoom="zoom"> </Map>
+    <TravelersMap :map_center="map_center" :zoom="zoom"> </TravelersMap>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, defineAsyncComponent } from 'vue'
 
-const Map = defineAsyncComponent(() => import('@/components/Map.vue'))
+const TravelersMap = defineAsyncComponent(() => import('@/components/map/TravelersMap.vue'))
 
 const map_center = ref([20, 70])
 const zoom = ref(2)
