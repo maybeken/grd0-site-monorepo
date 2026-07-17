@@ -32,7 +32,7 @@ export const EQUIPMENT_TYPES = Object.keys(EQUIPMENT_IMAGE_MAP)
 export const TASTE_DIMENSIONS = [
   'fruity',
   'sour',
-  'femented',
+  'fermented',
   'nutty',
   'spice',
   'sweetness',

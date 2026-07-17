@@ -398,15 +398,11 @@ function createEmptyForm(): TastingNote {
     ratio: null,
     brew_time: null,
     water_temperature: null,
-    taste_fruity: null,
-    taste_sour: null,
-    taste_sweetness: null,
-    taste_nutty: null,
-    taste_spice: null,
-    taste_floral: null,
-    taste_green: null,
     overall_notes: null,
-    rating: null
+    rating: null,
+    ...Object.fromEntries(
+      TASTE_DIMENSIONS.map((d) => [`taste_${d}`, null])
+    ),
   }
 }
 
