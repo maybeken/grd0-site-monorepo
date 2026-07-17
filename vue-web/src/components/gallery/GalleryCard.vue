@@ -66,7 +66,7 @@ dayjs.extend(LocalizedFormat)
 import { getGalleryDetail } from '@/services/gallery'
 
 import type { Asset, GalleryDetail } from '@/interfaces/Gallery'
-import Skeleton from './Skeleton.vue'
+import Skeleton from '../shared/Skeleton.vue'
 
 interface Props {
   image?: Asset
