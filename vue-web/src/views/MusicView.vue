@@ -82,7 +82,7 @@
           <p class="text-lg font-bold">Playlist</p>
         </div>
 
-        <div class="max-h-[50vh] overflow-scroll">
+        <div class="max-h-[50vh] overflow-auto scrollbar-thumb-accent scrollbar-track-background scrollbar-thin scroll-pb-6">
           <div
             class="flex border-b py-2 rounded-full max-w-full overflow-x-scroll cursor-pointer scrollbar-0"
             :class="current === idx ? ['bg-accent'] : []"
