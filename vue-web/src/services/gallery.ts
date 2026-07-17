@@ -2,30 +2,25 @@ import { useRequest } from 'alova/client'
 import { dataInstance } from './api'
 
 import type { Ref } from 'vue'
-import type { Asset, GalleryDetail, GalleryCollection } from '@/interfaces/Gallery'
+import type { GalleryDetail, GalleryCollection, PaginatedResponse, Asset } from '@/interfaces/Gallery'
 
-function listAssets(
-  collection?: string
-): { loading: Ref<boolean, boolean>; data: Ref<Asset[]> } | void {
-  if (!collection) return
-
-  try {
-    const { loading, data } = useRequest(dataInstance.Get<Asset[]>(`/gallery/${collection}`))
-
-    return { loading, data }
-  } catch (error: unknown) {
-    throw error
-  }
+function loadMoreAssets(collection: string, page: number) {
+  return dataInstance.Get<PaginatedResponse<Asset>>(
+    `/v2/gallery/${collection}?page=${page}&page_size=40`
+  )
 }
 
 function getGalleryDetail(
-  path?: string
-): { loading: Ref<boolean, boolean>; data: Ref<GalleryDetail[]> } | void {
+  path?: string,
+  page = 1
+): { loading: Ref<boolean, boolean>; data: Ref<PaginatedResponse<GalleryDetail>> } | void {
   if (!path) return
 
   try {
     const { loading, data } = useRequest(
-      dataInstance.Get<GalleryDetail[]>(`/gallery/details/${path}`)
+      dataInstance.Get<PaginatedResponse<GalleryDetail>>(
+        `/v2/gallery/details/${path}?page=${page}&page_size=40`
+      )
     )
 
     return { loading, data }
@@ -48,4 +43,4 @@ function getGalleryCollection(): { loading: Ref<boolean, boolean>; data: Ref<Gal
   }
 }
 
-export { listAssets, getGalleryDetail, getGalleryCollectionRaw, getGalleryCollection }
+export { loadMoreAssets, getGalleryDetail, getGalleryCollectionRaw, getGalleryCollection }

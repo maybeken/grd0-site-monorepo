@@ -65,7 +65,7 @@ dayjs.extend(LocalizedFormat)
 
 import { getGalleryDetail } from '@/services/gallery'
 
-import type { Asset, GalleryDetail } from '@/interfaces/Gallery'
+import type { Asset, GalleryDetail, PaginatedResponse } from '@/interfaces/Gallery'
 import Skeleton from '../shared/Skeleton.vue'
 
 interface Props {
@@ -77,7 +77,14 @@ const $props = defineProps<Props>()
 
 const details = ref<GalleryDetail>()
 const response = getGalleryDetail($props.image?.collection)
-const gallery_details = response?.data || ref([])
+const empty_response: PaginatedResponse<GalleryDetail> = {
+  data: [],
+  total: 0,
+  page: 1,
+  page_size: 40,
+  total_pages: 0
+}
+const gallery_details = response?.data || ref(empty_response)
 
 const ASSET_URL = import.meta.env.VITE_ASSETS_URL
 
@@ -88,8 +95,8 @@ const $emit = defineEmits<{
 watch(gallery_details, (newVal) => {
   if (!newVal) return
 
-  const file_rule = newVal.find((item) => item.filename === $props.image?.filename)
-  const collection_rule = newVal.find((item) => item.filename === '*')
+  const file_rule = newVal.data.find((item) => item.filename === $props.image?.filename)
+  const collection_rule = newVal.data.find((item) => item.filename === '*')
 
   if (collection_rule) {
     details.value = collection_rule
