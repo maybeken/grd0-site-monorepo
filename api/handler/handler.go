@@ -26,48 +26,53 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 
 	e.GET("/health", h.GetHealthcheck)
 
-	r := e.Group("")
-	r.Use(auth_guard)
+	restrictV1 := e.Group("")
+	restrictV1.Use(auth_guard)
 
-	e.GET("/auth/login", h.Login)
-	e.GET("/auth/callback", h.LoginCallback)
+	v1 := e.Group("")
+	v2 := e.Group("/v2")
 
-	e.GET("/blog", h.GetBlog)
-	e.GET("/blog/:uri", h.GetBlog)
-	r.GET("/blog/all", h.GetBlogByAdmin)
-	r.PUT("/blog/:uri", h.UpsertBlog)
-	r.DELETE("/blog/:uri", h.DeleteBlog)
-	r.PUT("/blog/attachment/:key", h.GeneratePresignedUrl)
+	v1.GET("/auth/login", h.Login)
+	v1.GET("/auth/callback", h.LoginCallback)
 
-	e.GET("/gallery/details/:path", h.GetGalleryDetail)
-	r.PUT("/gallery/details/:path", h.UpsertGalleryDetail)
-	r.DELETE("/gallery/details/:path", h.DeleteGalleryDetail)
+	v1.GET("/blog", h.GetBlog)
+	v1.GET("/blog/:uri", h.GetBlog)
+	restrictV1.GET("/blog/all", h.GetBlogByAdmin)
+	restrictV1.PUT("/blog/:uri", h.UpsertBlog)
+	restrictV1.DELETE("/blog/:uri", h.DeleteBlog)
+	restrictV1.PUT("/blog/attachment/:key", h.GeneratePresignedUrl)
 
-	e.GET("/gallery/collection", h.GetGalleryCollection)
-	r.PUT("/gallery/collection", h.UpsertGalleryCollection)
-	r.DELETE("/gallery/collection/:path", h.DeleteGalleryCollection)
+	v1.GET("/gallery/details/:path", h.GetGalleryDetail)
+	v2.GET("/gallery/details/:path", h.GetGalleryDetailV2)
+	restrictV1.PUT("/gallery/details/:path", h.UpsertGalleryDetail)
+	restrictV1.DELETE("/gallery/details/:path", h.DeleteGalleryDetail)
 
-	e.GET("/gallery/:collection", h.GetAsset)
+	v1.GET("/gallery/collection", h.GetGalleryCollection)
+	restrictV1.PUT("/gallery/collection", h.UpsertGalleryCollection)
+	restrictV1.DELETE("/gallery/collection/:path", h.DeleteGalleryCollection)
 
-	e.GET("/travel/map", h.GetMapLocation)
-	r.PUT("/travel/map", h.UpsertMapLocation)
-	r.DELETE("/travel/map/:slug", h.DeleteMapLocation)
+	v1.GET("/gallery/:collection", h.GetAsset)
+	v2.GET("/gallery/:collection", h.GetAssetV2)
 
-	e.GET("/music", h.GetMusic)
-	r.PUT("/music", h.UpsertMusic)
-	r.DELETE("/music/:v", h.DeleteMusic)
+	v1.GET("/travel/map", h.GetMapLocation)
+	restrictV1.PUT("/travel/map", h.UpsertMapLocation)
+	restrictV1.DELETE("/travel/map/:slug", h.DeleteMapLocation)
 
-	e.GET("/coffee/beans", h.GetCoffeeBeans)
-	r.PUT("/coffee/bean", h.UpsertCoffeeBean)
-	r.DELETE("/coffee/bean/:id", h.DeleteCoffeeBean)
+	v1.GET("/music", h.GetMusic)
+	restrictV1.PUT("/music", h.UpsertMusic)
+	restrictV1.DELETE("/music/:v", h.DeleteMusic)
 
-	e.GET("/coffee/equipment", h.GetCoffeeEquipment)
-	r.PUT("/coffee/equipment", h.UpsertCoffeeEquipment)
-	r.DELETE("/coffee/equipment/:id", h.DeleteCoffeeEquipment)
+	v1.GET("/coffee/beans", h.GetCoffeeBeans)
+	restrictV1.PUT("/coffee/bean", h.UpsertCoffeeBean)
+	restrictV1.DELETE("/coffee/bean/:id", h.DeleteCoffeeBean)
 
-	e.GET("/coffee/tastings", h.GetCoffeeTastings)
-	r.PUT("/coffee/tasting", h.UpsertCoffeeTasting)
-	r.DELETE("/coffee/tasting/:id", h.DeleteCoffeeTasting)
+	v1.GET("/coffee/equipment", h.GetCoffeeEquipment)
+	restrictV1.PUT("/coffee/equipment", h.UpsertCoffeeEquipment)
+	restrictV1.DELETE("/coffee/equipment/:id", h.DeleteCoffeeEquipment)
+
+	v1.GET("/coffee/tastings", h.GetCoffeeTastings)
+	restrictV1.PUT("/coffee/tasting", h.UpsertCoffeeTasting)
+	restrictV1.DELETE("/coffee/tasting/:id", h.DeleteCoffeeTasting)
 }
 
 type ErrorResponseBody struct {

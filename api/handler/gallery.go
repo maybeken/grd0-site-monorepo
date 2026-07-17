@@ -2,8 +2,10 @@ package handler
 
 import (
 	"errors"
+	"math"
 	"net/http"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -15,6 +17,25 @@ import (
 
 	"grd0.net/api/schema"
 )
+
+const DEFAULT_PAGE_SIZE = 40
+const MAX_PAGE_SIZE = 200
+
+func parsePagination(c echo.Context) (page, pageSize int) {
+	page = 1
+	pageSize = DEFAULT_PAGE_SIZE
+
+	if p, err := strconv.Atoi(c.QueryParam("page")); err == nil && p > 0 {
+		page = p
+	}
+	if ps, err := strconv.Atoi(c.QueryParam("page_size")); err == nil && ps > 0 {
+		pageSize = ps
+	}
+	if pageSize > MAX_PAGE_SIZE {
+		pageSize = MAX_PAGE_SIZE
+	}
+	return
+}
 
 func (h *Handler) GetGalleryDetail(c echo.Context) error {
 	path := c.Param("path")
@@ -31,6 +52,35 @@ func (h *Handler) GetGalleryDetail(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, gallery_detail)
+}
+
+func (h *Handler) GetGalleryDetailV2(c echo.Context) error {
+	path := c.Param("path")
+
+	if path == "" {
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "")
+	}
+
+	db := h.DB
+	page, pageSize := parsePagination(c)
+
+	var total int64
+	if err := db.Model(&schema.GalleryDetail{}).Where("path = ?", path).Count(&total).Error; err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	var gallery_detail []schema.GalleryDetail
+	if err := db.Where("path = ?", path).Offset((page - 1) * pageSize).Limit(pageSize).Find(&gallery_detail).Error; err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, schema.PaginatedResponse[schema.GalleryDetail]{
+		Data:       gallery_detail,
+		Total:      int(total),
+		Page:       page,
+		PageSize:   pageSize,
+		TotalPages: int(math.Ceil(float64(total) / float64(pageSize))),
+	})
 }
 
 func (h *Handler) UpsertGalleryDetail(c echo.Context) error {
@@ -164,13 +214,9 @@ func (h *Handler) GetAsset(c echo.Context) error {
 		}
 
 		for key, value := range asset_list {
-			// Check if the key starts with the specified prefix
 			if strings.HasPrefix(key, "/gallery") {
-
-				// Check if the file is in a publicly listed collection
 				for _, collection := range collections {
 					if strings.HasPrefix(key, "/gallery/"+collection.Path) {
-						// Add the key-value pair to the filtered map
 						filtered[key] = value
 					}
 				}
@@ -205,6 +251,104 @@ func (h *Handler) GetAsset(c echo.Context) error {
 			})
 
 			return c.JSON(http.StatusOK, with_collection)
+		}
+
+		return c.JSON(http.StatusNotFound, "")
+	}
+
+	return c.JSON(http.StatusBadRequest, "")
+}
+
+func (h *Handler) GetAssetV2(c echo.Context) error {
+	collection := c.Param("collection")
+	page, pageSize := parsePagination(c)
+
+	asset_list, err := data.ReadAsset()
+
+	if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	db := h.DB
+
+	if collection == "all" {
+		filtered := make(schema.AssetFileList)
+
+		var collections []schema.GalleryCollectionDetail
+		if err := db.Find(&collections).Error; err != nil {
+			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+		}
+
+		for key, value := range asset_list {
+			if strings.HasPrefix(key, "/gallery") {
+				for _, collection := range collections {
+					if strings.HasPrefix(key, "/gallery/"+collection.Path) {
+						filtered[key] = value
+					}
+				}
+			}
+		}
+
+		combined := funk.FlatMap(filtered, func(key string, values []schema.Asset) []schema.Asset {
+			with_collection := funk.Map(values, func(item schema.Asset) schema.Asset {
+				item.Collection = key
+				return item
+			}).([]schema.Asset)
+
+			return with_collection
+		}).([]schema.Asset)
+
+		sort.Slice(combined, func(i, j int) bool {
+			return combined[i].Exif.Datetime > combined[j].Exif.Datetime
+		})
+
+		total := len(combined)
+		start := (page - 1) * pageSize
+		if start > total {
+			start = total
+		}
+		end := start + pageSize
+		if end > total {
+			end = total
+		}
+
+		return c.JSON(http.StatusOK, schema.PaginatedResponse[schema.Asset]{
+			Data:       combined[start:end],
+			Total:      total,
+			Page:       page,
+			PageSize:   pageSize,
+			TotalPages: int(math.Ceil(float64(total) / float64(pageSize))),
+		})
+	} else if collection != "" {
+		formatted_collection := "/gallery/" + collection
+
+		if values, exists := asset_list[formatted_collection]; exists {
+			with_collection := funk.Map(values, func(item schema.Asset) schema.Asset {
+				item.Collection = formatted_collection
+				return item
+			}).([]schema.Asset)
+
+			sort.Slice(with_collection, func(i, j int) bool {
+				return with_collection[i].Exif.Datetime < with_collection[j].Exif.Datetime
+			})
+
+			total := len(with_collection)
+			start := (page - 1) * pageSize
+			if start > total {
+				start = total
+			}
+			end := start + pageSize
+			if end > total {
+				end = total
+			}
+
+			return c.JSON(http.StatusOK, schema.PaginatedResponse[schema.Asset]{
+				Data:       with_collection[start:end],
+				Total:      total,
+				Page:       page,
+				PageSize:   pageSize,
+				TotalPages: int(math.Ceil(float64(total) / float64(pageSize))),
+			})
 		}
 
 		return c.JSON(http.StatusNotFound, "")
