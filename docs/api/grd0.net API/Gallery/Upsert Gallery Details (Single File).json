@@ -6,7 +6,7 @@
         "text": "{\n    \"filename\": \"DSC04869.jpg\",\n    \"tz_adjustment\": -19,\n    \"description\": \"Cow goes moo\"\n}"
     },
     "url": "{{BASE_URL}}/gallery/details/:path",
-    "sortOrder": 6,
+    "sortOrder": 8,
     "parameters": [],
     "pathParameters": [
         {

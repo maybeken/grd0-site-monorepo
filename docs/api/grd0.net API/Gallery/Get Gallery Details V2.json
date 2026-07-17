@@ -4,9 +4,18 @@
     "body": {
         "mimeType": "No Body"
     },
-    "url": "{{BASE_URL}}/gallery/details/:path",
-    "sortOrder": 5,
-    "parameters": [],
+    "url": "{{BASE_URL}}/v2/gallery/details/:path?page=1&page_size=40",
+    "sortOrder": 6,
+    "parameters": [
+        {
+            "name": "page",
+            "value": "1"
+        },
+        {
+            "name": "page_size",
+            "value": "40"
+        }
+    ],
     "pathParameters": [
         {
             "name": "path",

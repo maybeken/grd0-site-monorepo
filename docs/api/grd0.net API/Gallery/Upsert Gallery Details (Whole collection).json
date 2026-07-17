@@ -6,7 +6,7 @@
         "text": "{\n    \"filename\": \"*\",\n    \"tz_adjustment\": -19,\n    \"description\": \"\"\n}"
     },
     "url": "{{BASE_URL}}/gallery/details/:path",
-    "sortOrder": 5,
+    "sortOrder": 7,
     "parameters": [],
     "pathParameters": [
         {

@@ -6,7 +6,7 @@
         "text": "{\n    \"filename\": \"DSC04844.jpg\"\n}"
     },
     "url": "{{BASE_URL}}/gallery/details/:path",
-    "sortOrder": 7,
+    "sortOrder": 9,
     "parameters": [],
     "pathParameters": [
         {

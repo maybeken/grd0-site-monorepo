@@ -1,0 +1,38 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/v2/gallery/:collection?page=1&page_size=40",
+    "method": "GET",
+    "body": {
+        "mimeType": "No Body"
+    },
+    "headers": [
+        {
+            "name": "accept-encoding",
+            "value": "gzip,deflate,br"
+        },
+        {
+            "name": "origin",
+            "value": "https://grd0.net"
+        }
+    ],
+    "parameters": [
+        {
+            "name": "page",
+            "value": "1"
+        },
+        {
+            "name": "page_size",
+            "value": "40"
+        }
+    ],
+    "authentication": {
+        "type": "No Auth"
+    },
+    "sortOrder": 2,
+    "pathParameters": [
+        {
+            "name": "collection",
+            "value": "vancouver 2025"
+        }
+    ]
+}
