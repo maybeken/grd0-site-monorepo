@@ -17,7 +17,13 @@ const sessionStorageAdapter = {
     sessionStorage.removeItem(key)
   },
   clear() {
-    sessionStorage.clear()
+    const prefix = '$a' // Known prefix set by alova
+    
+    Object.keys(sessionStorage).filter(
+      key => key.startsWith(prefix)
+    ).map(
+      key => sessionStorage.removeItem(key)
+    )
   }
 }
 
