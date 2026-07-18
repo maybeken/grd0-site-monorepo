@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col gap-4">
     <div>
-      <p class="text-2xl font-bold">My Coffee Journey<CursorBlink /></p>
+      <p class="text-2xl font-bold">{{ $t('coffee.view.title') }}<CursorBlink /></p>
       <p class="italic font-light">
-        Just a list of the coffee I have tried for my own reference, nothing special here.
+        {{ $t('coffee.view.subtitle') }}
       </p>
     </div>
 
@@ -14,7 +14,7 @@
     </div>
 
     <div v-else-if="!tastings || tastings.length === 0" class="text-center py-16 opacity-60">
-      <p class="text-lg">No tastings recorded yet.</p>
+      <p class="text-lg">{{ $t('coffee.view.noTastings') }}</p>
     </div>
 
     <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -23,10 +23,10 @@
 
     <div class="hidden md:block ">
       <p class="text-xs">
-        Equipment illustration icon by
-        <a href="https://dribbble.com/alvin-arief?ref=svgrepo.com" target="_blank">Alvin Arief</a>
-        in CC Attribution License via
-        <a href="https://www.svgrepo.com/" target="_blank">SVG Repo</a>.
+        {{ $t('coffee.view.equipmentCredit', {
+          author: $t('coffee.view.equipmentCreditAuthor'),
+          source: $t('coffee.view.equipmentCreditSource')
+        }) }}
       </p>
     </div>
   </div>

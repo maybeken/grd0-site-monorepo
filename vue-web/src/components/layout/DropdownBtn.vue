@@ -16,7 +16,7 @@
           <input
             type="text"
             class="w-full rounded-md bg-transparent p-1 text-center border-foreground border-dotted border"
-            placeholder="Search..."
+            :placeholder="$t('common.search')"
             v-model="searchText"
             @input="onSearch"
             @click="expanded = !expanded"
@@ -26,7 +26,7 @@
         <MenuLinkBtn
           v-for="item in filteredList"
           :key="item.link"
-          :display-name="item.displayName"
+          :display-name="$t(item.displayNameKey)"
           :link="item.link"
           :hidden="searchText == '' && item.hidden"
           :onNavigate="navigateTo"
@@ -37,7 +37,7 @@
           class="w-48 p-2 hover:bg-shade rounded-lg disabled:bg-background"
           disabled
         >
-          No Item Available
+          {{ $t('common.noItemAvailable') }}
         </button>
       </div>
     </div>
@@ -51,7 +51,7 @@ import MenuLinkBtn from './MenuLinkBtn.vue'
 
 interface Props {
   items: {
-    displayName: string
+    displayNameKey: string
     link: string
     hidden: boolean
   }[]
@@ -76,7 +76,7 @@ const navigateTo = (url: string) => {
 const onSearch = () => {
   // TODO: Support search from blog post, gallery collection, gallery image details
   filteredList.value = $props.items.filter((item) => {
-    return item.displayName.toLowerCase().includes(searchText.value.toLowerCase())
+    return item.displayNameKey.toLowerCase().includes(searchText.value.toLowerCase())
   })
 }
 </script>

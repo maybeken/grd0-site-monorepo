@@ -6,7 +6,7 @@
           <th class="py-2" v-for="(col, key) of columns">
             {{ typeof col.display_name === 'string' ? col.display_name : col.display_name(key) }}
           </th>
-          <th class="py-2">Actions</th>
+          <th class="py-2">{{ $t('common.actions') }}</th>
         </tr>
       </thead>
       <tbody class="border-b">
@@ -34,9 +34,9 @@
       @click="current_page = current_page - 1"
       :disabled="current_page <= 1"
     >
-      Previous
+      {{ $t('common.previous') }}
     </button>
-    <span>Page</span>
+    <span>{{ $t('common.page') }}</span>
     <button
       v-for="idx of getNumberOfPages(data || [])"
       @click="current_page = idx"
@@ -59,7 +59,7 @@
       @click="current_page = current_page + 1"
       :disabled="current_page >= getNumberOfPages(data || [])"
     >
-      Next
+      {{ $t('common.next') }}
     </button>
   </div>
 </template>

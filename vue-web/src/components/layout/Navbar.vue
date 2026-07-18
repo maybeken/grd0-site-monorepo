@@ -10,8 +10,7 @@
       <div class="content-center mx-auto">
         <p class="text-base sm:text-xl lg:text-2xl text-secondary font-extrabold uppercase">
           <span class="hidden sm:inline">grd0.net</span
-          ><span class="select-none hidden sm:inline"> | </span>Where Everything Starts And
-          Ends<CursorBlink />
+          ><span class="select-none hidden sm:inline"> | </span>{{ $t('nav.tagline') }}<CursorBlink />
         </p>
       </div>
       <div class="content-center"></div>
@@ -21,7 +20,7 @@
       <MenuLinkBtn
         v-for="item in menuItems.filter((item) => !item.hidden && item.link.startsWith('/'))"
         :key="item.link"
-        :display-name="item.displayName"
+        :display-name="$t(item.displayNameKey)"
         :link="item.link"
         :hidden="item.hidden"
         :onNavigate="navigateTo"
@@ -36,20 +35,20 @@ import { useRouter } from 'vue-router'
 const $router = useRouter()
 
 const menuItems = [
-  { displayName: 'Gallery', link: '/gallery' },
-  { displayName: "Traveler's Map", link: '/travel/map' },
-  { displayName: 'Bean Soup', link: '/coffee' },
-  { displayName: 'Blog', link: '/blog' },
-  { displayName: 'LISTEN TO ME!', link: '/music' },
-  { displayName: 'Instagram', link: 'https://www.instagram.com/maybe_ken/' },
-  { displayName: 'YouTube', link: 'https://www.youtube.com/@maybeken' },
-  { displayName: 'LinkedIn', link: 'https://www.linkedin.com/in/maybeken/' },
-  { displayName: 'Buy me ☕', link: 'https://ko-fi.com/maybeken' },
-  { displayName: 'CMS - Login', link: '/redirect/auth/login', hidden: true },
-  { displayName: 'Tool - Editor', link: '/blog/editor', hidden: true },
-  { displayName: 'Tool - Tasting Editor', link: '/coffee/editor', hidden: true },
-  { displayName: 'Tool - Dot Matrix', link: '/tool/dotmatrix', hidden: true },
-  { displayName: 'Tool - tldraw;', link: '/tool/draw', hidden: true }
+  { displayNameKey: 'nav.gallery', link: '/gallery' },
+  { displayNameKey: 'nav.travelersMap', link: '/travel/map' },
+  { displayNameKey: 'nav.beanSoup', link: '/coffee' },
+  { displayNameKey: 'nav.blog', link: '/blog' },
+  { displayNameKey: 'nav.listenToMe', link: '/music' },
+  { displayNameKey: 'nav.instagram', link: 'https://www.instagram.com/maybe_ken/' },
+  { displayNameKey: 'nav.youtube', link: 'https://www.youtube.com/@maybeken' },
+  { displayNameKey: 'nav.linkedin', link: 'https://www.linkedin.com/in/maybeken/' },
+  { displayNameKey: 'nav.buyMeCoffee', link: 'https://ko-fi.com/maybeken' },
+  { displayNameKey: 'nav.cmsLogin', link: '/redirect/auth/login', hidden: true },
+  { displayNameKey: 'nav.toolEditor', link: '/blog/editor', hidden: true },
+  { displayNameKey: 'nav.toolTastingEditor', link: '/coffee/editor', hidden: true },
+  { displayNameKey: 'nav.toolDotMatrix', link: '/tool/dotmatrix', hidden: true },
+  { displayNameKey: 'nav.toolTldraw', link: '/tool/draw', hidden: true }
 ]
 
 const navigateTo = (url: string) => {

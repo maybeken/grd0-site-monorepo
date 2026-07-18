@@ -19,7 +19,7 @@
       <div class="hidden md:block w-full h-32 overflow-hidden md:flex-shrink-0">
         <img
           :src="equipmentImage"
-          :alt="equipment?.type || 'Equipment'"
+          :alt="equipment?.type || $t('coffee.tastingCard.equipment')"
           class="w-full h-full object-contain grayscale brightness-400 dotify"
         />
       </div>
@@ -39,14 +39,14 @@
 
     <div class="flex flex-1 min-h-0">
       <div class="flex flex-col gap-1 p-2 w-full md:w-1/2 overflow-hidden text-sm md:text-xs">
-        <div class="font-semibold truncate">{{ tasting.bean?.name || 'IDK ¯\_(ツ)_/¯' }}</div>
+        <div class="font-semibold truncate">{{ tasting.bean?.name || $t('coffee.tastingCard.idk') }}</div>
         <div>
-          {{ tasting.bean?.origin || 'IDK ¯\_(ツ)_/¯' }}
+          {{ tasting.bean?.origin || $t('coffee.tastingCard.idk') }}
           <span v-if="tasting.bean?.roaster"> · {{ tasting.bean.roaster }}</span>
         </div>
         <div class="opacity-70">
           <span :class="{ 'opacity-50': tasting.bean.process == null }">{{
-            tasting.bean.process || 'IDK ¯\_(ツ)_/¯'
+            tasting.bean.process || $t('coffee.tastingCard.idk')
           }}</span>
         </div>
 
@@ -54,71 +54,71 @@
           class="grid grid-cols-2 gap-x-2 place-content-between my-1 text-xs md:block md:space-y-0.5"
         >
           <div>
-            Variety:
+            {{ $t('coffee.tastingCard.variety') }}
             <span :class="{ 'opacity-50': tasting.bean.variety == null }">{{
-              tasting.bean.variety || 'IDK ¯\_(ツ)_/¯'
+              tasting.bean.variety || $t('coffee.tastingCard.idk')
             }}</span>
           </div>
           <div>
-            Altitude:
+            {{ $t('coffee.tastingCard.altitude') }}
             <span :class="{ 'opacity-50': tasting.bean.altitude == null }">{{
-              tasting.bean.altitude || 'IDK ¯\_(ツ)_/¯'
+              tasting.bean.altitude || $t('coffee.tastingCard.idk')
             }}</span>
           </div>
           <div>
-            Grinder:
+            {{ $t('coffee.tastingCard.grinder') }}
             <span :class="{ 'opacity-50': tasting.grinder?.name == null }">{{
-              tasting.grinder?.name || 'IDK ¯\_(ツ)_/¯'
+              tasting.grinder?.name || $t('coffee.tastingCard.idk')
             }}</span>
           </div>
           <div>
-            Grind Size:
+            {{ $t('coffee.tastingCard.grindSize') }}
             <span :class="{ 'opacity-50': tasting.grind_size == null }">{{
-              tasting.grind_size || 'IDK ¯\_(ツ)_/¯'
+              grindSizeLabel(tasting.grind_size)
             }}</span>
           </div>
           <div>
-            Grind Setting:
+            {{ $t('coffee.tastingCard.grindSetting') }}
             <span :class="{ 'opacity-50': tasting.grind_setting == null }">{{
-              tasting.grind_setting ?? 'IDK ¯\_(ツ)_/¯'
+              tasting.grind_setting ?? $t('coffee.tastingCard.idk')
             }}</span>
           </div>
           <div>
-            Dose:
+            {{ $t('coffee.tastingCard.dose') }}
             <span :class="{ 'opacity-50': tasting.coffee_dose == null }">{{
-              tasting.coffee_dose != null ? tasting.coffee_dose + ' g' : 'IDK ¯\_(ツ)_/¯'
+              tasting.coffee_dose != null ? tasting.coffee_dose + ' g' : $t('coffee.tastingCard.idk')
             }}</span>
           </div>
           <div>
-            Water:
+            {{ $t('coffee.tastingCard.water') }}
             <span :class="{ 'opacity-50': tasting.water_in == null }">{{
-              tasting.water_in != null ? tasting.water_in + ' ml' : 'IDK ¯\_(ツ)_/¯'
+              tasting.water_in != null ? tasting.water_in + ' ml' : $t('coffee.tastingCard.idk')
             }}</span>
           </div>
           <div>
-            Yield:
+            {{ $t('coffee.tastingCard.yield') }}
             <span :class="{ 'opacity-50': tasting.coffee_out == null }">{{
-              tasting.coffee_out != null ? tasting.coffee_out + ' ml' : 'IDK ¯\_(ツ)_/¯'
+              tasting.coffee_out != null ? tasting.coffee_out + ' ml' : $t('coffee.tastingCard.idk')
             }}</span>
           </div>
           <div>
-            Ratio:
+            {{ $t('coffee.tastingCard.ratio') }}
             <span :class="{ 'opacity-50': tasting.ratio == null }">{{
-              tasting.ratio != null ? '1:' + tasting.ratio.toFixed(1) : 'IDK ¯\_(ツ)_/¯'
+              tasting.ratio != null ? '1:' + tasting.ratio.toFixed(1) : $t('coffee.tastingCard.idk')
             }}</span>
           </div>
           <div>
-            Brew Time:
+            {{ $t('coffee.tastingCard.brewTime') }}
             <span :class="{ 'opacity-50': tasting.brew_time == null }">{{
               formatBrewTime(tasting.brew_time)
             }}</span>
           </div>
           <div>
-            Water Temp:
+            {{ $t('coffee.tastingCard.waterTemp') }}
             <span :class="{ 'opacity-50': tasting.water_temperature == null }">{{
               tasting.water_temperature != null
                 ? tasting.water_temperature + '°C'
-                : 'IDK ¯\_(ツ)_/¯'
+                : $t('coffee.tastingCard.idk')
             }}</span>
           </div>
         </div>
@@ -151,9 +151,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import dayjs from 'dayjs'
 import type { TastingNote } from '@/interfaces/Coffee'
-import { EQUIPMENT_IMAGE_MAP, DEFAULT_EQUIPMENT_IMAGE } from '@/helpers/coffee'
+import { EQUIPMENT_IMAGE_MAP, DEFAULT_EQUIPMENT_IMAGE, GRIND_SIZES } from '@/helpers/coffee'
 import TasteRadarChart from './TasteRadarChart.vue'
+
+const { t, locale } = useI18n()
 
 interface Props {
   tasting: TastingNote
@@ -171,19 +175,25 @@ const equipmentImage = computed(() => {
   return DEFAULT_EQUIPMENT_IMAGE
 })
 
+function grindSizeLabel(val: string | null | undefined): string {
+  if (val == null) return t('coffee.tastingCard.idk')
+  const found = GRIND_SIZES.find((g) => g.value === val)
+  return found ? t(found.label) : val
+}
+
 function formatDate(dateStr: string, mini: boolean = false): string {
-  if (!dateStr) return 'IDK ¯\_(ツ)_/¯'
-  const d = new Date(dateStr)
+  if (!dateStr) return t('coffee.tastingCard.idk')
+  const d = dayjs(dateStr)
 
   if (mini) {
-    return d.toLocaleDateString('en-GB', { month: 'numeric', day: 'numeric', year: 'numeric' })
+    return d.locale(locale.value).format('D/M/YYYY')
   }
 
-  return d.toLocaleDateString('en-GB', { month: 'short', day: 'numeric', year: 'numeric' })
+  return d.locale(locale.value).format('MMM D, YYYY')
 }
 
 function formatBrewTime(seconds: number | null | undefined): string {
-  if (seconds == null) return 'IDK ¯\_(ツ)_/¯'
+  if (seconds == null) return t('coffee.tastingCard.idk')
   const mins = Math.floor(seconds / 60)
   const secs = seconds % 60
   return `${mins}:${String(secs).padStart(2, '0')}`

@@ -4,19 +4,19 @@
       <input
         class="text-3xl w-full rounded-full px-4"
         type="text"
-        placeholder="Blog Post Title"
+        :placeholder="$t('blog.editor.titlePlaceholder')"
         v-model="editable_title"
         :disabled="loading"
       />
       <input
         class="text-2xl w-full rounded-full px-4"
         type="text"
-        placeholder="Blog Post Subtitle"
+        :placeholder="$t('blog.editor.subtitlePlaceholder')"
         v-model="editable_subtitle"
         :disabled="loading"
       />
       <div class="flex gap-2 px-4">
-        <span>Publish Date: </span>
+        <span>{{ $t('blog.editor.publishDate') }} </span>
         <input
           class="w-72 border border-dotted rounded-xl px-2"
           type="text"
@@ -25,7 +25,7 @@
         />
         <span>{{
           dayjs(editable_publish_date) <= dayjs('0001-01-01T00:00:00.000Z')
-            ? 'Unpublished'
+            ? $t('blog.editor.unpublished')
             : dayjs(editable_publish_date).fromNow()
         }}</span>
       </div>
@@ -34,7 +34,7 @@
     <div class="flex gap-2 mt-auto">
       <button
         class="p-4 border border-dotted rounded-full"
-        title="New"
+        :title="$t('common.new')"
         @click="newPost"
         :disabled="loading"
       >
@@ -42,7 +42,7 @@
       </button>
       <button
         class="p-4 border border-dotted rounded-full"
-        title="Save"
+        :title="$t('common.save')"
         @click="savePost"
         :disabled="loading"
       >
@@ -64,6 +64,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 // @ts-ignore
 import OverType from 'overtype'
 import { getBlogPost, upsertBlogPostRaw, requestBlogAttachmentRaw } from '@/services/blogPost'
@@ -71,6 +72,8 @@ import { getBlogPost, upsertBlogPostRaw, requestBlogAttachmentRaw } from '@/serv
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
+
+const { t } = useI18n()
 
 interface Props {
   uri: string
@@ -117,16 +120,16 @@ watch([editable_content], (val) => {
 })
 
 function newPost(): void {
-  const confirmed = confirm('Are you sure to create new post? Any unsaved changes will be erased!')
+  const confirmed = confirm(t('blog.editor.confirmNewPost'))
 
   if (confirmed) {
-    const uri = prompt('What is the new post uri?')
+    const uri = prompt(t('blog.editor.askNewPostUri'))
     $emit('new', uri)
   }
 }
 
 async function savePost() {
-  const confirmed = confirm('Are you sure to create/update the post?')
+  const confirmed = confirm(t('blog.editor.confirmSavePost'))
 
   if (!confirmed || !uri) return
 
@@ -151,9 +154,9 @@ async function savePost() {
     await upsertBlogPostRaw(uri, content)
     loading.value = false
 
-    alert('Done.')
+    alert(t('common.done'))
   } catch (error) {
-    alert('Failed.')
+    alert(t('common.failed'))
   }
 }
 

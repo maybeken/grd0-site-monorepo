@@ -1,15 +1,15 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
-
 import { VitePWA } from 'vite-plugin-pwa'
 import Components from 'unplugin-vue-components/vite'
+import gettextYamlI18nPlugin from './vite-plugin-gettext-yaml-i18n'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    gettextYamlI18nPlugin(),
     vue(),
     tailwindcss(),
     Components({

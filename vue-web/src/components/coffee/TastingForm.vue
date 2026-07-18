@@ -1,20 +1,20 @@
 <template>
   <div class="flex flex-col gap-4 bg-background rounded-xl p-4 border border-accent/20">
     <div class="flex items-center justify-between">
-      <h3 class="text-lg font-bold">{{ isEdit ? 'Edit Tasting' : 'New Tasting' }}</h3>
+      <h3 class="text-lg font-bold">{{ isEdit ? $t('coffee.tastingForm.titleEdit') : $t('coffee.tastingForm.titleNew') }}</h3>
       <div class="flex gap-2">
         <button
           @click="$emit('cancel')"
           class="px-3 py-1 rounded border border-accent/40 text-sm hover:bg-accent/10"
         >
-          Cancel
+          {{ $t('common.cancel') }}
         </button>
         <button
           @click="save"
           :disabled="saving"
           class="px-3 py-1 rounded bg-accent text-background text-sm font-semibold hover:brightness-110 disabled:opacity-50"
         >
-          {{ saving ? 'Saving...' : 'Save' }}
+          {{ saving ? $t('common.saving') : $t('common.save') }}
         </button>
       </div>
     </div>
@@ -22,21 +22,21 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="flex flex-col gap-1">
         <div class="flex items-center justify-between">
-          <label class="text-sm font-semibold">Bean</label>
+          <label class="text-sm font-semibold">{{ $t('coffee.tastingForm.bean') }}</label>
           <button
             v-if="!showQuickAddBean"
             type="button"
             @click="showQuickAddBean = true"
             class="text-xs text-accent hover:underline"
           >
-            + new
+            {{ $t('coffee.tastingForm.addNew') }}
           </button>
         </div>
         <select
           v-model="form.bean.id"
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
         >
-          <option value="">Select bean...</option>
+          <option value="">{{ $t('coffee.tastingForm.selectBean') }}</option>
           <option v-for="b in beans" :key="b.id" :value="b.id">
             {{ b.roaster }} {{ b.name }} ({{ b.roast_date?.split('T')[0]?.replace(/-/g, '/') }})
           </option>
@@ -47,18 +47,18 @@
         >
           <input
             v-model="quickBean.name"
-            placeholder="Bean name *"
+            :placeholder="$t('coffee.tastingForm.beanName')"
             class="bg-background border border-accent/40 rounded px-2 py-1 text-xs"
           />
           <div class="grid grid-cols-2 gap-2">
             <input
               v-model="quickBean.roaster"
-              placeholder="Roaster"
+              :placeholder="$t('coffee.tastingForm.roaster')"
               class="bg-background border border-accent/40 rounded px-2 py-1 text-xs"
             />
             <input
               v-model="quickBean.origin"
-              placeholder="Origin"
+              :placeholder="$t('coffee.tastingForm.origin')"
               class="bg-background border border-accent/40 rounded px-2 py-1 text-xs"
             />
           </div>
@@ -68,7 +68,7 @@
               @click="cancelQuickBean"
               class="px-2 py-0.5 rounded text-xs border border-accent/40 hover:bg-accent/10"
             >
-              Cancel
+              {{ $t('common.cancel') }}
             </button>
             <button
               type="button"
@@ -76,7 +76,7 @@
               @click="saveQuickBean"
               class="px-2 py-0.5 rounded text-xs bg-accent text-background font-semibold hover:brightness-110 disabled:opacity-50"
             >
-              {{ quickBeanSaving ? '...' : 'Add' }}
+              {{ quickBeanSaving ? $t('coffee.tastingForm.loading') : $t('common.add') }}
             </button>
           </div>
         </div>
@@ -84,21 +84,21 @@
 
       <div class="flex flex-col gap-1">
         <div class="flex items-center justify-between">
-          <label class="text-sm font-semibold">Equipment</label>
+          <label class="text-sm font-semibold">{{ $t('coffee.tastingForm.equipment') }}</label>
           <button
             v-if="!showQuickAddEquipment"
             type="button"
             @click="showQuickAddEquipment = true"
             class="text-xs text-accent hover:underline"
           >
-            + new
+            {{ $t('coffee.tastingForm.addNew') }}
           </button>
         </div>
         <select
           v-model="form.equipment.id"
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
         >
-          <option value="">Select equipment...</option>
+          <option value="">{{ $t('coffee.tastingForm.selectEquipment') }}</option>
           <option
             v-for="e in (equipmentList || []).filter((e) => e.type !== 'Grinder')"
             :key="e.id"
@@ -113,15 +113,15 @@
         >
           <input
             v-model="quickEquipment.name"
-            placeholder="Equipment name *"
+            :placeholder="$t('coffee.tastingForm.equipmentName')"
             class="bg-background border border-accent/40 rounded px-2 py-1 text-xs"
           />
           <select
             v-model="quickEquipment.type"
             class="bg-background border border-accent/40 rounded px-2 py-1 text-xs"
           >
-            <option :value="null">Select type...</option>
-            <option v-for="t in equipmentTypes" :key="t" :value="t">{{ t }}</option>
+            <option :value="null">{{ $t('common.selectType') }}</option>
+            <option v-for="t in equipmentTypes" :key="t.value" :value="t.value">{{ $t(t.label) }}</option>
           </select>
           <div class="flex gap-2 justify-end">
             <button
@@ -129,7 +129,7 @@
               @click="cancelQuickEquipment"
               class="px-2 py-0.5 rounded text-xs border border-accent/40 hover:bg-accent/10"
             >
-              Cancel
+              {{ $t('common.cancel') }}
             </button>
             <button
               type="button"
@@ -137,7 +137,7 @@
               @click="saveQuickEquipment"
               class="px-2 py-0.5 rounded text-xs bg-accent text-background font-semibold hover:brightness-110 disabled:opacity-50"
             >
-              {{ quickEquipmentSaving ? '...' : 'Add' }}
+              {{ quickEquipmentSaving ? $t('coffee.tastingForm.loading') : $t('common.add') }}
             </button>
           </div>
         </div>
@@ -146,7 +146,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Date</label>
+        <label class="text-sm font-semibold">{{ $t('coffee.tastingForm.date') }}</label>
         <input
           type="date"
           v-model="form.tasted_at"
@@ -155,7 +155,7 @@
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Rating (1-10)</label>
+        <label class="text-sm font-semibold">{{ $t('coffee.tastingForm.rating') }}</label>
         <div class="flex items-center gap-2">
           <input
             type="number"
@@ -170,18 +170,18 @@
     </div>
 
     <fieldset class="border border-accent/20 rounded p-3">
-      <legend class="text-sm font-bold px-1">Brew Recipe</legend>
+      <legend class="text-sm font-bold px-1">{{ $t('coffee.tastingForm.brewRecipe') }}</legend>
 
       <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
         <div class="flex flex-col gap-1">
-          <label class="text-xs">Grinder</label>
+          <label class="text-xs">{{ $t('coffee.tastingForm.grinder') }}</label>
           <div class="flex items-center gap-1">
             <select
               v-model="form.grinder!.id"
               :disabled="idkFields.grinder"
               class="bg-background border border-accent/40 rounded px-1 py-0.5 text-xs flex-1 disabled:opacity-50"
             >
-              <option value="">Select equipment...</option>
+              <option value="">{{ $t('coffee.tastingForm.selectEquipment') }}</option>
               <option
                 v-for="e in (equipmentList || []).filter((e) => e.type === 'Grinder')"
                 :key="e.id"
@@ -195,22 +195,22 @@
         </div>
 
         <div class="flex flex-col gap-1">
-          <label class="text-xs">Grind Size</label>
+          <label class="text-xs">{{ $t('coffee.tastingForm.grindSize') }}</label>
           <div class="flex items-center gap-1">
             <select
               v-model="form.grind_size"
               :disabled="idkFields.grind_size"
               class="bg-background border border-accent/40 rounded px-1 py-0.5 text-xs flex-1 disabled:opacity-50"
             >
-              <option value="">Select...</option>
-              <option v-for="g in GRIND_SIZES" :key="g" :value="g">{{ g }}</option>
+              <option value="">{{ $t('coffee.tastingForm.selectGrind') }}</option>
+              <option v-for="g in GRIND_SIZES" :key="g.value" :value="g.value">{{ $t(g.label) }}</option>
             </select>
             <IdkToggle v-model="idkFields.grind_size" />
           </div>
         </div>
 
         <div class="flex flex-col gap-1">
-          <label class="text-xs">Grind Setting</label>
+          <label class="text-xs">{{ $t('coffee.tastingForm.grindSetting') }}</label>
           <div class="flex items-center gap-1">
             <input
               type="number"
@@ -224,7 +224,7 @@
         </div>
 
         <div class="flex flex-col gap-1">
-          <label class="text-xs">Coffee Dose (g)</label>
+          <label class="text-xs">{{ $t('coffee.tastingForm.coffeeDose') }}</label>
           <div class="flex items-center gap-1">
             <input
               type="number"
@@ -237,7 +237,7 @@
         </div>
 
         <div class="flex flex-col gap-1">
-          <label class="text-xs">Water In (ml)</label>
+          <label class="text-xs">{{ $t('coffee.tastingForm.waterIn') }}</label>
           <div class="flex items-center gap-1">
             <input
               type="number"
@@ -250,7 +250,7 @@
         </div>
 
         <div class="flex flex-col gap-1">
-          <label class="text-xs">Coffee Out (ml)</label>
+          <label class="text-xs">{{ $t('coffee.tastingForm.coffeeOut') }}</label>
           <div class="flex items-center gap-1">
             <input
               type="number"
@@ -263,16 +263,16 @@
         </div>
 
         <div class="flex flex-col gap-1">
-          <label class="text-xs">Ratio</label>
+          <label class="text-xs">{{ $t('coffee.tastingForm.ratio') }}</label>
           <div class="flex items-center gap-1">
             <span class="text-xs">{{
-              computedRatio != null ? '1:' + computedRatio.toFixed(1) : 'IDK'
+              computedRatio != null ? '1:' + computedRatio.toFixed(1) : $t('coffee.tastingForm.idk')
             }}</span>
           </div>
         </div>
 
         <div class="flex flex-col gap-1">
-          <label class="text-xs">Brew Time</label>
+          <label class="text-xs">{{ $t('coffee.tastingForm.brewTime') }}</label>
           <div class="flex items-center gap-1">
             <BrewTimeInput v-model="form.brew_time" :disabled="idkFields.brew_time" />
             <IdkToggle v-model="idkFields.brew_time" />
@@ -280,7 +280,7 @@
         </div>
 
         <div class="flex flex-col gap-1">
-          <label class="text-xs">Water Temp (°C)</label>
+          <label class="text-xs">{{ $t('coffee.tastingForm.waterTemp') }}</label>
           <div class="flex items-center gap-1">
             <input
               type="number"
@@ -295,17 +295,17 @@
     </fieldset>
 
     <fieldset class="border border-accent/20 rounded p-3">
-      <legend class="text-sm font-bold px-1">Taste Profile (0-10)</legend>
+      <legend class="text-sm font-bold px-1">{{ $t('coffee.tastingForm.tasteProfile') }}</legend>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div v-for="dim in tasteDimensions" :key="dim.key" class="flex flex-col gap-1">
-          <label class="text-xs capitalize">{{ dim.label }}</label>
+          <label class="text-xs capitalize">{{ $t(dim.label) }}</label>
           <div class="flex items-center gap-1">
             <input
               type="number"
               min="0"
               max="10"
-              v-model.number="(form as any)[dim.key]"
-              :disabled="(idkFields as any)[dim.key]"
+              v-model.number="form[dim.key]"
+              :disabled="idkFields[dim.key as string]"
               class="bg-background border border-accent/40 rounded px-1 py-0.5 text-xs w-14 disabled:opacity-50"
             />
           </div>
@@ -314,7 +314,7 @@
     </fieldset>
 
     <div class="flex flex-col gap-1">
-      <label class="text-sm font-semibold">Notes</label>
+      <label class="text-sm font-semibold">{{ $t('coffee.tastingForm.notes') }}</label>
       <textarea
         v-model="form.overall_notes"
         rows="3"
@@ -324,13 +324,14 @@
 
     <div class="flex items-center gap-2">
       <input type="checkbox" v-model="form.pinned" class="accent-accent" />
-      <label class="text-sm">Pin this tasting</label>
+      <label class="text-sm">{{ $t('coffee.tastingForm.pinTasting') }}</label>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, watch, reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { CoffeeBean, BrewEquipment, TastingNote } from '@/interfaces/Coffee'
 import { GRIND_SIZES, TASTE_DIMENSIONS, EQUIPMENT_TYPES } from '@/helpers/coffee'
 import {
@@ -340,6 +341,8 @@ import {
 } from '@/services/coffee'
 import IdkToggle from './IdkToggle.vue'
 import BrewTimeInput from './BrewTimeInput.vue'
+
+const { t } = useI18n()
 
 interface Props {
   tasting?: TastingNote | null
@@ -379,8 +382,8 @@ const quickEquipment = reactive({
 const equipmentTypes = EQUIPMENT_TYPES
 
 const tasteDimensions = TASTE_DIMENSIONS.map((d) => ({
-  key: `taste_${d}`,
-  label: d
+  key: `taste_${d.value}` as keyof TastingNote,
+  label: d.label
 }))
 
 function createEmptyForm(): TastingNote {
@@ -401,7 +404,7 @@ function createEmptyForm(): TastingNote {
     overall_notes: null,
     rating: null,
     ...Object.fromEntries(
-      TASTE_DIMENSIONS.map((d) => [`taste_${d}`, null])
+      TASTE_DIMENSIONS.map((d) => [`taste_${d.value}`, null])
     ),
   }
 }
@@ -438,12 +441,12 @@ watch(
       Object.assign(form, createEmptyForm(), t)
       form.tasted_at = t.tasted_at || new Date().toISOString().substring(0, 10)
       for (const key of Object.keys(idkFields)) {
-        ;(idkFields as any)[key] = (t as any)[key] == null
+        idkFields[key] = (t as unknown as Record<string, unknown>)[key] == null
       }
     } else {
       Object.assign(form, createEmptyForm())
       for (const key of Object.keys(idkFields)) {
-        ;(idkFields as any)[key] = false
+        idkFields[key] = false
       }
     }
   },
@@ -452,10 +455,10 @@ watch(
 
 for (const key of Object.keys(idkFields)) {
   watch(
-    () => (idkFields as any)[key],
+    () => idkFields[key],
     (idk) => {
       if (idk) {
-        ;(form as any)[key] = null
+        ;(form as Record<string, unknown>)[key] = null
       }
     }
   )
@@ -481,7 +484,7 @@ async function saveQuickBean() {
     form.bean = newBean
     cancelQuickBean()
   } catch {
-    alert('Failed to add bean')
+    alert(t('coffee.tastingForm.failedAddBean'))
   } finally {
     quickBeanSaving.value = false
   }
@@ -505,7 +508,7 @@ async function saveQuickEquipment() {
     form.equipment = newEquipment
     cancelQuickEquipment()
   } catch {
-    alert('Failed to add equipment')
+    alert(t('coffee.tastingForm.failedAddEquipment'))
   } finally {
     quickEquipmentSaving.value = false
   }
@@ -520,7 +523,7 @@ async function save() {
     })
     emit('saved')
   } catch (e) {
-    alert('Failed to save tasting')
+    alert(t('coffee.tastingForm.failedSaveTasting'))
   } finally {
     saving.value = false
   }

@@ -1,13 +1,13 @@
 <template>
   <div class="flex gap-4 mx-auto w-full pb-8">
     <div class="flex gap-2">
-      <label>Finest:</label>
+      <label>{{ $t('tool.dotMatrix.finest') }}</label>
       <input class="bg-inherit appearance-none text-center" type="number" v-model="finest" />
-      <label>Gap:</label>
+      <label>{{ $t('tool.dotMatrix.gap') }}</label>
       <input class="bg-inherit appearance-none text-center" type="number" v-model="gap" />
     </div>
     <div>
-      <button class="px-4 py-px border rounded-lg" @click="getSvg">Copy</button>
+      <button class="px-4 py-px border rounded-lg" @click="getSvg">{{ $t('common.copy') }}</button>
     </div>
   </div>
   <div class="flex mx-auto bg-white w-64">
@@ -32,6 +32,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const size = ref(8)
 const gap = ref(8)
@@ -40,6 +43,6 @@ const finest = ref(1)
 function getSvg() {
   // @ts-expect-error
   navigator.clipboard.writeText(document.getElementById('svg').outerHTML)
-  alert('Copied to clipboard!')
+  alert(t('common.copiedToClipboard'))
 }
 </script>

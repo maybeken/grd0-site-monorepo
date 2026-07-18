@@ -11,7 +11,7 @@
       <div class="absolute right-0 bottom-0 ml-auto">
         <button
           class="px-2 mr-px mb-px border border-accent bg-background/75 rounded-xl disabled:brightness-50 disabled:bg-accent/75 disabled:border-secondary"
-          title="Download"
+          :title="$t('common.download')"
           :disabled="loading"
           @click="
             downloadImage(

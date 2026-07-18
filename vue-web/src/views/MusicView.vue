@@ -12,7 +12,7 @@
     </div>
 
     <div>
-      <p class="text-2xl font-bold">Music Matters<CursorBlink /></p>
+      <p class="text-2xl font-bold">{{ $t('music.title') }}<CursorBlink /></p>
     </div>
 
     <div class="flex flex-col md:flex-row gap-4">
@@ -27,7 +27,7 @@
 
         <div class="flex flex-col text-center place-content-center">
           <p class="text-xl font-black">{{ title ?? getCurrentSong(current)?.title }}</p>
-          <p class="text-lg">{{ getCurrentSong(current)?.artist ?? 'Unknown' }}</p>
+          <p class="text-lg">{{ getCurrentSong(current)?.artist ?? $t('music.unknown') }}</p>
         </div>
 
         <div class="flex place-content-center">
@@ -70,16 +70,16 @@
         </div>
 
         <div class="pt-4 mx-auto">
-          <p class="text-lg text-center font-bold">What's the meaning of this?</p>
+          <p class="text-lg text-center font-bold">{{ $t('music.meaning') }}</p>
           <p class="text-justify">
-            {{ getCurrentSong(current)?.description || 'Nothing specified.' }}<CursorBlink />
+            {{ getCurrentSong(current)?.description || $t('music.nothingSpecified') }}<CursorBlink />
           </p>
         </div>
       </div>
 
       <div class="flex flex-col gap-2 w-full md:w-1/3 mr-auto">
         <div>
-          <p class="text-lg font-bold">Playlist</p>
+          <p class="text-lg font-bold">{{ $t('music.playlist') }}</p>
         </div>
 
         <div class="max-h-[50vh] overflow-auto scrollbar-thumb-accent scrollbar-track-background scrollbar-thin scroll-pb-6">

@@ -62,11 +62,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { getMapLocation } from '@/services/travelersMap'
 
 import { Map, Layers, Sources, MapControls } from 'vue3-openlayers'
 
 import type { Item } from 'ol-contextmenu'
+
+const { t } = useI18n()
 
 interface Props {
   map_center: number[]
@@ -81,7 +84,7 @@ const contextMenuItems = ref<Item[]>([
     text: `Coordinate`,
     callback: (val) => {
       const coordinates = epsg3857toEpsg4326(val.coordinate)
-      const title = prompt('Enter the title:')
+      const title = prompt(t('map.enterTitle'))
 
       navigator.clipboard.writeText(
         JSON.stringify({
@@ -90,7 +93,7 @@ const contextMenuItems = ref<Item[]>([
         })
       )
 
-      alert('Saved to clipboard!')
+      alert(t('common.savedToClipboard'))
     }
   }
 ])

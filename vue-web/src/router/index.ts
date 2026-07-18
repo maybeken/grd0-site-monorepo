@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { formatCollectionName } from '@/helpers/collection'
 import { getGalleryCollectionRaw } from '@/services/gallery'
 import { getBlogPostRaw } from '@/services/blogPost'
+import i18n, { t } from '@/i18n'
 
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE
 
@@ -11,6 +12,7 @@ declare module 'vue-router' {
     title?: string
     url?: string
     requiresAuth?: boolean
+    titleSuffix?: string
   }
 }
 
@@ -32,7 +34,7 @@ const router = createRouter({
       name: 'home',
       redirect: '/gallery',
       meta: {
-        title: 'Home'
+        title: 'router.home'
       }
     },
     {
@@ -40,7 +42,7 @@ const router = createRouter({
       name: 'blog',
       component: () => import('@/views/HomeView.vue'),
       meta: {
-        title: 'Blog'
+        title: 'router.blog'
       }
     },
     {
@@ -48,14 +50,14 @@ const router = createRouter({
       name: 'Blog',
       component: () => import('@/views/BlogView.vue'),
       meta: {
-        title: 'Blog'
+        title: 'router.blog'
       }
     },
     {
       path: '/blog/editor',
       name: 'Blog Editor',
       meta: {
-        title: 'Blog Editor',
+        title: 'router.blogEditor',
         requiresAuth: true
       },
       component: () => import('@/views/BlogEditorView.vue')
@@ -64,7 +66,7 @@ const router = createRouter({
       path: '/gallery',
       name: 'Gallery Index',
       meta: {
-        title: 'Gallery'
+        title: 'router.gallery'
       },
       children: [
         {
@@ -79,27 +81,27 @@ const router = createRouter({
       path: '/travel/map',
       name: 'map',
       meta: {
-        title: "Traveler's Map"
+        title: 'router.travelersMap'
       },
       component: () => import('@/views/MapView.vue')
     },
     {
       path: '/music',
       name: 'music',
-      meta: { title: 'Music Matters' },
+      meta: { title: 'router.music' },
       component: () => import('@/views/MusicView.vue')
     },
     {
       path: '/coffee',
       name: 'coffee',
-      meta: { title: 'Coffee Taste Log' },
+      meta: { title: 'router.coffee' },
       component: () => import('@/views/CoffeeView.vue')
     },
     {
       path: '/coffee/editor',
       name: 'Coffee Tasting Editor',
       meta: {
-        title: 'Coffee Tasting Editor',
+        title: 'router.coffeeEditor',
         requiresAuth: true
       },
       component: () => import('@/views/CoffeeEditorView.vue'),
@@ -108,7 +110,7 @@ const router = createRouter({
       path: '/redirect',
       component: () => import('@/views/RedirectView.vue'),
       meta: {
-        title: 'Redirecting...'
+        title: 'common.redirecting'
       },
       beforeEnter(to, from) {
         if (!to.meta.url) return
@@ -148,7 +150,7 @@ const router = createRouter({
       path: '/:pathMatch(.*)',
       name: '404-not-found',
       meta: {
-        title: 'Page Not Found'
+        title: 'router.pageNotFound'
       },
       component: () => import('@/views/NotFoundView.vue')
     },
@@ -160,7 +162,7 @@ const router = createRouter({
           path: 'dotmatrix',
           name: 'Dot Matrix',
           meta: {
-            title: 'Dot Matrix Generator'
+            title: 'router.dotMatrix'
           },
           component: () => import('@/views/DotMatrix.vue')
         },
@@ -168,7 +170,7 @@ const router = createRouter({
           path: 'draw',
           name: 'Tldraw',
           meta: {
-            title: 'tldraw;'
+            title: 'router.tldraw'
           },
           component: () => import('@/views/TldrawView.vue')
         }
@@ -181,7 +183,15 @@ router.afterEach((to, from) => {
   // Use next tick to handle router history correctly
   // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
   nextTick(() => {
-    document.title = to.meta.title ? `${DEFAULT_TITLE} | ${to.meta.title}` : DEFAULT_TITLE
+    if (!to.meta.title) {
+      document.title = DEFAULT_TITLE
+      return
+    }
+    const suffix = to.meta.titleSuffix
+    const translated = t(to.meta.title)
+    document.title = suffix
+      ? `${DEFAULT_TITLE} | ${translated} - ${suffix}`
+      : `${DEFAULT_TITLE} | ${translated}`
   })
 })
 
@@ -207,7 +217,8 @@ router.beforeEach(async (to, from, next) => {
       const response = await getBlogPostRaw(slug)
       const blog_title = response?.title || ''
 
-      to.meta.title = `${title} - ${blog_title}`
+      to.meta.title = title
+      to.meta.titleSuffix = blog_title
     }
   } else if (name === 'Gallery' && params.collection) {
     const response = await getGalleryCollectionRaw()
@@ -215,7 +226,8 @@ router.beforeEach(async (to, from, next) => {
       typeof params.collection === 'string' ? params.collection : params.collection[0]
     const album = formatCollectionName(response, collection)
 
-    to.meta.title = `${title} - ${album}`
+    to.meta.title = title
+    to.meta.titleSuffix = album ?? ''
   }
 
   next()

@@ -18,11 +18,11 @@
       </Skeleton>
       <div class="md:flex gap-2 text-secondary italic">
         <Skeleton h="xs" w="md" :loading="loading">
-          <p>Posted At: {{ dayjs($props?.content?.created_at).calendar() }}</p>
+          <p>{{ $t('blog.postedAt') }} {{ dayjs($props?.content?.created_at).calendar() }}</p>
         </Skeleton>
         <p class="hidden md:block px-px">|</p>
         <Skeleton h="xs" w="md" :loading="loading">
-          <p>Last Edited: {{ dayjs($props?.content?.updated_at).calendar() }}</p>
+          <p>{{ $t('blog.lastEdited') }} {{ dayjs($props?.content?.updated_at).calendar() }}</p>
         </Skeleton>
       </div>
     </div>

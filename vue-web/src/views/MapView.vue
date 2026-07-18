@@ -2,8 +2,8 @@
   <div class="px-2">
     <div class="flex gap-2 py-2">
       <div class="md:flex items-end mb-auto gap-2 grow font-bold">
-        <p class="text-xl">Places I've Been To<CursorBlink /></p>
-        <p class="text-sm">(Zoom in to see more)</p>
+        <p class="text-xl">{{ $t('map.title') }}<CursorBlink /></p>
+        <p class="text-sm">{{ $t('map.zoomHint') }}</p>
       </div>
       <button
         class="rounded-full p-2 border-2 border-dotted"
@@ -13,7 +13,7 @@
             zoom = 2
           }
         "
-        title="Re-center"
+        :title="$t('map.recenter')"
       >
         <div class="flex flex-col gap-2">
           <Icon class="mx-auto" icon="mynaui:redo" height="auto" />

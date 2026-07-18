@@ -1,54 +1,54 @@
 <template>
   <div class="flex flex-col gap-4 bg-background rounded-xl p-4 border border-accent/20">
     <div class="flex items-center justify-between">
-      <h3 class="text-lg font-bold">{{ isEdit ? 'Edit Bean' : 'New Bean' }}</h3>
+      <h3 class="text-lg font-bold">{{ isEdit ? $t('coffee.beanForm.titleEdit') : $t('coffee.beanForm.titleNew') }}</h3>
       <div class="flex gap-2">
         <button
           @click="$emit('cancel')"
           class="px-3 py-1 rounded border border-accent/40 text-sm hover:bg-accent/10"
         >
-          Cancel
+          {{ $t('common.cancel') }}
         </button>
         <button
           @click="save"
           :disabled="saving || !form.name.trim()"
           class="px-3 py-1 rounded bg-accent text-background text-sm font-semibold hover:brightness-110 disabled:opacity-50"
         >
-          {{ saving ? 'Saving...' : 'Save' }}
+          {{ saving ? $t('common.saving') : $t('common.save') }}
         </button>
       </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Name *</label>
+        <label class="text-sm font-semibold">{{ $t('coffee.beanForm.name') }}</label>
         <input
           v-model="form.name"
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
-          placeholder="e.g. Yirgacheffe Kochere"
+          :placeholder="$t('coffee.beanForm.namePlaceholder')"
         />
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Origin</label>
+        <label class="text-sm font-semibold">{{ $t('coffee.beanForm.origin') }}</label>
         <input
           v-model="form.origin"
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
-          placeholder="e.g. Ethiopia"
+          :placeholder="$t('coffee.beanForm.originPlaceholder')"
         />
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Roaster</label>
+        <label class="text-sm font-semibold">{{ $t('coffee.beanForm.roaster') }}</label>
         <input
           v-model="form.roaster"
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
-          placeholder="e.g. Blue Bottle"
+          :placeholder="$t('coffee.beanForm.roasterPlaceholder')"
         />
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Roast Date</label>
+        <label class="text-sm font-semibold">{{ $t('coffee.beanForm.roastDate') }}</label>
         <input
           type="date"
           v-model="form.roast_date"
@@ -57,40 +57,40 @@
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Variety</label>
+        <label class="text-sm font-semibold">{{ $t('coffee.beanForm.variety') }}</label>
         <input
           v-model="form.variety"
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
-          placeholder="e.g. Heirloom"
+          :placeholder="$t('coffee.beanForm.varietyPlaceholder')"
         />
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Process</label>
+        <label class="text-sm font-semibold">{{ $t('coffee.beanForm.process') }}</label>
         <input
           v-model="form.process"
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
-          placeholder="e.g. Washed"
+          :placeholder="$t('coffee.beanForm.processPlaceholder')"
         />
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">Altitude</label>
+        <label class="text-sm font-semibold">{{ $t('coffee.beanForm.altitude') }}</label>
         <input
           v-model="form.altitude"
           class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
-          placeholder="e.g. 1900-2100 masl"
+          :placeholder="$t('coffee.beanForm.altitudePlaceholder')"
         />
       </div>
     </div>
 
     <div class="flex flex-col gap-1">
-      <label class="text-sm font-semibold">Description</label>
+      <label class="text-sm font-semibold">{{ $t('coffee.beanForm.description') }}</label>
       <textarea
         v-model="form.description"
         rows="3"
         class="bg-background border border-accent/40 rounded px-2 py-1 text-sm resize-y"
-        placeholder="Tasting notes, flavor profile..."
+        :placeholder="$t('coffee.beanForm.descriptionPlaceholder')"
       />
     </div>
   </div>
@@ -98,8 +98,11 @@
 
 <script setup lang="ts">
 import { ref, reactive, watch, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { CoffeeBean } from '@/interfaces/Coffee'
 import { upsertCoffeeBeanRaw } from '@/services/coffee'
+
+const { t } = useI18n()
 
 interface Props {
   bean?: CoffeeBean | null
@@ -157,7 +160,7 @@ async function save() {
     })
     emit('saved')
   } catch {
-    alert('Failed to save bean')
+    alert(t('coffee.beanForm.failedSave'))
   } finally {
     saving.value = false
   }

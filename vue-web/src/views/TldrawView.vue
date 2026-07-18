@@ -4,14 +4,14 @@
   <div>
     <textarea class="w-full h-96 border rounded-xl px-2 text-xs" v-model="content"></textarea>
     <div class="flex gap-2 py-2">
-      <button class="px-4 border rounded-xl" @click="sendCommand('save')">Save</button>
+      <button class="px-4 border rounded-xl" @click="sendCommand('save')">{{ $t('common.save') }}</button>
       <button
         class="px-4 border rounded-xl"
         @click="
           sendCommand('load', { payload: base64Encode ? decompressFromBase64(content) : content })
         "
       >
-        Load
+        {{ $t('common.load') }}
       </button>
       <div class="flex gap-2">
         <button
@@ -26,7 +26,7 @@
             height="1.5rem"
           ></Icon>
         </button>
-        <p class="my-auto text-sm">LZ Compressed + Base64</p>
+        <p class="my-auto text-sm">{{ $t('tool.tldraw.lzCompressed') }}</p>
       </div>
     </div>
   </div>

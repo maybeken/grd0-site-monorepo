@@ -38,7 +38,7 @@
         <router-link :to="`/blog/${$props?.uri}`">
           <div class="flex flex-col-reverse h-28 w-full hover:cursor-pointer hover:underline">
             <div class="mx-auto my-8">
-              <p class="text-xl">Continue to Read</p>
+              <p class="text-xl">{{ $t('blog.continueReading') }}</p>
             </div>
           </div>
         </router-link>
@@ -49,7 +49,7 @@
       <div class="flex justify-end">
         <Skeleton h="sm" w="xl" :loading="loading">
           <p class="text-accent italic">
-            Posted At: {{ dayjs($props?.created_at).calendar() }} | Last Edited:
+            {{ $t('blog.postedAt') }} {{ dayjs($props?.created_at).calendar() }} | {{ $t('blog.lastEdited') }}
             {{ dayjs($props?.updated_at).calendar() }}
           </p>
         </Skeleton>

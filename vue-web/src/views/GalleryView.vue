@@ -47,7 +47,7 @@ function selectCollection(collection: string): void {
 
 <template>
   <div class="pb-4">
-    <p class="text-2xl font-bold">Captures The Moment<CursorBlink /></p>
+    <p class="text-2xl font-bold">{{ $t('gallery.title') }}<CursorBlink /></p>
   </div>
   <DropdownSelection
     :disabled="loading"

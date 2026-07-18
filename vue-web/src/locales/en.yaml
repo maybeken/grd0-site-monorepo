@@ -1,0 +1,1091 @@
+# English translation file for grd0.net vue-web
+# Format: nested YAML with gettext conventions
+# msgid = translation key, msgstr = English text, msgctxt = usage context
+
+nav:
+  #. Site tagline displayed in the navbar
+  #: src/components/layout/Navbar.vue
+  tagline:
+    msgid: "nav.tagline"
+    msgstr: "Where Everything Starts And Ends"
+    msgctxt: "Navbar tagline after grd0.net"
+
+  #. Navigation menu items
+  #: src/components/layout/Navbar.vue
+  gallery:
+    msgid: "nav.gallery"
+    msgstr: "Gallery"
+    msgctxt: "Navigation menu item"
+
+  travelersMap:
+    msgid: "nav.travelersMap"
+    msgstr: "Traveler's Map"
+    msgctxt: "Navigation menu item"
+
+  beanSoup:
+    msgid: "nav.beanSoup"
+    msgstr: "Bean Soup"
+    msgctxt: "Navigation menu item for coffee section"
+
+  blog:
+    msgid: "nav.blog"
+    msgstr: "Blog"
+    msgctxt: "Navigation menu item"
+
+  listenToMe:
+    msgid: "nav.listenToMe"
+    msgstr: "LISTEN TO ME!"
+    msgctxt: "Navigation menu item for music section"
+
+  instagram:
+    msgid: "nav.instagram"
+    msgstr: "Instagram"
+    msgctxt: "External link in navigation"
+
+  youtube:
+    msgid: "nav.youtube"
+    msgstr: "YouTube"
+    msgctxt: "External link in navigation"
+
+  linkedin:
+    msgid: "nav.linkedin"
+    msgstr: "LinkedIn"
+    msgctxt: "External link in navigation"
+
+  buyMeCoffee:
+    msgid: "nav.buyMeCoffee"
+    msgstr: "Buy me ☕"
+    msgctxt: "External link in navigation"
+
+  cmsLogin:
+    msgid: "nav.cmsLogin"
+    msgstr: "CMS - Login"
+    msgctxt: "Hidden navigation item for CMS login"
+
+  toolEditor:
+    msgid: "nav.toolEditor"
+    msgstr: "Tool - Editor"
+    msgctxt: "Hidden navigation item for blog editor"
+
+  toolTastingEditor:
+    msgid: "nav.toolTastingEditor"
+    msgstr: "Tool - Tasting Editor"
+    msgctxt: "Hidden navigation item for coffee tasting editor"
+
+  toolDotMatrix:
+    msgid: "nav.toolDotMatrix"
+    msgstr: "Tool - Dot Matrix"
+    msgctxt: "Hidden navigation item for dot matrix tool"
+
+  toolTldraw:
+    msgid: "nav.toolTldraw"
+    msgstr: "Tool - tldraw;"
+    msgctxt: "Hidden navigation item for tldraw tool"
+
+footer:
+  #. Footer copyright line
+  #: src/components/layout/SiteFooter.vue
+  copyright:
+    msgid: "footer.copyright"
+    msgstr: "Est. 2020 - {year} \\@ grd0.net"
+    msgctxt: "Footer copyright text, {year} is dynamic"
+
+  #. Footer license text
+  #: src/components/layout/SiteFooter.vue
+  contentLicense:
+    msgid: "footer.contentLicense"
+    msgstr: "Site content licensed under CC BY-NC 4.0"
+    msgctxt: "Footer content license link text"
+
+  sourceLicense:
+    msgid: "footer.sourceLicense"
+    msgstr: "Source code available under CC BY-SA 4.0 on GitLab"
+    msgctxt: "Footer source code license link text"
+
+common:
+  #. Common UI strings used across multiple components
+  search:
+    msgid: "common.search"
+    msgstr: "Search..."
+    msgctxt: "Search input placeholder"
+
+  noItemAvailable:
+    msgid: "common.noItemAvailable"
+    msgstr: "No Item Available"
+    msgctxt: "Dropdown menu when no items match search"
+
+  save:
+    msgid: "common.save"
+    msgstr: "Save"
+    msgctxt: "Save button label"
+
+  saving:
+    msgid: "common.saving"
+    msgstr: "Saving..."
+    msgctxt: "Save button label while saving"
+
+  cancel:
+    msgid: "common.cancel"
+    msgstr: "Cancel"
+    msgctxt: "Cancel button label"
+
+  edit:
+    msgid: "common.edit"
+    msgstr: "Edit"
+    msgctxt: "Edit button label"
+
+  delete:
+    msgid: "common.delete"
+    msgstr: "Delete"
+    msgctxt: "Delete button label"
+
+  add:
+    msgid: "common.add"
+    msgstr: "Add"
+    msgctxt: "Add button label"
+
+  new:
+    msgid: "common.new"
+    msgstr: "New"
+    msgctxt: "New button title"
+
+  done:
+    msgid: "common.done"
+    msgstr: "Done."
+    msgctxt: "Success alert message"
+
+  failed:
+    msgid: "common.failed"
+    msgstr: "Failed."
+    msgctxt: "Failure alert message"
+
+  copy:
+    msgid: "common.copy"
+    msgstr: "Copy"
+    msgctxt: "Copy button label"
+
+  copiedToClipboard:
+    msgid: "common.copiedToClipboard"
+    msgstr: "Copied to clipboard!"
+    msgctxt: "Alert after copying to clipboard"
+
+  savedToClipboard:
+    msgid: "common.savedToClipboard"
+    msgstr: "Saved to clipboard!"
+    msgctxt: "Alert after saving to clipboard"
+
+  download:
+    msgid: "common.download"
+    msgstr: "Download"
+    msgctxt: "Download button title"
+
+  previous:
+    msgid: "common.previous"
+    msgstr: "Previous"
+    msgctxt: "Pagination previous button"
+
+  next:
+    msgid: "common.next"
+    msgstr: "Next"
+    msgctxt: "Pagination next button"
+
+  page:
+    msgid: "common.page"
+    msgstr: "Page"
+    msgctxt: "Pagination page label"
+
+  actions:
+    msgid: "common.actions"
+    msgstr: "Actions"
+    msgctxt: "Table actions column header"
+
+  redirecting:
+    msgid: "common.redirecting"
+    msgstr: "Redirecting..."
+    msgctxt: "Redirect page message and page title"
+
+  selectType:
+    msgid: "common.selectType"
+    msgstr: "Select type..."
+    msgctxt: "Dropdown placeholder for type selection"
+
+  load:
+    msgid: "common.load"
+    msgstr: "Load"
+    msgctxt: "Load button label in tldraw tool"
+
+gallery:
+  #. Gallery view strings
+  #: src/views/GalleryView.vue
+  title:
+    msgid: "gallery.title"
+    msgstr: "Captures The Moment"
+    msgctxt: "Gallery page title"
+
+map:
+  #. Map view strings
+  #: src/views/MapView.vue
+  title:
+    msgid: "map.title"
+    msgstr: "Places I've Been To"
+    msgctxt: "Map page title"
+
+  zoomHint:
+    msgid: "map.zoomHint"
+    msgstr: "(Zoom in to see more)"
+    msgctxt: "Map hint text"
+
+  recenter:
+    msgid: "map.recenter"
+    msgstr: "Re-center"
+    msgctxt: "Map re-center button title"
+
+  #. TravelersMap context menu
+  #: src/components/map/TravelersMap.vue
+  coordinate:
+    msgid: "map.coordinate"
+    msgstr: "Coordinate"
+    msgctxt: "Context menu item text"
+
+  enterTitle:
+    msgid: "map.enterTitle"
+    msgstr: "Enter the title:"
+    msgctxt: "Prompt dialog for coordinate title"
+
+music:
+  #. Music view strings
+  #: src/views/MusicView.vue
+  title:
+    msgid: "music.title"
+    msgstr: "Music Matters"
+    msgctxt: "Music page title"
+
+  unknown:
+    msgid: "music.unknown"
+    msgstr: "Unknown"
+    msgctxt: "Fallback artist name"
+
+  meaning:
+    msgid: "music.meaning"
+    msgstr: "What's the meaning of this?"
+    msgctxt: "Song description section title"
+
+  nothingSpecified:
+    msgid: "music.nothingSpecified"
+    msgstr: "Nothing specified."
+    msgctxt: "Fallback when no song description"
+
+  playlist:
+    msgid: "music.playlist"
+    msgstr: "Playlist"
+    msgctxt: "Playlist section title"
+
+blog:
+  #. Blog detail strings
+  #: src/components/blog/BlogDetail.vue
+  postedAt:
+    msgid: "blog.postedAt"
+    msgstr: "Posted At:"
+    msgctxt: "Blog post date label"
+
+  lastEdited:
+    msgid: "blog.lastEdited"
+    msgstr: "Last Edited:"
+    msgctxt: "Blog post last edited date label"
+
+  #. Blog summary strings
+  #: src/components/blog/BlogSummary.vue
+  continueReading:
+    msgid: "blog.continueReading"
+    msgstr: "Continue to Read"
+    msgctxt: "Link text to read full blog post"
+
+  #. Blog editor strings
+  #: src/views/BlogEditorView.vue
+  columnTitle:
+    msgid: "blog.editor.columnTitle"
+    msgstr: "Title"
+    msgctxt: "Blog editor table column header"
+
+  columnUri:
+    msgid: "blog.editor.columnUri"
+    msgstr: "URI"
+    msgctxt: "Blog editor table column header"
+
+  columnPublished:
+    msgid: "blog.editor.columnPublished"
+    msgstr: "Published"
+    msgctxt: "Blog editor table column header"
+
+  unpublished:
+    msgid: "blog.editor.unpublished"
+    msgstr: "Unpublished"
+    msgctxt: "Blog post status when not published"
+
+  publishedAgo:
+    msgid: "blog.editor.publishedAgo"
+    msgstr: "Published ({time})"
+    msgctxt: "Blog post status with relative time, {time} is relative time string"
+
+  scheduledAgo:
+    msgid: "blog.editor.scheduledAgo"
+    msgstr: "Scheduled ({time})"
+    msgctxt: "Blog post status for scheduled posts, {time} is relative time string"
+
+  confirmUnpublish:
+    msgid: "blog.editor.confirmUnpublish"
+    msgstr: "Are you sure to unpublish the post?"
+    msgctxt: "Confirmation dialog for unpublishing a blog post"
+
+  #. SideBySideEditor strings
+  #: src/components/editor/SideBySideEditor.vue
+  titlePlaceholder:
+    msgid: "blog.editor.titlePlaceholder"
+    msgstr: "Blog Post Title"
+    msgctxt: "Blog post title input placeholder"
+
+  subtitlePlaceholder:
+    msgid: "blog.editor.subtitlePlaceholder"
+    msgstr: "Blog Post Subtitle"
+    msgctxt: "Blog post subtitle input placeholder"
+
+  publishDate:
+    msgid: "blog.editor.publishDate"
+    msgstr: "Publish Date:"
+    msgctxt: "Publish date field label"
+
+  confirmNewPost:
+    msgid: "blog.editor.confirmNewPost"
+    msgstr: "Are you sure to create new post? Any unsaved changes will be erased!"
+    msgctxt: "Confirmation dialog for creating new post"
+
+  askNewPostUri:
+    msgid: "blog.editor.askNewPostUri"
+    msgstr: "What is the new post uri?"
+    msgctxt: "Prompt dialog for new post URI"
+
+  confirmSavePost:
+    msgid: "blog.editor.confirmSavePost"
+    msgstr: "Are you sure to create/update the post?"
+    msgctxt: "Confirmation dialog for saving post"
+
+  editorPlaceholder:
+    msgid: "blog.editor.editorPlaceholder"
+    msgstr: "Markdown Contents Here"
+    msgctxt: "OverType editor placeholder text"
+
+coffee:
+  #. Coffee view strings
+  #: src/views/CoffeeView.vue
+  viewTitle:
+    msgid: "coffee.view.title"
+    msgstr: "My Coffee Journey"
+    msgctxt: "Coffee page title"
+
+  viewSubtitle:
+    msgid: "coffee.view.subtitle"
+    msgstr: "Just a list of the coffee I have tried for my own reference, nothing special here."
+    msgctxt: "Coffee page subtitle"
+
+  noTastings:
+    msgid: "coffee.view.noTastings"
+    msgstr: "No tastings recorded yet."
+    msgctxt: "Empty state when no tastings exist"
+
+  equipmentCredit:
+    msgid: "coffee.view.equipmentCredit"
+    msgstr: "Equipment illustration icon by {author} in CC Attribution License via {source}."
+    msgctxt: "Equipment icon attribution, {author} and {source} are links"
+
+  equipmentCreditAuthor:
+    msgid: "coffee.view.equipmentCreditAuthor"
+    msgstr: "Alvin Arief"
+    msgctxt: "Author name in equipment icon attribution"
+
+  equipmentCreditSource:
+    msgid: "coffee.view.equipmentCreditSource"
+    msgstr: "SVG Repo"
+    msgctxt: "Source name in equipment icon attribution"
+
+  #. Coffee editor strings
+  #: src/views/CoffeeEditorView.vue
+  tabBeans:
+    msgid: "coffee.editor.tabBeans"
+    msgstr: "Beans"
+    msgctxt: "Coffee editor tab label"
+
+  tabEquipment:
+    msgid: "coffee.editor.tabEquipment"
+    msgstr: "Equipment"
+    msgctxt: "Coffee editor tab label"
+
+  tabTasting:
+    msgid: "coffee.editor.tabTasting"
+    msgstr: "Tasting"
+    msgctxt: "Coffee editor tab label"
+
+  newBean:
+    msgid: "coffee.editor.newBean"
+    msgstr: "+ New Bean"
+    msgctxt: "Button to create new bean"
+
+  newEquipment:
+    msgid: "coffee.editor.newEquipment"
+    msgstr: "+ New Equipment"
+    msgctxt: "Button to create new equipment"
+
+  newTasting:
+    msgid: "coffee.editor.newTasting"
+    msgstr: "+ New Tasting"
+    msgctxt: "Button to create new tasting"
+
+  noBeans:
+    msgid: "coffee.editor.noBeans"
+    msgstr: "No beans yet"
+    msgctxt: "Empty state for beans list"
+
+  noEquipment:
+    msgid: "coffee.editor.noEquipment"
+    msgstr: "No equipment yet"
+    msgctxt: "Empty state for equipment list"
+
+  noTastingsYet:
+    msgid: "coffee.editor.noTastingsYet"
+    msgstr: "No tastings yet"
+    msgctxt: "Empty state for tastings list"
+
+  unknownBean:
+    msgid: "coffee.editor.unknownBean"
+    msgstr: "Unknown bean"
+    msgctxt: "Fallback when tasting has no bean"
+
+  confirmDeleteBean:
+    msgid: "coffee.editor.confirmDeleteBean"
+    msgstr: "Delete \"{name}\"?"
+    msgctxt: "Confirmation dialog for deleting a bean, {name} is bean name"
+
+  confirmDeleteEquipment:
+    msgid: "coffee.editor.confirmDeleteEquipment"
+    msgstr: "Delete \"{name}\"?"
+    msgctxt: "Confirmation dialog for deleting equipment, {name} is equipment name"
+
+  confirmDeleteTasting:
+    msgid: "coffee.editor.confirmDeleteTasting"
+    msgstr: "Delete tasting \"{label}\"?"
+    msgctxt: "Confirmation dialog for deleting a tasting, {label} is tasting label"
+
+  failedDeleteBean:
+    msgid: "coffee.editor.failedDeleteBean"
+    msgstr: "Failed to delete bean"
+    msgctxt: "Alert when bean deletion fails"
+
+  failedDeleteEquipment:
+    msgid: "coffee.editor.failedDeleteEquipment"
+    msgstr: "Failed to delete equipment"
+    msgctxt: "Alert when equipment deletion fails"
+
+  failedDeleteTasting:
+    msgid: "coffee.editor.failedDeleteTasting"
+    msgstr: "Failed to delete tasting"
+    msgctxt: "Alert when tasting deletion fails"
+
+  #. TastingForm strings
+  #: src/components/coffee/TastingForm.vue
+  tastingForm:
+    titleEdit:
+      msgid: "coffee.tastingForm.titleEdit"
+      msgstr: "Edit Tasting"
+      msgctxt: "Tasting form title when editing"
+
+    titleNew:
+      msgid: "coffee.tastingForm.titleNew"
+      msgstr: "New Tasting"
+      msgctxt: "Tasting form title when creating"
+
+    bean:
+      msgid: "coffee.tastingForm.bean"
+      msgstr: "Bean"
+      msgctxt: "Bean field label"
+
+    equipment:
+      msgid: "coffee.tastingForm.equipment"
+      msgstr: "Equipment"
+      msgctxt: "Equipment field label"
+
+    date:
+      msgid: "coffee.tastingForm.date"
+      msgstr: "Date"
+      msgctxt: "Date field label"
+
+    rating:
+      msgid: "coffee.tastingForm.rating"
+      msgstr: "Rating (1-10)"
+      msgctxt: "Rating field label"
+
+    addNew:
+      msgid: "coffee.tastingForm.addNew"
+      msgstr: "+ new"
+      msgctxt: "Quick add button text"
+
+    selectBean:
+      msgid: "coffee.tastingForm.selectBean"
+      msgstr: "Select bean..."
+      msgctxt: "Bean dropdown placeholder"
+
+    selectEquipment:
+      msgid: "coffee.tastingForm.selectEquipment"
+      msgstr: "Select equipment..."
+      msgctxt: "Equipment dropdown placeholder"
+
+    selectGrind:
+      msgid: "coffee.tastingForm.selectGrind"
+      msgstr: "Select..."
+      msgctxt: "Grind size dropdown placeholder"
+
+    beanName:
+      msgid: "coffee.tastingForm.beanName"
+      msgstr: "Bean name *"
+      msgctxt: "Quick bean form name placeholder"
+
+    roaster:
+      msgid: "coffee.tastingForm.roaster"
+      msgstr: "Roaster"
+      msgctxt: "Quick bean form roaster placeholder"
+
+    origin:
+      msgid: "coffee.tastingForm.origin"
+      msgstr: "Origin"
+      msgctxt: "Quick bean form origin placeholder"
+
+    equipmentName:
+      msgid: "coffee.tastingForm.equipmentName"
+      msgstr: "Equipment name *"
+      msgctxt: "Quick equipment form name placeholder"
+
+    grinder:
+      msgid: "coffee.tastingForm.grinder"
+      msgstr: "Grinder"
+      msgctxt: "Brew recipe field label"
+
+    grindSize:
+      msgid: "coffee.tastingForm.grindSize"
+      msgstr: "Grind Size"
+      msgctxt: "Brew recipe field label"
+
+    grindSetting:
+      msgid: "coffee.tastingForm.grindSetting"
+      msgstr: "Grind Setting"
+      msgctxt: "Brew recipe field label"
+
+    coffeeDose:
+      msgid: "coffee.tastingForm.coffeeDose"
+      msgstr: "Coffee Dose (g)"
+      msgctxt: "Brew recipe field label"
+
+    waterIn:
+      msgid: "coffee.tastingForm.waterIn"
+      msgstr: "Water In (ml)"
+      msgctxt: "Brew recipe field label"
+
+    coffeeOut:
+      msgid: "coffee.tastingForm.coffeeOut"
+      msgstr: "Coffee Out (ml)"
+      msgctxt: "Brew recipe field label"
+
+    ratio:
+      msgid: "coffee.tastingForm.ratio"
+      msgstr: "Ratio"
+      msgctxt: "Brew recipe field label"
+
+    idk:
+      msgid: "coffee.tastingForm.idk"
+      msgstr: "IDK"
+      msgctxt: "Ratio display when unknown"
+
+    brewTime:
+      msgid: "coffee.tastingForm.brewTime"
+      msgstr: "Brew Time"
+      msgctxt: "Brew recipe field label"
+
+    waterTemp:
+      msgid: "coffee.tastingForm.waterTemp"
+      msgstr: "Water Temp (°C)"
+      msgctxt: "Brew recipe field label"
+
+    brewRecipe:
+      msgid: "coffee.tastingForm.brewRecipe"
+      msgstr: "Brew Recipe"
+      msgctxt: "Brew recipe fieldset legend"
+
+    tasteProfile:
+      msgid: "coffee.tastingForm.tasteProfile"
+      msgstr: "Taste Profile (0-10)"
+      msgctxt: "Taste profile fieldset legend"
+
+    notes:
+      msgid: "coffee.tastingForm.notes"
+      msgstr: "Notes"
+      msgctxt: "Notes field label"
+
+    pinTasting:
+      msgid: "coffee.tastingForm.pinTasting"
+      msgstr: "Pin this tasting"
+      msgctxt: "Pin checkbox label"
+
+    failedAddBean:
+      msgid: "coffee.tastingForm.failedAddBean"
+      msgstr: "Failed to add bean"
+      msgctxt: "Alert when quick bean add fails"
+
+    failedAddEquipment:
+      msgid: "coffee.tastingForm.failedAddEquipment"
+      msgstr: "Failed to add equipment"
+      msgctxt: "Alert when quick equipment add fails"
+
+    failedSaveTasting:
+      msgid: "coffee.tastingForm.failedSaveTasting"
+      msgstr: "Failed to save tasting"
+      msgctxt: "Alert when tasting save fails"
+
+    loading:
+      msgid: "coffee.tastingForm.loading"
+      msgstr: "..."
+      msgctxt: "Loading indicator in quick add button"
+
+  #. TastingCard strings
+  #: src/components/coffee/TastingCard.vue
+  tastingCard:
+    idk:
+      msgid: "coffee.tastingCard.idk"
+      msgstr: "IDK ¯\\_(ツ)_/¯"
+      msgctxt: "Fallback value when data is unknown"
+
+    equipment:
+      msgid: "coffee.tastingCard.equipment"
+      msgstr: "Equipment"
+      msgctxt: "Alt text fallback for equipment image"
+
+    variety:
+      msgid: "coffee.tastingCard.variety"
+      msgstr: "Variety:"
+      msgctxt: "Tasting card field label"
+
+    altitude:
+      msgid: "coffee.tastingCard.altitude"
+      msgstr: "Altitude:"
+      msgctxt: "Tasting card field label"
+
+    grinder:
+      msgid: "coffee.tastingCard.grinder"
+      msgstr: "Grinder:"
+      msgctxt: "Tasting card field label"
+
+    grindSize:
+      msgid: "coffee.tastingCard.grindSize"
+      msgstr: "Grind Size:"
+      msgctxt: "Tasting card field label"
+
+    grindSetting:
+      msgid: "coffee.tastingCard.grindSetting"
+      msgstr: "Grind Setting:"
+      msgctxt: "Tasting card field label"
+
+    dose:
+      msgid: "coffee.tastingCard.dose"
+      msgstr: "Dose:"
+      msgctxt: "Tasting card field label"
+
+    water:
+      msgid: "coffee.tastingCard.water"
+      msgstr: "Water:"
+      msgctxt: "Tasting card field label"
+
+    yield:
+      msgid: "coffee.tastingCard.yield"
+      msgstr: "Yield:"
+      msgctxt: "Tasting card field label"
+
+    ratio:
+      msgid: "coffee.tastingCard.ratio"
+      msgstr: "Ratio:"
+      msgctxt: "Tasting card field label"
+
+    brewTime:
+      msgid: "coffee.tastingCard.brewTime"
+      msgstr: "Brew Time:"
+      msgctxt: "Tasting card field label"
+
+    waterTemp:
+      msgid: "coffee.tastingCard.waterTemp"
+      msgstr: "Water Temp:"
+      msgctxt: "Tasting card field label"
+
+  #. BeanForm strings
+  #: src/components/coffee/BeanForm.vue
+  beanForm:
+    titleEdit:
+      msgid: "coffee.beanForm.titleEdit"
+      msgstr: "Edit Bean"
+      msgctxt: "Bean form title when editing"
+
+    titleNew:
+      msgid: "coffee.beanForm.titleNew"
+      msgstr: "New Bean"
+      msgctxt: "Bean form title when creating"
+
+    name:
+      msgid: "coffee.beanForm.name"
+      msgstr: "Name *"
+      msgctxt: "Bean form field label"
+
+    namePlaceholder:
+      msgid: "coffee.beanForm.namePlaceholder"
+      msgstr: "e.g. Yirgacheffe Kochere"
+      msgctxt: "Bean name input placeholder"
+
+    origin:
+      msgid: "coffee.beanForm.origin"
+      msgstr: "Origin"
+      msgctxt: "Bean form field label"
+
+    originPlaceholder:
+      msgid: "coffee.beanForm.originPlaceholder"
+      msgstr: "e.g. Ethiopia"
+      msgctxt: "Bean origin input placeholder"
+
+    roaster:
+      msgid: "coffee.beanForm.roaster"
+      msgstr: "Roaster"
+      msgctxt: "Bean form field label"
+
+    roasterPlaceholder:
+      msgid: "coffee.beanForm.roasterPlaceholder"
+      msgstr: "e.g. Blue Bottle"
+      msgctxt: "Bean roaster input placeholder"
+
+    roastDate:
+      msgid: "coffee.beanForm.roastDate"
+      msgstr: "Roast Date"
+      msgctxt: "Bean form field label"
+
+    variety:
+      msgid: "coffee.beanForm.variety"
+      msgstr: "Variety"
+      msgctxt: "Bean form field label"
+
+    varietyPlaceholder:
+      msgid: "coffee.beanForm.varietyPlaceholder"
+      msgstr: "e.g. Heirloom"
+      msgctxt: "Bean variety input placeholder"
+
+    process:
+      msgid: "coffee.beanForm.process"
+      msgstr: "Process"
+      msgctxt: "Bean form field label"
+
+    processPlaceholder:
+      msgid: "coffee.beanForm.processPlaceholder"
+      msgstr: "e.g. Washed"
+      msgctxt: "Bean process input placeholder"
+
+    altitude:
+      msgid: "coffee.beanForm.altitude"
+      msgstr: "Altitude"
+      msgctxt: "Bean form field label"
+
+    altitudePlaceholder:
+      msgid: "coffee.beanForm.altitudePlaceholder"
+      msgstr: "e.g. 1900-2100 masl"
+      msgctxt: "Bean altitude input placeholder"
+
+    description:
+      msgid: "coffee.beanForm.description"
+      msgstr: "Description"
+      msgctxt: "Bean form field label"
+
+    descriptionPlaceholder:
+      msgid: "coffee.beanForm.descriptionPlaceholder"
+      msgstr: "Tasting notes, flavor profile..."
+      msgctxt: "Bean description textarea placeholder"
+
+    failedSave:
+      msgid: "coffee.beanForm.failedSave"
+      msgstr: "Failed to save bean"
+      msgctxt: "Alert when bean save fails"
+
+  #. EquipmentForm strings
+  #: src/components/coffee/EquipmentForm.vue
+  equipmentForm:
+    titleEdit:
+      msgid: "coffee.equipmentForm.titleEdit"
+      msgstr: "Edit Equipment"
+      msgctxt: "Equipment form title when editing"
+
+    titleNew:
+      msgid: "coffee.equipmentForm.titleNew"
+      msgstr: "New Equipment"
+      msgctxt: "Equipment form title when creating"
+
+    name:
+      msgid: "coffee.equipmentForm.name"
+      msgstr: "Name *"
+      msgctxt: "Equipment form field label"
+
+    namePlaceholder:
+      msgid: "coffee.equipmentForm.namePlaceholder"
+      msgstr: "e.g. Hario V60"
+      msgctxt: "Equipment name input placeholder"
+
+    type:
+      msgid: "coffee.equipmentForm.type"
+      msgstr: "Type"
+      msgctxt: "Equipment form field label"
+
+    description:
+      msgid: "coffee.equipmentForm.description"
+      msgstr: "Description"
+      msgctxt: "Equipment form field label"
+
+    descriptionPlaceholder:
+      msgid: "coffee.equipmentForm.descriptionPlaceholder"
+      msgstr: "Details about this equipment..."
+      msgctxt: "Equipment description textarea placeholder"
+
+    failedSave:
+      msgid: "coffee.equipmentForm.failedSave"
+      msgstr: "Failed to save equipment"
+      msgctxt: "Alert when equipment save fails"
+
+  #. TasteRadarChart strings
+  #: src/components/coffee/TasteRadarChart.vue
+  radarChart:
+    noData:
+      msgid: "coffee.radarChart.noData"
+      msgstr: "No taste data"
+      msgctxt: "Empty state for taste radar chart"
+
+  #. Coffee constants - grind sizes
+  #: src/helpers/coffee.ts
+  grindSizes:
+    extraFine:
+      msgid: "coffee.grindSizes.extraFine"
+      msgstr: "Extra Fine"
+      msgctxt: "Grind size option"
+
+    fine:
+      msgid: "coffee.grindSizes.fine"
+      msgstr: "Fine"
+      msgctxt: "Grind size option"
+
+    mediumFine:
+      msgid: "coffee.grindSizes.mediumFine"
+      msgstr: "Medium-Fine"
+      msgctxt: "Grind size option"
+
+    medium:
+      msgid: "coffee.grindSizes.medium"
+      msgstr: "Medium"
+      msgctxt: "Grind size option"
+
+    mediumCoarse:
+      msgid: "coffee.grindSizes.mediumCoarse"
+      msgstr: "Medium-Coarse"
+      msgctxt: "Grind size option"
+
+    coarse:
+      msgid: "coffee.grindSizes.coarse"
+      msgstr: "Coarse"
+      msgctxt: "Grind size option"
+
+    extraCoarse:
+      msgid: "coffee.grindSizes.extraCoarse"
+      msgstr: "Extra Coarse"
+      msgctxt: "Grind size option"
+
+  #. Coffee constants - taste dimensions
+  #: src/helpers/coffee.ts
+  tasteDimensions:
+    fruity:
+      msgid: "coffee.tasteDimensions.fruity"
+      msgstr: "Fruity"
+      msgctxt: "Taste dimension label for radar chart"
+
+    sour:
+      msgid: "coffee.tasteDimensions.sour"
+      msgstr: "Sour"
+      msgctxt: "Taste dimension label for radar chart"
+
+    fermented:
+      msgid: "coffee.tasteDimensions.fermented"
+      msgstr: "Fermented"
+      msgctxt: "Taste dimension label for radar chart"
+
+    nutty:
+      msgid: "coffee.tasteDimensions.nutty"
+      msgstr: "Nutty"
+      msgctxt: "Taste dimension label for radar chart"
+
+    spice:
+      msgid: "coffee.tasteDimensions.spice"
+      msgstr: "Spice"
+      msgctxt: "Taste dimension label for radar chart"
+
+    sweetness:
+      msgid: "coffee.tasteDimensions.sweetness"
+      msgstr: "Sweetness"
+      msgctxt: "Taste dimension label for radar chart"
+
+    floral:
+      msgid: "coffee.tasteDimensions.floral"
+      msgstr: "Floral"
+      msgctxt: "Taste dimension label for radar chart"
+
+    green:
+      msgid: "coffee.tasteDimensions.green"
+      msgstr: "Green"
+      msgctxt: "Taste dimension label for radar chart"
+
+    tobacco:
+      msgid: "coffee.tasteDimensions.tobacco"
+      msgstr: "Tobacco"
+      msgctxt: "Taste dimension label for radar chart"
+
+    bitter:
+      msgid: "coffee.tasteDimensions.bitter"
+      msgstr: "Bitter"
+      msgctxt: "Taste dimension label for radar chart"
+
+  #. Coffee constants - equipment types
+  #: src/helpers/coffee.ts
+  equipmentTypes:
+    grinder:
+      msgid: "coffee.equipmentTypes.grinder"
+      msgstr: "Grinder"
+      msgctxt: "Equipment type option"
+
+    pourOver:
+      msgid: "coffee.equipmentTypes.pourOver"
+      msgstr: "Pour Over"
+      msgctxt: "Equipment type option"
+
+    espresso:
+      msgid: "coffee.equipmentTypes.espresso"
+      msgstr: "Espresso"
+      msgctxt: "Equipment type option"
+
+    frenchPress:
+      msgid: "coffee.equipmentTypes.frenchPress"
+      msgstr: "French Press"
+      msgctxt: "Equipment type option"
+
+    mokaPot:
+      msgid: "coffee.equipmentTypes.mokaPot"
+      msgstr: "Moka Pot"
+      msgctxt: "Equipment type option"
+
+    syphon:
+      msgid: "coffee.equipmentTypes.syphon"
+      msgstr: "Syphon"
+      msgctxt: "Equipment type option"
+
+    other:
+      msgid: "coffee.equipmentTypes.other"
+      msgstr: "Other"
+      msgctxt: "Equipment type option"
+
+notFound:
+  #. 404 page strings
+  #: src/components/shared/NotFound.vue
+  title:
+    msgid: "notFound.title"
+    msgstr: "Where are you trying to go?"
+    msgctxt: "404 page title"
+
+  message:
+    msgid: "notFound.message"
+    msgstr: "You have either entered the wrong path, or the page simply does not exists in this universe."
+    msgctxt: "404 page message"
+
+  hint:
+    msgid: "notFound.hint"
+    msgstr: "Simply say: 404 Not Found for those who are nerds."
+    msgctxt: "404 page small hint text"
+
+tool:
+  #. Dot Matrix tool strings
+  #: src/views/DotMatrix.vue
+  dotMatrix:
+    finest:
+      msgid: "tool.dotMatrix.finest"
+      msgstr: "Finest:"
+      msgctxt: "Dot matrix tool field label"
+
+    gap:
+      msgid: "tool.dotMatrix.gap"
+      msgstr: "Gap:"
+      msgctxt: "Dot matrix tool field label"
+
+  #. tldraw tool strings
+  #: src/views/TldrawView.vue
+  tldraw:
+    lzCompressed:
+      msgid: "tool.tldraw.lzCompressed"
+      msgstr: "LZ Compressed + Base64"
+      msgctxt: "tldraw tool encoding toggle label"
+
+#. Router page titles
+router:
+  home:
+    msgid: "router.home"
+    msgstr: "Home"
+    msgctxt: "Page title for home route"
+
+  blog:
+    msgid: "router.blog"
+    msgstr: "Blog"
+    msgctxt: "Page title for blog route"
+
+  blogEditor:
+    msgid: "router.blogEditor"
+    msgstr: "Blog Editor"
+    msgctxt: "Page title for blog editor route"
+
+  gallery:
+    msgid: "router.gallery"
+    msgstr: "Gallery"
+    msgctxt: "Page title for gallery route"
+
+  travelersMap:
+    msgid: "router.travelersMap"
+    msgstr: "Traveler's Map"
+    msgctxt: "Page title for map route"
+
+  music:
+    msgid: "router.music"
+    msgstr: "Music Matters"
+    msgctxt: "Page title for music route"
+
+  coffee:
+    msgid: "router.coffee"
+    msgstr: "Coffee Taste Log"
+    msgctxt: "Page title for coffee route"
+
+  coffeeEditor:
+    msgid: "router.coffeeEditor"
+    msgstr: "Coffee Tasting Editor"
+    msgctxt: "Page title for coffee editor route"
+
+  pageNotFound:
+    msgid: "router.pageNotFound"
+    msgstr: "Page Not Found"
+    msgctxt: "Page title for 404 route"
+
+  dotMatrix:
+    msgid: "router.dotMatrix"
+    msgstr: "Dot Matrix Generator"
+    msgctxt: "Page title for dot matrix tool route"
+
+  tldraw:
+    msgid: "router.tldraw"
+    msgstr: "tldraw;"
+    msgctxt: "Page title for tldraw tool route"

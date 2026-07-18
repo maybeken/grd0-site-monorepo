@@ -3,12 +3,13 @@
     <Radar :data="chartData" :options="chartOptions" />
   </div>
   <div v-else class="flex items-center justify-center w-full aspect-square text-sm opacity-50">
-    No taste data
+    {{ $t('coffee.radarChart.noData') }}
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { Radar } from 'vue-chartjs'
 import {
   Chart as ChartJS,
@@ -21,6 +22,8 @@ import {
 } from 'chart.js'
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
+
+const { t } = useI18n()
 
 interface Props {
   tasteFruity?: number | null
@@ -37,7 +40,18 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const labels = ['Nutty', 'Spice', 'Fruity', 'Sour', 'Fermented', 'Sweetness', 'Floral', 'Green', 'Tobacco', 'Bitter']
+const labelKeys = [
+  'coffee.tasteDimensions.nutty',
+  'coffee.tasteDimensions.spice',
+  'coffee.tasteDimensions.fruity',
+  'coffee.tasteDimensions.sour',
+  'coffee.tasteDimensions.fermented',
+  'coffee.tasteDimensions.sweetness',
+  'coffee.tasteDimensions.floral',
+  'coffee.tasteDimensions.green',
+  'coffee.tasteDimensions.tobacco',
+  'coffee.tasteDimensions.bitter',
+]
 
 const values = computed(() => [
   props.tasteNutty,
@@ -55,7 +69,7 @@ const values = computed(() => [
 const hasData = computed(() => values.value.some((v) => v != null))
 
 const chartData = computed(() => ({
-  labels,
+  labels: labelKeys.map((k) => t(k)),
   datasets: [
     {
       data: values.value.map((v) => v ?? 0),

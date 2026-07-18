@@ -12,7 +12,7 @@
             : 'text-foreground/60 hover:text-foreground hover:bg-accent/10'
         ]"
       >
-        {{ tab.label }}
+        {{ $t(tab.label) }}
       </button>
     </div>
 
@@ -22,7 +22,7 @@
           @click="openNewBean"
           class="px-3 py-1 rounded bg-accent text-background text-sm font-semibold hover:brightness-110"
         >
-          + New Bean
+          {{ $t('coffee.editor.newBean') }}
         </button>
       </div>
       <BeanForm
@@ -51,17 +51,17 @@
               @click="editBean(bean)"
               class="px-2 py-1 rounded text-xs border border-accent/40 hover:bg-accent/10"
             >
-              Edit
+              {{ $t('common.edit') }}
             </button>
             <button
               @click="deleteBean(bean)"
               class="px-2 py-1 rounded text-xs border border-red-500/40 text-red-400 hover:bg-red-500/10"
             >
-              Delete
+              {{ $t('common.delete') }}
             </button>
           </div>
         </div>
-        <p v-if="!beans.length" class="text-sm text-foreground/40 text-center py-4">No beans yet</p>
+        <p v-if="!beans.length" class="text-sm text-foreground/40 text-center py-4">{{ $t('coffee.editor.noBeans') }}</p>
       </div>
     </div>
 
@@ -71,7 +71,7 @@
           @click="openNewEquipment"
           class="px-3 py-1 rounded bg-accent text-background text-sm font-semibold hover:brightness-110"
         >
-          + New Equipment
+          {{ $t('coffee.editor.newEquipment') }}
         </button>
       </div>
       <EquipmentForm
@@ -95,18 +95,18 @@
               @click="editEquipment(eq)"
               class="px-2 py-1 rounded text-xs border border-accent/40 hover:bg-accent/10"
             >
-              Edit
+              {{ $t('common.edit') }}
             </button>
             <button
               @click="deleteEquipment(eq)"
               class="px-2 py-1 rounded text-xs border border-red-500/40 text-red-400 hover:bg-red-500/10"
             >
-              Delete
+              {{ $t('common.delete') }}
             </button>
           </div>
         </div>
         <p v-if="!equipment.length" class="text-sm text-foreground/40 text-center py-4">
-          No equipment yet
+          {{ $t('coffee.editor.noEquipment') }}
         </p>
       </div>
     </div>
@@ -117,7 +117,7 @@
           @click="openNewTasting"
           class="px-3 py-1 rounded bg-accent text-background text-sm font-semibold hover:brightness-110"
         >
-          + New Tasting
+          {{ $t('coffee.editor.newTasting') }}
         </button>
       </div>
       <TastingForm
@@ -137,7 +137,7 @@
           class="flex items-center justify-between bg-background rounded-lg p-3 border border-accent/20"
         >
           <div>
-            <span class="font-semibold text-sm">{{ tasting.bean?.name || 'Unknown bean' }}</span>
+            <span class="font-semibold text-sm">{{ tasting.bean?.name || $t('coffee.editor.unknownBean') }}</span>
             <span v-if="tasting.equipment?.name" class="text-xs text-foreground/60 ml-2">{{
               tasting.equipment.name
             }}</span>
@@ -153,18 +153,18 @@
               @click="editTasting(tasting)"
               class="px-2 py-1 rounded text-xs border border-accent/40 hover:bg-accent/10"
             >
-              Edit
+              {{ $t('common.edit') }}
             </button>
             <button
               @click="deleteTasting(tasting)"
               class="px-2 py-1 rounded text-xs border border-red-500/40 text-red-400 hover:bg-red-500/10"
             >
-              Delete
+              {{ $t('common.delete') }}
             </button>
           </div>
         </div>
         <p v-if="!tastings.length" class="text-sm text-foreground/40 text-center py-4">
-          No tastings yet
+          {{ $t('coffee.editor.noTastingsYet') }}
         </p>
       </div>
     </div>
@@ -173,6 +173,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { CoffeeBean, BrewEquipment, TastingNote } from '@/interfaces/Coffee'
 import {
   getCoffeeBeansRaw,
@@ -186,10 +187,12 @@ import BeanForm from '@/components/coffee/BeanForm.vue'
 import EquipmentForm from '@/components/coffee/EquipmentForm.vue'
 import TastingForm from '@/components/coffee/TastingForm.vue'
 
+const { t } = useI18n()
+
 const tabs = [
-  { key: 'beans', label: 'Beans' },
-  { key: 'equipment', label: 'Equipment' },
-  { key: 'tasting', label: 'Tasting' }
+  { key: 'beans', label: 'coffee.editor.tabBeans' },
+  { key: 'equipment', label: 'coffee.editor.tabEquipment' },
+  { key: 'tasting', label: 'coffee.editor.tabTasting' }
 ] as const
 
 const activeTab = ref<(typeof tabs)[number]['key']>('beans')
@@ -244,12 +247,12 @@ async function onBeanSaved() {
 }
 
 async function deleteBean(bean: CoffeeBean) {
-  if (!bean.id || !confirm(`Delete "${bean.name}"?`)) return
+  if (!bean.id || !confirm(t('coffee.editor.confirmDeleteBean', { name: bean.name }))) return
   try {
     await deleteCoffeeBeanRaw(bean.id)
     await fetchBeans()
   } catch {
-    alert('Failed to delete bean')
+    alert(t('coffee.editor.failedDeleteBean'))
   }
 }
 
@@ -274,12 +277,12 @@ async function onEquipmentSaved() {
 }
 
 async function deleteEquipment(eq: BrewEquipment) {
-  if (!eq.id || !confirm(`Delete "${eq.name}"?`)) return
+  if (!eq.id || !confirm(t('coffee.editor.confirmDeleteEquipment', { name: eq.name }))) return
   try {
     await deleteCoffeeEquipmentRaw(eq.id)
     await fetchEquipment()
   } catch {
-    alert('Failed to delete equipment')
+    alert(t('coffee.editor.failedDeleteEquipment'))
   }
 }
 
@@ -304,13 +307,13 @@ async function onTastingSaved() {
 }
 
 async function deleteTasting(tasting: TastingNote) {
-  const label = tasting.bean?.name || tasting.tasted_at?.split('T')[0] || 'this tasting'
-  if (!tasting.id || !confirm(`Delete tasting "${label}"?`)) return
+  const label = tasting.bean?.name || tasting.tasted_at?.split('T')[0] || t('coffee.editor.unknownBean')
+  if (!tasting.id || !confirm(t('coffee.editor.confirmDeleteTasting', { label }))) return
   try {
     await deleteCoffeeTastingRaw(tasting.id)
     await fetchTastings()
   } catch {
-    alert('Failed to delete tasting')
+    alert(t('coffee.editor.failedDeleteTasting'))
   }
 }
 
