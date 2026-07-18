@@ -10,6 +10,7 @@ declare module 'vue-router' {
   interface RouteMeta {
     title?: string
     url?: string
+    requiresAuth?: boolean
   }
 }
 
@@ -54,7 +55,8 @@ const router = createRouter({
       path: '/blog/editor',
       name: 'Blog Editor',
       meta: {
-        title: 'Blog Editor'
+        title: 'Blog Editor',
+        requiresAuth: true
       },
       component: () => import('@/views/BlogEditorView.vue')
     },
@@ -97,7 +99,8 @@ const router = createRouter({
       path: '/coffee/editor',
       name: 'Coffee Tasting Editor',
       meta: {
-        title: 'Coffee Tasting Editor'
+        title: 'Coffee Tasting Editor',
+        requiresAuth: true
       },
       component: () => import('@/views/CoffeeEditorView.vue'),
     },
@@ -132,7 +135,10 @@ const router = createRouter({
             }
 
             const token = to.query.token
+            const expires_at = Number(to.query.expires_at)
+
             sessionStorage.setItem('jwt_token', token)
+            sessionStorage.setItem('jwt_expires', String(expires_at))
             next({ path: '/' })
           }
         }
@@ -180,6 +186,16 @@ router.afterEach((to, from) => {
 })
 
 router.beforeEach(async (to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const token = sessionStorage.getItem('jwt_token')
+    const expires = sessionStorage.getItem('jwt_expires')
+
+    if (!token || !expires || Date.now() >= Number(expires)) {
+      next({ name: 'login' })
+      return
+    }
+  }
+
   const name = to.name
   const params = to.params
   const title = to.meta.title
