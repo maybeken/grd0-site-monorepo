@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"net/http"
 	"time"
 
@@ -19,6 +20,10 @@ import (
 
 func main() {
 	log := utils.InitiateLogger()
+
+	if err := handler.InitOIDC(context.Background()); err != nil {
+		log.Fatalf("Failed to initialize OIDC: %v", err)
+	}
 
 	db_path := utils.GetEnvWithFallback("DB_PATH", "data/api.db")
 

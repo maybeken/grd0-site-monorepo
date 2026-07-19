@@ -136,10 +136,17 @@ const router = createRouter({
               return
             }
 
+            if (!to.query.refresh || typeof to.query.refresh !== 'string') {
+              next({ name: 'login' })
+              return
+            }
+
             const token = to.query.token
+            const refresh = to.query.refresh
             const expires_at = Number(to.query.expires_at)
 
             sessionStorage.setItem('jwt_token', token)
+            sessionStorage.setItem('refresh_token', refresh)
             sessionStorage.setItem('jwt_expires', String(expires_at))
             next({ path: '/' })
           }

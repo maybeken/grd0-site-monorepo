@@ -34,6 +34,7 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 
 	v1.GET("/auth/login", h.Login)
 	v1.GET("/auth/callback", h.LoginCallback)
+	v1.POST("/auth/refresh", h.Refresh)
 
 	v1.GET("/blog", h.GetBlog)
 	v1.GET("/blog/:uri", h.GetBlog)

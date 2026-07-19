@@ -81,5 +81,5 @@ JSON files consumed by API: `blogPost.json`, `galleryDetail.json`, `galleryColle
 
 ## Environment
 
-- **vue-web**: `.env` sets `VITE_API_URL` and `VITE_ASSETS_URL` (defaults to production `https://api.grd0.net` / `https://assets.grd0.net`).
-- **api**: needs `AUTH_JWT_SECRET`, `S3_ENDPOINT`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, optionally `DB_PATH` (default `data/api.db`), `LAMBDA=TRUE` enables in-memory JSON caching.
+- **vue-web**: `.env` sets `VITE_API_URL`, `VITE_ASSETS_URL`, `VITE_DEFAULT_TITLE`.
+- **api**: needs OIDC auth vars (`OIDC_ISSUER`, `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET`, `AUTH_JWT_SECRET`, `AUTH_STATE_SECRET`, `AUTH_REDIRECT_URL`, `AUTH_CALLBACK_URL`), S3 vars (`S3_ENDPOINT`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`), optionally `DB_PATH` (default `data/api.db`), `JWKS_CACHE_TTL` (default `1h`), `LOG_LEVEL` (default `WARN`), `LAMBDA=TRUE` enables in-memory JSON caching.
