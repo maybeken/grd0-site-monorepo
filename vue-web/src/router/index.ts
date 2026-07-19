@@ -203,16 +203,6 @@ router.afterEach((to, from) => {
 })
 
 router.beforeEach(async (to, from, next) => {
-  if (to.meta.requiresAuth) {
-    const token = sessionStorage.getItem('jwt_token')
-    const expires = sessionStorage.getItem('jwt_expires')
-
-    if (!token || !expires || Date.now() >= Number(expires)) {
-      next({ name: 'login' })
-      return
-    }
-  }
-
   const name = to.name
   const params = to.params
   const title = to.meta.title
