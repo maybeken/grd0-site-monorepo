@@ -1,6 +1,7 @@
 import { createAlova, invalidateCache } from 'alova'
 import adapterFetch from 'alova/fetch'
 import VueHook from 'alova/vue'
+import { isTokenNearExpiry, refreshAuthToken, clearAuth } from '@/services/auth'
 
 const API_URL = import.meta.env.VITE_API_URL
 const IS_DEV = import.meta.env.DEV
@@ -42,7 +43,15 @@ export const dataInstance = createAlova({
 export const adminInstance = createAlova({
   requestAdapter: adapterFetch(),
   statesHook: VueHook,
-  beforeRequest: (method) => {
+  beforeRequest: async (method) => {
+    if (isTokenNearExpiry()) {
+      const success = await refreshAuthToken()
+      if (!success) {
+        clearAuth()
+        window.location.href = '/redirect/auth/login'
+        return
+      }
+    }
     method.config.headers.Authorization = `Bearer ${sessionStorage.getItem('jwt_token')}`
   },
   responded: (response) => {
