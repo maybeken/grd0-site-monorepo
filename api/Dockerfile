@@ -3,8 +3,9 @@ FROM golang:1.24-alpine AS builder
 WORKDIR /build
 ENV GOPROXY=direct
 ADD . .
+ENV GOCACHE=/root/.cache/go-build
 RUN apk add git
-RUN cd api; go build -o /build/grd0_blog_api
+RUN --mount=type=cache,target="/root/.cache/go-build" cd api; go build -o /build/grd0_blog_api
 
 # Final stage
 FROM alpine:latest
