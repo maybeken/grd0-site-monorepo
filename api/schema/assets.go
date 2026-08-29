@@ -9,8 +9,8 @@ type Exif struct {
 	Datetime  string    `json:"datetime,omitempty"`
 	Shutter   string    `json:"shutter,omitempty"`
 	Fstop     string    `json:"fstop,omitempty"`
-	Iso       uint16    `json:"iso,omitempty"`
-	Focal     float32   `json:"focal,omitempty"`
+	Iso       *uint16    `json:"iso,omitempty"`
+	Focal     *float32   `json:"focal,omitempty"`
 	Equipment Equipment `json:"equipment,omitempty"`
 }
 
