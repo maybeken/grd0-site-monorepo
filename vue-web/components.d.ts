@@ -12,6 +12,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BeanForm: typeof import('./src/components/coffee/BeanForm.vue')['default']
+    BlogBlockFull: typeof import('./src/components/feed/BlogBlockFull.vue')['default']
+    BlogBlockPreview: typeof import('./src/components/feed/BlogBlockPreview.vue')['default']
     BlogCard: typeof import('./src/components/blog/BlogCard.vue')['default']
     BlogDetail: typeof import('./src/components/blog/BlogDetail.vue')['default']
     BlogSummary: typeof import('./src/components/blog/BlogSummary.vue')['default']
@@ -28,6 +30,8 @@ declare module 'vue' {
     IdkToggle: typeof import('./src/components/coffee/IdkToggle.vue')['default']
     MarkdownDisplay: typeof import('./src/components/shared/MarkdownDisplay.vue')['default']
     MenuLinkBtn: typeof import('./src/components/layout/MenuLinkBtn.vue')['default']
+    MusicBlockFull: typeof import('./src/components/feed/MusicBlockFull.vue')['default']
+    MusicBlockPreview: typeof import('./src/components/feed/MusicBlockPreview.vue')['default']
     MusicProgressBar: typeof import('./src/components/music/MusicProgressBar.vue')['default']
     Navbar: typeof import('./src/components/layout/Navbar.vue')['default']
     NotFound: typeof import('./src/components/shared/NotFound.vue')['default']

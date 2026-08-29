@@ -1,0 +1,27 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/feed/:slug",
+    "method": "PUT",
+    "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Summer Update\",\n  \"subtitle\": \"Thoughts on the season\",\n  \"published_at\": \"{{CURRENT_TIMESTAMP_8601}}\",\n  \"blocks\": [\n    {\n      \"type\": \"blog\",\n      \"order\": 0,\n      \"create_data\": {\n        \"title\": \"Hello from the Feed\",\n        \"content\": \"# Welcome\\n\\nThis is a **blog block** created inline via the feed API.\"\n      }\n    },\n    {\n      \"type\": \"music\",\n      \"order\": 1,\n      \"create_data\": {\n        \"v\": \"dQw4w9WgXcQ\",\n        \"title\": \"Never Gonna Give You Up\",\n        \"artist\": \"Rick Astley\"\n      }\n    },\n    {\n      \"type\": \"blog\",\n      \"order\": 2,\n      \"ref\": \"hello-world\"\n    }\n  ]\n}"
+    },
+    "headers": [
+        {
+            "name": "Content-Type",
+            "value": "application/json"
+        }
+    ],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 2,
+    "pathParameters": [
+        {
+            "name": "slug",
+            "value": "summer-update"
+        }
+    ]
+}

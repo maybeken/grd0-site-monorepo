@@ -14,6 +14,8 @@ var tables = []interface{}{
 	&schema.GalleryDetail{},
 	&schema.GalleryCollectionDetail{},
 	&schema.MapLocation{},
+	&schema.FeedEntry{},
+	&schema.FeedBlock{},
 	&schema.Music{},
 	&schema.TastingNote{},
 }

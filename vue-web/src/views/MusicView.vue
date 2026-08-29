@@ -30,7 +30,7 @@
           <p class="text-lg">{{ getCurrentSong(current)?.artist ?? $t('music.unknown') }}</p>
         </div>
 
-        <div class="flex place-content-center">
+        <div class="flex place-content-center w-full">
           <MusicProgressBar
             :progress="current_time"
             :duration="duration"

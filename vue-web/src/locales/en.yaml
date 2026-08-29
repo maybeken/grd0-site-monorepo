@@ -1089,3 +1089,251 @@ router:
     msgid: "router.tldraw"
     msgstr: "tldraw;"
     msgctxt: "Page title for tldraw tool route"
+
+  feed:
+    msgid: "router.feed"
+    msgstr: "Feed"
+    msgctxt: "Page title for feed route"
+
+  feedEditor:
+    msgid: "router.feedEditor"
+    msgstr: "Feed Editor"
+    msgctxt: "Page title for feed editor route"
+
+feed:
+  title:
+    msgid: "feed.title"
+    msgstr: "Feed"
+    msgctxt: "Feed listing page title"
+
+  noEntries:
+    msgid: "feed.noEntries"
+    msgstr: "No feed entries yet."
+    msgctxt: "Empty state when no feed entries exist"
+
+  noMore:
+    msgid: "feed.noMore"
+    msgstr: "No more entries."
+    msgctxt: "Indicator when all entries have been loaded"
+
+  loadError:
+    msgid: "feed.loadError"
+    msgstr: "Failed to load feed entries."
+    msgctxt: "Error message when feed loading fails"
+
+  retry:
+    msgid: "feed.retry"
+    msgstr: "Retry"
+    msgctxt: "Retry button label for feed loading error"
+
+  collapse:
+    msgid: "feed.collapse"
+    msgstr: "Collapse"
+    msgctxt: "Button to collapse an expanded feed entry"
+
+  editor:
+    title:
+      msgid: "feed.editor.title"
+      msgstr: "Feed Editor"
+      msgctxt: "Feed editor page title"
+
+    titlePlaceholder:
+      msgid: "feed.editor.titlePlaceholder"
+      msgstr: "Feed Entry Title"
+      msgctxt: "Feed entry title input placeholder"
+
+    subtitlePlaceholder:
+      msgid: "feed.editor.subtitlePlaceholder"
+      msgstr: "Feed Entry Subtitle"
+      msgctxt: "Feed entry subtitle input placeholder"
+
+    addBlock:
+      msgid: "feed.editor.addBlock"
+      msgstr: "Add Block"
+      msgctxt: "Add block button label"
+
+    addBlog:
+      msgid: "feed.editor.addBlog"
+      msgstr: "Blog"
+      msgctxt: "Add blog block option"
+
+    addMusic:
+      msgid: "feed.editor.addMusic"
+      msgstr: "Music"
+      msgctxt: "Add music block option"
+
+    addReference:
+      msgid: "feed.editor.addReference"
+      msgstr: "Reference Existing"
+      msgctxt: "Add reference block option"
+
+    saveDraft:
+      msgid: "feed.editor.saveDraft"
+      msgstr: "Save Draft"
+      msgctxt: "Save draft button label"
+
+    publish:
+      msgid: "feed.editor.publish"
+      msgstr: "Publish"
+      msgctxt: "Publish button label"
+
+    draftSaved:
+      msgid: "feed.editor.draftSaved"
+      msgstr: "Draft saved successfully."
+      msgctxt: "Success message for draft save"
+
+    published:
+      msgid: "feed.editor.published"
+      msgstr: "Entry published successfully."
+      msgctxt: "Success message for publish"
+
+    saveFailed:
+      msgid: "feed.editor.saveFailed"
+      msgstr: "Failed to save. Please try again."
+      msgctxt: "Error message for save failure"
+
+    loadFailed:
+      msgid: "feed.editor.loadFailed"
+      msgstr: "Failed to load entry."
+      msgctxt: "Error message for load failure"
+
+    newBlog:
+      msgid: "feed.editor.newBlog"
+      msgstr: "New Blog"
+      msgctxt: "Block label for new blog block"
+
+    newMusic:
+      msgid: "feed.editor.newMusic"
+      msgstr: "New Music"
+      msgctxt: "Block label for new music block"
+
+    refBlog:
+      msgid: "feed.editor.refBlog"
+      msgstr: "Blog Reference"
+      msgctxt: "Block label for blog reference block"
+
+    refMusic:
+      msgid: "feed.editor.refMusic"
+      msgstr: "Music Reference"
+      msgctxt: "Block label for music reference block"
+
+    moveUp:
+      msgid: "feed.editor.moveUp"
+      msgstr: "Move Up"
+      msgctxt: "Move block up button title"
+
+    moveDown:
+      msgid: "feed.editor.moveDown"
+      msgstr: "Move Down"
+      msgctxt: "Move block down button title"
+
+    blogTitlePlaceholder:
+      msgid: "feed.editor.blogTitlePlaceholder"
+      msgstr: "Blog Title"
+      msgctxt: "Blog block title input placeholder"
+
+    blogSubtitlePlaceholder:
+      msgid: "feed.editor.blogSubtitlePlaceholder"
+      msgstr: "Blog Subtitle"
+      msgctxt: "Blog block subtitle input placeholder"
+
+    markdownPlaceholder:
+      msgid: "feed.editor.markdownPlaceholder"
+      msgstr: "Write markdown here..."
+      msgctxt: "Blog block markdown editor placeholder"
+
+    youtubeIdPlaceholder:
+      msgid: "feed.editor.youtubeIdPlaceholder"
+      msgstr: "YouTube Video ID"
+      msgctxt: "Music block YouTube ID input placeholder"
+
+    musicTitlePlaceholder:
+      msgid: "feed.editor.musicTitlePlaceholder"
+      msgstr: "Song Title"
+      msgctxt: "Music block title input placeholder"
+
+    artistPlaceholder:
+      msgid: "feed.editor.artistPlaceholder"
+      msgstr: "Artist"
+      msgctxt: "Music block artist input placeholder"
+
+    searchBlog:
+      msgid: "feed.editor.searchBlog"
+      msgstr: "Search Blog"
+      msgctxt: "Reference block search blog button"
+
+    searchMusic:
+      msgid: "feed.editor.searchMusic"
+      msgstr: "Search Music"
+      msgctxt: "Reference block search music button"
+
+    selected:
+      msgid: "feed.editor.selected"
+      msgstr: "Selected"
+      msgctxt: "Reference block selected indicator"
+
+    validationTitleRequired:
+      msgid: "feed.editor.validationTitleRequired"
+      msgstr: "Title is required."
+      msgctxt: "Validation error for missing title"
+
+    validationBlocksRequired:
+      msgid: "feed.editor.validationBlocksRequired"
+      msgstr: "At least one block is required."
+      msgctxt: "Validation error for no blocks"
+
+    validationBlogContentRequired:
+      msgid: "feed.editor.validationBlogContentRequired"
+      msgstr: "Blog block #{index} requires content."
+      msgctxt: "Validation error for empty blog content, {index} is block number"
+
+    validationMusicVidRequired:
+      msgid: "feed.editor.validationMusicVidRequired"
+      msgstr: "Music block #{index} requires a YouTube video ID."
+      msgctxt: "Validation error for missing YouTube ID, {index} is block number"
+
+    editingBlog:
+      msgid: "feed.editor.editingBlog"
+      msgstr: "Editing Blog"
+      msgctxt: "Label above the blog editor when editing a referenced blog"
+
+  list:
+    title:
+      msgid: "feed.list.title"
+      msgstr: "Manage Feed Entries"
+      msgctxt: "Feed list page title"
+
+    newEntry:
+      msgid: "feed.list.newEntry"
+      msgstr: "New Entry"
+      msgctxt: "Button to create new feed entry"
+
+    editEntry:
+      msgid: "feed.list.editEntry"
+      msgstr: "Edit"
+      msgctxt: "Button to edit feed entry"
+
+    deleteEntry:
+      msgid: "feed.list.deleteEntry"
+      msgstr: "Delete"
+      msgctxt: "Button to delete feed entry"
+
+    confirmDelete:
+      msgid: "feed.list.confirmDelete"
+      msgstr: "Are you sure you want to delete this entry?"
+      msgctxt: "Confirmation dialog for deleting feed entry"
+
+    deleteFailed:
+      msgid: "feed.list.deleteFailed"
+      msgstr: "Failed to delete entry."
+      msgctxt: "Error message when delete fails"
+
+    draft:
+      msgid: "feed.list.draft"
+      msgstr: "Draft"
+      msgctxt: "Label for unpublished feed entry"
+
+    published:
+      msgid: "feed.list.published"
+      msgstr: "Published"
+      msgctxt: "Label for published feed entry"

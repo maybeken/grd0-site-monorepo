@@ -1,0 +1,22 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/feed/:slug",
+    "method": "DELETE",
+    "body": {
+        "mimeType": "No Body"
+    },
+    "headers": [],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 3,
+    "pathParameters": [
+        {
+            "name": "slug",
+            "value": "summer-update"
+        }
+    ],
+    "description": "Hard deletes the feed entry. The associated blog and music content remains in their respective tables."
+}

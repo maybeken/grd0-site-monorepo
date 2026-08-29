@@ -1,0 +1,16 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/feed/all",
+    "method": "GET",
+    "body": {
+        "mimeType": "No Body"
+    },
+    "headers": [],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 1,
+    "description": "Returns all feed entries (including drafts) for admin management. Requires authentication."
+}

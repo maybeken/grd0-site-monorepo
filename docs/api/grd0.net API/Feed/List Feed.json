@@ -1,0 +1,25 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/v2/feed?limit=20",
+    "method": "GET",
+    "body": {
+        "mimeType": "No Body"
+    },
+    "headers": [],
+    "parameters": [
+        {
+            "name": "limit",
+            "value": "20"
+        },
+        {
+            "name": "before",
+            "value": "",
+            "disabled": true
+        }
+    ],
+    "authentication": {
+        "type": "No Auth"
+    },
+    "sortOrder": 0,
+    "description": "Returns paginated feed entries with summary and cover_image fields. Blocks are not included to reduce payload size."
+}

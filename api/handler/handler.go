@@ -74,6 +74,12 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	v1.GET("/coffee/tastings", h.GetCoffeeTastings)
 	restrictV1.PUT("/coffee/tasting", h.UpsertCoffeeTasting)
 	restrictV1.DELETE("/coffee/tasting/:id", h.DeleteCoffeeTasting)
+
+	v2.GET("/feed", h.GetFeed)
+	v1.GET("/feed/:slug", h.GetFeedBySlug)
+	restrictV1.GET("/feed/all", h.GetFeedByAdmin)
+	restrictV1.PUT("/feed/:slug", h.UpsertFeed)
+	restrictV1.DELETE("/feed/:slug", h.DeleteFeed)
 }
 
 type ErrorResponseBody struct {
