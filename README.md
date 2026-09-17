@@ -65,7 +65,7 @@ To set up the development environment:
 
 ## License
 
-This project is licensed under the [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/) license.
+Please refers to [LICENSE](./LICENSE) document in this repo.
 
 ## Contributing
 
