@@ -8,3 +8,7 @@
 - Works in explicit increments — stage, then commit, then push — and expects work committed locally to be pushed to origin on the feature branch with its upstream set, not left local. Confidence: 0.5
 - Prefers Vue over React for frontend work; questions React-based solutions and asks whether they can be done as a Vue project instead. Confidence: 0.5
 - Expects a single, non-duplicated taste/memory store and will question redundant or oddly nested files in the agent's config directory. Confidence: 0.3
+- Wants the agent's taste/memory files version-controlled and committed into the repository (e.g. `git add .commandcode/taste/...`), not left untracked or gitignored. Confidence: 0.55
+- Will ask for small docs/config chores (switching to main, updating README, committing agent config) to be done directly on `main`, in contrast to feature work on a dedicated branch. Confidence: 0.45
+- Expects repository documentation such as README (structure listing, setup steps) kept in sync with structural changes like adding or renaming a package. Confidence: 0.4
+- Expects per-package/per-directory READMEs (e.g. `api/README.md`, `vue-web/README.md`) to be kept accurate too, not just the root README — asks for updates "in other directories as well" and wants stale commands/env vars/notes refreshed rather than a root-only edit. Confidence: 0.6
