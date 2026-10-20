@@ -25,7 +25,7 @@ The repository is organized as follows:
 
 ```bash
 |-- docs/             # Project documents
-|------ api/          # Bruno API collection
+|------ api/          # Restfox API collection
 |
 |-- api/              # BFF API written in Golang Echo
 |------ data/files    # Data content stored in sub-repo grd0-site-data
@@ -38,6 +38,8 @@ The repository is organized as follows:
 |-- assets-helper/    # Helper script to generate Table of Content for assets
 |
 |-- vue-web/          # Vue 3 + Vite project SPA webpages
+|
+|-- excalidraw-web/   # React 19 + Excalidraw drawing tool, served at /tool/draw
 ```
 
 ## Development Setup
@@ -58,6 +60,8 @@ To set up the development environment:
    cd api/
    # or
    cd vue-web/
+   # or
+   cd excalidraw-web/
    ```
 
 
