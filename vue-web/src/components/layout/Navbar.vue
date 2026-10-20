@@ -48,7 +48,7 @@ const menuItems = [
   { displayNameKey: 'nav.toolEditor', link: '/blog/editor', hidden: true },
   { displayNameKey: 'nav.toolTastingEditor', link: '/coffee/editor', hidden: true },
   { displayNameKey: 'nav.toolDotMatrix', link: '/tool/dotmatrix', hidden: true },
-  { displayNameKey: 'nav.toolTldraw', link: '/tool/draw', hidden: true }
+  { displayNameKey: 'nav.toolExcalidraw', link: '/tool/draw', hidden: true }
 ]
 
 const navigateTo = (url: string) => {

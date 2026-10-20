@@ -1,4 +1,7 @@
-#!/bin/bash
-cd tldraw-web; pnpm run build;
-cd ../;
-cd vue-web; pnpm run build;
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
+pnpm --dir excalidraw-web build
+pnpm --dir vue-web build

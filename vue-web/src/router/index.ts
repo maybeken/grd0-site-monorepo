@@ -175,11 +175,11 @@ const router = createRouter({
         },
         {
           path: 'draw',
-          name: 'Tldraw',
+          name: 'Excalidraw',
           meta: {
-            title: 'router.tldraw'
+            title: 'router.excalidraw'
           },
-          component: () => import('@/views/TldrawView.vue')
+          component: () => import('@/views/ExcalidrawView.vue')
         }
       ]
     }
