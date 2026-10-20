@@ -4,7 +4,7 @@
 
 pnpm workspace (root `pnpm-workspace.yaml`) manages two frontend packages:
 - `vue-web/` — Vue 3 + Vite 8 + Tailwind v4 + Pinia SPA (main site)
-- `tldraw-web/` — React 19 + tldraw drawing tool
+- `excalidraw-web/` — React 19 + Excalidraw drawing tool
 
 Other directories are **not** workspace packages:
 - `api/` — Go 1.24 BFF (Echo v4, GORM/SQLite, S3 via MinIO client). Module path: `grd0.net/api`
@@ -26,10 +26,10 @@ cd vue-web && pnpm type-check       # vue-tsc --build --force
 cd vue-web && pnpm lint             # eslint (vue + ts + prettier)
 cd vue-web && pnpm format           # prettier --write src/
 
-# tldraw-web
-cd tldraw-web && pnpm dev
-cd tldraw-web && pnpm build         # tsc -b && vite build
-cd tldraw-web && pnpm lint
+# excalidraw-web
+cd excalidraw-web && pnpm dev
+cd excalidraw-web && pnpm build      # copies fonts, then tsc -b && vite build
+cd excalidraw-web && pnpm lint
 
 # Go API (from repo root)
 cd api && go build -o ../grd0_blog_api .
@@ -41,7 +41,7 @@ cd assets-helper && pnpm run generate
 # Assets upload to R2
 cd assets-helper && bash upload.sh  # requires rclone configured
 
-# Full web build (tldraw then vue)
+# Full web build (Excalidraw then vue)
 bash build-web.sh
 ```
 
@@ -67,6 +67,7 @@ JSON files consumed by API: `blogPost.json`, `galleryDetail.json`, `galleryColle
 - **`api/data/files/`** is empty in git; content comes from the `grd0-site-data` sub-repo or TOC generator.
 - **README is auto-generated** (stated in its first line) and often inaccurate. Trust config files over README.
 - **Vue path alias**: `@` → `./src` (configured in `vite.config.ts`).
+- **Drawing tool**: `vue-web/public/excalidraw` is a symlink to `excalidraw-web/dist`, so build `excalidraw-web` before `vue-web` (as `build-web.sh` does). Excalidraw's runtime fonts are copied from `node_modules/@excalidraw/excalidraw/dist/prod/fonts` into `excalidraw-web/public/fonts` by `excalidraw-web/scripts/copy-fonts.mjs`; `src/main.tsx` sets `window.EXCALIDRAW_ASSET_PATH` so they are served locally. The scene autosaves to `localStorage` under `grd0.draw.scene`.
 
 ## i18n (vue-web)
 

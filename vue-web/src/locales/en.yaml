@@ -77,10 +77,10 @@ nav:
     msgstr: "Tool - Dot Matrix"
     msgctxt: "Hidden navigation item for dot matrix tool"
 
-  toolTldraw:
-    msgid: "nav.toolTldraw"
-    msgstr: "Tool - tldraw;"
-    msgctxt: "Hidden navigation item for tldraw tool"
+  toolExcalidraw:
+    msgid: "nav.toolExcalidraw"
+    msgstr: "Tool - Excalidraw;"
+    msgctxt: "Hidden navigation item for Excalidraw tool"
 
 footer:
   #. Footer copyright line
@@ -212,7 +212,7 @@ common:
   load:
     msgid: "common.load"
     msgstr: "Load"
-    msgctxt: "Load button label in tldraw tool"
+    msgctxt: "Load button label in drawing tool"
 
 gallery:
   #. Gallery view strings
@@ -1025,13 +1025,18 @@ tool:
       msgstr: "Gap:"
       msgctxt: "Dot matrix tool field label"
 
-  #. tldraw tool strings
-  #: src/views/TldrawView.vue
-  tldraw:
+  #. Excalidraw tool strings
+  #: src/views/ExcalidrawView.vue
+  excalidraw:
     lzCompressed:
-      msgid: "tool.tldraw.lzCompressed"
+      msgid: "tool.excalidraw.lzCompressed"
       msgstr: "LZ Compressed + Base64"
-      msgctxt: "tldraw tool encoding toggle label"
+      msgctxt: "Excalidraw tool encoding toggle label"
+
+    loadError:
+      msgid: "tool.excalidraw.loadError"
+      msgstr: "Could not load this drawing: it is not a valid Excalidraw scene."
+      msgctxt: "Error shown when a saved drawing cannot be loaded"
 
 #. Router page titles
 router:
@@ -1085,7 +1090,7 @@ router:
     msgstr: "Dot Matrix Generator"
     msgctxt: "Page title for dot matrix tool route"
 
-  tldraw:
-    msgid: "router.tldraw"
-    msgstr: "tldraw;"
-    msgctxt: "Page title for tldraw tool route"
+  excalidraw:
+    msgid: "router.excalidraw"
+    msgstr: "Excalidraw;"
+    msgctxt: "Page title for Excalidraw tool route"

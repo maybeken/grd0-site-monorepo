@@ -1,6 +1,6 @@
 packages:
   - 'vue-web'
-  - 'tldraw-web'
+  - 'excalidraw-web'
 allowBuilds:
   '@swc/core': true
   '@tailwindcss/oxide': true
