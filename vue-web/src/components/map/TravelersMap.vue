@@ -23,7 +23,7 @@
       @change:resolution="resolution = $event.oldValue"
     />
     <Layers.OlTileLayer>
-      <Sources.OlSourceOsm />
+      <Sources.OlSourceOSM />
     </Layers.OlTileLayer>
 
     <MapControls.OlContextMenuControl :items="contextMenuItems" />
