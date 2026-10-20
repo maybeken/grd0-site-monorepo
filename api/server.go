@@ -79,5 +79,5 @@ func main() {
 		SigningKey: []byte(utils.GetEnv("AUTH_JWT_SECRET")),
 	}))
 
-	e.Logger.Fatal(e.Start(":80"))
+	e.Logger.Fatal(e.Start(utils.GetEnvWithFallback("PORT", ":80")))
 }
