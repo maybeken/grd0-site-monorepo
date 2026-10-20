@@ -1038,6 +1038,29 @@ tool:
       msgstr: "Could not load this drawing: it is not a valid Excalidraw scene."
       msgctxt: "Error shown when a saved drawing cannot be loaded"
 
+updateNotification:
+  #. App update banner strings
+  #: src/components/layout/UpdateNotification.vue
+  message:
+    msgid: "updateNotification.message"
+    msgstr: "A new version of the site is available."
+    msgctxt: "Banner shown when the running main JS hash differs from the deployed one"
+
+  action:
+    msgid: "updateNotification.action"
+    msgstr: "Clear cache & reload"
+    msgctxt: "Button that clears the app cache and reloads the page"
+
+  clearing:
+    msgid: "updateNotification.clearing"
+    msgstr: "Clearing..."
+    msgctxt: "Button label while clearing the app cache"
+
+  dismiss:
+    msgid: "updateNotification.dismiss"
+    msgstr: "Dismiss"
+    msgctxt: "Button to dismiss the update notification"
+
 #. Router page titles
 router:
   home:

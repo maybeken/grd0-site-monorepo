@@ -41,6 +41,7 @@ declare module 'vue' {
     TasteRadarChart: typeof import('./src/components/coffee/TasteRadarChart.vue')['default']
     TastingCard: typeof import('./src/components/coffee/TastingCard.vue')['default']
     TastingForm: typeof import('./src/components/coffee/TastingForm.vue')['default']
+    UpdateNotification: typeof import('./src/components/layout/UpdateNotification.vue')['default']
     YouTubeEmbed: typeof import('./src/components/music/YouTubeEmbed.vue')['default']
   }
 }

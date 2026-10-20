@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import SiteFooter from './components/layout/SiteFooter.vue'
+import UpdateNotification from './components/layout/UpdateNotification.vue'
 </script>
 
 <template>
@@ -15,4 +16,6 @@ import SiteFooter from './components/layout/SiteFooter.vue'
   <footer class="container mx-auto pb-8">
     <SiteFooter></SiteFooter>
   </footer>
+
+  <UpdateNotification />
 </template>

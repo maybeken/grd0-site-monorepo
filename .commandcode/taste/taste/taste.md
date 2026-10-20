@@ -11,4 +11,5 @@
 - Wants the agent's taste/memory files version-controlled and committed into the repository (e.g. `git add .commandcode/taste/...`), not left untracked or gitignored. Confidence: 0.55
 - Will ask for small docs/config chores (switching to main, updating README, committing agent config) to be done directly on `main`, in contrast to feature work on a dedicated branch. Confidence: 0.45
 - Expects repository documentation such as README (structure listing, setup steps) kept in sync with structural changes like adding or renaming a package. Confidence: 0.4
+- Prefers reusing an existing library/API capability over hand-rolling a custom implementation, and points out when a dependency (e.g. a PWA plugin) likely already provides the function. Confidence: 0.5
 - Expects per-package/per-directory READMEs (e.g. `api/README.md`, `vue-web/README.md`) to be kept accurate too, not just the root README — asks for updates "in other directories as well" and wants stale commands/env vars/notes refreshed rather than a root-only edit. Confidence: 0.6
