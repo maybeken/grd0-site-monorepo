@@ -58,9 +58,11 @@ import { ref, reactive, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { BrewEquipment } from '@/interfaces/Coffee'
 import { upsertCoffeeEquipmentRaw } from '@/services/coffee'
+import { useToast } from '@/composables/useToast'
 import { EQUIPMENT_TYPES } from '@/helpers/coffee'
 
 const { t } = useI18n()
+const toast = useToast()
 
 interface Props {
   equipment?: BrewEquipment | null
@@ -109,7 +111,7 @@ async function save() {
     await upsertCoffeeEquipmentRaw(form)
     emit('saved')
   } catch {
-    alert(t('coffee.equipmentForm.failedSave'))
+    toast.error(t('coffee.equipmentForm.failedSave'))
   } finally {
     saving.value = false
   }

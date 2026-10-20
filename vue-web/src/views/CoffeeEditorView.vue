@@ -186,8 +186,10 @@ import {
 import BeanForm from '@/components/coffee/BeanForm.vue'
 import EquipmentForm from '@/components/coffee/EquipmentForm.vue'
 import TastingForm from '@/components/coffee/TastingForm.vue'
+import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
+const toast = useToast()
 
 const tabs = [
   { key: 'beans', label: 'coffee.editor.tabBeans' },
@@ -252,7 +254,7 @@ async function deleteBean(bean: CoffeeBean) {
     await deleteCoffeeBeanRaw(bean.id)
     await fetchBeans()
   } catch {
-    alert(t('coffee.editor.failedDeleteBean'))
+    toast.error(t('coffee.editor.failedDeleteBean'))
   }
 }
 
@@ -282,7 +284,7 @@ async function deleteEquipment(eq: BrewEquipment) {
     await deleteCoffeeEquipmentRaw(eq.id)
     await fetchEquipment()
   } catch {
-    alert(t('coffee.editor.failedDeleteEquipment'))
+    toast.error(t('coffee.editor.failedDeleteEquipment'))
   }
 }
 
@@ -313,7 +315,7 @@ async function deleteTasting(tasting: TastingNote) {
     await deleteCoffeeTastingRaw(tasting.id)
     await fetchTastings()
   } catch {
-    alert(t('coffee.editor.failedDeleteTasting'))
+    toast.error(t('coffee.editor.failedDeleteTasting'))
   }
 }
 

@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"time"
 
 	"golang.org/x/time/rate"
@@ -21,7 +22,11 @@ import (
 func main() {
 	log := utils.InitiateLogger()
 
-	if err := handler.InitOIDC(context.Background()); err != nil {
+	local_environment := utils.IsLocalEnvironment()
+
+	if local_environment {
+		log.Warn("APP_ENV=LOCAL: authentication bypass is enabled; never use this in production")
+	} else if err := handler.InitOIDC(context.Background()); err != nil {
 		log.Fatalf("Failed to initialize OIDC: %v", err)
 	}
 
@@ -34,6 +39,27 @@ func main() {
 
 	if err != nil {
 		panic(err)
+	}
+
+	blob_backend := utils.GetEnvWithFallback("BLOB_BACKEND", "local")
+	blob_local_path := utils.GetEnvWithFallback("BLOB_LOCAL_PATH", "data/scenes")
+	blobs, err := storage.NewBlobStore(
+		blob_backend,
+		blob_local_path,
+		s3client,
+		utils.GetEnvWithFallback("S3_BUCKET", "assets-grd0-net"),
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	scene_max_bytes, err := strconv.ParseInt(
+		utils.GetEnvWithFallback("ARTICLE_SCENE_MAX_BYTES", strconv.FormatInt(handler.DEFAULT_ARTICLE_SCENE_MAX_BYTE, 10)),
+		10,
+		64,
+	)
+	if err != nil {
+		log.Fatalf("Invalid ARTICLE_SCENE_MAX_BYTES: %v", err)
 	}
 
 	e := echo.New()
@@ -71,13 +97,26 @@ func main() {
 		Level: 5,
 	}))
 
-	h := &handler.Handler{DB: db, Logger: log, S3: s3client}
-	handler.RegisterRouter(e, h, echojwt.WithConfig(echojwt.Config{
-		NewClaimsFunc: func(c echo.Context) jwt.Claims {
-			return new(handler.JwtCustomClaims)
-		},
-		SigningKey: []byte(utils.GetEnv("AUTH_JWT_SECRET")),
-	}))
+	h := &handler.Handler{
+		DB:                   db,
+		Logger:               log,
+		S3:                   s3client,
+		Blobs:                blobs,
+		ArticleSceneMaxBytes: scene_max_bytes,
+	}
+	var auth_guard echo.MiddlewareFunc
+	if local_environment {
+		auth_guard = handler.LocalAuthGuard()
+	} else {
+		auth_guard = echojwt.WithConfig(echojwt.Config{
+			NewClaimsFunc: func(c echo.Context) jwt.Claims {
+				return new(handler.JwtCustomClaims)
+			},
+			SigningKey: []byte(utils.GetEnv("AUTH_JWT_SECRET")),
+		})
+	}
+
+	handler.RegisterRouter(e, h, auth_guard)
 
 	e.Logger.Fatal(e.Start(utils.GetEnvWithFallback("PORT", ":80")))
 }

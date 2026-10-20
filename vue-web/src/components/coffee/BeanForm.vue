@@ -101,8 +101,10 @@ import { ref, reactive, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { CoffeeBean } from '@/interfaces/Coffee'
 import { upsertCoffeeBeanRaw } from '@/services/coffee'
+import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
+const toast = useToast()
 
 interface Props {
   bean?: CoffeeBean | null
@@ -160,7 +162,7 @@ async function save() {
     })
     emit('saved')
   } catch {
-    alert(t('coffee.beanForm.failedSave'))
+    toast.error(t('coffee.beanForm.failedSave'))
   } finally {
     saving.value = false
   }

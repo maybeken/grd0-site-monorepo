@@ -341,8 +341,10 @@ import {
 } from '@/services/coffee'
 import IdkToggle from './IdkToggle.vue'
 import BrewTimeInput from './BrewTimeInput.vue'
+import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
+const toast = useToast()
 
 interface Props {
   tasting?: TastingNote | null
@@ -484,7 +486,7 @@ async function saveQuickBean() {
     form.bean = newBean
     cancelQuickBean()
   } catch {
-    alert(t('coffee.tastingForm.failedAddBean'))
+    toast.error(t('coffee.tastingForm.failedAddBean'))
   } finally {
     quickBeanSaving.value = false
   }
@@ -508,7 +510,7 @@ async function saveQuickEquipment() {
     form.equipment = newEquipment
     cancelQuickEquipment()
   } catch {
-    alert(t('coffee.tastingForm.failedAddEquipment'))
+    toast.error(t('coffee.tastingForm.failedAddEquipment'))
   } finally {
     quickEquipmentSaving.value = false
   }
@@ -523,7 +525,7 @@ async function save() {
     })
     emit('saved')
   } catch (e) {
-    alert(t('coffee.tastingForm.failedSaveTasting'))
+    toast.error(t('coffee.tastingForm.failedSaveTasting'))
   } finally {
     saving.value = false
   }

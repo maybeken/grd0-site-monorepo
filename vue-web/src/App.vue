@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import SiteFooter from './components/layout/SiteFooter.vue'
+import ToastContainer from './components/layout/ToastContainer.vue'
 import UpdateNotification from './components/layout/UpdateNotification.vue'
 </script>
 
@@ -18,4 +19,5 @@ import UpdateNotification from './components/layout/UpdateNotification.vue'
   </footer>
 
   <UpdateNotification />
+  <ToastContainer />
 </template>

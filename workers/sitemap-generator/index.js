@@ -1,7 +1,7 @@
 const PRODUCTION_API_URL = 'https://api.grd0.net';
 const pages = [
   { path: 'gallery', dynamic: listGalleryUri },
-  { path: 'blog', dynamic: listBlogUri },
+  { path: 'article', dynamic: listArticleUri },
   { path: 'travel/map' },
   { path: 'music' },
   { path: 'coffee' }, // 20260712 Coffee Page
@@ -48,8 +48,8 @@ function urlsetConstruct(base_url, path, changefreq = 'monthly', lastmod = null)
   `;
 }
 
-async function listBlogUri() {
-  const url = `${PRODUCTION_API_URL}/blog`;
+async function listArticleUri() {
+  const url = `${PRODUCTION_API_URL}/article`;
   const options = {method: 'GET'};
 
   try {

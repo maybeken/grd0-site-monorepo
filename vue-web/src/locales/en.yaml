@@ -27,10 +27,10 @@ nav:
     msgstr: "Bean Soup"
     msgctxt: "Navigation menu item for coffee section"
 
-  blog:
-    msgid: "nav.blog"
-    msgstr: "Blog"
-    msgctxt: "Navigation menu item"
+  articles:
+    msgid: "nav.articles"
+    msgstr: "Articles"
+    msgctxt: "Navigation menu item for the article index"
 
   listenToMe:
     msgid: "nav.listenToMe"
@@ -66,6 +66,11 @@ nav:
     msgid: "nav.toolEditor"
     msgstr: "Tool - Editor"
     msgctxt: "Hidden navigation item for blog editor"
+
+  toolArticleEditor:
+    msgid: "nav.toolArticleEditor"
+    msgstr: "Tool - Article Editor"
+    msgctxt: "Hidden navigation item for article editor"
 
   toolTastingEditor:
     msgid: "nav.toolTastingEditor"
@@ -213,6 +218,11 @@ common:
     msgid: "common.load"
     msgstr: "Load"
     msgctxt: "Load button label in drawing tool"
+
+  dismiss:
+    msgid: "common.dismiss"
+    msgstr: "Dismiss"
+    msgctxt: "Dismiss a toast notification"
 
 gallery:
   #. Gallery view strings
@@ -373,6 +383,346 @@ blog:
     msgid: "blog.editor.editorPlaceholder"
     msgstr: "Markdown Contents Here"
     msgctxt: "OverType editor placeholder text"
+
+article:
+  #. Public article index
+  #: src/views/ArticleIndexView.vue
+  indexTitle:
+    msgid: "article.index.title"
+    msgstr: "Articles"
+    msgctxt: "Article index page title"
+
+  indexSubtitle:
+    msgid: "article.index.subtitle"
+    msgstr: "Notes, photographs, sounds, and drawings."
+    msgctxt: "Article index page subtitle"
+
+  indexEmpty:
+    msgid: "article.index.empty"
+    msgstr: "No articles have been published yet."
+    msgctxt: "Empty state for the article index"
+
+  continueReading:
+    msgid: "article.index.continueReading"
+    msgstr: "Continue to Read"
+    msgctxt: "Link text at the bottom of an article list card"
+
+  #. Public article header
+  #: src/components/article/ArticleHeader.vue
+  by:
+    msgid: "article.header.by"
+    msgstr: "By {author}"
+    msgctxt: "Article author line, {author} is the display name"
+
+  publishedAt:
+    msgid: "article.header.publishedAt"
+    msgstr: "Published {date}"
+    msgctxt: "Article publish date, {date} is a formatted date"
+
+  updatedAt:
+    msgid: "article.header.updatedAt"
+    msgstr: "Updated {date}"
+    msgctxt: "Article last-updated date, {date} is a formatted date"
+
+  draft:
+    msgid: "article.header.draft"
+    msgstr: "Draft"
+    msgctxt: "Badge shown when previewing an unpublished article"
+
+  #. Article block failure states
+  #: src/components/article/blocks/ImageBlock.vue
+  imageUnavailable:
+    msgid: "article.block.imageUnavailable"
+    msgstr: "This image is no longer available."
+    msgctxt: "Fallback when an image block cannot be loaded"
+
+  #: src/components/article/blocks/ExcalidrawBlock.vue
+  drawingLoading:
+    msgid: "article.block.drawingLoading"
+    msgstr: "Loading drawing..."
+    msgctxt: "Loading state for a drawing block"
+
+  drawingUnavailable:
+    msgid: "article.block.drawingUnavailable"
+    msgstr: "This drawing could not be loaded."
+    msgctxt: "Fallback when a drawing block cannot be loaded"
+
+  drawingInteract:
+    msgid: "article.block.drawingInteract"
+    msgstr: "Click to interact with the drawing"
+    msgctxt: "Hint shown over an embedded drawing until it is clicked"
+
+  #. Article editor
+  #: src/components/editor/article/ArticleEditor.vue
+  editorTitle:
+    msgid: "article.editor.title"
+    msgstr: "Article Editor"
+    msgctxt: "Article editor page title"
+
+  listTitle:
+    msgid: "article.editor.listTitle"
+    msgstr: "Articles"
+    msgctxt: "Heading above the article list in the editor"
+
+  newArticle:
+    msgid: "article.editor.newArticle"
+    msgstr: "+ New Article"
+    msgctxt: "Button that starts a new article"
+
+  uriPlaceholder:
+    msgid: "article.editor.uriPlaceholder"
+    msgstr: "article-uri"
+    msgctxt: "Placeholder for a new article URI"
+
+  uriLabel:
+    msgid: "article.editor.uriLabel"
+    msgstr: "URI"
+    msgctxt: "Article URI field label"
+
+  create:
+    msgid: "article.editor.create"
+    msgstr: "Create"
+    msgctxt: "Button that creates a new article"
+
+  confirmCreate:
+    msgid: "article.editor.confirmCreate"
+    msgstr: "Create the article /article/{uri}?"
+    msgctxt: "Confirmation dialog before creating an article"
+
+  conflict:
+    msgid: "article.editor.conflict"
+    msgstr: "That URI is already in use."
+    msgctxt: "Error shown when a URI already exists"
+
+  invalidUri:
+    msgid: "article.editor.invalidUri"
+    msgstr: "Use only lowercase letters, numbers, and hyphens."
+    msgctxt: "Error shown for an invalid article URI"
+
+  selectArticle:
+    msgid: "article.editor.selectArticle"
+    msgstr: "Select an article to edit."
+    msgctxt: "Empty state beside the article list"
+
+  loadFailed:
+    msgid: "article.editor.loadFailed"
+    msgstr: "Could not open the article."
+    msgctxt: "Error shown when an article cannot be opened"
+
+  titlePlaceholder:
+    msgid: "article.editor.titlePlaceholder"
+    msgstr: "Article title"
+    msgctxt: "Article title input placeholder"
+
+  subtitlePlaceholder:
+    msgid: "article.editor.subtitlePlaceholder"
+    msgstr: "Article subtitle"
+    msgctxt: "Article subtitle input placeholder"
+
+  publishDate:
+    msgid: "article.editor.publishDate"
+    msgstr: "Publish date"
+    msgctxt: "Publish date field label"
+
+  unpublished:
+    msgid: "article.editor.unpublished"
+    msgstr: "Unpublished"
+    msgctxt: "Article status when not published"
+
+  blocks:
+    msgid: "article.editor.blocks"
+    msgstr: "Blocks"
+    msgctxt: "Heading above the block list"
+
+  addBlock:
+    msgid: "article.editor.addBlock"
+    msgstr: "Add block"
+    msgctxt: "Label above the block palette"
+
+  blockMarkdown:
+    msgid: "article.editor.blockMarkdown"
+    msgstr: "Markdown"
+    msgctxt: "Block palette entry"
+
+  blockImage:
+    msgid: "article.editor.blockImage"
+    msgstr: "Gallery image"
+    msgctxt: "Block palette entry"
+
+  blockMusic:
+    msgid: "article.editor.blockMusic"
+    msgstr: "Music"
+    msgctxt: "Block palette entry"
+
+  blockDrawing:
+    msgid: "article.editor.blockDrawing"
+    msgstr: "Drawing"
+    msgctxt: "Block palette entry"
+
+  moveUp:
+    msgid: "article.editor.moveUp"
+    msgstr: "Move up"
+    msgctxt: "Block reorder button title"
+
+  moveDown:
+    msgid: "article.editor.moveDown"
+    msgstr: "Move down"
+    msgctxt: "Block reorder button title"
+
+  removeBlock:
+    msgid: "article.editor.removeBlock"
+    msgstr: "Remove block"
+    msgctxt: "Block removal button title"
+
+  markdownPlaceholder:
+    msgid: "article.editor.markdownPlaceholder"
+    msgstr: "Write markdown here. Drop an image to upload it."
+    msgctxt: "Markdown block editor placeholder"
+
+  captionPlaceholder:
+    msgid: "article.editor.captionPlaceholder"
+    msgstr: "Caption (optional)"
+    msgctxt: "Image caption input placeholder"
+
+  chooseImage:
+    msgid: "article.editor.chooseImage"
+    msgstr: "Choose gallery image"
+    msgctxt: "Button that opens the gallery picker"
+
+  changeImage:
+    msgid: "article.editor.changeImage"
+    msgstr: "Change image"
+    msgctxt: "Button that reopens the gallery picker"
+
+  chooseMusic:
+    msgid: "article.editor.chooseMusic"
+    msgstr: "Choose song"
+    msgctxt: "Button that opens the music picker"
+
+  changeMusic:
+    msgid: "article.editor.changeMusic"
+    msgstr: "Change song"
+    msgctxt: "Button that reopens the music picker"
+
+  noSelection:
+    msgid: "article.editor.noSelection"
+    msgstr: "Nothing selected yet."
+    msgctxt: "Placeholder when a media block has no selection"
+
+  uploadFailed:
+    msgid: "article.editor.uploadFailed"
+    msgstr: "Upload failed."
+    msgctxt: "Error shown when an image upload fails"
+
+  uploadImage:
+    msgid: "article.editor.uploadImage"
+    msgstr: "Upload image"
+    msgctxt: "Button that uploads an image into a markdown block"
+
+  preview:
+    msgid: "article.editor.preview"
+    msgstr: "Preview"
+    msgctxt: "Heading above the live article preview"
+
+  previewHint:
+    msgid: "article.editor.previewHint"
+    msgstr: "Refreshes 3 seconds after you stop editing."
+    msgctxt: "Hint under the article editor preview heading"
+
+  saved:
+    msgid: "article.editor.saved"
+    msgstr: "Article saved."
+    msgctxt: "Success alert after saving an article"
+
+  saveFailed:
+    msgid: "article.editor.saveFailed"
+    msgstr: "Could not save the article."
+    msgctxt: "Error shown when saving an article fails"
+
+  sceneFailed:
+    msgid: "article.editor.sceneFailed"
+    msgstr: "Could not save the drawing."
+    msgctxt: "Error shown when a drawing scene fails to save"
+
+  sceneLoadFailed:
+    msgid: "article.editor.sceneLoadFailed"
+    msgstr: "Could not load the drawing."
+    msgctxt: "Error shown when a drawing scene fails to load in the editor"
+
+  drawingHint:
+    msgid: "article.editor.drawingHint"
+    msgstr: "Draw in the canvas, then save the article. The drawing is stored with this block."
+    msgctxt: "Help text under a drawing block editor"
+
+  saveDrawing:
+    msgid: "article.editor.saveDrawing"
+    msgstr: "Save drawing"
+    msgctxt: "Button that stores the current drawing scene"
+
+  galleryTitle:
+    msgid: "article.editor.galleryTitle"
+    msgstr: "Gallery"
+    msgctxt: "Gallery picker title"
+
+  allCollections:
+    msgid: "article.editor.allCollections"
+    msgstr: "All"
+    msgctxt: "Option that shows assets from every gallery collection"
+
+  musicTitle:
+    msgid: "article.editor.musicTitle"
+    msgstr: "Music"
+    msgctxt: "Music picker title"
+
+  loadMore:
+    msgid: "article.editor.loadMore"
+    msgstr: "Load more"
+    msgctxt: "Button that loads the next page of gallery assets"
+
+  noAssets:
+    msgid: "article.editor.noAssets"
+    msgstr: "No assets in this collection."
+    msgctxt: "Empty state for the gallery picker"
+
+  noSongs:
+    msgid: "article.editor.noSongs"
+    msgstr: "No songs available."
+    msgctxt: "Empty state for the music picker"
+
+  confirmUnpublish:
+    msgid: "article.editor.confirmUnpublish"
+    msgstr: "Unpublish this article? Its blocks and assets are kept."
+    msgctxt: "Confirmation dialog before unpublishing an article"
+
+  columnTitle:
+    msgid: "article.editor.columnTitle"
+    msgstr: "Title"
+    msgctxt: "Article editor table column header"
+
+  columnUri:
+    msgid: "article.editor.columnUri"
+    msgstr: "URI"
+    msgctxt: "Article editor table column header"
+
+  columnPublished:
+    msgid: "article.editor.columnPublished"
+    msgstr: "Published"
+    msgctxt: "Article editor table column header"
+
+  publishedAgo:
+    msgid: "article.editor.publishedAgo"
+    msgstr: "Published ({time})"
+    msgctxt: "Article status with relative time, {time} is relative time string"
+
+  scheduledAgo:
+    msgid: "article.editor.scheduledAgo"
+    msgstr: "Scheduled ({time})"
+    msgctxt: "Article status for scheduled articles, {time} is relative time string"
+
+  open:
+    msgid: "article.editor.open"
+    msgstr: "Open"
+    msgctxt: "Button that opens an article in the editor"
 
 coffee:
   #. Coffee view strings
@@ -1077,6 +1427,16 @@ router:
     msgid: "router.blogEditor"
     msgstr: "Blog Editor"
     msgctxt: "Page title for blog editor route"
+
+  article:
+    msgid: "router.article"
+    msgstr: "Articles"
+    msgctxt: "Page title for article routes"
+
+  articleEditor:
+    msgid: "router.articleEditor"
+    msgstr: "Article Editor"
+    msgctxt: "Page title for article editor route"
 
   gallery:
     msgid: "router.gallery"

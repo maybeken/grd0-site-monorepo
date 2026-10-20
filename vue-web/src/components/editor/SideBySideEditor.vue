@@ -68,12 +68,14 @@ import { useI18n } from 'vue-i18n'
 // @ts-ignore
 import OverType from 'overtype'
 import { getBlogPost, upsertBlogPostRaw, requestBlogAttachmentRaw } from '@/services/blogPost'
+import { useToast } from '@/composables/useToast'
 
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
 const { t } = useI18n()
+const toast = useToast()
 
 interface Props {
   uri: string
@@ -154,9 +156,9 @@ async function savePost() {
     await upsertBlogPostRaw(uri, content)
     loading.value = false
 
-    alert(t('common.done'))
+    toast.success(t('common.done'))
   } catch (error) {
-    alert(t('common.failed'))
+    toast.error(t('common.failed'))
   }
 }
 

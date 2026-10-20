@@ -16,6 +16,8 @@ import '@excalidraw/excalidraw/index.css'
 const STORAGE_KEY = 'grd0.draw.scene'
 const SAVE_DELAY_MS = 500
 
+const VIEW_MODE = new URLSearchParams(window.location.search).get('view') === '1'
+
 function isExcalidrawScene(data: unknown): data is ImportedDataState {
   return (
     typeof data === 'object' &&
@@ -47,7 +49,8 @@ function readStoredScene(): ExcalidrawInitialDataState | null {
 function App() {
   const apiRef = useRef<ExcalidrawImperativeAPI | null>(null)
   const saveTimer = useRef<number | undefined>(undefined)
-  const [initialData] = useState(readStoredScene)
+  const [initialData] = useState(() => (VIEW_MODE ? null : readStoredScene()))
+  const [apiReady, setApiReady] = useState(false)
 
   const post = useCallback((message: unknown) => {
     window.parent.postMessage(message, window.location.origin)
@@ -93,7 +96,7 @@ function App() {
       const scene = restore(data, null, null)
       api.updateScene({
         elements: scene.elements,
-        appState: { ...scene.appState, theme: 'dark' },
+        appState: { ...scene.appState, theme: 'dark', viewModeEnabled: VIEW_MODE },
         captureUpdate: CaptureUpdateAction.IMMEDIATELY
       })
       api.addFiles(Object.values(scene.files))
@@ -104,6 +107,8 @@ function App() {
 
   const handleChange = useCallback<NonNullable<ExcalidrawProps['onChange']>>(
     (elements, appState, files) => {
+      if (VIEW_MODE) return
+
       window.clearTimeout(saveTimer.current)
       saveTimer.current = window.setTimeout(() => {
         try {
@@ -126,9 +131,13 @@ function App() {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
-        event.preventDefault()
-        save()
+      if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 's') return
+
+      event.preventDefault()
+      event.stopImmediatePropagation()
+
+      if (!VIEW_MODE) {
+        window.parent.postMessage({ requestSave: true }, window.location.origin)
       }
     }
 
@@ -147,15 +156,23 @@ function App() {
       }
     }
 
-    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('keydown', onKeyDown, true)
     window.addEventListener('message', onMessage)
     return () => {
-      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('keydown', onKeyDown, true)
       window.removeEventListener('message', onMessage)
     }
   }, [save, load])
 
   useEffect(() => {
+    if (!apiReady) return
+
+    post({ ready: true })
+  }, [apiReady, post])
+
+  useEffect(() => {
+    if (VIEW_MODE) return
+
     const flush = () => {
       const api = apiRef.current
       if (!api) return
@@ -188,10 +205,28 @@ function App() {
       <Excalidraw
         theme="dark"
         gridModeEnabled
-        autoFocus
+        autoFocus={!VIEW_MODE}
+        viewModeEnabled={VIEW_MODE}
+        UIOptions={
+          VIEW_MODE
+            ? {
+                canvasActions: {
+                  changeViewBackgroundColor: false,
+                  clearCanvas: false,
+                  export: false,
+                  loadScene: false,
+                  saveToActiveFile: false,
+                  toggleTheme: false,
+                  saveAsImage: false
+                },
+                tools: { image: false }
+              }
+            : undefined
+        }
         initialData={initialData}
         excalidrawAPI={(api) => {
           apiRef.current = api
+          setApiReady(true)
         }}
         onChange={handleChange}
       />

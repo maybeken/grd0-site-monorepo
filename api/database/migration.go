@@ -8,6 +8,7 @@ import (
 
 var tables = []interface{}{
 	&schema.Author{},
+	&schema.Article{},
 	&schema.Blog{},
 	&schema.BrewEquipment{},
 	&schema.CoffeeBean{},

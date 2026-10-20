@@ -25,13 +25,13 @@ import (
 )
 
 var (
-	oidcIssuer       = utils.GetEnv("OIDC_ISSUER")
-	oidcClientID     = utils.GetEnv("OIDC_CLIENT_ID")
-	oidcClientSecret = utils.GetEnv("OIDC_CLIENT_SECRET")
-	authRedirectURL  = utils.GetEnv("AUTH_REDIRECT_URL")
-	authCallbackURL  = utils.GetEnv("AUTH_CALLBACK_URL")
-	authStateSecret  = utils.GetEnv("AUTH_STATE_SECRET")
-	authJWTSecret    = utils.GetEnv("AUTH_JWT_SECRET")
+	oidcIssuer       = utils.GetEnvOrEmpty("OIDC_ISSUER")
+	oidcClientID     = utils.GetEnvOrEmpty("OIDC_CLIENT_ID")
+	oidcClientSecret = utils.GetEnvOrEmpty("OIDC_CLIENT_SECRET")
+	authRedirectURL  = utils.GetEnvOrEmpty("AUTH_REDIRECT_URL")
+	authCallbackURL  = utils.GetEnvOrEmpty("AUTH_CALLBACK_URL")
+	authStateSecret  = utils.GetEnvOrEmpty("AUTH_STATE_SECRET")
+	authJWTSecret    = utils.GetEnvOrEmpty("AUTH_JWT_SECRET")
 	jwksCacheTTLStr  = utils.GetEnvWithFallback("JWKS_CACHE_TTL", "1h")
 )
 
@@ -131,6 +131,11 @@ var (
 )
 
 func InitOIDC(ctx context.Context) error {
+	if oidcIssuer == "" || oidcClientID == "" || oidcClientSecret == "" ||
+		authRedirectURL == "" || authCallbackURL == "" || authStateSecret == "" || authJWTSecret == "" {
+		return fmt.Errorf("missing required authentication environment variables")
+	}
+
 	var err error
 	oidcProvider, err = oidc.NewProvider(ctx, oidcIssuer)
 	if err != nil {
@@ -406,6 +411,10 @@ func refreshOIDCToken(ctx context.Context, oidcRT string) (*tokenResponse, error
 }
 
 func (h *Handler) Login(c echo.Context) error {
+	if utils.IsLocalEnvironment() {
+		return h.ErrorResponseConstructor(c, http.StatusNotFound, "Authentication is disabled in the local environment.")
+	}
+
 	verifier, err := generateCodeVerifier()
 	if err != nil {
 		h.Logger.Errorf("PKCE verifier generation failed: %v", err)
@@ -433,6 +442,10 @@ func (h *Handler) Login(c echo.Context) error {
 }
 
 func (h *Handler) LoginCallback(c echo.Context) error {
+	if utils.IsLocalEnvironment() {
+		return h.ErrorResponseConstructor(c, http.StatusNotFound, "Authentication is disabled in the local environment.")
+	}
+
 	code := c.QueryParam("code")
 	state := c.QueryParam("state")
 
@@ -511,6 +524,10 @@ type refreshResponse struct {
 }
 
 func (h *Handler) Refresh(c echo.Context) error {
+	if utils.IsLocalEnvironment() {
+		return h.ErrorResponseConstructor(c, http.StatusNotFound, "Authentication is disabled in the local environment.")
+	}
+
 	var req refreshRequest
 	if err := c.Bind(&req); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "invalid request body")

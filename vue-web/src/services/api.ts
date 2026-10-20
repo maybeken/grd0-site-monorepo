@@ -1,6 +1,7 @@
 import { createAlova, invalidateCache } from 'alova'
 import adapterFetch from 'alova/fetch'
 import VueHook from 'alova/vue'
+import { isLocalEnvironment } from '@/helpers/environment'
 import { isTokenNearExpiry, refreshAuthToken, clearAuth } from '@/services/auth'
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -44,6 +45,8 @@ export const adminInstance = createAlova({
   requestAdapter: adapterFetch(),
   statesHook: VueHook,
   beforeRequest: async (method) => {
+    if (isLocalEnvironment()) return
+
     if (isTokenNearExpiry()) {
       const success = await refreshAuthToken()
       if (!success) {

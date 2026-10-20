@@ -32,8 +32,10 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
 import { deleteBlogPostRaw, listBlogPostAdmin } from '@/services/blogPost'
+import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
+const toast = useToast()
 
 const response = listBlogPostAdmin()
 const articles = response?.data
@@ -75,9 +77,9 @@ async function unpublishPost(uri: string) {
   if (confirmed) {
     try {
       await deleteBlogPostRaw(uri)
-      alert(t('common.done'))
+      toast.success(t('common.done'))
     } catch (error) {
-      alert(t('common.failed'))
+      toast.error(t('common.failed'))
     }
   }
 }

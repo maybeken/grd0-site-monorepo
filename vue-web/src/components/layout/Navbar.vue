@@ -38,7 +38,7 @@ const menuItems = [
   { displayNameKey: 'nav.gallery', link: '/gallery' },
   { displayNameKey: 'nav.travelersMap', link: '/travel/map' },
   { displayNameKey: 'nav.beanSoup', link: '/coffee' },
-  { displayNameKey: 'nav.blog', link: '/blog' },
+  { displayNameKey: 'nav.articles', link: '/article' },
   { displayNameKey: 'nav.listenToMe', link: '/music' },
   { displayNameKey: 'nav.instagram', link: 'https://www.instagram.com/maybe_ken/' },
   { displayNameKey: 'nav.youtube', link: 'https://www.youtube.com/@maybeken' },
@@ -46,6 +46,7 @@ const menuItems = [
   { displayNameKey: 'nav.buyMeCoffee', link: 'https://ko-fi.com/maybeken' },
   { displayNameKey: 'nav.cmsLogin', link: '/redirect/auth/login', hidden: true },
   { displayNameKey: 'nav.toolEditor', link: '/blog/editor', hidden: true },
+  { displayNameKey: 'nav.toolArticleEditor', link: '/article/editor', hidden: true },
   { displayNameKey: 'nav.toolTastingEditor', link: '/coffee/editor', hidden: true },
   { displayNameKey: 'nav.toolDotMatrix', link: '/tool/dotmatrix', hidden: true },
   { displayNameKey: 'nav.toolExcalidraw', link: '/tool/draw', hidden: true }

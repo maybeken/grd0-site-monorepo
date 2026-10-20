@@ -59,6 +59,11 @@ function sendCommand(command: string, payload: object = {}): void {
 function onMessage(event: MessageEvent): void {
   if (event.source !== iframe.value?.contentWindow) return
 
+  if (event.data?.requestSave === true) {
+    sendCommand('save')
+    return
+  }
+
   if (event.data?.loadError) {
     loadError.value = true
   }

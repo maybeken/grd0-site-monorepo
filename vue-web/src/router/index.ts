@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { formatCollectionName } from '@/helpers/collection'
 import { getGalleryCollectionRaw } from '@/services/gallery'
 import { getBlogPostRaw } from '@/services/blogPost'
+import { getArticleRaw } from '@/services/article'
 import i18n, { t } from '@/i18n'
 
 const DEFAULT_TITLE = import.meta.env.VITE_DEFAULT_TITLE
@@ -61,6 +62,31 @@ const router = createRouter({
         requiresAuth: true
       },
       component: () => import('@/views/BlogEditorView.vue')
+    },
+    {
+      path: '/article',
+      name: 'Article Index',
+      component: () => import('@/views/ArticleIndexView.vue'),
+      meta: {
+        title: 'router.article'
+      }
+    },
+    {
+      path: '/article/editor',
+      name: 'Article Editor',
+      meta: {
+        title: 'router.articleEditor',
+        requiresAuth: true
+      },
+      component: () => import('@/views/ArticleEditorView.vue')
+    },
+    {
+      path: '/article/:slug',
+      name: 'Article',
+      component: () => import('@/views/ArticleView.vue'),
+      meta: {
+        title: 'router.article'
+      }
     },
     {
       path: '/gallery',
@@ -216,6 +242,20 @@ router.beforeEach(async (to, from, next) => {
 
       to.meta.title = title
       to.meta.titleSuffix = blog_title
+    }
+  } else if (name === 'Article' && params.slug) {
+    const slug = typeof params.slug === 'string' ? params.slug : params.slug[0]
+
+    if (slug) {
+      try {
+        const response = await getArticleRaw(slug)
+
+        to.meta.title = title
+        to.meta.titleSuffix = response?.title || ''
+      } catch {
+        to.meta.title = title
+        to.meta.titleSuffix = ''
+      }
     }
   } else if (name === 'Gallery' && params.collection) {
     const response = await getGalleryCollectionRaw()

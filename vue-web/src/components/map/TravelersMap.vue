@@ -64,12 +64,14 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { getMapLocation } from '@/services/travelersMap'
+import { useToast } from '@/composables/useToast'
 
 import { Map, Layers, Sources, MapControls } from 'vue3-openlayers'
 
 import type { Item } from 'ol-contextmenu'
 
 const { t } = useI18n()
+const toast = useToast()
 
 interface Props {
   map_center: number[]
@@ -93,7 +95,7 @@ const contextMenuItems = ref<Item[]>([
         })
       )
 
-      alert(t('common.savedToClipboard'))
+      toast.success(t('common.savedToClipboard'))
     }
   }
 ])

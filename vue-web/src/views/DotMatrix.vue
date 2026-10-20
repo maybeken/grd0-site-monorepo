@@ -33,8 +33,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
+const toast = useToast()
 
 const size = ref(8)
 const gap = ref(8)
@@ -43,6 +45,6 @@ const finest = ref(1)
 function getSvg() {
   // @ts-expect-error
   navigator.clipboard.writeText(document.getElementById('svg').outerHTML)
-  alert(t('common.copiedToClipboard'))
+  toast.success(t('common.copiedToClipboard'))
 }
 </script>

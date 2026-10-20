@@ -61,12 +61,15 @@ const parse2HTML = async (content: string) => {
 }
 
 onMounted(async () => {
-  parsedContent.value = await parse2HTML($props.md)
+  parsedContent.value = await parse2HTML($props.md || '')
 })
 
-watch($props, async (oldVal, newVal) => {
-  parsedContent.value = await parse2HTML(newVal.md)
-})
+watch(
+  () => $props.md,
+  async (newValue) => {
+    parsedContent.value = await parse2HTML(newValue || '')
+  }
+)
 </script>
 
 <style lang="postcss"></style>

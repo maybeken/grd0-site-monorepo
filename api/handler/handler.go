@@ -13,9 +13,11 @@ import (
 
 type (
 	Handler struct {
-		DB     *gorm.DB
-		Logger *logrus.Logger
-		S3     *storage.S3
+		DB                   *gorm.DB
+		Logger               *logrus.Logger
+		S3                   *storage.S3
+		Blobs                storage.BlobStore
+		ArticleSceneMaxBytes int64
 	}
 )
 
@@ -42,6 +44,19 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	restrictV1.PUT("/blog/:uri", h.UpsertBlog)
 	restrictV1.DELETE("/blog/:uri", h.DeleteBlog)
 	restrictV1.PUT("/blog/attachment/:key", h.GeneratePresignedUrl)
+
+	v1.GET("/article", h.GetArticle)
+	v1.GET("/article/:uri", h.GetArticle)
+	v1.GET("/article/:uri/scene/:sid", h.GetArticleScene)
+	restrictV1.GET("/article/all", h.GetArticleByAdmin)
+	restrictV1.POST("/article", h.CreateArticle)
+	restrictV1.GET("/article/:uri/draft", h.GetArticleDraft)
+	restrictV1.GET("/article/:uri/draft/scene/:sid", h.GetArticleSceneDraft)
+	restrictV1.PUT("/article/:uri", h.UpdateArticle)
+	restrictV1.DELETE("/article/:uri", h.DeleteArticle)
+	restrictV1.PUT("/article/:uri/scene/:sid", h.PutArticleScene)
+	restrictV1.DELETE("/article/:uri/scene/:sid", h.DeleteArticleScene)
+	restrictV1.PUT("/article/attachment/:key", h.GenerateArticlePresignedUrl)
 
 	v1.GET("/gallery/details/:path", h.GetGalleryDetail)
 	v2.GET("/gallery/details/:path", h.GetGalleryDetailV2)
