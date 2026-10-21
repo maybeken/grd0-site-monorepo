@@ -49,6 +49,7 @@ declare module 'vue' {
     MusicProgressBar: typeof import('./src/components/music/MusicProgressBar.vue')['default']
     Navbar: typeof import('./src/components/layout/Navbar.vue')['default']
     NotFound: typeof import('./src/components/shared/NotFound.vue')['default']
+    ParticleBackground: typeof import('./src/components/layout/ParticleBackground.vue')['default']
     PostTable: typeof import('./src/components/editor/PostTable.vue')['default']
     ProfileIcon: typeof import('./src/components/blog/ProfileIcon.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
