@@ -54,6 +54,7 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	restrictV1.GET("/article/:uri/draft/scene/:sid", h.GetArticleSceneDraft)
 	restrictV1.PUT("/article/:uri", h.UpdateArticle)
 	restrictV1.DELETE("/article/:uri", h.DeleteArticle)
+	restrictV1.DELETE("/article/:uri/purge", h.PurgeArticle)
 	restrictV1.PUT("/article/:uri/scene/:sid", h.PutArticleScene)
 	restrictV1.DELETE("/article/:uri/scene/:sid", h.DeleteArticleScene)
 	restrictV1.PUT("/article/attachment/:key", h.GenerateArticlePresignedUrl)

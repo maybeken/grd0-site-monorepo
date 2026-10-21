@@ -61,16 +61,25 @@
           <td class="py-2">{{ entry.title || entry.uri }}</td>
           <td class="py-2 text-secondary">/article/{{ entry.uri }}</td>
           <td class="py-2 text-secondary">{{ formatPublished(entry.published_at) }}</td>
-          <td class="flex justify-center gap-2 py-2">
+          <td class="flex flex-wrap justify-center gap-2 py-2">
             <button
-              class="rounded-xl border border-dotted px-4 py-px"
+              class="rounded-xl border border-dotted px-4 py-px disabled:opacity-50"
+              :disabled="busy"
               @click="$emit('open', entry.uri)"
             >
               {{ $t('article.editor.open') }}
             </button>
             <button
-              class="rounded-xl border border-dotted px-4 py-px"
+              class="rounded-xl border border-dotted px-4 py-px disabled:opacity-50"
+              :disabled="busy || !entry.published_at"
               @click="unpublish(entry.uri)"
+            >
+              {{ $t('article.editor.unpublish') }}
+            </button>
+            <button
+              class="rounded-xl border border-red-500/40 px-4 py-px text-red-400 disabled:opacity-50"
+              :disabled="busy"
+              @click="purge(entry.uri)"
             >
               {{ $t('common.delete') }}
             </button>
@@ -89,9 +98,11 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 import { isArticle } from '@/helpers/article'
+import { useToast } from '@/composables/useToast'
 import {
   createArticleRaw,
   listArticlesAdminRaw,
+  purgeArticleRaw,
   unpublishArticleRaw
 } from '@/services/article'
 
@@ -107,9 +118,11 @@ const $props = defineProps<Props>()
 const $emit = defineEmits<{
   open: [uri: string]
   unpublished: [uri: string]
+  deleted: [uri: string]
 }>()
 
 const { t } = useI18n()
+const toast = useToast()
 
 const entries = ref<ArticleListEntry[]>([])
 const loading = ref(true)
@@ -194,8 +207,29 @@ async function unpublish(uri: string): Promise<void> {
     await unpublishArticleRaw(uri).send()
     await refresh()
     $emit('unpublished', uri)
+    toast.success(t('article.editor.unpublishedToast'))
   } catch {
-    failed.value = true
+    toast.error(t('article.editor.unpublishFailed'))
+  } finally {
+    busy.value = false
+  }
+}
+
+async function purge(uri: string): Promise<void> {
+  if (!confirm(t('article.editor.confirmDelete'))) return
+
+  busy.value = true
+  conflict.value = false
+  invalid.value = false
+  failed.value = false
+
+  try {
+    await purgeArticleRaw(uri).send()
+    await refresh()
+    $emit('deleted', uri)
+    toast.success(t('article.editor.deleted'))
+  } catch {
+    toast.error(t('article.editor.deleteFailed'))
   } finally {
     busy.value = false
   }

@@ -51,6 +51,13 @@
           <span v-if="!published_at" class="text-secondary">
             {{ $t('article.editor.unpublished') }}
           </span>
+          <button
+            class="rounded-full border border-dotted px-3 py-1 disabled:opacity-50"
+            :disabled="saving"
+            @click="publishNow"
+          >
+            {{ $t('article.editor.publishNow') }}
+          </button>
         </div>
 
         <p v-if="conflict" class="text-red-400">{{ $t('article.editor.conflict') }}</p>
@@ -97,7 +104,7 @@
           class="rounded-full border border-dotted px-4 py-1 disabled:opacity-50"
           :disabled="saving"
           aria-keyshortcuts="Control+S Meta+S"
-          @click="saveArticle"
+          @click="saveArticle()"
         >
           {{ saving ? $t('common.saving') : $t('common.save') }}
         </button>
@@ -286,7 +293,7 @@ function moveBlock(index: number, delta: number): void {
   })
 }
 
-async function saveArticle(): Promise<void> {
+async function saveArticle(success_message = 'article.editor.saved'): Promise<void> {
   if (!article.value || saving.value) return
 
   for (const block of blocks.value) {
@@ -308,12 +315,19 @@ async function saveArticle(): Promise<void> {
 
   if (saved) {
     $emit('saved', uri.value)
-    toast.success(t('article.editor.saved'))
+    toast.success(t(success_message))
   } else if (conflict.value) {
     toast.error(t('article.editor.conflict'))
   } else {
     toast.error(t('article.editor.saveFailed'))
   }
+}
+
+async function publishNow(): Promise<void> {
+  if (!article.value || saving.value) return
+
+  publish_local.value = dayjs().format('YYYY-MM-DDTHH:mm')
+  await saveArticle('article.editor.published')
 }
 
 function onKeyDown(event: KeyboardEvent): void {
@@ -369,8 +383,17 @@ watch(
   { immediate: true }
 )
 
+watch(dirty, (value) => $emit('dirty-change', value), { immediate: true })
+
+onBeforeRouteLeave(() => {
+  if (!dirty.value) return true
+
+  return window.confirm(t('article.editor.confirmDiscard'))
+})
+
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeyDown)
+  window.removeEventListener('beforeunload', onBeforeUnload)
   window.clearTimeout(preview_timer)
 })
 </script>

@@ -70,6 +70,10 @@ function unpublishArticleRaw(uri: string) {
   return adminInstance.Delete(`/article/${uri}`)
 }
 
+function purgeArticleRaw(uri: string) {
+  return adminInstance.Delete(`/article/${uri}/purge`)
+}
+
 function getArticleSceneRaw(uri: string, scene_id: string) {
   return dataInstance.Get<unknown>(`/article/${uri}/scene/${scene_id}`)
 }
@@ -101,6 +105,7 @@ export {
   createArticleRaw,
   updateArticleRaw,
   unpublishArticleRaw,
+  purgeArticleRaw,
   getArticleSceneRaw,
   getArticleDraftSceneRaw,
   putArticleSceneRaw,

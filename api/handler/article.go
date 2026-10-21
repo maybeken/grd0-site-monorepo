@@ -541,6 +541,28 @@ func (h *Handler) DeleteArticle(c echo.Context) error {
 	return c.JSON(http.StatusOK, uri)
 }
 
+func (h *Handler) PurgeArticle(c echo.Context) error {
+	uri := c.Param("uri")
+
+	article, err := h.findArticle(uri)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return c.JSON(http.StatusNotFound, "")
+	} else if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	prefix := fmt.Sprintf("scenes/%s", article.ID.String())
+	if err := h.Blobs.DeletePrefix(c.Request().Context(), prefix); err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	if err := h.DB.Unscoped().Delete(&article).Error; err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, uri)
+}
+
 func (h *Handler) sceneLimit() int64 {
 	if h.ArticleSceneMaxBytes > 0 {
 		return h.ArticleSceneMaxBytes

@@ -2,7 +2,6 @@
   <div class="flex flex-col gap-8">
     <header class="flex flex-col gap-2">
       <h1 class="text-2xl font-bold">{{ $t('article.index.title') }}<CursorBlink /></h1>
-      <p class="text-secondary">{{ $t('article.index.subtitle') }}</p>
     </header>
 
     <template v-if="loading">

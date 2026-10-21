@@ -392,11 +392,6 @@ article:
     msgstr: "Articles"
     msgctxt: "Article index page title"
 
-  indexSubtitle:
-    msgid: "article.index.subtitle"
-    msgstr: "Notes, photographs, sounds, and drawings."
-    msgctxt: "Article index page subtitle"
-
   indexEmpty:
     msgid: "article.index.empty"
     msgstr: "No articles have been published yet."
@@ -524,6 +519,11 @@ article:
     msgstr: "Publish date"
     msgctxt: "Publish date field label"
 
+  publishNow:
+    msgid: "article.editor.publishNow"
+    msgstr: "Publish now"
+    msgctxt: "Button that sets the publish time to now and saves the article"
+
   unpublished:
     msgid: "article.editor.unpublished"
     msgstr: "Unpublished"
@@ -634,6 +634,11 @@ article:
     msgstr: "Article saved."
     msgctxt: "Success alert after saving an article"
 
+  published:
+    msgid: "article.editor.published"
+    msgstr: "Article published."
+    msgctxt: "Success toast after publishing an article immediately"
+
   saveFailed:
     msgid: "article.editor.saveFailed"
     msgstr: "Could not save the article."
@@ -693,6 +698,41 @@ article:
     msgid: "article.editor.confirmUnpublish"
     msgstr: "Unpublish this article? Its blocks and assets are kept."
     msgctxt: "Confirmation dialog before unpublishing an article"
+
+  confirmDiscard:
+    msgid: "article.editor.confirmDiscard"
+    msgstr: "You have unsaved changes. Discard them?"
+    msgctxt: "Confirmation shown before leaving the editor with unsaved changes"
+
+  confirmDelete:
+    msgid: "article.editor.confirmDelete"
+    msgstr: "Permanently delete this article and its drawings? This cannot be undone."
+    msgctxt: "Confirmation dialog before permanently deleting an article"
+
+  unpublish:
+    msgid: "article.editor.unpublish"
+    msgstr: "Unpublish"
+    msgctxt: "Button that unpublishes an article while keeping its content"
+
+  unpublishedToast:
+    msgid: "article.editor.unpublishedToast"
+    msgstr: "Article unpublished."
+    msgctxt: "Success toast after unpublishing an article"
+
+  unpublishFailed:
+    msgid: "article.editor.unpublishFailed"
+    msgstr: "Could not unpublish the article."
+    msgctxt: "Error toast when unpublishing an article fails"
+
+  deleted:
+    msgid: "article.editor.deleted"
+    msgstr: "Article deleted."
+    msgctxt: "Success toast after permanently deleting an article"
+
+  deleteFailed:
+    msgid: "article.editor.deleteFailed"
+    msgstr: "Could not delete the article."
+    msgctxt: "Error toast when permanently deleting an article fails"
 
   columnTitle:
     msgid: "article.editor.columnTitle"

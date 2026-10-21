@@ -69,6 +69,7 @@ All write endpoints require `Authorization: Bearer <token>`. Article URIs must m
 | `GET` | `/article/:uri/draft` | yes | Read any article with its blocks, including drafts. |
 | `PUT` | `/article/:uri` | yes | Update metadata and blocks; a differing `body.uri` renames the article. |
 | `DELETE` | `/article/:uri` | yes | Unpublish the article. Blocks and assets are retained. |
+| `DELETE` | `/article/:uri/purge` | yes | Permanently delete the article and every scene file under its UUID prefix. The URI becomes reusable. |
 | `PUT` | `/article/:uri/scene/:sid` | yes | Store the scene JSON and return `{ "scene_path": "scenes/<article-uuid>/<sid>.json" }`. |
 | `GET` | `/article/:uri/scene/:sid` | no | Read a scene belonging to a published article. |
 | `GET` | `/article/:uri/draft/scene/:sid` | yes | Read a scene for a draft. |
