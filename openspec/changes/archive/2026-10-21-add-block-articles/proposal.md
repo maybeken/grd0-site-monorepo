@@ -9,7 +9,8 @@ Blog posts are a single markdown string, so a post cannot mix prose with gallery
 - Introduce a block-based `Article` entity with its own `/article` API, independent of `/blog`.
 - Make the article index the public navigation entry and sitemap source. The legacy `/blog` routes, editor, and API remain reachable for existing links but are no longer linked or sitemapped.
 - Support four block types: markdown (with image uploads), gallery image, music player, and Excalidraw drawing.
-- Add a new article editor that creates an empty, unpublished article first and then edits its blocks. The editor keeps an always-visible preview beside the editing surface, refreshes it 3 seconds after changes, saves with Ctrl/Cmd+S, and guards unsaved changes on navigation, reload, and article switches.
+- Add a new article editor that creates an empty, unpublished article first and then edits its blocks. The editor keeps an always-visible preview beside the editing surface, refreshes it 3 seconds after changes, saves with Ctrl/Cmd+S, publishes immediately from the publish-date controls, and guards unsaved changes on navigation, reload, and article switches.
+- Separate unpublish from permanent delete in the editor list: unpublish retains the article and its assets, while delete purges the article and its scene files.
 - Add a public article view that renders blocks, presents drawings in read-only mode from first paint, and does not let embedded drawings capture page scrolling until activated.
 - Store Excalidraw scenes as JSON files behind a storage abstraction with local and S3 backends. The article block references the stored path.
 - Reject duplicate article URIs on create and rename. Renaming a URI is destructive to the old link: no aliases or redirects.

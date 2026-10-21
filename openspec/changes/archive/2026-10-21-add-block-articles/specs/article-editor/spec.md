@@ -24,6 +24,20 @@ The editor SHALL require an existing article before any block can be added. Star
 - **WHEN** an unauthenticated visitor opens the editor
 - **THEN** article and block operations SHALL fail without exposing draft content
 
+### Requirement: Article list actions
+
+The editor list SHALL offer open, unpublish, and permanent delete actions.
+
+#### Scenario: Unpublish from the list
+- **WHEN** the author unpublishes a published article from the list
+- **THEN** the article SHALL remain editable and its blocks and assets SHALL be retained
+- **THEN** the list SHALL show the article as unpublished
+
+#### Scenario: Delete from the list
+- **WHEN** the author confirms permanent deletion from the list
+- **THEN** the article and its scene files SHALL be removed
+- **THEN** the row SHALL disappear and the URI SHALL become available
+
 ### Requirement: Article metadata editing
 
 The editor SHALL allow the author to edit the title, subtitle, publish timestamp, and URI of an article.
@@ -165,6 +179,16 @@ The editor SHALL persist article metadata and the full ordered block list togeth
 #### Scenario: Failed save
 - **WHEN** persistence fails
 - **THEN** the editor SHALL report the failure and SHALL retain the author's unsaved edits
+
+### Requirement: Publish now
+
+The editor SHALL provide a Publish now action beside the publish date.
+
+#### Scenario: Publish immediately
+- **WHEN** the author activates Publish now
+- **THEN** the publish timestamp SHALL be set to the current time
+- **THEN** the article and its current blocks SHALL be saved
+- **THEN** the editor SHALL report success or failure
 
 ### Requirement: Save shortcut
 

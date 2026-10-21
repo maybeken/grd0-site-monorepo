@@ -1,10 +1,10 @@
-# Spec Delta
+# article Specification
 
 ## Purpose
 
 Defines a block-based article: its URI identity, draft-by-default lifecycle, block composition, and the public/admin read and write contract.
 
-## ADDED Requirements
+## Requirements
 
 ### Requirement: URI identity
 
@@ -98,6 +98,20 @@ The system SHALL allow an authenticated author to rename an article by updating 
 - **WHEN** any client requests the previous URI after a rename
 - **THEN** the system SHALL respond with `404 Not Found`
 - **THEN** the system SHALL NOT issue a redirect
+
+### Requirement: Article purge
+
+The system SHALL provide an authenticated purge operation that permanently deletes an article and its stored scene files. The URI SHALL become available for reuse.
+
+#### Scenario: Purge an article
+- **WHEN** an authenticated author purges an article
+- **THEN** the article row and every scene file under its article UUID prefix SHALL be deleted
+- **THEN** the URI SHALL no longer resolve
+- **THEN** the URI SHALL be available for a new article
+
+#### Scenario: Unauthenticated purge
+- **WHEN** an unauthenticated client attempts to purge an article
+- **THEN** the system SHALL reject the request and SHALL NOT delete anything
 
 ### Requirement: Block composition
 

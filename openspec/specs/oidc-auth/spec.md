@@ -1,8 +1,8 @@
-# Purpose
+## Purpose
 
 OIDC authentication capability for the grd0.net API and frontend. Enables single sign-on via an external OpenID Connect provider with PKCE, automatic token refresh, and backward-compatible JWT middleware.
 
-# Requirements
+## Requirements
 
 ### Requirement: OIDC Discovery
 The system SHALL discover OIDC endpoints from the issuer URL using the `.well-known/openid-configuration` endpoint.

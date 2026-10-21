@@ -96,9 +96,10 @@ PUT    /article/:uri/scene/:sid          [auth]   write, returns { scene_path }
 GET    /article/:uri/scene/:sid          public   published articles only
 GET    /article/:uri/draft/scene/:sid    [auth]   drafts, used by the editor
 DELETE /article/:uri/scene/:sid          [auth]   best-effort block removal
+DELETE /article/:uri/purge               [auth]   permanently deletes the article and its scene prefix
 ```
 
-The server resolves the URI, checks publication, builds `scenes/<article.ID>/<sid>.json`, and validates `sid` as a UUID. Clients never supply arbitrary paths.
+The server resolves the URI, checks publication, builds `scenes/<article.ID>/<sid>.json`, and validates `sid` as a UUID. Clients never supply arbitrary paths. Purge hard-deletes the article row and every scene under its UUID prefix; uploaded markdown images under `article/YYYY/MM/` are not keyed by article and are not removed.
 
 ### Excalidraw view mode and handshake
 
@@ -123,6 +124,8 @@ The existing `/tool/draw` page keeps its current behaviour and textarea; only th
 - Markdown blocks are full-width editing surfaces; the article preview replaces the former per-block preview.
 - The block palette and save action sit below the last block. Reordering scrolls the moved block into view.
 - Ctrl/Cmd+S saves. Dirty state guards route changes, reload/close, and switching to another article.
+- A Publish now action beside the publish date sets the timestamp to the current time and saves the article immediately.
+- The editor list separates Unpublish from Delete: unpublish keeps the article and its assets; delete calls the purge endpoint after confirmation and removes the article and its scene files.
 - Save, conflict, upload, and scene feedback use non-blocking toasts rather than alerts.
 - Both sides use the same `ArticleBlock` union from `interfaces/Article.d.ts`.
 
@@ -196,4 +199,4 @@ Routes: `/article`, `/article/editor`, `/article/:slug`. Vue Router ranks the st
 
 - When to migrate existing blog content and whether to redirect `/blog` to `/article`.
 - Whether a music block should pause other players on the same article; the specs currently require independent control only.
-- Whether to add a purge endpoint and asset sweep now or after the first real articles exist.
+- Whether to sweep orphaned uploaded markdown images, which are not keyed by article UUID.

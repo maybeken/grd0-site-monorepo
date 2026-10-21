@@ -79,6 +79,10 @@
 - [x] 8.10 Music: fix the cross-origin YouTube command target so the player becomes ready and play is enabled.
 - [x] 8.11 Local development: `APP_ENV=LOCAL` API auth bypass and frontend local mode.
 - [x] 8.12 Publication updates: omitted `published_at` retains state; explicit null unpublishes.
+- [x] 8.13 API: `DELETE /article/:uri/purge` hard-deletes the article and its scene prefix; the URI becomes reusable.
+- [x] 8.14 Editor list: separate Unpublish and permanent Delete actions, with confirmation and toast feedback.
+- [x] 8.15 Editor: Publish now action beside the publish date sets the timestamp and saves immediately.
+- [x] 8.16 Public index: remove the page subtitle; article cards carry their own metadata.
 
 ## Workflow follow-up
 
