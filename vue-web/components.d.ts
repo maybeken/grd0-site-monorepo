@@ -14,6 +14,8 @@ declare module 'vue' {
     ArticleEditor: typeof import('./src/components/editor/article/ArticleEditor.vue')['default']
     ArticleHeader: typeof import('./src/components/article/ArticleHeader.vue')['default']
     ArticleList: typeof import('./src/components/editor/article/ArticleList.vue')['default']
+    ArticlePager: typeof import('./src/components/editor/article/ArticlePager.vue')['default']
+    ArticleSidebar: typeof import('./src/components/editor/article/ArticleSidebar.vue')['default']
     ArticleSummary: typeof import('./src/components/article/ArticleSummary.vue')['default']
     BeanForm: typeof import('./src/components/coffee/BeanForm.vue')['default']
     BlockItem: typeof import('./src/components/editor/article/BlockItem.vue')['default']

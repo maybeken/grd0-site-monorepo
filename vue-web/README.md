@@ -34,11 +34,12 @@ VITE_DEFAULT_TITLE=IDEA GROUND ZERO
 | --- | --- |
 | `/article` | Published article index (main navigation entry) |
 | `/article/:slug` | Published article reader (block renderer) |
-| `/article/editor` | Authenticated article editor (hidden nav entry) |
+| `/article/editor` | Authenticated article listing, paginated (hidden nav entry) |
+| `/article/editor/:uri` | Authenticated article editing workspace |
 | `/blog`, `/blog/:slug`, `/blog/editor` | Legacy markdown blog, kept for existing links; no longer linked in navigation or the sitemap |
 | `/gallery`, `/travel/map`, `/music`, `/coffee` | Existing sections |
 
-Article pages render an ordered block list (`markdown`, `image`, `music`, `excalidraw`) through `components/article/BlockRenderer.vue`. The editor lives under `components/editor/article/`; it creates an empty draft first, then edits metadata and blocks together, and previews through the same renderer. Drawing blocks use the authenticated draft scene endpoints, so previews work without publishing. The editor redirects to the login flow when no session token is present.
+Article pages render an ordered block list (`markdown`, `image`, `music`, `excalidraw`) through `components/article/BlockRenderer.vue`. The editor lives under `components/editor/article/` and is split into a paginated listing at `/article/editor` and a workspace at `/article/editor/:uri`. The workspace keeps the editor and preview in independent scroll panes and aligns the preview to the editor by block; the metadata sidebar carries the URI, publish state, publishing actions, and delete. Creating an article happens on the listing and opens its workspace. Drawing blocks use the authenticated draft scene endpoints, so previews work without publishing. Both editor routes redirect to the login flow when no session token is present.
 
 ## Drawing tool
 

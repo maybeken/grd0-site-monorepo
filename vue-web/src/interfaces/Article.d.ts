@@ -1,3 +1,5 @@
+import type { PaginatedResponse } from './Gallery'
+
 export interface ArticleBlockMarkdown {
   id: string
   type: 'markdown'
@@ -61,6 +63,8 @@ export interface ArticleListEntry {
   updated_at: string
   published_at: string | null
 }
+
+export type ArticleListPage = PaginatedResponse<ArticleListEntry>
 
 export interface ArticlePayload {
   uri?: string

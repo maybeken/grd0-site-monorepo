@@ -6,6 +6,7 @@ import type {
   Article,
   ArticleAttachment,
   ArticleListEntry,
+  ArticleListPage,
   ArticlePayload,
   ArticleScene
 } from '@/interfaces/Article'
@@ -40,18 +41,10 @@ function getArticle(uri: string): { loading: Ref<boolean, boolean>; data: Ref<Ar
   }
 }
 
-function listArticlesAdminRaw() {
-  return adminInstance.Get<ArticleListEntry[]>('/article/all')
-}
-
-function listArticlesAdmin(): { loading: Ref<boolean, boolean>; data: Ref<ArticleListEntry[]> } {
-  try {
-    const { loading, data } = useRequest(listArticlesAdminRaw())
-
-    return { loading, data }
-  } catch (error: unknown) {
-    throw error
-  }
+function listArticlesAdminRaw(page = 1, page_size = 10) {
+  return adminInstance.Get<ArticleListPage>(
+    `/article/all?page=${page}&page_size=${page_size}`
+  )
 }
 
 function getArticleDraftRaw(uri: string) {
@@ -100,7 +93,6 @@ export {
   getArticleRaw,
   getArticle,
   listArticlesAdminRaw,
-  listArticlesAdmin,
   getArticleDraftRaw,
   createArticleRaw,
   updateArticleRaw,

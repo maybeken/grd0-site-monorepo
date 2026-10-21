@@ -474,15 +474,10 @@ article:
     msgstr: "URI"
     msgctxt: "Article URI field label"
 
-  create:
-    msgid: "article.editor.create"
-    msgstr: "Create"
-    msgctxt: "Button that creates a new article"
-
-  confirmCreate:
-    msgid: "article.editor.confirmCreate"
-    msgstr: "Create the article /article/{uri}?"
-    msgctxt: "Confirmation dialog before creating an article"
+  confirmCreateBlank:
+    msgid: "article.editor.confirmCreateBlank"
+    msgstr: "Create a new article? You can set its URI after it opens."
+    msgctxt: "Confirmation dialog before creating an article without entering a URI"
 
   conflict:
     msgid: "article.editor.conflict"
@@ -569,6 +564,11 @@ article:
     msgstr: "Move down"
     msgctxt: "Block reorder button title"
 
+  duplicateBlock:
+    msgid: "article.editor.duplicateBlock"
+    msgstr: "Duplicate block"
+    msgctxt: "Block duplication button title"
+
   removeBlock:
     msgid: "article.editor.removeBlock"
     msgstr: "Remove block"
@@ -626,7 +626,7 @@ article:
 
   previewHint:
     msgid: "article.editor.previewHint"
-    msgstr: "Refreshes 3 seconds after you stop editing."
+    msgstr: "Refreshes within a second of your last edit."
     msgctxt: "Hint under the article editor preview heading"
 
   saved:
@@ -763,6 +763,111 @@ article:
     msgid: "article.editor.open"
     msgstr: "Open"
     msgctxt: "Button that opens an article in the editor"
+
+  backToList:
+    msgid: "article.editor.backToList"
+    msgstr: "Back to articles"
+    msgctxt: "Link that returns to the article listing from the editor"
+
+  listHint:
+    msgid: "article.editor.listHint"
+    msgstr: "Open an article to edit it, or create a new one."
+    msgctxt: "Short description above the article listing"
+
+  details:
+    msgid: "article.editor.details"
+    msgstr: "Details"
+    msgctxt: "Button that toggles the article metadata sidebar on narrow screens"
+
+  editTab:
+    msgid: "article.editor.editTab"
+    msgstr: "Edit"
+    msgctxt: "Tab that shows the editor on narrow screens"
+
+  previewTab:
+    msgid: "article.editor.previewTab"
+    msgstr: "Preview"
+    msgctxt: "Tab that shows the live preview on narrow screens"
+
+  unsaved:
+    msgid: "article.editor.unsaved"
+    msgstr: "Unsaved changes"
+    msgctxt: "Editor status when the article has unsaved changes"
+
+  allSaved:
+    msgid: "article.editor.allSaved"
+    msgstr: "Saved"
+    msgctxt: "Editor status when the article has no unsaved changes"
+
+  statusDraft:
+    msgid: "article.editor.statusDraft"
+    msgstr: "Draft"
+    msgctxt: "Article publication status"
+
+  statusScheduled:
+    msgid: "article.editor.statusScheduled"
+    msgstr: "Scheduled"
+    msgctxt: "Article publication status for a future publish date"
+
+  statusPublished:
+    msgid: "article.editor.statusPublished"
+    msgstr: "Published"
+    msgctxt: "Article publication status for a past publish date"
+
+  openPublic:
+    msgid: "article.editor.openPublic"
+    msgstr: "Open public page"
+    msgctxt: "Link that opens the published article in a new tab"
+
+  copyLink:
+    msgid: "article.editor.copyLink"
+    msgstr: "Copy link"
+    msgctxt: "Button that copies the article's public URL"
+
+  copied:
+    msgid: "article.editor.copied"
+    msgstr: "Copied"
+    msgctxt: "Feedback after copying the article's public URL"
+
+  editorCreatedAt:
+    msgid: "article.editor.createdAt"
+    msgstr: "Created {date}"
+    msgctxt: "Article creation timestamp in the sidebar, {date} is formatted"
+
+  editorUpdatedAt:
+    msgid: "article.editor.updatedAt"
+    msgstr: "Updated {date}"
+    msgctxt: "Article update timestamp in the sidebar, {date} is formatted"
+
+  emptyList:
+    msgid: "article.editor.emptyList"
+    msgstr: "No articles yet."
+    msgctxt: "Empty state for the article listing"
+
+  listFailed:
+    msgid: "article.editor.listFailed"
+    msgstr: "Could not load articles."
+    msgctxt: "Error shown when the article listing fails to load"
+
+  createFailed:
+    msgid: "article.editor.createFailed"
+    msgstr: "Could not create the article."
+    msgctxt: "Error shown when creating an article fails"
+
+  pageSummary:
+    msgid: "article.editor.pageSummary"
+    msgstr: "{start}-{end} of {total}"
+    msgctxt: "Article listing pagination summary; start, end, and total are numbers"
+
+  columnStatus:
+    msgid: "article.editor.columnStatus"
+    msgstr: "Status"
+    msgctxt: "Article editor table column header"
+
+  columnUpdated:
+    msgid: "article.editor.columnUpdated"
+    msgstr: "Updated"
+    msgctxt: "Article editor table column header"
 
 coffee:
   #. Coffee view strings

@@ -58,9 +58,18 @@ export const adminInstance = createAlova({
     method.config.headers.Authorization = `Bearer ${sessionStorage.getItem('jwt_token')}`
   },
   responded: (response) => {
-    if (response.ok) {
-      invalidateCache()
+    if (!response.ok) {
+      const error = new Error(`Request failed with status ${response.status}`) as Error & {
+        status: number
+        response: Response
+      }
+      error.status = response.status
+      error.response = response
+
+      throw error
     }
+
+    invalidateCache()
 
     return response.json()
   },

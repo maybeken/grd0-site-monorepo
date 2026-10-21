@@ -1,148 +1,199 @@
 <template>
-  <div v-if="loading" class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-    <div class="flex flex-col gap-3">
-      <Skeleton h="lg" w="full" :loading="true"></Skeleton>
-      <Skeleton h="md" w="2/3" :loading="true"></Skeleton>
-      <Skeleton h="xl" w="full" :loading="true"></Skeleton>
-    </div>
-    <div class="flex flex-col gap-3 rounded-xl border border-dotted p-4">
-      <Skeleton h="md" w="1/3" :loading="true"></Skeleton>
-      <Skeleton h="xl" w="full" :loading="true"></Skeleton>
-      <Skeleton h="lg" w="full" :loading="true"></Skeleton>
-    </div>
-  </div>
+  <div class="flex flex-col gap-4">
+    <div class="flex flex-wrap items-center gap-2">
+      <router-link
+        :to="back_to"
+        class="rounded-full border border-dotted px-3 py-1"
+      >
+        {{ $t('article.editor.backToList') }}
+      </router-link>
 
-  <div v-else-if="article" class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-    <div class="flex flex-col gap-6 min-w-0">
-      <div class="flex flex-col gap-3">
-        <input
-          class="text-3xl w-full rounded-full px-4 bg-background border border-dotted"
-          type="text"
-          :placeholder="$t('article.editor.titlePlaceholder')"
-          v-model="title"
-        />
-        <input
-          class="text-2xl w-full rounded-full px-4 bg-background border border-dotted"
-          type="text"
-          :placeholder="$t('article.editor.subtitlePlaceholder')"
-          v-model="subtitle"
-        />
-
-        <div class="flex flex-wrap items-center gap-2 px-1">
-          <label for="article-uri">{{ $t('article.editor.uriLabel') }}</label>
-          <span class="text-secondary">/article/</span>
-          <input
-            id="article-uri"
-            class="rounded-full px-3 py-1 bg-background border border-dotted"
-            type="text"
-            :placeholder="$t('article.editor.uriPlaceholder')"
-            v-model="uri"
-          />
-        </div>
-
-        <div class="flex flex-wrap items-center gap-2 px-1">
-          <label for="article-publish">{{ $t('article.editor.publishDate') }}</label>
-          <input
-            id="article-publish"
-            class="rounded-xl px-2 py-1 bg-background border border-dotted"
-            type="datetime-local"
-            v-model="publish_local"
-          />
-          <span v-if="!published_at" class="text-secondary">
-            {{ $t('article.editor.unpublished') }}
-          </span>
-          <button
-            class="rounded-full border border-dotted px-3 py-1 disabled:opacity-50"
-            :disabled="saving"
-            @click="publishNow"
-          >
-            {{ $t('article.editor.publishNow') }}
-          </button>
-        </div>
-
-        <p v-if="conflict" class="text-red-400">{{ $t('article.editor.conflict') }}</p>
-        <p v-else-if="error" class="text-red-400">{{ $t(error_message) }}</p>
-      </div>
-
-      <div class="flex flex-col gap-3">
-        <p class="text-lg font-bold">{{ $t('article.editor.blocks') }}</p>
-
-        <BlockItem
-          v-for="(block, index) in blocks"
-          :key="block.id"
-          :ref="(element) => setBlockElement(block.id, element)"
-          :type="block.type"
-          :index="index"
-          :count="blocks.length"
-          @move-up="moveBlock(index, -1)"
-          @move-down="moveBlock(index, 1)"
-          @remove="removeBlock(index)"
+      <div class="ml-auto flex items-center gap-3">
+        <span v-if="article" class="text-sm text-secondary">{{ status_label }}</span>
+        <button
+          class="rounded-full border border-dotted px-3 py-1 lg:hidden"
+          @click="sidebar_open = !sidebar_open"
         >
-          <MarkdownBlockEditor
-            v-if="block.type === 'markdown'"
-            :block="block"
-          ></MarkdownBlockEditor>
-          <ImageBlockEditor v-else-if="block.type === 'image'" :block="block"></ImageBlockEditor>
-          <MusicBlockEditor v-else-if="block.type === 'music'" :block="block"></MusicBlockEditor>
-          <ExcalidrawBlockEditor
-            v-else-if="block.type === 'excalidraw'"
-            :ref="(element) => setDrawingRef(block.id, element)"
-            :block="block"
-            :uri="article?.uri || ''"
-            @request-save="saveArticle"
-          ></ExcalidrawBlockEditor>
-        </BlockItem>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <p class="text-lg font-bold">{{ $t('article.editor.addBlock') }}</p>
-        <BlockPalette @add="addBlock"></BlockPalette>
-      </div>
-
-      <div class="flex flex-wrap gap-2">
+          {{ $t('article.editor.details') }}
+        </button>
         <button
           class="rounded-full border border-dotted px-4 py-1 disabled:opacity-50"
-          :disabled="saving"
+          :class="!dirty && !saving ? 'text-secondary' : ''"
+          :disabled="saving || loading"
           aria-keyshortcuts="Control+S Meta+S"
           @click="saveArticle()"
         >
-          {{ saving ? $t('common.saving') : $t('common.save') }}
+          {{ saving ? $t('common.saving') : dirty ? $t('common.save') : $t('article.editor.allSaved') }}
         </button>
       </div>
     </div>
 
-    <aside
-      class="flex flex-col gap-4 min-w-0 rounded-xl border border-dotted p-4 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto"
+    <p v-if="conflict" class="text-red-400">{{ $t('article.editor.conflict') }}</p>
+    <p v-else-if="error" class="text-red-400">{{ $t(error_message) }}</p>
+
+    <div v-if="loading" class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div class="flex flex-col gap-3">
+        <Skeleton h="lg" w="full" :loading="true"></Skeleton>
+        <Skeleton h="md" w="2/3" :loading="true"></Skeleton>
+        <Skeleton h="xl" w="full" :loading="true"></Skeleton>
+      </div>
+      <div class="flex flex-col gap-3 rounded-xl border border-dotted p-4">
+        <Skeleton h="md" w="1/3" :loading="true"></Skeleton>
+        <Skeleton h="xl" w="full" :loading="true"></Skeleton>
+        <Skeleton h="lg" w="full" :loading="true"></Skeleton>
+      </div>
+      <div class="flex flex-col gap-3 rounded-xl border border-dotted p-4">
+        <Skeleton h="md" w="1/2" :loading="true"></Skeleton>
+        <Skeleton h="lg" w="full" :loading="true"></Skeleton>
+      </div>
+    </div>
+
+    <div
+      v-else-if="article"
+      class="flex flex-col gap-4 lg:h-[calc(100vh-11rem)] lg:flex-row lg:items-stretch"
     >
-      <div class="flex flex-col gap-1">
-        <p class="text-lg font-bold">{{ $t('article.editor.preview') }}</p>
-        <p class="text-xs text-secondary">{{ $t('article.editor.previewHint') }}</p>
+      <div class="flex min-w-0 flex-1 flex-col gap-4 lg:min-h-0">
+        <div class="flex flex-col gap-3">
+          <input
+            class="text-3xl w-full border-b border-dotted bg-transparent px-1 py-2 outline-none"
+            type="text"
+            :placeholder="$t('article.editor.titlePlaceholder')"
+            v-model="title"
+          />
+          <input
+            class="text-2xl w-full border-b border-dotted bg-transparent px-1 py-2 outline-none"
+            type="text"
+            :placeholder="$t('article.editor.subtitlePlaceholder')"
+            v-model="subtitle"
+          />
+        </div>
+
+        <div class="flex gap-2 lg:hidden">
+          <button
+            class="rounded-full border border-dotted px-3 py-1"
+            :class="view === 'edit' ? 'bg-shade' : ''"
+            @click="view = 'edit'"
+          >
+            {{ $t('article.editor.editTab') }}
+          </button>
+          <button
+            class="rounded-full border border-dotted px-3 py-1"
+            :class="view === 'preview' ? 'bg-shade' : ''"
+            @click="view = 'preview'"
+          >
+            {{ $t('article.editor.previewTab') }}
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-4 lg:min-h-0 lg:flex-1 lg:grid lg:grid-cols-2">
+          <section
+            ref="editor_pane"
+            class="min-h-0 flex-col gap-6 overflow-y-auto p-4 max-lg:h-[calc(100vh-24rem)] lg:flex"
+            :class="view === 'edit' ? 'flex' : 'hidden'"
+          >
+            <div class="flex flex-col gap-6">
+              <div
+                v-for="(block, index) in blocks"
+                :key="block.id"
+                :ref="(element) => setBlockElement(block.id, element)"
+                :data-block-id="block.id"
+              >
+                <BlockItem
+                  :type="block.type"
+                  :index="index"
+                  :count="blocks.length"
+                  :active="active_block_id === block.id"
+                  @move-up="moveBlock(index, -1)"
+                  @move-down="moveBlock(index, 1)"
+                  @duplicate="duplicateBlock(index)"
+                  @remove="removeBlock(index)"
+                >
+                  <MarkdownBlockEditor
+                    v-if="block.type === 'markdown'"
+                    :block="block"
+                  ></MarkdownBlockEditor>
+                  <ImageBlockEditor
+                    v-else-if="block.type === 'image'"
+                    :block="block"
+                  ></ImageBlockEditor>
+                  <MusicBlockEditor
+                    v-else-if="block.type === 'music'"
+                    :block="block"
+                  ></MusicBlockEditor>
+                  <ExcalidrawBlockEditor
+                    v-else-if="block.type === 'excalidraw'"
+                    :ref="(element) => setDrawingRef(block.id, element)"
+                    :block="block"
+                    :uri="article.uri"
+                    @request-save="saveArticle"
+                  ></ExcalidrawBlockEditor>
+                </BlockItem>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <p class="text-lg font-bold">{{ $t('article.editor.addBlock') }}</p>
+                <BlockPalette @add="addBlock"></BlockPalette>
+              </div>
+            </div>
+          </section>
+
+          <section
+            ref="preview_pane"
+            class="min-h-0 flex-col gap-4 overflow-y-auto p-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-lg:h-[calc(100vh-24rem)] lg:flex lg:border-l lg:border-dotted"
+            :class="view === 'preview' ? 'flex' : 'hidden'"
+          >
+            <div class="flex flex-col gap-4">
+              <BlockRenderer
+                :blocks="preview_blocks"
+                :uri="preview_uri"
+                :version="preview_version"
+                :draft="true"
+                :eager="true"
+              ></BlockRenderer>
+            </div>
+          </section>
+        </div>
       </div>
 
-      <ArticleHeader :article="preview_article" :draft="true"></ArticleHeader>
-      <BlockRenderer
-        :blocks="preview_blocks"
-        :uri="preview_uri"
-        :version="preview_article.updated_at"
-        :draft="true"
-      ></BlockRenderer>
-    </aside>
-  </div>
+      <aside
+        class="min-h-0 flex-col gap-4 overflow-y-auto rounded-xl border border-dotted p-4 max-lg:max-h-[70vh] lg:flex lg:w-72 lg:shrink-0"
+        :class="sidebar_open ? 'flex' : 'hidden'"
+      >
+        <ArticleSidebar
+          v-model:uri="uri"
+          v-model:published-at="published_at"
+          :article="article"
+          :saving="saving"
+          @publish-now="publishNow"
+          @unpublish="unpublish"
+          @delete="purgeArticle"
+        ></ArticleSidebar>
+      </aside>
+    </div>
 
-  <div v-else class="flex flex-col gap-2">
-    <p v-if="error" class="text-red-400">{{ $t('article.editor.loadFailed') }}</p>
-    <p v-else class="text-secondary">{{ $t('article.editor.selectArticle') }}</p>
+    <div v-else class="flex flex-col items-start gap-3">
+      <p class="text-red-400">{{ $t('article.editor.loadFailed') }}</p>
+      <router-link :to="back_to" class="rounded-full border border-dotted px-3 py-1">
+        {{ $t('article.editor.backToList') }}
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 
-import { createArticleBlock } from '@/helpers/article'
+import { articleSceneId, createArticleBlock } from '@/helpers/article'
 import { useToast } from '@/composables/useToast'
+import {
+  getArticleDraftSceneRaw,
+  purgeArticleRaw,
+  putArticleSceneRaw
+} from '@/services/article'
+import ArticleSidebar from './ArticleSidebar.vue'
 import BlockItem from './BlockItem.vue'
 import BlockPalette from './BlockPalette.vue'
 import MarkdownBlockEditor from './blocks/MarkdownBlockEditor.vue'
@@ -150,20 +201,22 @@ import ImageBlockEditor from './blocks/ImageBlockEditor.vue'
 import MusicBlockEditor from './blocks/MusicBlockEditor.vue'
 import ExcalidrawBlockEditor from './blocks/ExcalidrawBlockEditor.vue'
 import { useArticleDraft } from './useArticleDraft'
+import { useScrollSync } from './useScrollSync'
 
-import type { Article, ArticleBlock, ArticleBlockType } from '@/interfaces/Article'
+import type { ArticleBlock, ArticleBlockType } from '@/interfaces/Article'
 
 interface Props {
-  initialUri?: string
+  uri: string
 }
 
 const $props = defineProps<Props>()
 const $emit = defineEmits<{
   saved: [uri: string]
-  'dirty-change': [dirty: boolean]
 }>()
 
 const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
 const toast = useToast()
 
 const {
@@ -183,15 +236,23 @@ const {
   reset
 } = useArticleDraft()
 
-const PREVIEW_DEBOUNCE_MS = 3000
+const PREVIEW_DEBOUNCE_MS = 750
+
+const editor_pane = ref<HTMLElement | null>(null)
+const preview_pane = ref<HTMLElement | null>(null)
+const is_wide = ref(false)
+const view = ref<'edit' | 'preview'>('edit')
+const sidebar_open = ref(false)
+
+const scroll_sync = useScrollSync(editor_pane, preview_pane, is_wide)
+const { active_block_id } = scroll_sync
 
 const preview_uri = ref('')
-const preview_title = ref('')
-const preview_subtitle = ref('')
-const preview_published_at = ref<string | null>(null)
+const preview_version = ref('')
 const preview_blocks = ref<ArticleBlock[]>([])
 
 let preview_timer: number | undefined
+let media_query: MediaQueryList | null = null
 
 const error_message = computed(() => {
   if (error.value === 'save') return 'article.editor.saveFailed'
@@ -200,25 +261,20 @@ const error_message = computed(() => {
   return 'article.editor.loadFailed'
 })
 
-const publish_local = computed({
-  get: () => (published_at.value ? dayjs(published_at.value).format('YYYY-MM-DDTHH:mm') : ''),
-  set: (value: string) => {
-    published_at.value = value ? dayjs(value).toISOString() : null
-  }
+const status_label = computed(() => {
+  if (!published_at.value) return t('article.editor.statusDraft')
+
+  return dayjs(published_at.value).isAfter(dayjs())
+    ? t('article.editor.statusScheduled')
+    : t('article.editor.statusPublished')
 })
 
-const preview_article = computed<Article>(() => ({
-  uri: preview_uri.value,
-  author: article.value?.author || { email: '', display_name: '' },
-  title: preview_title.value,
-  subtitle: preview_subtitle.value,
-  blocks: preview_blocks.value,
-  summary: '',
-  cover: '',
-  created_at: article.value?.created_at || '',
-  updated_at: article.value?.updated_at || '',
-  published_at: preview_published_at.value
-}))
+const back_to = computed(() => {
+  const value = Number(route.query.page)
+  if (!Number.isInteger(value) || value <= 0) return '/article/editor'
+
+  return { path: '/article/editor', query: { page: String(value) } }
+})
 
 function cloneBlocks(value: ArticleBlock[]): ArticleBlock[] {
   return JSON.parse(JSON.stringify(value || [])) as ArticleBlock[]
@@ -229,10 +285,10 @@ function refreshPreview(): void {
   preview_timer = undefined
 
   preview_uri.value = article.value?.uri || ''
-  preview_title.value = title.value
-  preview_subtitle.value = subtitle.value
-  preview_published_at.value = published_at.value
+  preview_version.value = article.value?.updated_at || ''
   preview_blocks.value = cloneBlocks(blocks.value)
+
+  nextTick(() => scroll_sync.realign())
 }
 
 function schedulePreview(): void {
@@ -259,9 +315,8 @@ function setDrawingRef(id: string, instance: unknown): void {
 const block_elements = new Map<string, HTMLElement>()
 
 function setBlockElement(id: string, instance: unknown): void {
-  if (instance) {
-    const element = (instance as { $el?: unknown }).$el
-    if (element instanceof HTMLElement) block_elements.set(id, element)
+  if (instance instanceof HTMLElement) {
+    block_elements.set(id, instance)
   } else {
     block_elements.delete(id)
   }
@@ -269,11 +324,57 @@ function setBlockElement(id: string, instance: unknown): void {
 
 function addBlock(type: ArticleBlockType): void {
   blocks.value.push(createArticleBlock(type))
+  nextTick(() => scroll_sync.realign())
 }
 
 function removeBlock(index: number): void {
   const [removed] = blocks.value.splice(index, 1)
   if (removed?.type === 'excalidraw') drawing_refs.delete(removed.id)
+
+  nextTick(() => scroll_sync.realign())
+}
+
+async function duplicateBlock(index: number): Promise<void> {
+  const block = blocks.value[index]
+  if (!block || !article.value) return
+
+  const id = crypto.randomUUID()
+  let copy: ArticleBlock = { ...block, id }
+
+  if (block.type === 'excalidraw' && block.scene_path) {
+    const scene_id = articleSceneId(block.scene_path)
+
+    if (scene_id) {
+      try {
+        const scene = await getArticleDraftSceneRaw(article.value.uri, scene_id).send()
+        const response = await putArticleSceneRaw(
+          article.value.uri,
+          crypto.randomUUID(),
+          scene as object
+        ).send()
+
+        if (!response?.scene_path) throw new Error('Missing scene path')
+
+        copy = { ...block, id, scene_path: response.scene_path }
+      } catch {
+        toast.error(t('article.editor.sceneFailed'))
+        return
+      }
+    }
+  }
+
+  const source_index = blocks.value.findIndex((item) => item.id === block.id)
+  if (source_index === -1) return
+
+  blocks.value.splice(source_index + 1, 0, copy)
+
+  nextTick(() => {
+    block_elements.get(copy.id)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    })
+    scroll_sync.realign()
+  })
 }
 
 function moveBlock(index: number, delta: number): void {
@@ -290,6 +391,7 @@ function moveBlock(index: number, delta: number): void {
       behavior: 'smooth',
       block: 'center'
     })
+    scroll_sync.realign()
   })
 }
 
@@ -316,6 +418,8 @@ async function saveArticle(success_message = 'article.editor.saved'): Promise<vo
   if (saved) {
     $emit('saved', uri.value)
     toast.success(t(success_message))
+    await nextTick()
+    scroll_sync.realign()
   } else if (conflict.value) {
     toast.error(t('article.editor.conflict'))
   } else {
@@ -326,8 +430,29 @@ async function saveArticle(success_message = 'article.editor.saved'): Promise<vo
 async function publishNow(): Promise<void> {
   if (!article.value || saving.value) return
 
-  publish_local.value = dayjs().format('YYYY-MM-DDTHH:mm')
+  published_at.value = dayjs().toISOString()
   await saveArticle('article.editor.published')
+}
+
+async function unpublish(): Promise<void> {
+  if (!article.value || saving.value) return
+
+  published_at.value = null
+  await saveArticle('article.editor.unpublishedToast')
+}
+
+async function purgeArticle(): Promise<void> {
+  if (!article.value || saving.value) return
+  if (!window.confirm(t('article.editor.confirmDelete'))) return
+
+  try {
+    await purgeArticleRaw(article.value.uri).send()
+    toast.success(t('article.editor.deleted'))
+    reset()
+    await router.push(back_to.value)
+  } catch {
+    toast.error(t('article.editor.deleteFailed'))
+  }
 }
 
 function onKeyDown(event: KeyboardEvent): void {
@@ -345,7 +470,15 @@ function onBeforeUnload(event: BeforeUnloadEvent): void {
   event.returnValue = ''
 }
 
+function updateWidth(): void {
+  is_wide.value = media_query?.matches ?? false
+}
+
 onMounted(() => {
+  media_query = window.matchMedia('(min-width: 1024px)')
+  updateWidth()
+  media_query.addEventListener('change', updateWidth)
+
   window.addEventListener('keydown', onKeyDown)
   window.addEventListener('beforeunload', onBeforeUnload)
 })
@@ -361,29 +494,44 @@ watch(
     window.clearTimeout(preview_timer)
     preview_timer = undefined
     preview_uri.value = ''
-    preview_title.value = ''
-    preview_subtitle.value = ''
-    preview_published_at.value = null
+    preview_version.value = ''
     preview_blocks.value = []
+    scroll_sync.reset()
   },
   { immediate: true }
 )
 
-watch([title, subtitle, uri, published_at, blocks], schedulePreview, { deep: true })
+watch(blocks, schedulePreview, { deep: true })
 
 watch(
-  () => $props.initialUri,
+  view,
+  (value) => {
+    if (value !== 'preview') return
+
+    nextTick(() => {
+      if (is_wide.value) {
+        scroll_sync.realign()
+      } else {
+        scroll_sync.scrollPreviewToActive()
+      }
+    })
+  }
+)
+
+watch(
+  () => $props.uri,
   async (value) => {
-    if (value) {
-      await open(value)
-    } else {
+    if (!value) {
       reset()
+      return
     }
+
+    if (article.value?.uri === value) return
+
+    await open(value)
   },
   { immediate: true }
 )
-
-watch(dirty, (value) => $emit('dirty-change', value), { immediate: true })
 
 onBeforeRouteLeave(() => {
   if (!dirty.value) return true
@@ -391,7 +539,14 @@ onBeforeRouteLeave(() => {
   return window.confirm(t('article.editor.confirmDiscard'))
 })
 
+onBeforeRouteUpdate(() => {
+  if (!dirty.value) return true
+
+  return window.confirm(t('article.editor.confirmDiscard'))
+})
+
 onUnmounted(() => {
+  media_query?.removeEventListener('change', updateWidth)
   window.removeEventListener('keydown', onKeyDown)
   window.removeEventListener('beforeunload', onBeforeUnload)
   window.clearTimeout(preview_timer)

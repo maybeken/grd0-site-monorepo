@@ -53,6 +53,8 @@ onMounted(() => {
     toolbar: true,
     showStats: true,
     smartLists: true,
+    autoResize: true,
+    minHeight: '12rem',
     placeholder: t('article.editor.markdownPlaceholder'),
     onChange: (value: string) => {
       if (initializing || syncing) return

@@ -1,42 +1,41 @@
 <template>
-  <div class="flex flex-col gap-8">
-    <p class="text-2xl font-bold">{{ $t('article.editor.title') }}<CursorBlink /></p>
+  <div v-if="authorized" class="flex flex-col gap-4">
+    <ArticleEditor v-if="uri" :uri="uri" @saved="onSaved"></ArticleEditor>
 
-    <div v-if="authorized" class="flex flex-col gap-8">
-      <ArticleList
-        ref="list"
-        :selected="selected"
-        @open="openArticle"
-        @unpublished="onUnpublished"
-        @deleted="onDeleted"
-      ></ArticleList>
-
-      <ArticleEditor
-        v-if="selected"
-        :key="selected"
-        :initial-uri="selected"
-        @saved="onSaved"
-        @dirty-change="editor_dirty = $event"
-      ></ArticleEditor>
-      <p v-else class="text-secondary">{{ $t('article.editor.selectArticle') }}</p>
+    <div v-else class="flex flex-col items-start gap-3">
+      <p class="text-red-400">{{ $t('article.editor.loadFailed') }}</p>
+      <router-link to="/article/editor" class="rounded-full border border-dotted px-3 py-1">
+        {{ $t('article.editor.backToList') }}
+      </router-link>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, useTemplateRef } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { computed, onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-import ArticleList from '@/components/editor/article/ArticleList.vue'
 import ArticleEditor from '@/components/editor/article/ArticleEditor.vue'
 import { isLocalEnvironment } from '@/helpers/environment'
 
-const { t } = useI18n()
-
+const route = useRoute()
+const router = useRouter()
 const authorized = ref(false)
-const editor_dirty = ref(false)
-const selected = ref('')
-const list = useTemplateRef<InstanceType<typeof ArticleList>>('list')
+
+const uri = computed(() => {
+  const value = route.params.uri
+
+  if (typeof value === 'string') return value
+  if (Array.isArray(value)) return value[0] || ''
+
+  return ''
+})
+
+function onSaved(value: string): void {
+  if (value === uri.value) return
+
+  router.replace({ path: `/article/editor/${value}`, query: route.query })
+}
 
 onMounted(() => {
   if (!isLocalEnvironment() && !sessionStorage.getItem('jwt_token')) {
@@ -46,29 +45,4 @@ onMounted(() => {
 
   authorized.value = true
 })
-
-function openArticle(uri: string): void {
-  if (uri === selected.value) return
-  if (editor_dirty.value && !window.confirm(t('article.editor.confirmDiscard'))) return
-
-  editor_dirty.value = false
-  selected.value = uri
-}
-
-function onSaved(uri: string): void {
-  if (uri !== selected.value) selected.value = uri
-
-  list.value?.refresh()
-}
-
-function onUnpublished(uri: string): void {
-  list.value?.refresh()
-}
-
-function onDeleted(uri: string): void {
-  if (selected.value !== uri) return
-
-  selected.value = ''
-  editor_dirty.value = false
-}
 </script>

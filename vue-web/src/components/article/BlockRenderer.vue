@@ -1,7 +1,11 @@
 <template>
   <div class="flex flex-col gap-6">
-    <template v-for="block in $props.blocks" :key="block.id">
-      <MarkdownBlock v-if="block.type === 'markdown'" :block="block"></MarkdownBlock>
+    <div v-for="block in $props.blocks" :key="block.id" :data-block-id="block.id">
+      <MarkdownBlock
+        v-if="block.type === 'markdown'"
+        :block="block"
+        :eager="$props.eager"
+      ></MarkdownBlock>
       <ImageBlock v-else-if="block.type === 'image'" :block="block"></ImageBlock>
       <MusicBlock v-else-if="block.type === 'music'" :block="block"></MusicBlock>
       <ExcalidrawBlock
@@ -11,7 +15,7 @@
         :uri="$props.uri"
         :draft="$props.draft"
       ></ExcalidrawBlock>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -23,6 +27,7 @@ interface Props {
   uri: string
   draft?: boolean
   version?: string | number
+  eager?: boolean
 }
 
 const $props = defineProps<Props>()

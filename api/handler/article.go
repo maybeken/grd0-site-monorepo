@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math"
 	"net/http"
 	"net/url"
 	"path"
@@ -150,6 +151,22 @@ func (h *Handler) resolveArticleAuthor(c echo.Context) (*schema.Author, error) {
 
 func validArticleUri(uri string) bool {
 	return articleUriRegex.MatchString(uri)
+}
+
+func generateArticleUri(db *gorm.DB) (string, error) {
+	for attempt := 0; attempt < 5; attempt++ {
+		candidate := "untitled-" + uuid.NewString()[:8]
+
+		var existing int64
+		if err := db.Model(&schema.Article{}).Where("uri = ?", candidate).Count(&existing).Error; err != nil {
+			return "", err
+		}
+		if existing == 0 {
+			return candidate, nil
+		}
+	}
+
+	return "", fmt.Errorf("unable to allocate a temporary article URI")
 }
 
 func validArticleScenePath(scene_path string) bool {
@@ -368,11 +385,20 @@ func (h *Handler) GetArticleDraft(c echo.Context) error {
 }
 
 func (h *Handler) GetArticleByAdmin(c echo.Context) error {
+	page, pageSize := parsePagination(c)
+
+	var total int64
+	if err := h.DB.Model(&schema.Article{}).Count(&total).Error; err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
 	var articles []schema.Article
 	if err := h.DB.
 		Select("id", "created_at", "updated_at", "uri", "author_id", "title", "sub_title", "summary", "cover", "published_at").
 		Preload("Author").
 		Order("updated_at DESC").
+		Offset((page - 1) * pageSize).
+		Limit(pageSize).
 		Find(&articles).Error; err != nil {
 		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 	}
@@ -382,7 +408,13 @@ func (h *Handler) GetArticleByAdmin(c echo.Context) error {
 		entries = append(entries, articleListEntry(&articles[idx]))
 	}
 
-	return c.JSON(http.StatusOK, entries)
+	return c.JSON(http.StatusOK, schema.PaginatedResponse[ArticleListEntry]{
+		Data:       entries,
+		Total:      int(total),
+		Page:       page,
+		PageSize:   pageSize,
+		TotalPages: int(math.Ceil(float64(total) / float64(pageSize))),
+	})
 }
 
 func (h *Handler) CreateArticle(c echo.Context) error {
@@ -391,8 +423,17 @@ func (h *Handler) CreateArticle(c echo.Context) error {
 		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
 	}
 
-	uri := strings.TrimSpace(req.Uri)
-	if !validArticleUri(uri) {
+	db := h.DB
+
+	requested_uri := strings.TrimSpace(req.Uri)
+	uri := requested_uri
+	if uri == "" {
+		generated, err := generateArticleUri(db)
+		if err != nil {
+			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+		}
+		uri = generated
+	} else if !validArticleUri(uri) {
 		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "URI must match [a-z0-9-]+.")
 	}
 
@@ -401,13 +442,14 @@ func (h *Handler) CreateArticle(c echo.Context) error {
 		return h.ErrorResponseConstructor(c, http.StatusUnauthorized, err.Error())
 	}
 
-	db := h.DB
-
 	var existing int64
 	if err := db.Model(&schema.Article{}).Where("uri = ?", uri).Count(&existing).Error; err != nil {
 		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 	}
 	if existing > 0 {
+		if requested_uri == "" {
+			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, "Could not allocate a temporary article URI.")
+		}
 		return h.ErrorResponseConstructor(c, http.StatusConflict, "An article with this URI already exists.")
 	}
 
@@ -423,6 +465,9 @@ func (h *Handler) CreateArticle(c echo.Context) error {
 
 	if err := db.Omit(clause.Associations).Create(&article).Error; err != nil {
 		if errors.Is(err, gorm.ErrDuplicatedKey) {
+			if requested_uri == "" {
+				return h.ErrorResponseConstructor(c, http.StatusInternalServerError, "Could not allocate a temporary article URI.")
+			}
 			return h.ErrorResponseConstructor(c, http.StatusConflict, "An article with this URI already exists.")
 		}
 		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())

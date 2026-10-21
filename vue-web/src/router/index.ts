@@ -78,6 +78,15 @@ const router = createRouter({
         title: 'router.articleEditor',
         requiresAuth: true
       },
+      component: () => import('@/views/ArticleEditorListView.vue')
+    },
+    {
+      path: '/article/editor/:uri',
+      name: 'Article Editor Workspace',
+      meta: {
+        title: 'router.articleEditor',
+        requiresAuth: true
+      },
       component: () => import('@/views/ArticleEditorView.vue')
     },
     {
@@ -156,15 +165,13 @@ const router = createRouter({
           path: 'auth/callback',
           name: 'callback',
           component: {},
-          beforeEnter(to, from, next) {
+          beforeEnter(to, from) {
             if (!to.query.token || typeof to.query.token !== 'string') {
-              next({ name: 'login' })
-              return
+              return { name: 'login' }
             }
 
             if (!to.query.refresh || typeof to.query.refresh !== 'string') {
-              next({ name: 'login' })
-              return
+              return { name: 'login' }
             }
 
             const token = to.query.token
@@ -174,7 +181,7 @@ const router = createRouter({
             sessionStorage.setItem('jwt_token', token)
             sessionStorage.setItem('refresh_token', refresh)
             sessionStorage.setItem('jwt_expires', String(expires_at))
-            next({ path: '/' })
+            return { path: '/' }
           }
         }
       ]
@@ -228,7 +235,7 @@ router.afterEach((to, from) => {
   })
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, from) => {
   const name = to.name
   const params = to.params
   const title = to.meta.title
@@ -267,7 +274,7 @@ router.beforeEach(async (to, from, next) => {
     to.meta.titleSuffix = album ?? ''
   }
 
-  next()
+  return
 })
 
 export default router

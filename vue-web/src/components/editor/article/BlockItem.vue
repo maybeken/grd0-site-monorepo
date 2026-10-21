@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col gap-2 rounded-xl border border-dotted p-3">
+  <div
+    class="flex flex-col gap-2 rounded-xl border border-dotted p-3"
+    :class="$props.active ? 'border-accent' : ''"
+  >
     <div class="flex items-center justify-between gap-2">
       <span class="text-sm text-secondary">{{ $t(labelKey) }}</span>
 
@@ -19,6 +22,13 @@
           @click="$emit('move-down')"
         >
           <Icon icon="mynaui:arrow-down" height="1.25rem"></Icon>
+        </button>
+        <button
+          class="rounded-full border border-dotted p-1"
+          :title="$t('article.editor.duplicateBlock')"
+          @click="$emit('duplicate')"
+        >
+          <Icon icon="mynaui:copy" height="1.25rem"></Icon>
         </button>
         <button
           class="rounded-full border border-dotted p-1"
@@ -43,10 +53,11 @@ interface Props {
   type: ArticleBlockType
   index: number
   count: number
+  active?: boolean
 }
 
 const $props = defineProps<Props>()
-const $emit = defineEmits(['move-up', 'move-down', 'remove'])
+const $emit = defineEmits(['move-up', 'move-down', 'duplicate', 'remove'])
 
 const labels: Record<ArticleBlockType, string> = {
   markdown: 'article.editor.blockMarkdown',

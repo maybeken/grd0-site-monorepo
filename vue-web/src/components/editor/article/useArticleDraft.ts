@@ -1,13 +1,7 @@
 import { computed, ref } from 'vue'
-import { invalidateCache } from 'alova'
 
-import { isArticle } from '@/helpers/article'
-import {
-  createArticleRaw,
-  getArticleDraftRaw,
-  listArticlesAdminRaw,
-  updateArticleRaw
-} from '@/services/article'
+import { errorStatus, isArticle } from '@/helpers/article'
+import { createArticleRaw, getArticleDraftRaw, updateArticleRaw } from '@/services/article'
 
 import type { Article, ArticleBlock } from '@/interfaces/Article'
 
@@ -15,18 +9,6 @@ export type DraftError = 'load' | 'create' | 'save' | ''
 
 function cloneBlocks(blocks: ArticleBlock[]): ArticleBlock[] {
   return JSON.parse(JSON.stringify(blocks || [])) as ArticleBlock[]
-}
-
-async function uriExists(uri: string): Promise<boolean> {
-  try {
-    await invalidateCache()
-    const entries = await listArticlesAdminRaw().send()
-    if (!Array.isArray(entries)) return false
-
-    return entries.some((entry) => entry.uri === uri)
-  } catch {
-    return false
-  }
 }
 
 export function useArticleDraft() {
@@ -110,17 +92,16 @@ export function useArticleDraft() {
     conflict.value = false
 
     try {
-      const response = await createArticleRaw({ uri: target }).send()
+      const response = await createArticleRaw(target ? { uri: target } : {}).send()
       if (!isArticle(response)) {
-        conflict.value = await uriExists(target)
-        if (!conflict.value) error.value = 'create'
+        error.value = 'create'
         return false
       }
 
       apply(response)
       return true
-    } catch {
-      conflict.value = await uriExists(target)
+    } catch (failure) {
+      conflict.value = errorStatus(failure) === 409
       if (!conflict.value) error.value = 'create'
       return false
     } finally {
@@ -147,19 +128,14 @@ export function useArticleDraft() {
       }).send()
 
       if (!isArticle(response)) {
-        if (uri.value !== previous_uri && (await uriExists(uri.value))) {
-          conflict.value = true
-          uri.value = previous_uri
-        } else {
-          error.value = 'save'
-        }
+        error.value = 'save'
         return false
       }
 
       apply(response)
       return true
-    } catch {
-      if (uri.value !== previous_uri && (await uriExists(uri.value))) {
+    } catch (failure) {
+      if (uri.value !== previous_uri && errorStatus(failure) === 409) {
         conflict.value = true
         uri.value = previous_uri
       } else {
