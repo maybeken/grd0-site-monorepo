@@ -18,6 +18,10 @@ The public article index SHALL list published articles with their title, subtitl
 #### Scenario: Cover shown when present
 - **WHEN** a listed article has a cover
 - **THEN** the index SHALL display the cover image
+- **WHEN** the cover is a relative asset path
+- **THEN** the index SHALL request it through the CDN resizing helper
+- **WHEN** the cover is an absolute URL
+- **THEN** the index SHALL render it directly without applying the CDN transform
 - **WHEN** a listed article has no cover
 - **THEN** the index SHALL render the entry without an image
 
@@ -51,16 +55,41 @@ The sitemap SHALL include published article URLs and SHALL NOT include legacy bl
 
 ### Requirement: Article page
 
-The public article page SHALL resolve a published article by URI and render its header and blocks in stored order.
+The public article page SHALL resolve an article by URI regardless of publish state and render its header and blocks in stored order.
 
 #### Scenario: Published article resolves
 - **WHEN** a reader opens a URI whose article is published
 - **THEN** the page SHALL show the title, subtitle, author, and timestamps
 - **THEN** the blocks SHALL be rendered in their stored order
 
+#### Scenario: Draft article resolves
+- **WHEN** a reader opens the URI of an article with no publish timestamp
+- **THEN** the page SHALL render the article and its blocks instead of the not-found state
+
+#### Scenario: Scheduled article resolves
+- **WHEN** a reader opens the URI of an article whose publish timestamp is in the future
+- **THEN** the page SHALL render the article and its blocks instead of the not-found state
+
 #### Scenario: Unknown or unpublished URI
-- **WHEN** a reader opens a URI with no published article
+- **WHEN** a reader opens a URI that no article uses
 - **THEN** the page SHALL show the not-found state
+- **THEN** a URI whose article is unpublished SHALL NOT show the not-found state
+
+### Requirement: Unpublished article notice
+
+The public article page SHALL display a notice when the article is not published yet, meaning its publish timestamp is absent or in the future. The notice MUST state that the article is unpublished.
+
+#### Scenario: Draft article notice
+- **WHEN** a reader opens the URI of an article with no publish timestamp
+- **THEN** the page SHALL show a notice that the article is not published yet
+
+#### Scenario: Scheduled article notice
+- **WHEN** a reader opens the URI of an article whose publish timestamp is in the future
+- **THEN** the page SHALL show a notice that the article is not published yet
+
+#### Scenario: Published article has no notice
+- **WHEN** a reader opens the URI of an article whose publish timestamp is in the past
+- **THEN** the page SHALL NOT show the not-published notice
 
 ### Requirement: Markdown block rendering
 
@@ -77,16 +106,61 @@ Markdown blocks SHALL be rendered through the existing sanitised markdown pipeli
 
 ### Requirement: Image block rendering
 
-An image block SHALL display its gallery asset at a readable size, with its caption when present.
+An image block SHALL display its gallery asset at a readable size and SHALL show its caption, when present, using the same presentation as a markdown blockquote. A lone image block SHALL occupy the full content width; consecutive image blocks SHALL be presented as one image grid rather than stacked full-width blocks.
 
 #### Scenario: Gallery asset displayed
 - **WHEN** an article contains an image block
 - **THEN** the image SHALL be loaded from the gallery collection and filename in the block
 - **THEN** the caption SHALL be shown when present
 
+#### Scenario: Caption presentation
+- **WHEN** an image block has a caption
+- **THEN** the caption SHALL use the markdown blockquote presentation, including its filled background, rounded corners, and centered secondary text
+
+#### Scenario: Caption absent
+- **WHEN** an image block has no caption
+- **THEN** the block SHALL render without caption space
+
+#### Scenario: Lone image keeps full width
+- **WHEN** an image block is not adjacent to another image block
+- **THEN** the image SHALL occupy the full content width
+
 #### Scenario: Asset no longer available
 - **WHEN** the referenced gallery asset cannot be loaded
 - **THEN** the article SHALL continue rendering the remaining blocks
+
+### Requirement: Image sequence grouping
+
+The article page SHALL present consecutive images from the same source as one grid. Markdown images group only with markdown images; gallery image blocks group only with gallery image blocks. Adjacent images of different sources MUST NOT share a grid, and a run of one image SHALL keep its full-width presentation. Non-image content, including text, headings, and horizontal rules, SHALL end a markdown run.
+
+#### Scenario: Consecutive gallery image blocks
+- **WHEN** two or more image blocks are adjacent
+- **THEN** they SHALL render as one image grid
+- **THEN** each image SHALL load from its own gallery asset
+
+#### Scenario: Grid geometry matches markdown
+- **WHEN** images render in a grid
+- **THEN** the grid SHALL use the same layout as markdown image sequences, including the same cell sizing and the same handling of the final row
+
+#### Scenario: Consecutive markdown image paragraphs
+- **WHEN** a markdown block contains two or more image-only paragraphs in sequence, including when they are separated by blank lines
+- **THEN** their images SHALL render as one image grid
+
+#### Scenario: Markdown images in one paragraph
+- **WHEN** a markdown paragraph contains multiple images
+- **THEN** those images SHALL render as one image grid
+
+#### Scenario: Text ends a markdown run
+- **WHEN** text, a heading, or a horizontal rule appears between markdown images
+- **THEN** the images before and after that content SHALL NOT share a grid
+
+#### Scenario: Mixed sources stay separate
+- **WHEN** a gallery image block is adjacent to a markdown image
+- **THEN** the two images SHALL NOT share a grid
+
+#### Scenario: Failure inside a grid
+- **WHEN** one image in a grid cannot be loaded
+- **THEN** the remaining images SHALL stay in the grid and the article SHALL continue rendering
 
 ### Requirement: Music block rendering
 

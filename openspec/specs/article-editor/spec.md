@@ -155,8 +155,8 @@ The editing page SHALL show the article's URI, publication state, and publishing
 - **THEN** the sidebar SHALL show the publish timestamp and whether the article is a draft, scheduled, or published
 
 #### Scenario: Public link
-- **WHEN** the article is published
-- **THEN** the sidebar SHALL offer a link to its public page
+- **WHEN** the workspace is open
+- **THEN** the sidebar SHALL offer a link to the article's public page regardless of its publication state
 
 #### Scenario: Copy link
 - **WHEN** the article has a publish date
@@ -267,12 +267,26 @@ An image block SHALL be authored by selecting an existing gallery asset and MAY 
 
 ### Requirement: Music block authoring
 
-A music block SHALL be authored by selecting a song from the existing music catalogue, and SHALL snapshot the song's title and artist into the block.
+A music block SHALL be authored either by selecting a song from the existing music catalogue or by entering a YouTube link, and SHALL snapshot the song's video identifier, title, and artist into the block. The YouTube link form SHALL accept a bare video identifier or a link in the watch, `youtu.be`, `embed`, `shorts`, or `live` form, including `music.youtube.com` and `youtube-nocookie.com` hosts.
 
 #### Scenario: Select a song
 - **WHEN** the author opens the music picker
 - **THEN** the picker SHALL list the songs available from the music catalogue
 - **THEN** choosing a song SHALL store its video identifier, title, and artist in the block
+
+#### Scenario: Author from a YouTube link
+- **WHEN** the author pastes a YouTube link into the music picker and confirms it
+- **THEN** the picker SHALL extract the video identifier from the link
+- **THEN** the picker SHALL resolve the video's title and artist
+- **THEN** confirming SHALL store the video identifier, title, and artist in the block
+
+#### Scenario: Unsupported link
+- **WHEN** the author confirms text that is not a recognised YouTube link
+- **THEN** the picker SHALL report the error and leave the block unchanged
+
+#### Scenario: Link cannot be resolved
+- **WHEN** the video behind a valid YouTube link cannot be read
+- **THEN** the picker SHALL report the error and leave the block unchanged
 
 #### Scenario: Catalogue entry changes later
 - **WHEN** a selected song's title changes in the music catalogue after the article is saved
