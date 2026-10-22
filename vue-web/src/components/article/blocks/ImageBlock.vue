@@ -12,7 +12,7 @@
       @error="failed = true"
     ></CDNImage>
 
-    <figcaption v-if="$props.block.caption" class="text-center text-sm text-secondary">
+    <figcaption v-if="$props.block.caption" class="article-caption">
       {{ $props.block.caption }}
     </figcaption>
   </figure>

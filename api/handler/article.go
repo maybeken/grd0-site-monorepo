@@ -31,7 +31,10 @@ const (
 	DEFAULT_ARTICLE_SCENE_MAX_BYTE = 5 * 1024 * 1024
 )
 
-var articleUriRegex = regexp.MustCompile(ARTICLE_URI_PATTERN)
+var (
+	articleUriRegex    = regexp.MustCompile(ARTICLE_URI_PATTERN)
+	markdownImageRegex = regexp.MustCompile(`!\[[^\]]*\]\(\s*<?([^)\s>]+)>?`)
+)
 
 type ArticleRequest struct {
 	Uri                string                `json:"uri"`
@@ -249,12 +252,51 @@ func deriveArticleSummary(blocks []schema.ArticleBlock) string {
 
 func deriveArticleCover(blocks []schema.ArticleBlock) string {
 	for _, block := range blocks {
-		if block.Type == "image" {
+		switch block.Type {
+		case "image":
 			return strings.TrimRight(block.Collection, "/") + "/" + block.Filename
+		case "markdown":
+			if cover := firstMarkdownImage(block.Md); cover != "" {
+				return cover
+			}
 		}
 	}
 
 	return ""
+}
+
+func firstMarkdownImage(md string) string {
+	for _, match := range markdownImageRegex.FindAllStringSubmatch(md, -1) {
+		src := match[1]
+		if src == "" {
+			continue
+		}
+
+		return normalizeMarkdownImageSrc(src)
+	}
+
+	return ""
+}
+
+func normalizeMarkdownImageSrc(src string) string {
+	if !strings.Contains(src, "//") {
+		return src
+	}
+
+	parsed, err := url.Parse(src)
+	if err != nil {
+		return src
+	}
+
+	image_path := parsed.Path
+	if idx := strings.Index(image_path, "/cdn-cgi/image/"); idx >= 0 {
+		rest := image_path[idx+len("/cdn-cgi/image/"):]
+		if slash := strings.Index(rest, "/"); slash >= 0 {
+			return rest[slash:]
+		}
+	}
+
+	return src
 }
 
 func articleBlocks(article *schema.Article) []schema.ArticleBlock {
@@ -281,27 +323,22 @@ func articleResponse(article *schema.Article) ArticleResponse {
 }
 
 func articleListEntry(article *schema.Article) ArticleListEntry {
+	cover := article.Cover
+	if cover == "" {
+		cover = deriveArticleCover(articleBlocks(article))
+	}
+
 	return ArticleListEntry{
 		Uri:         article.Uri,
 		Author:      article.Author,
 		Title:       article.Title,
 		SubTitle:    article.SubTitle,
 		Summary:     article.Summary,
-		Cover:       article.Cover,
+		Cover:       cover,
 		CreatedAt:   article.CreatedAt,
 		UpdatedAt:   article.UpdatedAt,
 		PublishedAt: article.PublishedAt,
 	}
-}
-
-func (h *Handler) findPublishedArticle(uri string) (*schema.Article, error) {
-	var article schema.Article
-	err := h.DB.
-		Preload("Author").
-		Where("uri = ? AND published_at IS NOT NULL AND published_at <= ?", uri, time.Now()).
-		Take(&article).Error
-
-	return &article, err
 }
 
 func (h *Handler) findArticle(uri string) (*schema.Article, error) {
@@ -343,7 +380,7 @@ func (h *Handler) GetArticle(c echo.Context) error {
 	uri := c.Param("uri")
 
 	if uri != "" {
-		article, err := h.findPublishedArticle(uri)
+		article, err := h.findArticle(uri)
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return c.JSON(http.StatusNotFound, "")
 		} else if err != nil {
@@ -355,7 +392,7 @@ func (h *Handler) GetArticle(c echo.Context) error {
 
 	var articles []schema.Article
 	if err := h.DB.
-		Select("id", "created_at", "updated_at", "uri", "author_id", "title", "sub_title", "summary", "cover", "published_at").
+		Select("id", "created_at", "updated_at", "uri", "author_id", "title", "sub_title", "summary", "cover", "blocks", "published_at").
 		Where("published_at IS NOT NULL AND published_at <= ?", time.Now()).
 		Preload("Author").
 		Order("published_at DESC").
@@ -394,7 +431,7 @@ func (h *Handler) GetArticleByAdmin(c echo.Context) error {
 
 	var articles []schema.Article
 	if err := h.DB.
-		Select("id", "created_at", "updated_at", "uri", "author_id", "title", "sub_title", "summary", "cover", "published_at").
+		Select("id", "created_at", "updated_at", "uri", "author_id", "title", "sub_title", "summary", "cover", "blocks", "published_at").
 		Preload("Author").
 		Order("updated_at DESC").
 		Offset((page - 1) * pageSize).
@@ -651,19 +688,14 @@ func (h *Handler) PutArticleScene(c echo.Context) error {
 	return c.JSON(http.StatusOK, ArticleSceneResponse{ScenePath: key})
 }
 
-func (h *Handler) serveArticleScene(c echo.Context, published_only bool) error {
+func (h *Handler) serveArticleScene(c echo.Context) error {
 	uri := c.Param("uri")
 	scene_id, err := uuid.Parse(c.Param("sid"))
 	if err != nil {
 		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Scene identifier must be a UUID.")
 	}
 
-	var article *schema.Article
-	if published_only {
-		article, err = h.findPublishedArticle(uri)
-	} else {
-		article, err = h.findArticle(uri)
-	}
+	article, err := h.findArticle(uri)
 
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return c.JSON(http.StatusNotFound, "")
@@ -690,11 +722,11 @@ func (h *Handler) serveArticleScene(c echo.Context, published_only bool) error {
 }
 
 func (h *Handler) GetArticleScene(c echo.Context) error {
-	return h.serveArticleScene(c, true)
+	return h.serveArticleScene(c)
 }
 
 func (h *Handler) GetArticleSceneDraft(c echo.Context) error {
-	return h.serveArticleScene(c, false)
+	return h.serveArticleScene(c)
 }
 
 func (h *Handler) DeleteArticleScene(c echo.Context) error {

@@ -7,7 +7,7 @@
   --color-background: var(--color-neutral-950);
   --color-foreground: var(--color-neutral-100);
   --color-shade: var(--color-neutral-900);
-  --color-secondary: var(--color-neutral-400);
+  --color-secondary: var(--color-neutral-100);
   --color-accent: var(--color-neutral-600);
 }
 
@@ -16,7 +16,7 @@ body {
 }
 
 h1 {
-  @apply text-2xl md:text-4xl;
+  @apply text-2xl md:text-5xl;
 }
 
 h2 {
@@ -29,12 +29,14 @@ button {
 
 .markdown,
 .markdown * {
+  @apply text-xl;
+
   h1 {
-    @apply text-2xl font-bold mt-8;
+    @apply text-4xl font-bold mt-8;
   }
 
   h2 {
-    @apply text-xl font-bold mt-8;
+    @apply text-3xl font-bold mt-8;
   }
 
   a {
@@ -50,7 +52,11 @@ button {
   }
 
   blockquote {
-    @apply bg-accent px-4 py-2 text-sm rounded-xl text-secondary text-center mb-4;
+    p {
+      @apply text-base;
+    }
+
+    @apply mb-4;
   }
 
   img {
@@ -64,6 +70,27 @@ button {
   p:has(img) {
     @apply flex flex-wrap gap-2;
   }
+}
+
+.markdown blockquote,
+.article-caption {
+  @apply bg-accent px-4 py-2 rounded-xl text-secondary text-center;
+}
+
+.image-grid {
+  @apply flex flex-wrap gap-2;
+}
+
+.image-grid > img {
+  @apply rounded-xl grow object-cover w-[32%];
+}
+
+.image-grid > figure {
+  @apply grow w-[32%];
+}
+
+.image-grid > figure > img {
+  @apply rounded-xl w-full object-cover;
 }
 
 .ol-layer {

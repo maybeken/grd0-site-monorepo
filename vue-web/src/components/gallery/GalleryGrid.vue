@@ -1,6 +1,6 @@
 <template>
   <GalleryZoom v-if="zoom_uri" :uri="zoom_uri" @close="zoom_uri = ''"></GalleryZoom>
-  <template v-if="loading && asset_list.length === 0">
+  <template v-else-if="loading && asset_list.length === 0">
     <GalleryCard v-for="i in 10" :loading="true"></GalleryCard>
   </template>
   <template v-else>

@@ -40,6 +40,7 @@ declare module 'vue' {
     IdkToggle: typeof import('./src/components/coffee/IdkToggle.vue')['default']
     ImageBlock: typeof import('./src/components/article/blocks/ImageBlock.vue')['default']
     ImageBlockEditor: typeof import('./src/components/editor/article/blocks/ImageBlockEditor.vue')['default']
+    ImageGrid: typeof import('./src/components/article/blocks/ImageGrid.vue')['default']
     MarkdownBlock: typeof import('./src/components/article/blocks/MarkdownBlock.vue')['default']
     MarkdownBlockEditor: typeof import('./src/components/editor/article/blocks/MarkdownBlockEditor.vue')['default']
     MarkdownDisplay: typeof import('./src/components/shared/MarkdownDisplay.vue')['default']

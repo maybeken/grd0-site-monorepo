@@ -65,7 +65,6 @@
     </div>
 
     <router-link
-      v-if="saved_status === 'published'"
       :to="`/article/${$props.article.uri}`"
       target="_blank"
       class="rounded-full border border-dotted px-3 py-1 text-center text-sm"
@@ -136,12 +135,6 @@ const status_keys = {
 } as const
 
 const status_label = computed(() => t(status_keys[status.value]))
-
-const saved_status = computed(() => {
-  if (!$props.article.published_at) return 'draft'
-
-  return dayjs($props.article.published_at).isAfter(dayjs()) ? 'scheduled' : 'published'
-})
 
 function formatDate(value: string): string {
   return dayjs(value).format('LLL')

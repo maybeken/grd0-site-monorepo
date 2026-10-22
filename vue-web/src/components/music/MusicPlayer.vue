@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col" :class="$props.variant === 'compact' ? 'gap-3' : 'gap-2'">
     <div class="hidden">
       <YouTubeEmbed
         :v="$props.v"
@@ -11,45 +11,84 @@
       ></YouTubeEmbed>
     </div>
 
-    <div v-if="$props.v" class="flex place-content-center">
-      <img
-        class="rounded-xl w-full md:w-1/2 lg:w-1/3 aspect-square object-cover"
-        :src="`https://i.ytimg.com/vi_webp/${$props.v}/maxresdefault.webp`"
-        loading="lazy"
-      />
-    </div>
+    <template v-if="$props.variant === 'compact'">
+      <div class="flex items-center gap-3 sm:gap-4">
+        <img
+          v-if="$props.v"
+          class="h-16 w-16 shrink-0 rounded-lg object-cover sm:h-22 sm:w-22"
+          :src="`https://i.ytimg.com/vi_webp/${$props.v}/maxresdefault.webp`"
+          loading="lazy"
+        />
 
-    <div class="flex flex-col text-center place-content-center">
-      <p class="text-xl font-black">{{ displayTitle }}</p>
-      <p class="text-lg">{{ displayArtist }}</p>
-    </div>
+        <div class="flex min-w-0 flex-1 flex-col">
+          <p class="truncate text-base font-black sm:text-lg">{{ displayTitle }}</p>
+          <p class="truncate text-sm text-secondary">{{ displayArtist }}</p>
+        </div>
 
-    <div class="flex place-content-center">
+        <div class="hidden shrink-0 text-sm text-secondary tabular-nums sm:block">
+          {{ formatCompactTime(current_time) }} / {{ formatCompactTime(duration) }}
+        </div>
+
+        <button
+          class="h-10 w-10 shrink-0 rounded-full px-2 border border-white border-dotted bg-black z-10 disabled:brightness-50 sm:h-12 sm:w-12"
+          :disabled="loading || !$props.v"
+          @click="togglePlay"
+        >
+          <Icon class="mx-auto" v-if="!play" icon="mynaui:play" height="1.5rem"></Icon>
+          <Icon class="mx-auto" v-else icon="mynaui:pause" height="1.5rem"></Icon>
+        </button>
+      </div>
+
       <MusicProgressBar
         :progress="current_time"
         :duration="duration"
         @seek="seekTo"
       ></MusicProgressBar>
-    </div>
+    </template>
 
-    <div class="flex place-content-center">
-      <div>{{ convertToTimeFormat(current_time) }} / {{ convertToTimeFormat(duration) }}</div>
-    </div>
+    <template v-else>
+      <div v-if="$props.v" class="flex place-content-center">
+        <img
+          class="rounded-xl w-full md:w-1/2 lg:w-1/3 aspect-square object-cover"
+          :src="`https://i.ytimg.com/vi_webp/${$props.v}/maxresdefault.webp`"
+          loading="lazy"
+        />
+      </div>
 
-    <div class="flex place-content-center">
-      <slot name="previous"></slot>
-      <button
-        class="h-18 w-18 rounded-full px-2 border border-white border-dotted bg-black z-10 disabled:brightness-50"
-        :disabled="loading || !$props.v"
-        @click="togglePlay"
-      >
-        <div class="w-full">
-          <Icon class="mx-auto" v-if="!play" icon="mynaui:play" height="2.5rem"></Icon>
-          <Icon class="mx-auto" v-else icon="mynaui:pause" height="2.5rem"></Icon>
+      <div class="flex flex-col text-center place-content-center">
+        <p class="text-xl font-black">{{ displayTitle }}</p>
+        <p class="text-lg">{{ displayArtist }}</p>
+      </div>
+
+      <div class="flex place-content-center">
+        <div class="w-full md:w-1/2 lg:w-1/3">
+          <MusicProgressBar
+            :progress="current_time"
+            :duration="duration"
+            @seek="seekTo"
+          ></MusicProgressBar>
         </div>
-      </button>
-      <slot name="next"></slot>
-    </div>
+      </div>
+
+      <div class="flex place-content-center">
+        <div>{{ convertToTimeFormat(current_time) }} / {{ convertToTimeFormat(duration) }}</div>
+      </div>
+
+      <div class="flex place-content-center">
+        <slot name="previous"></slot>
+        <button
+          class="h-18 w-18 rounded-full px-2 border border-white border-dotted bg-black z-10 disabled:brightness-50"
+          :disabled="loading || !$props.v"
+          @click="togglePlay"
+        >
+          <div class="w-full">
+            <Icon class="mx-auto" v-if="!play" icon="mynaui:play" height="2.5rem"></Icon>
+            <Icon class="mx-auto" v-else icon="mynaui:pause" height="2.5rem"></Icon>
+          </div>
+        </button>
+        <slot name="next"></slot>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -64,9 +103,10 @@ interface Props {
   v: string
   title?: string
   artist?: string
+  variant?: 'full' | 'compact'
 }
 
-const $props = defineProps<Props>()
+const $props = withDefaults(defineProps<Props>(), { variant: 'full' })
 const $emit = defineEmits(['ended'])
 
 const play = ref(false)
@@ -123,6 +163,19 @@ function convertToTimeFormat(seconds: number): string {
   const hour_str = `${hour}`.padStart(2, '0')
 
   return `${hour_str}:${minute_str}:${second_str}`
+}
+
+function formatCompactTime(seconds: number): string {
+  const rounded = Math.round(seconds || 0)
+
+  const second = rounded % 60
+  const minute = Math.floor(rounded / 60) % 60
+  const hour = Math.floor(rounded / 3600)
+
+  const second_str = `${second}`.padStart(2, '0')
+  const minute_str = `${minute}`.padStart(2, '0')
+
+  return hour > 0 ? `${hour}:${minute_str}:${second_str}` : `${minute}:${second_str}`
 }
 
 function seekTo(percentage: number): void {

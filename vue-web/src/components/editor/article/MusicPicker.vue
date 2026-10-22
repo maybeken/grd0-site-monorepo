@@ -7,6 +7,27 @@
       </button>
     </div>
 
+    <form class="flex flex-col gap-2" @submit.prevent="useLink">
+      <div class="flex flex-col gap-2 sm:flex-row">
+        <input
+          v-model="link"
+          class="grow rounded-full border border-dotted bg-background px-3 py-1"
+          type="text"
+          inputmode="url"
+          :aria-label="$t('article.editor.youtubeLinkPlaceholder')"
+          :placeholder="$t('article.editor.youtubeLinkPlaceholder')"
+        />
+        <button
+          class="rounded-full border border-dotted px-3 py-1 disabled:opacity-50"
+          type="submit"
+          :disabled="resolving || !link.trim()"
+        >
+          {{ resolving ? $t('article.editor.resolvingLink') : $t('article.editor.useLink') }}
+        </button>
+      </div>
+      <p v-if="error" class="text-sm text-secondary">{{ error }}</p>
+    </form>
+
     <p v-if="!loading && (!songs || songs.length === 0)" class="text-sm text-secondary">
       {{ $t('article.editor.noSongs') }}
     </p>
@@ -33,7 +54,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import { getMusic } from '@/services/music'
+
+import { t } from '@/i18n'
 
 import type { Music } from '@/interfaces/Music'
 
@@ -45,6 +70,82 @@ const $emit = defineEmits<{
 const response = getMusic()
 const songs = response.data
 const loading = response.loading
+
+const link = ref('')
+const resolving = ref(false)
+const error = ref('')
+
+const youtube_id = /^[A-Za-z0-9_-]{11}$/
+
+function parseYouTubeId(input: string): string | null {
+  const value = input.trim()
+
+  if (youtube_id.test(value)) return value
+
+  let url: URL
+  try {
+    url = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`)
+  } catch {
+    return null
+  }
+
+  const host = url.hostname.replace(/^(www|m|music)\./, '')
+
+  if (host === 'youtu.be') {
+    const id = url.pathname.split('/').filter(Boolean)[0]
+    return id && youtube_id.test(id) ? id : null
+  }
+
+  if (host !== 'youtube.com' && host !== 'youtube-nocookie.com') return null
+
+  const query_id = url.searchParams.get('v')
+  if (query_id && youtube_id.test(query_id)) return query_id
+
+  const [prefix, id] = url.pathname.split('/').filter(Boolean)
+  const supported = ['embed', 'shorts', 'live']
+  if (supported.includes(prefix ?? '') && id && youtube_id.test(id)) return id
+
+  return null
+}
+
+async function fetchSong(v: string): Promise<{ title: string; artist?: string }> {
+  const query = new URLSearchParams({
+    url: `https://www.youtube.com/watch?v=${v}`,
+    format: 'json'
+  })
+  const response = await fetch(`https://www.youtube.com/oembed?${query}`)
+
+  if (!response.ok) throw new Error('oembed failed')
+
+  const data = (await response.json()) as { title?: string; author_name?: string }
+
+  return {
+    title: data.title?.trim() || v,
+    artist: data.author_name?.trim()
+  }
+}
+
+async function useLink(): Promise<void> {
+  if (resolving.value) return
+
+  const v = parseYouTubeId(link.value)
+  if (!v) {
+    error.value = t('article.editor.invalidYoutubeLink')
+    return
+  }
+
+  resolving.value = true
+  error.value = ''
+
+  try {
+    const song = await fetchSong(v)
+    $emit('select', { v, ...song })
+  } catch {
+    error.value = t('article.editor.youtubeLinkFailed')
+  } finally {
+    resolving.value = false
+  }
+}
 
 function select(song: Music): void {
   $emit('select', { v: song.v, title: song.title, artist: song.artist })

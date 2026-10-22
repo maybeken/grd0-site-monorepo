@@ -38,7 +38,7 @@
       </div>
 
       <div class="relative px-2 py-2">
-        <div class="content text-justify max-h-[66vh] min-h-[24vh] overflow-hidden">
+        <div class="content text-justify overflow-hidden">
           <Skeleton h="md" w="full" :loading="$props.loading">
             <MarkdownDisplay
               :md="$props.entry?.summary ?? ''"
@@ -49,23 +49,22 @@
 
         <div
           v-if="!$props.loading"
-          class="absolute bottom-0 left-0 h-28 w-full z-10 rounded-xl bg-linear-to-t from-background from-33%"
         >
           <router-link :to="`/article/${$props.entry?.uri}`">
-            <div class="flex flex-col-reverse h-28 w-full hover:cursor-pointer hover:underline">
-              <div class="mx-auto my-8">
+            <div class="flex flex-col-reverse w-full hover:cursor-pointer hover:underline">
+              <div class="mx-auto mt-8">
                 <p class="text-xl">{{ $t('article.index.continueReading') }}</p>
               </div>
             </div>
+            
+            <hr class="border-accent my-2" />
           </router-link>
         </div>
       </div>
 
-      <hr class="border-accent my-2" />
-
       <div class="flex justify-end">
         <Skeleton h="sm" w="xl" :loading="$props.loading">
-          <p class="text-accent italic">
+          <p class="text-wihte italic">
             <span v-if="$props.entry?.published_at">
               {{
                 $t('article.header.publishedAt', {

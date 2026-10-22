@@ -1,10 +1,11 @@
 <template>
   <div
-    class="hidden lg:block fixed top-0 left-0 w-screen h-lvh z-50 bg-shade bg-opacity-50 backdrop-blur-xs motion-preset-fade-lg"
+    class="hidden lg:block fixed top-0 left-0 w-screen h-lvh z-50 backdrop-blur-xs motion-preset-fade-lg"
+    @wheel.prevent=""
   >
     <div class="flex w-full h-full" @click="$emit('close')">
       <div
-        class="w-fit h-fit mx-auto my-auto p-4 rounded-2xl bg-shade text-secondary"
+        class="w-fit h-fit mx-auto my-auto p-4 rounded-2xl text-secondary"
         @click="(event) => event.stopImmediatePropagation()"
       >
         <div class="flex flex-row-reverse gap-4">

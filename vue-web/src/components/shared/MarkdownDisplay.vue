@@ -27,6 +27,48 @@ const $props = defineProps<Props>()
 
 const parsedContent = ref('')
 
+const isImageOnlyParagraph = (element: Element) => {
+  if (element.tagName !== 'P') return false
+
+  const children = Array.from(element.children)
+  if (!children.length || !children.every((child) => child.tagName === 'IMG')) return false
+
+  return Array.from(element.childNodes).every(
+    (node) => node.nodeType !== Node.TEXT_NODE || !node.textContent?.trim()
+  )
+}
+
+const mergeImageRuns = (html: string) => {
+  const doc = new DOMParser().parseFromString(html, 'text/html')
+  const elements = Array.from(doc.body.children)
+  let run: Element[] = []
+
+  const flush = () => {
+    if (run.length > 1) {
+      const grid = doc.createElement('div')
+      grid.className = 'image-grid'
+
+      for (const paragraph of run) {
+        while (paragraph.firstChild) grid.appendChild(paragraph.firstChild)
+      }
+
+      run[0].replaceWith(grid)
+      for (const paragraph of run.slice(1)) paragraph.remove()
+    }
+
+    run = []
+  }
+
+  for (const element of elements) {
+    if (isImageOnlyParagraph(element)) run.push(element)
+    else flush()
+  }
+
+  flush()
+
+  return doc.body.innerHTML
+}
+
 const parse2HTML = async (content: string) => {
   const processor = unified()
     .use(remarkParse)
@@ -57,7 +99,7 @@ const parse2HTML = async (content: string) => {
 
   const html = processor.processSync(content)
 
-  return String(html)
+  return mergeImageRuns(String(html))
 }
 
 onMounted(async () => {

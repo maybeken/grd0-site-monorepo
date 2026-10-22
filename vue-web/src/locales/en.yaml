@@ -424,6 +424,11 @@ article:
     msgstr: "Draft"
     msgctxt: "Badge shown when previewing an unpublished article"
 
+  unpublishedNotice:
+    msgid: "article.header.unpublishedNotice"
+    msgstr: "This article is not published yet. Anyone with the link can read it."
+    msgctxt: "Notice shown on the public page of an unpublished or scheduled article"
+
   #. Article block failure states
   #: src/components/article/blocks/ImageBlock.vue
   imageUnavailable:
@@ -678,6 +683,31 @@ article:
     msgid: "article.editor.musicTitle"
     msgstr: "Music"
     msgctxt: "Music picker title"
+
+  youtubeLinkPlaceholder:
+    msgid: "article.editor.youtubeLinkPlaceholder"
+    msgstr: "Paste a YouTube link"
+    msgctxt: "Placeholder for the YouTube link input in the music picker"
+
+  useLink:
+    msgid: "article.editor.useLink"
+    msgstr: "Use link"
+    msgctxt: "Button that selects the video from the pasted YouTube link"
+
+  resolvingLink:
+    msgid: "article.editor.resolvingLink"
+    msgstr: "Loading..."
+    msgctxt: "Button label while the video details are being resolved"
+
+  invalidYoutubeLink:
+    msgid: "article.editor.invalidYoutubeLink"
+    msgstr: "That doesn't look like a YouTube link."
+    msgctxt: "Error when the pasted text is not a YouTube link"
+
+  youtubeLinkFailed:
+    msgid: "article.editor.youtubeLinkFailed"
+    msgstr: "Couldn't load that video. Check the link and try again."
+    msgctxt: "Error when the video behind a YouTube link cannot be read"
 
   loadMore:
     msgid: "article.editor.loadMore"

@@ -2,6 +2,7 @@
   <div class="flex flex-col gap-3">
     <div v-if="$props.block.v" class="flex flex-col gap-2 rounded-xl bg-shade p-3">
       <MusicPlayer
+        variant="compact"
         :v="$props.block.v"
         :title="$props.block.title"
         :artist="$props.block.artist"
@@ -24,6 +25,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+
+import MusicPlayer from '@/components/music/MusicPlayer.vue'
 
 import type { ArticleBlockMusic } from '@/interfaces/Article'
 

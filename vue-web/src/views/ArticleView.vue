@@ -1,5 +1,11 @@
 <template>
-  <div v-if="article" class="flex flex-col gap-6 pb-8">
+  <div v-if="article" class="flex flex-col gap-6 pb-8 px-2 md:px-0">
+    <p
+      v-if="not_published"
+      class="rounded-xl border border-yellow-400 bg-yellow-200 py-3 text-black text-center"
+    >
+      {{ $t('article.header.unpublishedNotice') }}
+    </p>
     <ArticleHeader :article="article"></ArticleHeader>
     <BlockRenderer :blocks="article.blocks" :uri="article.uri"></BlockRenderer>
   </div>
@@ -16,7 +22,9 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import dayjs from 'dayjs'
 
 import { getArticle } from '@/services/article'
 
@@ -33,4 +41,9 @@ if (typeof slug === 'string') {
 const response = getArticle(uri)
 const article = response?.data
 const loading = response?.loading
+
+const not_published = computed(() => {
+  const value = article?.value?.published_at
+  return !value || dayjs(value).isAfter(dayjs())
+})
 </script>

@@ -5,7 +5,7 @@
     </div>
 
     <div class="flex flex-col md:flex-row gap-4">
-      <div class="flex flex-col gap-2 pb-4 w-full md:w-2/3 mx-auto bg-background">
+      <div class="flex flex-col gap-2 pb-4 w-full md:w-2/3 mx-auto">
         <MusicPlayer
           :v="getCurrentSong(current)?.v || ''"
           :title="getCurrentSong(current)?.title"
