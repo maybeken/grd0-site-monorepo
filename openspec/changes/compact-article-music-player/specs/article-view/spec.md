@@ -39,6 +39,12 @@ A music block SHALL render a playable player through the shared player component
 - **THEN** the title and artist SHALL truncate rather than wrap
 - **THEN** the block SHALL keep its horizontal presentation
 
+#### Scenario: Cover artwork fallback
+- **WHEN** the high-resolution cover thumbnail for a song is not available
+- **THEN** the player SHALL request the standard thumbnail instead
+- **THEN** the fallback SHALL apply in both the compact and full presentations
+- **THEN** changing the song SHALL reset the player to the high-resolution thumbnail
+
 #### Scenario: Full presentation on the music page
 - **WHEN** the shared player renders on the music page
 - **THEN** it SHALL keep the full stacked presentation

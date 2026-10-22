@@ -7,6 +7,7 @@ A music block in an article stacks a full-width square cover, title, artist, pro
 ## What Changes
 
 - Article music blocks render a compact, full-width horizontal player: a small square cover, title and artist on one line each, elapsed and total time, a play/pause control, and a progress bar spanning the block.
+- Album artwork requests the high-resolution thumbnail and falls back to the standard thumbnail when the video has no high-resolution version, in both the compact and full presentations.
 - The compact presentation is additive: the music page keeps the existing full stacked player, while the editor's live preview and inline block control both use the compact player.
 - The music picker accepts a YouTube link as well as a catalogue entry. The link is parsed for its video identifier and the video's title and artist are resolved at authoring time, so the stored block shape is unchanged and link-authored blocks render exactly like catalogue entries.
 - Link input accepts a bare video identifier or a link in the watch, `youtu.be`, `embed`, `shorts`, or `live` form, including `music.youtube.com` and `youtube-nocookie.com` hosts.

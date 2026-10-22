@@ -27,6 +27,12 @@
 - [x] 4.5 Add the picker's placeholder, action, loading, and error strings to `vue-web/src/locales/en.yaml` — verify no hard-coded copy remains in the component.
 - [x] 4.6 Run `pnpm type-check` and `pnpm build` in `vue-web` and confirm both succeed.
 
+## 5. Cover artwork fallback
+
+- [x] 5.1 Request `maxresdefault.webp` through a computed cover URL in `MusicPlayer`, swapping to `hqdefault.webp` when the image fails to load — verify a video without a high-resolution thumbnail renders the standard image in both the compact and full presentations.
+- [x] 5.2 Reset the fallback when the song changes — verify selecting another song requests its high-resolution thumbnail first.
+- [x] 5.3 Run `pnpm type-check` and `pnpm build` in `vue-web` and confirm both succeed.
+
 ## Workflow follow-up
 
 - Archive the change after verification is satisfactory.

@@ -16,8 +16,9 @@
         <img
           v-if="$props.v"
           class="h-16 w-16 shrink-0 rounded-lg object-cover sm:h-22 sm:w-22"
-          :src="`https://i.ytimg.com/vi_webp/${$props.v}/maxresdefault.webp`"
+          :src="cover_url"
           loading="lazy"
+          @error="onCoverError"
         />
 
         <div class="flex min-w-0 flex-1 flex-col">
@@ -50,8 +51,9 @@
       <div v-if="$props.v" class="flex place-content-center">
         <img
           class="rounded-xl w-full md:w-1/2 lg:w-1/3 aspect-square object-cover"
-          :src="`https://i.ytimg.com/vi_webp/${$props.v}/maxresdefault.webp`"
+          :src="cover_url"
           loading="lazy"
+          @error="onCoverError"
         />
       </div>
 
@@ -117,6 +119,13 @@ const duration = ref(0)
 const seek = ref(-1)
 const video_title = ref('')
 const video_artist = ref('')
+const cover_size = ref<'maxresdefault' | 'hqdefault'>('maxresdefault')
+
+const cover_url = computed(() => `https://i.ytimg.com/vi_webp/${$props.v}/${cover_size.value}.webp`)
+
+function onCoverError(): void {
+  if (cover_size.value === 'maxresdefault') cover_size.value = 'hqdefault'
+}
 
 const displayTitle = computed(
   () => $props.title || video_title.value || t('music.unknown')
@@ -197,6 +206,7 @@ watch(
     seek.value = -1
     video_title.value = ''
     video_artist.value = ''
+    cover_size.value = 'maxresdefault'
   }
 )
 </script>

@@ -180,6 +180,11 @@ A music block SHALL render a playable music player using the shared player compo
 - **THEN** the play control SHALL become enabled
 - **THEN** play, pause, and seek commands SHALL be delivered to that player
 
+#### Scenario: Cover artwork fallback
+- **WHEN** the high-resolution cover thumbnail for a song is not available
+- **THEN** the player SHALL request the standard thumbnail instead
+- **THEN** changing the song SHALL reset the player to the high-resolution thumbnail
+
 ### Requirement: Read-only drawing rendering
 
 An excalidraw block SHALL render its stored scene in the embedded drawing surface in view mode. Readers MUST NOT be able to modify the drawing or affect the author's locally stored drawing.

@@ -45,6 +45,8 @@ See `proposal.md` for motivation. The relevant current state:
 
 **A failed link leaves the block untouched.** Parsing and resolution errors are reported inline in the picker, matching the picker's existing empty-state copy. The block is only mutated through the same `select` handler used by catalogue rows, so an invalid link cannot clear or partially update an existing selection.
 
+**Cover artwork degrades from `maxresdefault` to `hqdefault`.** The player requests the high-resolution thumbnail by default, but YouTube only exposes `maxresdefault` for HD uploads. A single error handler swaps the cover size to `hqdefault` and the computed URL reloads; the size resets to `maxresdefault` when the video changes. Both variants share that state, so the compact and full layouts behave identically. A pre-flight request to test thumbnail availability was rejected: it adds a round trip for every render, while the error handler costs one only when the larger image is missing.
+
 ## Risks / Trade-offs
 
 - [Two layouts in one component accumulate conditionals] → keep the compact template small and self-contained; extract a composable if a third layout appears.
