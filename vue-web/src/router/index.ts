@@ -212,6 +212,18 @@ const router = createRouter({
           name: 'Editor Playlist',
           component: () => import('@/views/editor/EditorPlaylistView.vue'),
           meta: { title: 'router.editorPlaylists' }
+        },
+        {
+          path: 'travel',
+          name: 'Editor Map Locations',
+          component: () => import('@/views/editor/EditorMapLocationListView.vue'),
+          meta: { title: 'router.editorMapLocations' }
+        },
+        {
+          path: 'travel/:slug',
+          name: 'Editor Map Location',
+          component: () => import('@/views/editor/EditorMapLocationView.vue'),
+          meta: { title: 'router.editorMapLocations' }
         }
       ]
     },

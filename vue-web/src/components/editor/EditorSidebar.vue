@@ -83,6 +83,10 @@ const groups = [
   {
     label: 'editor.music',
     items: [{ label: 'editor.playlists', to: '/editor/music', match: '/editor/music' }]
+  },
+  {
+    label: 'editor.travel',
+    items: [{ label: 'editor.mapLocations', to: '/editor/travel', match: '/editor/travel' }]
   }
 ] as const
 

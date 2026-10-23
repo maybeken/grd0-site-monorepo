@@ -20,7 +20,7 @@
       :center="epsg4326toEpsg3857($prop.map_center)"
       :zoom="$prop.zoom"
       projection="EPSG:3857"
-      @change:resolution="resolution = $event.oldValue"
+      @change:resolution="onResolutionChange"
     />
     <Layers.OlTileLayer>
       <Sources.OlSourceOSM />
@@ -65,6 +65,8 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { getMapLocation } from '@/services/travelersMap'
 import { useToast } from '@/composables/useToast'
+import { epsg3857toEpsg4326, epsg4326toEpsg3857 } from '@/helpers/map'
+import { parseTailwindColor } from '@/helpers/mapPalette'
 
 import { Map, Layers, Sources, MapControls } from 'vue3-openlayers'
 
@@ -104,55 +106,12 @@ const response = getMapLocation()
 const locations = response?.data
 const loading = response?.loading
 
-function epsg4326toEpsg3857(coordinates: number[]) {
-  // Parse coordinates as North-East
-  let y = coordinates[0]
-  let x = coordinates[1]
+function onResolutionChange(event: {
+  target: { getResolution: () => number | undefined } | null
+}): void {
+  const value = event.target?.getResolution()
 
-  if (!x || !y) {
-    return [0, 0]
-  }
-
-  x = (x * 20037508.34) / 180
-  y = Math.log(Math.tan(((90 + y) * Math.PI) / 360)) / (Math.PI / 180)
-  y = (y * 20037508.34) / 180
-  return [x, y]
-}
-
-function epsg3857toEpsg4326(coordinates: number[]) {
-  let x = coordinates[0]
-  let y = coordinates[1]
-
-  if (!x || !y) {
-    return [0, 0]
-  }
-
-  x = (x * 180) / 20037508.34
-  y = (y * 180) / 20037508.34
-  y = (Math.atan(Math.pow(Math.E, y * (Math.PI / 180))) * 360) / Math.PI - 90
-  return [y, x]
-}
-
-function parseTailwindColor(type: string, color: string = 'default'): string {
-  const background_styles: { [key: string]: string } = {
-    default: 'bg-background/75',
-    red: 'bg-red-700/75',
-    green: 'bg-emerald-600/75',
-    blue: 'bg-sky-600/75',
-    orange: 'bg-orange-500/75',
-    sweden: 'bg-[#005293]/75',
-    white: 'bg-slate-500/75'
-  }
-
-  const text_styles: { [key: string]: string } = {
-    sweden: 'text-[#FFCD00]'
-  }
-
-  if (type === 'text') {
-    return text_styles[color] ?? ''
-  }
-
-  return background_styles[color] ?? background_styles['default']!
+  resolution.value = typeof value === 'number' ? value : -1
 }
 
 function isDisplayOverlay(resolution: number, display_at?: number, hide_at?: number): boolean {

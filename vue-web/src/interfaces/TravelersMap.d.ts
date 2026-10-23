@@ -1,4 +1,5 @@
 export interface MapLocation {
+  slug?: string
   title: string
   icon: string
   color: string
@@ -7,4 +8,5 @@ export interface MapLocation {
   display_at?: number
   hide_at?: number
   text_color?: string
+  published: boolean
 }

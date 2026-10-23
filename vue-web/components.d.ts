@@ -40,6 +40,7 @@ declare module 'vue' {
     GalleryPicker: typeof import('./src/components/editor/article/GalleryPicker.vue')['default']
     GalleryZoom: typeof import('./src/components/gallery/GalleryZoom.vue')['default']
     Icon: typeof import('./src/components/shared/Icon.vue')['default']
+    IconSelector: typeof import('./src/components/editor/IconSelector.vue')['default']
     IdkToggle: typeof import('./src/components/coffee/IdkToggle.vue')['default']
     ImageBlock: typeof import('./src/components/article/blocks/ImageBlock.vue')['default']
     ImageBlockEditor: typeof import('./src/components/editor/article/blocks/ImageBlockEditor.vue')['default']

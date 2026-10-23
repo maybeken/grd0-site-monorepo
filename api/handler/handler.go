@@ -72,6 +72,7 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	v2.GET("/gallery/:collection", h.GetAssetV2)
 
 	v1.GET("/travel/map", h.GetMapLocation)
+	restrictV1.GET("/travel/map/all", h.GetAllMapLocations)
 	restrictV1.PUT("/travel/map", h.UpsertMapLocation)
 	restrictV1.DELETE("/travel/map/:slug", h.DeleteMapLocation)
 

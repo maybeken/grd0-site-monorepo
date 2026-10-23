@@ -262,6 +262,302 @@ map:
     msgstr: "Enter the title:"
     msgctxt: "Prompt dialog for coordinate title"
 
+  #. Map location editor strings
+  editor:
+    locationsTitle:
+      msgid: "map.editor.locationsTitle"
+      msgstr: "Map Locations"
+      msgctxt: "Heading for the map locations editor listing"
+
+    locationsHint:
+      msgid: "map.editor.locationsHint"
+      msgstr: "Create, place, and maintain the locations shown on the travelers' map."
+      msgctxt: "Short description above the map locations listing"
+
+    newLocation:
+      msgid: "map.editor.newLocation"
+      msgstr: "+ New Location"
+      msgctxt: "Button that opens the new map location form"
+
+    titleField:
+      msgid: "map.editor.titleField"
+      msgstr: "Title *"
+      msgctxt: "Map location title field label"
+
+    titlePlaceholder:
+      msgid: "map.editor.titlePlaceholder"
+      msgstr: "e.g. Reykjavík"
+      msgctxt: "Map location title input placeholder"
+
+    create:
+      msgid: "map.editor.create"
+      msgstr: "Create"
+      msgctxt: "Button that creates a map location from the inline form"
+
+    noLocations:
+      msgid: "map.editor.noLocations"
+      msgstr: "No map locations yet."
+      msgctxt: "Empty state for the map locations listing"
+
+    failedLoad:
+      msgid: "map.editor.failedLoad"
+      msgstr: "Could not load map locations."
+      msgctxt: "Toast shown when the map locations listing fails to load"
+
+    failedCreate:
+      msgid: "map.editor.failedCreate"
+      msgstr: "Could not create the location."
+      msgctxt: "Toast shown when creating a map location fails"
+
+    failedDelete:
+      msgid: "map.editor.failedDelete"
+      msgstr: "Could not delete the location."
+      msgctxt: "Toast shown when deleting a map location fails"
+
+    confirmDelete:
+      msgid: "map.editor.confirmDelete"
+      msgstr: "Delete location \"{title}\"?"
+      msgctxt: "Confirmation dialog for deleting a map location"
+
+    slugCollision:
+      msgid: "map.editor.slugCollision"
+      msgstr: "A location with the slug \"{slug}\" already exists."
+      msgctxt: "Error shown when the generated slug is already taken"
+
+    slugField:
+      msgid: "map.editor.slugField"
+      msgstr: "Slug"
+      msgctxt: "Read-only slug label in the map location workspace"
+
+    slugImmutable:
+      msgid: "map.editor.slugImmutable"
+      msgstr: "The slug is generated from the title and cannot be changed."
+      msgctxt: "Explanation that the map location slug is read-only"
+
+    publicMap:
+      msgid: "map.editor.publicMap"
+      msgstr: "View public map"
+      msgctxt: "Link from the workspace to the public travelers' map"
+
+    published:
+      msgid: "map.editor.published"
+      msgstr: "Published"
+      msgctxt: "Status badge for a location visible on the public map"
+
+    draft:
+      msgid: "map.editor.draft"
+      msgstr: "Draft"
+      msgctxt: "Status badge for a location hidden from the public map"
+
+    publishedHint:
+      msgid: "map.editor.publishedHint"
+      msgstr: "Visible on the public map."
+      msgctxt: "Explanation of the published status"
+
+    draftHint:
+      msgid: "map.editor.draftHint"
+      msgstr: "Hidden from the public map until published."
+      msgctxt: "Explanation of the draft status"
+
+    publish:
+      msgid: "map.editor.publish"
+      msgstr: "Publish"
+      msgctxt: "Button that marks a draft location for publication"
+
+    unpublish:
+      msgid: "map.editor.unpublish"
+      msgstr: "Unpublish"
+      msgctxt: "Button that hides a published location from the public map"
+
+    editTitle:
+      msgid: "map.editor.editTitle"
+      msgstr: "Edit Map Location"
+      msgctxt: "Heading for the map location workspace"
+
+    details:
+      msgid: "map.editor.details"
+      msgstr: "Details"
+      msgctxt: "Section heading for the map location text fields"
+
+    subtitleField:
+      msgid: "map.editor.subtitleField"
+      msgstr: "Subtitle"
+      msgctxt: "Map location subtitle field label"
+
+    subtitlePlaceholder:
+      msgid: "map.editor.subtitlePlaceholder"
+      msgstr: "Optional short description"
+      msgctxt: "Map location subtitle input placeholder"
+
+    iconField:
+      msgid: "map.editor.iconField"
+      msgstr: "Icon"
+      msgctxt: "Map location icon field label"
+
+    iconSelect:
+      msgid: "map.editor.iconSelect"
+      msgstr: "Select an icon"
+      msgctxt: "Placeholder shown when no icon is selected"
+
+    iconSearchPlaceholder:
+      msgid: "map.editor.iconSearchPlaceholder"
+      msgstr: "Search icons..."
+      msgctxt: "Search input placeholder in the icon selector"
+
+    iconNoResults:
+      msgid: "map.editor.iconNoResults"
+      msgstr: "No icons found."
+      msgctxt: "Empty state for an icon search with no matches"
+
+    iconLoadFailed:
+      msgid: "map.editor.iconLoadFailed"
+      msgstr: "Could not load icons."
+      msgctxt: "Error shown when the icon collection cannot be loaded"
+
+    iconShowing:
+      msgid: "map.editor.iconShowing"
+      msgstr: "Showing {visible} of {total} icons"
+      msgctxt: "Count of icons currently rendered versus all matching icons"
+
+    iconLoadMore:
+      msgid: "map.editor.iconLoadMore"
+      msgstr: "Load more"
+      msgctxt: "Button that renders the next page of icons in the selector"
+
+    iconClear:
+      msgid: "map.editor.iconClear"
+      msgstr: "Clear icon"
+      msgctxt: "Button that removes the selected icon"
+
+    colorField:
+      msgid: "map.editor.colorField"
+      msgstr: "Background colour"
+      msgctxt: "Map location background colour select label"
+
+    textColorField:
+      msgid: "map.editor.textColorField"
+      msgstr: "Text colour"
+      msgctxt: "Map location text colour select label"
+
+    preview:
+      msgid: "map.editor.preview"
+      msgstr: "Label preview"
+      msgctxt: "Heading for the live map label preview"
+
+    visibility:
+      msgid: "map.editor.visibility"
+      msgstr: "Visibility"
+      msgctxt: "Section heading for the visibility thresholds"
+
+    visibleFrom:
+      msgid: "map.editor.visibleFrom"
+      msgstr: "Visible from zoom"
+      msgctxt: "Label for the display_at threshold expressed as a zoom level"
+
+    visibleUntil:
+      msgid: "map.editor.visibleUntil"
+      msgstr: "Visible until zoom"
+      msgctxt: "Label for the hide_at threshold expressed as a zoom level"
+
+    visibilityHint:
+      msgid: "map.editor.visibilityHint"
+      msgstr: "Leave a threshold empty to keep the location visible at every zoom level."
+      msgctxt: "Explanation of the empty visibility threshold"
+
+    zoomPlaceholder:
+      msgid: "map.editor.zoomPlaceholder"
+      msgstr: "Any"
+      msgctxt: "Placeholder for an empty visibility threshold"
+
+    coordinates:
+      msgid: "map.editor.coordinates"
+      msgstr: "Coordinates"
+      msgctxt: "Section heading for the latitude and longitude fields"
+
+    latitude:
+      msgid: "map.editor.latitude"
+      msgstr: "Latitude"
+      msgctxt: "Latitude field label"
+
+    longitude:
+      msgid: "map.editor.longitude"
+      msgstr: "Longitude"
+      msgctxt: "Longitude field label"
+
+    coordinateHint:
+      msgid: "map.editor.coordinateHint"
+      msgstr: "Enter coordinates or click the map to place the location."
+      msgctxt: "Explanation of the coordinate fields and map picker"
+
+    invalidLatitude:
+      msgid: "map.editor.invalidLatitude"
+      msgstr: "Latitude must be between -90 and 90."
+      msgctxt: "Validation error for an out-of-range latitude"
+
+    invalidLongitude:
+      msgid: "map.editor.invalidLongitude"
+      msgstr: "Longitude must be between -180 and 180."
+      msgctxt: "Validation error for an out-of-range longitude"
+
+    saved:
+      msgid: "map.editor.saved"
+      msgstr: "Location saved."
+      msgctxt: "Toast shown after saving a map location"
+
+    failedSave:
+      msgid: "map.editor.failedSave"
+      msgstr: "Could not save the location."
+      msgctxt: "Toast shown when saving a map location fails"
+
+    titleRequired:
+      msgid: "map.editor.titleRequired"
+      msgstr: "A title is required."
+      msgctxt: "Validation message for a blank map location title"
+
+    color:
+      default:
+        msgid: "map.editor.color.default"
+        msgstr: "Default"
+        msgctxt: "Default background colour option for a map location"
+      red:
+        msgid: "map.editor.color.red"
+        msgstr: "Red"
+        msgctxt: "Red background colour option for a map location"
+      green:
+        msgid: "map.editor.color.green"
+        msgstr: "Green"
+        msgctxt: "Green background colour option for a map location"
+      blue:
+        msgid: "map.editor.color.blue"
+        msgstr: "Blue"
+        msgctxt: "Blue background colour option for a map location"
+      darkblue:
+        msgid: "map.editor.color.darkblue"
+        msgstr: "Dark blue"
+        msgctxt: "Dark blue background colour option for a map location"
+      orange:
+        msgid: "map.editor.color.orange"
+        msgstr: "Orange"
+        msgctxt: "Orange background colour option for a map location"
+      sweden:
+        msgid: "map.editor.color.sweden"
+        msgstr: "Sweden"
+        msgctxt: "Sweden flag background colour option for a map location"
+      white:
+        msgid: "map.editor.color.white"
+        msgstr: "White"
+        msgctxt: "White background colour option for a map location"
+
+    textColor:
+      default:
+        msgid: "map.editor.textColor.default"
+        msgstr: "Default"
+        msgctxt: "Default text colour option for a map location"
+      sweden:
+        msgid: "map.editor.textColor.sweden"
+        msgstr: "Sweden"
+        msgctxt: "Sweden flag text colour option for a map location"
+
 music:
   #. Music view strings
   #: src/views/MusicView.vue
@@ -1744,6 +2040,11 @@ editor:
     msgstr: "Music"
     msgctxt: "Sidebar group heading for music content"
 
+  travel:
+    msgid: "editor.travel"
+    msgstr: "Travel"
+    msgctxt: "Sidebar group heading for travel content"
+
   articles:
     msgid: "editor.articles"
     msgstr: "Articles"
@@ -1768,6 +2069,11 @@ editor:
     msgid: "editor.playlists"
     msgstr: "Playlists"
     msgctxt: "Sidebar entry for the playlist editor"
+
+  mapLocations:
+    msgid: "editor.mapLocations"
+    msgstr: "Map Locations"
+    msgctxt: "Sidebar entry for the map location editor"
 
   backToList:
     msgid: "editor.backToList"
@@ -1815,6 +2121,11 @@ router:
     msgid: "router.editorPlaylists"
     msgstr: "Playlist Editor"
     msgctxt: "Page title for the playlist editor routes"
+
+  editorMapLocations:
+    msgid: "router.editorMapLocations"
+    msgstr: "Map Location Editor"
+    msgctxt: "Page title for the map location editor routes"
 
   home:
     msgid: "router.home"

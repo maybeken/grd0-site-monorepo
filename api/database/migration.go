@@ -24,4 +24,6 @@ func AutoMigrate(db *gorm.DB) {
 	for _, table := range tables {
 		db.AutoMigrate(table)
 	}
+
+	db.Model(&schema.MapLocation{}).Where("published IS NULL").UpdateColumn("published", true)
 }

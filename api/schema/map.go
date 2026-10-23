@@ -14,4 +14,5 @@ type MapLocation struct {
 	DisplayAt float64   `json:"display_at,omitempty"`
 	HideAt    float64   `json:"hide_at,omitempty"`
 	TextColor string    `json:"text_color,omitempty"`
+	Published bool      `json:"published"`
 }

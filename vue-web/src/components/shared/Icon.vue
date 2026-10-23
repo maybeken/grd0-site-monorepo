@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import { Icon as Iconify } from '@iconify/vue'
+import { Icon as Iconify } from '@iconify/vue/offline'
 
-import type { IconProps } from '@iconify/vue'
+import type { IconProps } from '@iconify/vue/offline'
 
 interface Props extends IconProps {
   dotify?: string

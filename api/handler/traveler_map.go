@@ -11,12 +11,7 @@ import (
 	"grd0.net/api/schema"
 )
 
-func (h *Handler) GetMapLocation(c echo.Context) error {
-	db := h.DB
-
-	var map_locations []schema.MapLocation
-	db.Find(&map_locations)
-
+func formatMapLocations(map_locations []schema.MapLocation) []schema.MapLocation {
 	locations_formatted := make([]schema.MapLocation, 0, len(map_locations))
 	for _, loc := range map_locations {
 		loc.Position = []float64{
@@ -26,7 +21,21 @@ func (h *Handler) GetMapLocation(c echo.Context) error {
 		locations_formatted = append(locations_formatted, loc)
 	}
 
-	return c.JSON(http.StatusOK, locations_formatted)
+	return locations_formatted
+}
+
+func (h *Handler) GetMapLocation(c echo.Context) error {
+	var map_locations []schema.MapLocation
+	h.DB.Where("published = ?", true).Find(&map_locations)
+
+	return c.JSON(http.StatusOK, formatMapLocations(map_locations))
+}
+
+func (h *Handler) GetAllMapLocations(c echo.Context) error {
+	var map_locations []schema.MapLocation
+	h.DB.Find(&map_locations)
+
+	return c.JSON(http.StatusOK, formatMapLocations(map_locations))
 }
 
 func (h *Handler) UpsertMapLocation(c echo.Context) error {
@@ -53,7 +62,7 @@ func (h *Handler) UpsertMapLocation(c echo.Context) error {
 
 	err := db.Clauses(clause.OnConflict{
 		Columns:   []clause.Column{{Name: "slug"}},
-		DoUpdates: clause.AssignmentColumns([]string{"title", "subtitle", "icon", "color", "longitude", "latitude", "display_at", "hide_at", "text_color", "updated_at"}),
+		DoUpdates: clause.AssignmentColumns([]string{"title", "subtitle", "icon", "color", "longitude", "latitude", "display_at", "hide_at", "text_color", "published", "updated_at"}),
 	}).Create(&map_loc).Error
 
 	if err != nil {
@@ -64,7 +73,7 @@ func (h *Handler) UpsertMapLocation(c echo.Context) error {
 }
 
 func (h *Handler) DeleteMapLocation(c echo.Context) error {
-	slug := url.PathEscape(c.Param("slug"))
+	slug := c.Param("slug")
 
 	db := h.DB
 
