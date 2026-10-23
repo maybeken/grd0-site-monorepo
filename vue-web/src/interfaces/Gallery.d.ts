@@ -39,3 +39,15 @@ export interface GalleryCollection {
     cover?: string
   }
 }
+
+export interface GalleryCollectionDetail {
+  path: string
+  title?: string
+  cover?: string
+}
+
+export interface GalleryDirectory {
+  name: string
+  path: string
+  count: number
+}

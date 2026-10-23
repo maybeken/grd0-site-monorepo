@@ -6,2193 +6,2419 @@ nav:
   #. Site tagline displayed in the navbar
   #: src/components/layout/Navbar.vue
   tagline:
-    msgid: "nav.tagline"
-    msgstr: "Where Everything Starts And Ends"
-    msgctxt: "Navbar tagline after grd0.net"
+    msgid: 'nav.tagline'
+    msgstr: 'Where Everything Starts And Ends'
+    msgctxt: 'Navbar tagline after grd0.net'
 
   #. Navigation menu items
   #: src/components/layout/Navbar.vue
   gallery:
-    msgid: "nav.gallery"
-    msgstr: "Gallery"
-    msgctxt: "Navigation menu item"
+    msgid: 'nav.gallery'
+    msgstr: 'Gallery'
+    msgctxt: 'Navigation menu item'
 
   travelersMap:
-    msgid: "nav.travelersMap"
+    msgid: 'nav.travelersMap'
     msgstr: "Traveler's Map"
-    msgctxt: "Navigation menu item"
+    msgctxt: 'Navigation menu item'
 
   beanSoup:
-    msgid: "nav.beanSoup"
-    msgstr: "Bean Soup"
-    msgctxt: "Navigation menu item for coffee section"
+    msgid: 'nav.beanSoup'
+    msgstr: 'Bean Soup'
+    msgctxt: 'Navigation menu item for coffee section'
 
   articles:
-    msgid: "nav.articles"
-    msgstr: "Articles"
-    msgctxt: "Navigation menu item for the article index"
+    msgid: 'nav.articles'
+    msgstr: 'Articles'
+    msgctxt: 'Navigation menu item for the article index'
 
   listenToMe:
-    msgid: "nav.listenToMe"
-    msgstr: "LISTEN TO ME!"
-    msgctxt: "Navigation menu item for music section"
+    msgid: 'nav.listenToMe'
+    msgstr: 'LISTEN TO ME!'
+    msgctxt: 'Navigation menu item for music section'
 
   instagram:
-    msgid: "nav.instagram"
-    msgstr: "Instagram"
-    msgctxt: "External link in navigation"
+    msgid: 'nav.instagram'
+    msgstr: 'Instagram'
+    msgctxt: 'External link in navigation'
 
   youtube:
-    msgid: "nav.youtube"
-    msgstr: "YouTube"
-    msgctxt: "External link in navigation"
+    msgid: 'nav.youtube'
+    msgstr: 'YouTube'
+    msgctxt: 'External link in navigation'
 
   linkedin:
-    msgid: "nav.linkedin"
-    msgstr: "LinkedIn"
-    msgctxt: "External link in navigation"
+    msgid: 'nav.linkedin'
+    msgstr: 'LinkedIn'
+    msgctxt: 'External link in navigation'
 
   buyMeCoffee:
-    msgid: "nav.buyMeCoffee"
-    msgstr: "Buy me ☕"
-    msgctxt: "External link in navigation"
+    msgid: 'nav.buyMeCoffee'
+    msgstr: 'Buy me ☕'
+    msgctxt: 'External link in navigation'
 
   cmsLogin:
-    msgid: "nav.cmsLogin"
-    msgstr: "CMS - Login"
-    msgctxt: "Hidden navigation item for CMS login"
+    msgid: 'nav.cmsLogin'
+    msgstr: 'CMS - Login'
+    msgctxt: 'Hidden navigation item for CMS login'
 
   toolEditor:
-    msgid: "nav.toolEditor"
-    msgstr: "Tool - Editor"
-    msgctxt: "Hidden navigation item for the content editor"
+    msgid: 'nav.toolEditor'
+    msgstr: 'Tool - Editor'
+    msgctxt: 'Hidden navigation item for the content editor'
 
   toolDotMatrix:
-    msgid: "nav.toolDotMatrix"
-    msgstr: "Tool - Dot Matrix"
-    msgctxt: "Hidden navigation item for dot matrix tool"
+    msgid: 'nav.toolDotMatrix'
+    msgstr: 'Tool - Dot Matrix'
+    msgctxt: 'Hidden navigation item for dot matrix tool'
 
   toolExcalidraw:
-    msgid: "nav.toolExcalidraw"
-    msgstr: "Tool - Excalidraw;"
-    msgctxt: "Hidden navigation item for Excalidraw tool"
+    msgid: 'nav.toolExcalidraw'
+    msgstr: 'Tool - Excalidraw;'
+    msgctxt: 'Hidden navigation item for Excalidraw tool'
 
 footer:
   #. Footer copyright line
   #: src/components/layout/SiteFooter.vue
   copyright:
-    msgid: "footer.copyright"
+    msgid: 'footer.copyright'
     msgstr: "Est. 2020 - {year} \\@ grd0.net"
-    msgctxt: "Footer copyright text, {year} is dynamic"
+    msgctxt: 'Footer copyright text, {year} is dynamic'
 
   #. Footer license text
   #: src/components/layout/SiteFooter.vue
   contentLicense:
-    msgid: "footer.contentLicense"
-    msgstr: "Site content licensed under CC BY-NC 4.0"
-    msgctxt: "Footer content license link text"
+    msgid: 'footer.contentLicense'
+    msgstr: 'Site content licensed under CC BY-NC 4.0'
+    msgctxt: 'Footer content license link text'
 
   sourceLicense:
-    msgid: "footer.sourceLicense"
-    msgstr: "Source code available under MIT License on GitLab"
-    msgctxt: "Footer source code license link text"
+    msgid: 'footer.sourceLicense'
+    msgstr: 'Source code available under MIT License on GitLab'
+    msgctxt: 'Footer source code license link text'
 
 common:
   #. Common UI strings used across multiple components
   search:
-    msgid: "common.search"
-    msgstr: "Search..."
-    msgctxt: "Search input placeholder"
+    msgid: 'common.search'
+    msgstr: 'Search...'
+    msgctxt: 'Search input placeholder'
 
   noItemAvailable:
-    msgid: "common.noItemAvailable"
-    msgstr: "No Item Available"
-    msgctxt: "Dropdown menu when no items match search"
+    msgid: 'common.noItemAvailable'
+    msgstr: 'No Item Available'
+    msgctxt: 'Dropdown menu when no items match search'
 
   save:
-    msgid: "common.save"
-    msgstr: "Save"
-    msgctxt: "Save button label"
+    msgid: 'common.save'
+    msgstr: 'Save'
+    msgctxt: 'Save button label'
 
   loading:
-    msgid: "common.loading"
-    msgstr: "Loading..."
-    msgctxt: "Placeholder shown while content loads"
+    msgid: 'common.loading'
+    msgstr: 'Loading...'
+    msgctxt: 'Placeholder shown while content loads'
 
   saving:
-    msgid: "common.saving"
-    msgstr: "Saving..."
-    msgctxt: "Save button label while saving"
+    msgid: 'common.saving'
+    msgstr: 'Saving...'
+    msgctxt: 'Save button label while saving'
 
   cancel:
-    msgid: "common.cancel"
-    msgstr: "Cancel"
-    msgctxt: "Cancel button label"
+    msgid: 'common.cancel'
+    msgstr: 'Cancel'
+    msgctxt: 'Cancel button label'
 
   edit:
-    msgid: "common.edit"
-    msgstr: "Edit"
-    msgctxt: "Edit button label"
+    msgid: 'common.edit'
+    msgstr: 'Edit'
+    msgctxt: 'Edit button label'
 
   delete:
-    msgid: "common.delete"
-    msgstr: "Delete"
-    msgctxt: "Delete button label"
+    msgid: 'common.delete'
+    msgstr: 'Delete'
+    msgctxt: 'Delete button label'
 
   add:
-    msgid: "common.add"
-    msgstr: "Add"
-    msgctxt: "Add button label"
+    msgid: 'common.add'
+    msgstr: 'Add'
+    msgctxt: 'Add button label'
 
   new:
-    msgid: "common.new"
-    msgstr: "New"
-    msgctxt: "New button title"
+    msgid: 'common.new'
+    msgstr: 'New'
+    msgctxt: 'New button title'
 
   done:
-    msgid: "common.done"
-    msgstr: "Done."
-    msgctxt: "Success alert message"
+    msgid: 'common.done'
+    msgstr: 'Done.'
+    msgctxt: 'Success alert message'
 
   confirmDiscard:
-    msgid: "common.confirmDiscard"
-    msgstr: "You have unsaved changes. Discard them?"
-    msgctxt: "Confirmation shown before leaving an editor with unsaved changes"
+    msgid: 'common.confirmDiscard'
+    msgstr: 'You have unsaved changes. Discard them?'
+    msgctxt: 'Confirmation shown before leaving an editor with unsaved changes'
 
   failed:
-    msgid: "common.failed"
-    msgstr: "Failed."
-    msgctxt: "Failure alert message"
+    msgid: 'common.failed'
+    msgstr: 'Failed.'
+    msgctxt: 'Failure alert message'
 
   copy:
-    msgid: "common.copy"
-    msgstr: "Copy"
-    msgctxt: "Copy button label"
+    msgid: 'common.copy'
+    msgstr: 'Copy'
+    msgctxt: 'Copy button label'
 
   copiedToClipboard:
-    msgid: "common.copiedToClipboard"
-    msgstr: "Copied to clipboard!"
-    msgctxt: "Alert after copying to clipboard"
+    msgid: 'common.copiedToClipboard'
+    msgstr: 'Copied to clipboard!'
+    msgctxt: 'Alert after copying to clipboard'
 
   savedToClipboard:
-    msgid: "common.savedToClipboard"
-    msgstr: "Saved to clipboard!"
-    msgctxt: "Alert after saving to clipboard"
+    msgid: 'common.savedToClipboard'
+    msgstr: 'Saved to clipboard!'
+    msgctxt: 'Alert after saving to clipboard'
 
   download:
-    msgid: "common.download"
-    msgstr: "Download"
-    msgctxt: "Download button title"
+    msgid: 'common.download'
+    msgstr: 'Download'
+    msgctxt: 'Download button title'
 
   previous:
-    msgid: "common.previous"
-    msgstr: "Previous"
-    msgctxt: "Pagination previous button"
+    msgid: 'common.previous'
+    msgstr: 'Previous'
+    msgctxt: 'Pagination previous button'
 
   next:
-    msgid: "common.next"
-    msgstr: "Next"
-    msgctxt: "Pagination next button"
+    msgid: 'common.next'
+    msgstr: 'Next'
+    msgctxt: 'Pagination next button'
 
   page:
-    msgid: "common.page"
-    msgstr: "Page"
-    msgctxt: "Pagination page label"
+    msgid: 'common.page'
+    msgstr: 'Page'
+    msgctxt: 'Pagination page label'
 
   actions:
-    msgid: "common.actions"
-    msgstr: "Actions"
-    msgctxt: "Table actions column header"
+    msgid: 'common.actions'
+    msgstr: 'Actions'
+    msgctxt: 'Table actions column header'
 
   redirecting:
-    msgid: "common.redirecting"
-    msgstr: "Redirecting..."
-    msgctxt: "Redirect page message and page title"
+    msgid: 'common.redirecting'
+    msgstr: 'Redirecting...'
+    msgctxt: 'Redirect page message and page title'
 
   selectType:
-    msgid: "common.selectType"
-    msgstr: "Select type..."
-    msgctxt: "Dropdown placeholder for type selection"
+    msgid: 'common.selectType'
+    msgstr: 'Select type...'
+    msgctxt: 'Dropdown placeholder for type selection'
 
   load:
-    msgid: "common.load"
-    msgstr: "Load"
-    msgctxt: "Load button label in drawing tool"
+    msgid: 'common.load'
+    msgstr: 'Load'
+    msgctxt: 'Load button label in drawing tool'
 
   dismiss:
-    msgid: "common.dismiss"
-    msgstr: "Dismiss"
-    msgctxt: "Dismiss a toast notification"
+    msgid: 'common.dismiss'
+    msgstr: 'Dismiss'
+    msgctxt: 'Dismiss a toast notification'
 
 gallery:
+  editor:
+    listHint:
+      msgid: 'gallery.editor.listHint'
+      msgstr: 'Publish asset directories as collections and curate their metadata.'
+      msgctxt: 'Short description above the gallery listing'
+
+    collections:
+      msgid: 'gallery.editor.collections'
+      msgstr: 'Collections'
+      msgctxt: 'Heading for published gallery collections'
+
+    available:
+      msgid: 'gallery.editor.available'
+      msgstr: 'Available directories'
+      msgctxt: 'Heading for asset directories without collection metadata'
+
+    availableHint:
+      msgid: 'gallery.editor.availableHint'
+      msgstr: 'These directories contain assets but have no collection metadata yet.'
+      msgctxt: 'Explanation of unpublished directories'
+
+    noCollections:
+      msgid: 'gallery.editor.noCollections'
+      msgstr: 'No collections yet.'
+      msgctxt: 'Empty collections message'
+
+    noDirectories:
+      msgid: 'gallery.editor.noDirectories'
+      msgstr: 'No directories available to publish.'
+      msgctxt: 'Empty unpublished directories message'
+
+    empty:
+      msgid: 'gallery.editor.empty'
+      msgstr: 'No collections or asset directories are available.'
+      msgctxt: 'Empty gallery listing message'
+
+    publish:
+      msgid: 'gallery.editor.publish'
+      msgstr: 'Publish'
+      msgctxt: 'Button that publishes a directory as a collection'
+
+    publishing:
+      msgid: 'gallery.editor.publishing'
+      msgstr: 'Publishing...'
+      msgctxt: 'Publish button label while creating the collection'
+
+    publishFailed:
+      msgid: 'gallery.editor.publishFailed'
+      msgstr: 'Failed to publish directory'
+      msgctxt: 'Alert when publishing fails'
+
+    unpublish:
+      msgid: 'gallery.editor.unpublish'
+      msgstr: 'Unpublish'
+      msgctxt: 'Button that removes a collection from the gallery'
+
+    assetCount:
+      msgid: 'gallery.editor.assetCount'
+      msgstr: '{count} assets'
+      msgctxt: 'Number of assets in a directory, {count} is a number'
+
+    metadata:
+      msgid: 'gallery.editor.metadata'
+      msgstr: 'Collection metadata'
+      msgctxt: 'Heading for the collection title and cover form'
+
+    titleLabel:
+      msgid: 'gallery.editor.titleLabel'
+      msgstr: 'Title'
+      msgctxt: 'Label for the collection title field'
+
+    titlePlaceholder:
+      msgid: 'gallery.editor.titlePlaceholder'
+      msgstr: 'Collection title'
+      msgctxt: 'Placeholder for the collection title field'
+
+    titleRequired:
+      msgid: 'gallery.editor.titleRequired'
+      msgstr: 'A collection title is required.'
+      msgctxt: 'Alert when saving without a title'
+
+    directory:
+      msgid: 'gallery.editor.directory'
+      msgstr: 'Directory'
+      msgctxt: 'Label for the collection directory name'
+
+    directoryFixed:
+      msgid: 'gallery.editor.directoryFixed'
+      msgstr: 'The directory cannot be changed.'
+      msgctxt: 'Explanation that the collection directory is fixed'
+
+    cover:
+      msgid: 'gallery.editor.cover'
+      msgstr: 'Cover'
+      msgctxt: 'Label for the collection cover'
+
+    chooseCover:
+      msgid: 'gallery.editor.chooseCover'
+      msgstr: 'Choose cover'
+      msgctxt: 'Button that opens the cover picker'
+
+    clearCover:
+      msgid: 'gallery.editor.clearCover'
+      msgstr: 'Clear cover'
+      msgctxt: 'Button that removes the collection cover'
+
+    defaults:
+      msgid: 'gallery.editor.defaults'
+      msgstr: 'Collection defaults'
+      msgctxt: 'Heading for the wildcard collection defaults'
+
+    defaultsHint:
+      msgid: 'gallery.editor.defaultsHint'
+      msgstr: 'These values apply to images without their own override.'
+      msgctxt: 'Explanation of collection defaults'
+
+    description:
+      msgid: 'gallery.editor.description'
+      msgstr: 'Description'
+      msgctxt: 'Label for the description field'
+
+    timezoneAdjustment:
+      msgid: 'gallery.editor.timezoneAdjustment'
+      msgstr: 'Timezone'
+      msgctxt: 'Label for the timezone field'
+
+    timezoneShort:
+      msgid: 'gallery.editor.timezoneShort'
+      msgstr: 'TZ'
+      msgctxt: 'Compact label for the timezone field in image rows'
+
+    noTimezoneAdjustment:
+      msgid: 'gallery.editor.noTimezoneAdjustment'
+      msgstr: 'No adjustment'
+      msgctxt: 'Option that clears the timezone adjustment'
+
+    timezoneHint:
+      msgid: 'gallery.editor.timezoneHint'
+      msgstr: 'Offsets include daylight saving where it applies.'
+      msgctxt: 'Explanation of the timezone list'
+
+    localTime:
+      msgid: 'gallery.editor.localTime'
+      msgstr: 'Local time'
+      msgctxt: 'Label for the computed local capture time'
+
+    assets:
+      msgid: 'gallery.editor.assets'
+      msgstr: 'Images'
+      msgctxt: 'Heading for the per-image override list'
+
+    noAssets:
+      msgid: 'gallery.editor.noAssets'
+      msgstr: 'This collection has no assets.'
+      msgctxt: 'Empty asset list message'
+
+    inherited:
+      msgid: 'gallery.editor.inherited'
+      msgstr: 'Inherited from collection defaults'
+      msgctxt: 'Badge shown for assets without their own override row'
+
+    stale:
+      msgid: 'gallery.editor.stale'
+      msgstr: 'Stale overrides'
+      msgctxt: 'Heading for overrides whose file no longer exists'
+
+    staleHint:
+      msgid: 'gallery.editor.staleHint'
+      msgstr: 'These overrides name files that no longer exist in this collection.'
+      msgctxt: 'Explanation of stale overrides'
+
+    confirmDeleteStale:
+      msgid: 'gallery.editor.confirmDeleteStale'
+      msgstr: 'Delete the override for "{filename}"?'
+      msgctxt: 'Confirmation dialog for deleting a stale override, {filename} is a file name'
+
+    pending:
+      msgid: 'gallery.editor.pending'
+      msgstr: '{count} pending changes'
+      msgctxt: 'Number of unsaved override edits, {count} is a number'
+
+    saveChanges:
+      msgid: 'gallery.editor.saveChanges'
+      msgstr: 'Save changes'
+      msgctxt: 'Button that persists pending override edits'
+
+    saveMetadata:
+      msgid: 'gallery.editor.saveMetadata'
+      msgstr: 'Save metadata'
+      msgctxt: 'Button that persists the collection title and cover'
+
+    failedLoad:
+      msgid: 'gallery.editor.failedLoad'
+      msgstr: 'Failed to load gallery'
+      msgctxt: 'Alert when gallery data fails to load'
+
+    failedSave:
+      msgid: 'gallery.editor.failedSave'
+      msgstr: 'Failed to save gallery changes'
+      msgctxt: 'Alert when saving gallery data fails'
+
+    failedDelete:
+      msgid: 'gallery.editor.failedDelete'
+      msgstr: 'Failed to delete'
+      msgctxt: 'Alert when deleting a stale override fails'
+
+    confirmUnpublish:
+      msgid: 'gallery.editor.confirmUnpublish'
+      msgstr: 'Unpublish collection "{title}"? Assets and per-image overrides will remain.'
+      msgctxt: 'Confirmation dialog for unpublishing a collection, {title} is collection title'
+
+    failedUnpublish:
+      msgid: 'gallery.editor.failedUnpublish'
+      msgstr: 'Failed to unpublish collection'
+      msgctxt: 'Alert when unpublishing a collection fails'
+
   #. Gallery view strings
   #: src/views/GalleryView.vue
   title:
-    msgid: "gallery.title"
-    msgstr: "Captures The Moment"
-    msgctxt: "Gallery page title"
+    msgid: 'gallery.title'
+    msgstr: 'Captures The Moment'
+    msgctxt: 'Gallery page title'
 
 map:
   #. Map view strings
   #: src/views/MapView.vue
   title:
-    msgid: "map.title"
+    msgid: 'map.title'
     msgstr: "Places I've Been To"
-    msgctxt: "Map page title"
+    msgctxt: 'Map page title'
 
   zoomHint:
-    msgid: "map.zoomHint"
-    msgstr: "(Zoom in to see more)"
-    msgctxt: "Map hint text"
+    msgid: 'map.zoomHint'
+    msgstr: '(Zoom in to see more)'
+    msgctxt: 'Map hint text'
 
   recenter:
-    msgid: "map.recenter"
-    msgstr: "Re-center"
-    msgctxt: "Map re-center button title"
+    msgid: 'map.recenter'
+    msgstr: 'Re-center'
+    msgctxt: 'Map re-center button title'
 
   #. TravelersMap context menu
   #: src/components/map/TravelersMap.vue
   coordinate:
-    msgid: "map.coordinate"
-    msgstr: "Coordinate"
-    msgctxt: "Context menu item text"
+    msgid: 'map.coordinate'
+    msgstr: 'Coordinate'
+    msgctxt: 'Context menu item text'
 
   enterTitle:
-    msgid: "map.enterTitle"
-    msgstr: "Enter the title:"
-    msgctxt: "Prompt dialog for coordinate title"
+    msgid: 'map.enterTitle'
+    msgstr: 'Enter the title:'
+    msgctxt: 'Prompt dialog for coordinate title'
 
   #. Map location editor strings
   editor:
     locationsTitle:
-      msgid: "map.editor.locationsTitle"
-      msgstr: "Map Locations"
-      msgctxt: "Heading for the map locations editor listing"
+      msgid: 'map.editor.locationsTitle'
+      msgstr: 'Map Locations'
+      msgctxt: 'Heading for the map locations editor listing'
 
     locationsHint:
-      msgid: "map.editor.locationsHint"
+      msgid: 'map.editor.locationsHint'
       msgstr: "Create, place, and maintain the locations shown on the travelers' map."
-      msgctxt: "Short description above the map locations listing"
+      msgctxt: 'Short description above the map locations listing'
 
     newLocation:
-      msgid: "map.editor.newLocation"
-      msgstr: "+ New Location"
-      msgctxt: "Button that opens the new map location form"
+      msgid: 'map.editor.newLocation'
+      msgstr: '+ New Location'
+      msgctxt: 'Button that opens the new map location form'
 
     titleField:
-      msgid: "map.editor.titleField"
-      msgstr: "Title *"
-      msgctxt: "Map location title field label"
+      msgid: 'map.editor.titleField'
+      msgstr: 'Title *'
+      msgctxt: 'Map location title field label'
 
     titlePlaceholder:
-      msgid: "map.editor.titlePlaceholder"
-      msgstr: "e.g. Reykjavík"
-      msgctxt: "Map location title input placeholder"
+      msgid: 'map.editor.titlePlaceholder'
+      msgstr: 'e.g. Reykjavík'
+      msgctxt: 'Map location title input placeholder'
 
     create:
-      msgid: "map.editor.create"
-      msgstr: "Create"
-      msgctxt: "Button that creates a map location from the inline form"
+      msgid: 'map.editor.create'
+      msgstr: 'Create'
+      msgctxt: 'Button that creates a map location from the inline form'
 
     noLocations:
-      msgid: "map.editor.noLocations"
-      msgstr: "No map locations yet."
-      msgctxt: "Empty state for the map locations listing"
+      msgid: 'map.editor.noLocations'
+      msgstr: 'No map locations yet.'
+      msgctxt: 'Empty state for the map locations listing'
 
     failedLoad:
-      msgid: "map.editor.failedLoad"
-      msgstr: "Could not load map locations."
-      msgctxt: "Toast shown when the map locations listing fails to load"
+      msgid: 'map.editor.failedLoad'
+      msgstr: 'Could not load map locations.'
+      msgctxt: 'Toast shown when the map locations listing fails to load'
 
     failedCreate:
-      msgid: "map.editor.failedCreate"
-      msgstr: "Could not create the location."
-      msgctxt: "Toast shown when creating a map location fails"
+      msgid: 'map.editor.failedCreate'
+      msgstr: 'Could not create the location.'
+      msgctxt: 'Toast shown when creating a map location fails'
 
     failedDelete:
-      msgid: "map.editor.failedDelete"
-      msgstr: "Could not delete the location."
-      msgctxt: "Toast shown when deleting a map location fails"
+      msgid: 'map.editor.failedDelete'
+      msgstr: 'Could not delete the location.'
+      msgctxt: 'Toast shown when deleting a map location fails'
 
     confirmDelete:
-      msgid: "map.editor.confirmDelete"
-      msgstr: "Delete location \"{title}\"?"
-      msgctxt: "Confirmation dialog for deleting a map location"
+      msgid: 'map.editor.confirmDelete'
+      msgstr: 'Delete location "{title}"?'
+      msgctxt: 'Confirmation dialog for deleting a map location'
 
     slugCollision:
-      msgid: "map.editor.slugCollision"
-      msgstr: "A location with the slug \"{slug}\" already exists."
-      msgctxt: "Error shown when the generated slug is already taken"
+      msgid: 'map.editor.slugCollision'
+      msgstr: 'A location with the slug "{slug}" already exists.'
+      msgctxt: 'Error shown when the generated slug is already taken'
 
     slugField:
-      msgid: "map.editor.slugField"
-      msgstr: "Slug"
-      msgctxt: "Read-only slug label in the map location workspace"
+      msgid: 'map.editor.slugField'
+      msgstr: 'Slug'
+      msgctxt: 'Read-only slug label in the map location workspace'
 
     slugImmutable:
-      msgid: "map.editor.slugImmutable"
-      msgstr: "The slug is generated from the title and cannot be changed."
-      msgctxt: "Explanation that the map location slug is read-only"
+      msgid: 'map.editor.slugImmutable'
+      msgstr: 'The slug is generated from the title and cannot be changed.'
+      msgctxt: 'Explanation that the map location slug is read-only'
 
     publicMap:
-      msgid: "map.editor.publicMap"
-      msgstr: "View public map"
+      msgid: 'map.editor.publicMap'
+      msgstr: 'View public map'
       msgctxt: "Link from the workspace to the public travelers' map"
 
     published:
-      msgid: "map.editor.published"
-      msgstr: "Published"
-      msgctxt: "Status badge for a location visible on the public map"
+      msgid: 'map.editor.published'
+      msgstr: 'Published'
+      msgctxt: 'Status badge for a location visible on the public map'
 
     draft:
-      msgid: "map.editor.draft"
-      msgstr: "Draft"
-      msgctxt: "Status badge for a location hidden from the public map"
+      msgid: 'map.editor.draft'
+      msgstr: 'Draft'
+      msgctxt: 'Status badge for a location hidden from the public map'
 
     publishedHint:
-      msgid: "map.editor.publishedHint"
-      msgstr: "Visible on the public map."
-      msgctxt: "Explanation of the published status"
+      msgid: 'map.editor.publishedHint'
+      msgstr: 'Visible on the public map.'
+      msgctxt: 'Explanation of the published status'
 
     draftHint:
-      msgid: "map.editor.draftHint"
-      msgstr: "Hidden from the public map until published."
-      msgctxt: "Explanation of the draft status"
+      msgid: 'map.editor.draftHint'
+      msgstr: 'Hidden from the public map until published.'
+      msgctxt: 'Explanation of the draft status'
 
     publish:
-      msgid: "map.editor.publish"
-      msgstr: "Publish"
-      msgctxt: "Button that marks a draft location for publication"
+      msgid: 'map.editor.publish'
+      msgstr: 'Publish'
+      msgctxt: 'Button that marks a draft location for publication'
 
     unpublish:
-      msgid: "map.editor.unpublish"
-      msgstr: "Unpublish"
-      msgctxt: "Button that hides a published location from the public map"
+      msgid: 'map.editor.unpublish'
+      msgstr: 'Unpublish'
+      msgctxt: 'Button that hides a published location from the public map'
 
     editTitle:
-      msgid: "map.editor.editTitle"
-      msgstr: "Edit Map Location"
-      msgctxt: "Heading for the map location workspace"
+      msgid: 'map.editor.editTitle'
+      msgstr: 'Edit Map Location'
+      msgctxt: 'Heading for the map location workspace'
 
     details:
-      msgid: "map.editor.details"
-      msgstr: "Details"
-      msgctxt: "Section heading for the map location text fields"
+      msgid: 'map.editor.details'
+      msgstr: 'Details'
+      msgctxt: 'Section heading for the map location text fields'
 
     subtitleField:
-      msgid: "map.editor.subtitleField"
-      msgstr: "Subtitle"
-      msgctxt: "Map location subtitle field label"
+      msgid: 'map.editor.subtitleField'
+      msgstr: 'Subtitle'
+      msgctxt: 'Map location subtitle field label'
 
     subtitlePlaceholder:
-      msgid: "map.editor.subtitlePlaceholder"
-      msgstr: "Optional short description"
-      msgctxt: "Map location subtitle input placeholder"
+      msgid: 'map.editor.subtitlePlaceholder'
+      msgstr: 'Optional short description'
+      msgctxt: 'Map location subtitle input placeholder'
 
     iconField:
-      msgid: "map.editor.iconField"
-      msgstr: "Icon"
-      msgctxt: "Map location icon field label"
+      msgid: 'map.editor.iconField'
+      msgstr: 'Icon'
+      msgctxt: 'Map location icon field label'
 
     iconSelect:
-      msgid: "map.editor.iconSelect"
-      msgstr: "Select an icon"
-      msgctxt: "Placeholder shown when no icon is selected"
+      msgid: 'map.editor.iconSelect'
+      msgstr: 'Select an icon'
+      msgctxt: 'Placeholder shown when no icon is selected'
 
     iconSearchPlaceholder:
-      msgid: "map.editor.iconSearchPlaceholder"
-      msgstr: "Search icons..."
-      msgctxt: "Search input placeholder in the icon selector"
+      msgid: 'map.editor.iconSearchPlaceholder'
+      msgstr: 'Search icons...'
+      msgctxt: 'Search input placeholder in the icon selector'
 
     iconNoResults:
-      msgid: "map.editor.iconNoResults"
-      msgstr: "No icons found."
-      msgctxt: "Empty state for an icon search with no matches"
+      msgid: 'map.editor.iconNoResults'
+      msgstr: 'No icons found.'
+      msgctxt: 'Empty state for an icon search with no matches'
 
     iconLoadFailed:
-      msgid: "map.editor.iconLoadFailed"
-      msgstr: "Could not load icons."
-      msgctxt: "Error shown when the icon collection cannot be loaded"
+      msgid: 'map.editor.iconLoadFailed'
+      msgstr: 'Could not load icons.'
+      msgctxt: 'Error shown when the icon collection cannot be loaded'
 
     iconShowing:
-      msgid: "map.editor.iconShowing"
-      msgstr: "Showing {visible} of {total} icons"
-      msgctxt: "Count of icons currently rendered versus all matching icons"
+      msgid: 'map.editor.iconShowing'
+      msgstr: 'Showing {visible} of {total} icons'
+      msgctxt: 'Count of icons currently rendered versus all matching icons'
 
     iconLoadMore:
-      msgid: "map.editor.iconLoadMore"
-      msgstr: "Load more"
-      msgctxt: "Button that renders the next page of icons in the selector"
+      msgid: 'map.editor.iconLoadMore'
+      msgstr: 'Load more'
+      msgctxt: 'Button that renders the next page of icons in the selector'
 
     iconClear:
-      msgid: "map.editor.iconClear"
-      msgstr: "Clear icon"
-      msgctxt: "Button that removes the selected icon"
+      msgid: 'map.editor.iconClear'
+      msgstr: 'Clear icon'
+      msgctxt: 'Button that removes the selected icon'
 
     colorField:
-      msgid: "map.editor.colorField"
-      msgstr: "Background colour"
-      msgctxt: "Map location background colour select label"
+      msgid: 'map.editor.colorField'
+      msgstr: 'Background colour'
+      msgctxt: 'Map location background colour select label'
 
     textColorField:
-      msgid: "map.editor.textColorField"
-      msgstr: "Text colour"
-      msgctxt: "Map location text colour select label"
+      msgid: 'map.editor.textColorField'
+      msgstr: 'Text colour'
+      msgctxt: 'Map location text colour select label'
 
     preview:
-      msgid: "map.editor.preview"
-      msgstr: "Label preview"
-      msgctxt: "Heading for the live map label preview"
+      msgid: 'map.editor.preview'
+      msgstr: 'Label preview'
+      msgctxt: 'Heading for the live map label preview'
 
     visibility:
-      msgid: "map.editor.visibility"
-      msgstr: "Visibility"
-      msgctxt: "Section heading for the visibility thresholds"
+      msgid: 'map.editor.visibility'
+      msgstr: 'Visibility'
+      msgctxt: 'Section heading for the visibility thresholds'
 
     visibleFrom:
-      msgid: "map.editor.visibleFrom"
-      msgstr: "Visible from zoom"
-      msgctxt: "Label for the display_at threshold expressed as a zoom level"
+      msgid: 'map.editor.visibleFrom'
+      msgstr: 'Visible from zoom'
+      msgctxt: 'Label for the display_at threshold expressed as a zoom level'
 
     visibleUntil:
-      msgid: "map.editor.visibleUntil"
-      msgstr: "Visible until zoom"
-      msgctxt: "Label for the hide_at threshold expressed as a zoom level"
+      msgid: 'map.editor.visibleUntil'
+      msgstr: 'Visible until zoom'
+      msgctxt: 'Label for the hide_at threshold expressed as a zoom level'
 
     visibilityHint:
-      msgid: "map.editor.visibilityHint"
-      msgstr: "Leave a threshold empty to keep the location visible at every zoom level."
-      msgctxt: "Explanation of the empty visibility threshold"
+      msgid: 'map.editor.visibilityHint'
+      msgstr: 'Leave a threshold empty to keep the location visible at every zoom level.'
+      msgctxt: 'Explanation of the empty visibility threshold'
 
     zoomPlaceholder:
-      msgid: "map.editor.zoomPlaceholder"
-      msgstr: "Any"
-      msgctxt: "Placeholder for an empty visibility threshold"
+      msgid: 'map.editor.zoomPlaceholder'
+      msgstr: 'Any'
+      msgctxt: 'Placeholder for an empty visibility threshold'
 
     coordinates:
-      msgid: "map.editor.coordinates"
-      msgstr: "Coordinates"
-      msgctxt: "Section heading for the latitude and longitude fields"
+      msgid: 'map.editor.coordinates'
+      msgstr: 'Coordinates'
+      msgctxt: 'Section heading for the latitude and longitude fields'
 
     latitude:
-      msgid: "map.editor.latitude"
-      msgstr: "Latitude"
-      msgctxt: "Latitude field label"
+      msgid: 'map.editor.latitude'
+      msgstr: 'Latitude'
+      msgctxt: 'Latitude field label'
 
     longitude:
-      msgid: "map.editor.longitude"
-      msgstr: "Longitude"
-      msgctxt: "Longitude field label"
+      msgid: 'map.editor.longitude'
+      msgstr: 'Longitude'
+      msgctxt: 'Longitude field label'
 
     coordinateHint:
-      msgid: "map.editor.coordinateHint"
-      msgstr: "Enter coordinates or click the map to place the location."
-      msgctxt: "Explanation of the coordinate fields and map picker"
+      msgid: 'map.editor.coordinateHint'
+      msgstr: 'Enter coordinates or click the map to place the location.'
+      msgctxt: 'Explanation of the coordinate fields and map picker'
 
     invalidLatitude:
-      msgid: "map.editor.invalidLatitude"
-      msgstr: "Latitude must be between -90 and 90."
-      msgctxt: "Validation error for an out-of-range latitude"
+      msgid: 'map.editor.invalidLatitude'
+      msgstr: 'Latitude must be between -90 and 90.'
+      msgctxt: 'Validation error for an out-of-range latitude'
 
     invalidLongitude:
-      msgid: "map.editor.invalidLongitude"
-      msgstr: "Longitude must be between -180 and 180."
-      msgctxt: "Validation error for an out-of-range longitude"
+      msgid: 'map.editor.invalidLongitude'
+      msgstr: 'Longitude must be between -180 and 180.'
+      msgctxt: 'Validation error for an out-of-range longitude'
 
     saved:
-      msgid: "map.editor.saved"
-      msgstr: "Location saved."
-      msgctxt: "Toast shown after saving a map location"
+      msgid: 'map.editor.saved'
+      msgstr: 'Location saved.'
+      msgctxt: 'Toast shown after saving a map location'
 
     failedSave:
-      msgid: "map.editor.failedSave"
-      msgstr: "Could not save the location."
-      msgctxt: "Toast shown when saving a map location fails"
+      msgid: 'map.editor.failedSave'
+      msgstr: 'Could not save the location.'
+      msgctxt: 'Toast shown when saving a map location fails'
 
     titleRequired:
-      msgid: "map.editor.titleRequired"
-      msgstr: "A title is required."
-      msgctxt: "Validation message for a blank map location title"
+      msgid: 'map.editor.titleRequired'
+      msgstr: 'A title is required.'
+      msgctxt: 'Validation message for a blank map location title'
 
     color:
       default:
-        msgid: "map.editor.color.default"
-        msgstr: "Default"
-        msgctxt: "Default background colour option for a map location"
+        msgid: 'map.editor.color.default'
+        msgstr: 'Default'
+        msgctxt: 'Default background colour option for a map location'
       red:
-        msgid: "map.editor.color.red"
-        msgstr: "Red"
-        msgctxt: "Red background colour option for a map location"
+        msgid: 'map.editor.color.red'
+        msgstr: 'Red'
+        msgctxt: 'Red background colour option for a map location'
       green:
-        msgid: "map.editor.color.green"
-        msgstr: "Green"
-        msgctxt: "Green background colour option for a map location"
+        msgid: 'map.editor.color.green'
+        msgstr: 'Green'
+        msgctxt: 'Green background colour option for a map location'
       blue:
-        msgid: "map.editor.color.blue"
-        msgstr: "Blue"
-        msgctxt: "Blue background colour option for a map location"
+        msgid: 'map.editor.color.blue'
+        msgstr: 'Blue'
+        msgctxt: 'Blue background colour option for a map location'
       darkblue:
-        msgid: "map.editor.color.darkblue"
-        msgstr: "Dark blue"
-        msgctxt: "Dark blue background colour option for a map location"
+        msgid: 'map.editor.color.darkblue'
+        msgstr: 'Dark blue'
+        msgctxt: 'Dark blue background colour option for a map location'
       orange:
-        msgid: "map.editor.color.orange"
-        msgstr: "Orange"
-        msgctxt: "Orange background colour option for a map location"
+        msgid: 'map.editor.color.orange'
+        msgstr: 'Orange'
+        msgctxt: 'Orange background colour option for a map location'
       sweden:
-        msgid: "map.editor.color.sweden"
-        msgstr: "Sweden"
-        msgctxt: "Sweden flag background colour option for a map location"
+        msgid: 'map.editor.color.sweden'
+        msgstr: 'Sweden'
+        msgctxt: 'Sweden flag background colour option for a map location'
       white:
-        msgid: "map.editor.color.white"
-        msgstr: "White"
-        msgctxt: "White background colour option for a map location"
+        msgid: 'map.editor.color.white'
+        msgstr: 'White'
+        msgctxt: 'White background colour option for a map location'
 
     textColor:
       default:
-        msgid: "map.editor.textColor.default"
-        msgstr: "Default"
-        msgctxt: "Default text colour option for a map location"
+        msgid: 'map.editor.textColor.default'
+        msgstr: 'Default'
+        msgctxt: 'Default text colour option for a map location'
       sweden:
-        msgid: "map.editor.textColor.sweden"
-        msgstr: "Sweden"
-        msgctxt: "Sweden flag text colour option for a map location"
+        msgid: 'map.editor.textColor.sweden'
+        msgstr: 'Sweden'
+        msgctxt: 'Sweden flag text colour option for a map location'
 
 music:
   #. Music view strings
   #: src/views/MusicView.vue
   title:
-    msgid: "music.title"
-    msgstr: "Music Matters"
-    msgctxt: "Music page title"
+    msgid: 'music.title'
+    msgstr: 'Music Matters'
+    msgctxt: 'Music page title'
 
   unknown:
-    msgid: "music.unknown"
-    msgstr: "Unknown"
-    msgctxt: "Fallback artist name"
+    msgid: 'music.unknown'
+    msgstr: 'Unknown'
+    msgctxt: 'Fallback artist name'
 
   meaning:
-    msgid: "music.meaning"
+    msgid: 'music.meaning'
     msgstr: "What's the meaning of this?"
-    msgctxt: "Song description section title"
+    msgctxt: 'Song description section title'
 
   nothingSpecified:
-    msgid: "music.nothingSpecified"
-    msgstr: "Nothing specified."
-    msgctxt: "Fallback when no song description"
+    msgid: 'music.nothingSpecified'
+    msgstr: 'Nothing specified.'
+    msgctxt: 'Fallback when no song description'
 
   playlist:
-    msgid: "music.playlist"
-    msgstr: "Playlist"
-    msgctxt: "Playlist section title"
+    msgid: 'music.playlist'
+    msgstr: 'Playlist'
+    msgctxt: 'Playlist section title'
 
   emptyPlaylist:
-    msgid: "music.emptyPlaylist"
-    msgstr: "This playlist has no songs yet."
-    msgctxt: "Empty state for a playlist with no songs"
+    msgid: 'music.emptyPlaylist'
+    msgstr: 'This playlist has no songs yet.'
+    msgctxt: 'Empty state for a playlist with no songs'
 
   editor:
     title:
-      msgid: "music.editor.title"
-      msgstr: "Music Playlist Editor"
-      msgctxt: "Music playlist editor page title"
+      msgid: 'music.editor.title'
+      msgstr: 'Music Playlist Editor'
+      msgctxt: 'Music playlist editor page title'
 
     listHint:
-      msgid: "music.editor.listHint"
-      msgstr: "Create playlists and choose which songs belong to each one."
-      msgctxt: "Short description above the playlist listing"
+      msgid: 'music.editor.listHint'
+      msgstr: 'Create playlists and choose which songs belong to each one.'
+      msgctxt: 'Short description above the playlist listing'
 
     newPlaylist:
-      msgid: "music.editor.newPlaylist"
-      msgstr: "+ New Playlist"
-      msgctxt: "Button that opens the new playlist form"
+      msgid: 'music.editor.newPlaylist'
+      msgstr: '+ New Playlist'
+      msgctxt: 'Button that opens the new playlist form'
 
     titleNew:
-      msgid: "music.editor.titleNew"
-      msgstr: "New Playlist"
-      msgctxt: "Playlist form title when creating"
+      msgid: 'music.editor.titleNew'
+      msgstr: 'New Playlist'
+      msgctxt: 'Playlist form title when creating'
 
     titleEdit:
-      msgid: "music.editor.titleEdit"
-      msgstr: "Edit Playlist"
-      msgctxt: "Playlist form title when editing"
+      msgid: 'music.editor.titleEdit'
+      msgstr: 'Edit Playlist'
+      msgctxt: 'Playlist form title when editing'
 
     titleField:
-      msgid: "music.editor.titleField"
-      msgstr: "Title *"
-      msgctxt: "Playlist title field label"
+      msgid: 'music.editor.titleField'
+      msgstr: 'Title *'
+      msgctxt: 'Playlist title field label'
 
     titlePlaceholder:
-      msgid: "music.editor.titlePlaceholder"
-      msgstr: "e.g. Late Night Drive"
-      msgctxt: "Playlist title input placeholder"
+      msgid: 'music.editor.titlePlaceholder'
+      msgstr: 'e.g. Late Night Drive'
+      msgctxt: 'Playlist title input placeholder'
 
     descriptionField:
-      msgid: "music.editor.descriptionField"
-      msgstr: "Description"
-      msgctxt: "Playlist description field label"
+      msgid: 'music.editor.descriptionField'
+      msgstr: 'Description'
+      msgctxt: 'Playlist description field label'
 
     descriptionPlaceholder:
-      msgid: "music.editor.descriptionPlaceholder"
-      msgstr: "What is this playlist about?"
-      msgctxt: "Playlist description textarea placeholder"
+      msgid: 'music.editor.descriptionPlaceholder'
+      msgstr: 'What is this playlist about?'
+      msgctxt: 'Playlist description textarea placeholder'
 
     sortingField:
-      msgid: "music.editor.sortingField"
-      msgstr: "Sorting"
-      msgctxt: "Playlist sorting field label"
+      msgid: 'music.editor.sortingField'
+      msgstr: 'Sorting'
+      msgctxt: 'Playlist sorting field label'
 
     songsField:
-      msgid: "music.editor.songsField"
-      msgstr: "Songs"
-      msgctxt: "Playlist songs field label, followed by the selected count"
+      msgid: 'music.editor.songsField'
+      msgstr: 'Songs'
+      msgctxt: 'Playlist songs field label, followed by the selected count'
 
     addSong:
-      msgid: "music.editor.addSong"
-      msgstr: "+ Add song"
-      msgctxt: "Button that opens the song picker in the playlist editor"
+      msgid: 'music.editor.addSong'
+      msgstr: '+ Add song'
+      msgctxt: 'Button that opens the song picker in the playlist editor'
 
     failedAddSong:
-      msgid: "music.editor.failedAddSong"
-      msgstr: "Failed to add song"
-      msgctxt: "Alert when adding a song to the catalogue fails"
+      msgid: 'music.editor.failedAddSong'
+      msgstr: 'Failed to add song'
+      msgctxt: 'Alert when adding a song to the catalogue fails'
 
     removeSong:
-      msgid: "music.editor.removeSong"
-      msgstr: "Remove"
-      msgctxt: "Button that removes a song from the catalogue"
+      msgid: 'music.editor.removeSong'
+      msgstr: 'Remove'
+      msgctxt: 'Button that removes a song from the catalogue'
 
     confirmRemoveSong:
-      msgid: "music.editor.confirmRemoveSong"
-      msgstr: "Remove \"{title}\" from the catalogue?"
-      msgctxt: "Confirmation dialog for removing a song, {title} is the song title"
+      msgid: 'music.editor.confirmRemoveSong'
+      msgstr: 'Remove "{title}" from the catalogue?'
+      msgctxt: 'Confirmation dialog for removing a song, {title} is the song title'
 
     failedRemoveSong:
-      msgid: "music.editor.failedRemoveSong"
-      msgstr: "Failed to remove song"
-      msgctxt: "Alert when removing a song from the catalogue fails"
+      msgid: 'music.editor.failedRemoveSong'
+      msgstr: 'Failed to remove song'
+      msgctxt: 'Alert when removing a song from the catalogue fails'
 
     noSongsAvailable:
-      msgid: "music.editor.noSongsAvailable"
-      msgstr: "No songs in the catalogue yet."
-      msgctxt: "Empty state when the music catalogue has no songs"
+      msgid: 'music.editor.noSongsAvailable'
+      msgstr: 'No songs in the catalogue yet.'
+      msgctxt: 'Empty state when the music catalogue has no songs'
 
     songCount:
-      msgid: "music.editor.songCount"
-      msgstr: "{count} songs"
-      msgctxt: "Number of songs in a playlist, {count} is a number"
+      msgid: 'music.editor.songCount'
+      msgstr: '{count} songs'
+      msgctxt: 'Number of songs in a playlist, {count} is a number'
 
     noPlaylists:
-      msgid: "music.editor.noPlaylists"
-      msgstr: "No playlists yet."
-      msgctxt: "Empty state for the playlist listing"
+      msgid: 'music.editor.noPlaylists'
+      msgstr: 'No playlists yet.'
+      msgctxt: 'Empty state for the playlist listing'
 
     confirmDelete:
-      msgid: "music.editor.confirmDelete"
-      msgstr: "Delete playlist \"{title}\"?"
-      msgctxt: "Confirmation dialog for deleting a playlist, {title} is playlist title"
+      msgid: 'music.editor.confirmDelete'
+      msgstr: 'Delete playlist "{title}"?'
+      msgctxt: 'Confirmation dialog for deleting a playlist, {title} is playlist title'
 
     failedLoad:
-      msgid: "music.editor.failedLoad"
-      msgstr: "Failed to load playlists"
-      msgctxt: "Alert when loading playlists fails"
+      msgid: 'music.editor.failedLoad'
+      msgstr: 'Failed to load playlists'
+      msgctxt: 'Alert when loading playlists fails'
 
     failedSave:
-      msgid: "music.editor.failedSave"
-      msgstr: "Failed to save playlist"
-      msgctxt: "Alert when playlist save fails"
+      msgid: 'music.editor.failedSave'
+      msgstr: 'Failed to save playlist'
+      msgctxt: 'Alert when playlist save fails'
 
     failedDelete:
-      msgid: "music.editor.failedDelete"
-      msgstr: "Failed to delete playlist"
-      msgctxt: "Alert when playlist deletion fails"
+      msgid: 'music.editor.failedDelete'
+      msgstr: 'Failed to delete playlist'
+      msgctxt: 'Alert when playlist deletion fails'
 
 blog:
   #. Blog detail strings
   #: src/components/blog/BlogDetail.vue
   postedAt:
-    msgid: "blog.postedAt"
-    msgstr: "Posted At:"
-    msgctxt: "Blog post date label"
+    msgid: 'blog.postedAt'
+    msgstr: 'Posted At:'
+    msgctxt: 'Blog post date label'
 
   lastEdited:
-    msgid: "blog.lastEdited"
-    msgstr: "Last Edited:"
-    msgctxt: "Blog post last edited date label"
+    msgid: 'blog.lastEdited'
+    msgstr: 'Last Edited:'
+    msgctxt: 'Blog post last edited date label'
 
   #. Blog summary strings
   #: src/components/blog/BlogSummary.vue
   continueReading:
-    msgid: "blog.continueReading"
-    msgstr: "Continue to Read"
-    msgctxt: "Link text to read full blog post"
+    msgid: 'blog.continueReading'
+    msgstr: 'Continue to Read'
+    msgctxt: 'Link text to read full blog post'
 
   #. Blog editor strings
   #: src/views/BlogEditorView.vue
   columnTitle:
-    msgid: "blog.editor.columnTitle"
-    msgstr: "Title"
-    msgctxt: "Blog editor table column header"
+    msgid: 'blog.editor.columnTitle'
+    msgstr: 'Title'
+    msgctxt: 'Blog editor table column header'
 
   columnUri:
-    msgid: "blog.editor.columnUri"
-    msgstr: "URI"
-    msgctxt: "Blog editor table column header"
+    msgid: 'blog.editor.columnUri'
+    msgstr: 'URI'
+    msgctxt: 'Blog editor table column header'
 
   columnPublished:
-    msgid: "blog.editor.columnPublished"
-    msgstr: "Published"
-    msgctxt: "Blog editor table column header"
+    msgid: 'blog.editor.columnPublished'
+    msgstr: 'Published'
+    msgctxt: 'Blog editor table column header'
 
   unpublished:
-    msgid: "blog.editor.unpublished"
-    msgstr: "Unpublished"
-    msgctxt: "Blog post status when not published"
+    msgid: 'blog.editor.unpublished'
+    msgstr: 'Unpublished'
+    msgctxt: 'Blog post status when not published'
 
   publishedAgo:
-    msgid: "blog.editor.publishedAgo"
-    msgstr: "Published ({time})"
-    msgctxt: "Blog post status with relative time, {time} is relative time string"
+    msgid: 'blog.editor.publishedAgo'
+    msgstr: 'Published ({time})'
+    msgctxt: 'Blog post status with relative time, {time} is relative time string'
 
   scheduledAgo:
-    msgid: "blog.editor.scheduledAgo"
-    msgstr: "Scheduled ({time})"
-    msgctxt: "Blog post status for scheduled posts, {time} is relative time string"
+    msgid: 'blog.editor.scheduledAgo'
+    msgstr: 'Scheduled ({time})'
+    msgctxt: 'Blog post status for scheduled posts, {time} is relative time string'
 
   confirmUnpublish:
-    msgid: "blog.editor.confirmUnpublish"
-    msgstr: "Are you sure to unpublish the post?"
-    msgctxt: "Confirmation dialog for unpublishing a blog post"
+    msgid: 'blog.editor.confirmUnpublish'
+    msgstr: 'Are you sure to unpublish the post?'
+    msgctxt: 'Confirmation dialog for unpublishing a blog post'
 
   #. SideBySideEditor strings
   #: src/components/editor/SideBySideEditor.vue
   titlePlaceholder:
-    msgid: "blog.editor.titlePlaceholder"
-    msgstr: "Blog Post Title"
-    msgctxt: "Blog post title input placeholder"
+    msgid: 'blog.editor.titlePlaceholder'
+    msgstr: 'Blog Post Title'
+    msgctxt: 'Blog post title input placeholder'
 
   subtitlePlaceholder:
-    msgid: "blog.editor.subtitlePlaceholder"
-    msgstr: "Blog Post Subtitle"
-    msgctxt: "Blog post subtitle input placeholder"
+    msgid: 'blog.editor.subtitlePlaceholder'
+    msgstr: 'Blog Post Subtitle'
+    msgctxt: 'Blog post subtitle input placeholder'
 
   publishDate:
-    msgid: "blog.editor.publishDate"
-    msgstr: "Publish Date:"
-    msgctxt: "Publish date field label"
+    msgid: 'blog.editor.publishDate'
+    msgstr: 'Publish Date:'
+    msgctxt: 'Publish date field label'
 
   confirmNewPost:
-    msgid: "blog.editor.confirmNewPost"
-    msgstr: "Are you sure to create new post? Any unsaved changes will be erased!"
-    msgctxt: "Confirmation dialog for creating new post"
+    msgid: 'blog.editor.confirmNewPost'
+    msgstr: 'Are you sure to create new post? Any unsaved changes will be erased!'
+    msgctxt: 'Confirmation dialog for creating new post'
 
   askNewPostUri:
-    msgid: "blog.editor.askNewPostUri"
-    msgstr: "What is the new post uri?"
-    msgctxt: "Prompt dialog for new post URI"
+    msgid: 'blog.editor.askNewPostUri'
+    msgstr: 'What is the new post uri?'
+    msgctxt: 'Prompt dialog for new post URI'
 
   confirmSavePost:
-    msgid: "blog.editor.confirmSavePost"
-    msgstr: "Are you sure to create/update the post?"
-    msgctxt: "Confirmation dialog for saving post"
+    msgid: 'blog.editor.confirmSavePost'
+    msgstr: 'Are you sure to create/update the post?'
+    msgctxt: 'Confirmation dialog for saving post'
 
   editorPlaceholder:
-    msgid: "blog.editor.editorPlaceholder"
-    msgstr: "Markdown Contents Here"
-    msgctxt: "OverType editor placeholder text"
+    msgid: 'blog.editor.editorPlaceholder'
+    msgstr: 'Markdown Contents Here'
+    msgctxt: 'OverType editor placeholder text'
 
 article:
   #. Public article index
   #: src/views/ArticleIndexView.vue
   indexTitle:
-    msgid: "article.index.title"
-    msgstr: "Articles"
-    msgctxt: "Article index page title"
+    msgid: 'article.index.title'
+    msgstr: 'Articles'
+    msgctxt: 'Article index page title'
 
   indexEmpty:
-    msgid: "article.index.empty"
-    msgstr: "No articles have been published yet."
-    msgctxt: "Empty state for the article index"
+    msgid: 'article.index.empty'
+    msgstr: 'No articles have been published yet.'
+    msgctxt: 'Empty state for the article index'
 
   continueReading:
-    msgid: "article.index.continueReading"
-    msgstr: "Continue to Read"
-    msgctxt: "Link text at the bottom of an article list card"
+    msgid: 'article.index.continueReading'
+    msgstr: 'Continue to Read'
+    msgctxt: 'Link text at the bottom of an article list card'
 
   #. Public article header
   #: src/components/article/ArticleHeader.vue
   by:
-    msgid: "article.header.by"
-    msgstr: "By {author}"
-    msgctxt: "Article author line, {author} is the display name"
+    msgid: 'article.header.by'
+    msgstr: 'By {author}'
+    msgctxt: 'Article author line, {author} is the display name'
 
   publishedAt:
-    msgid: "article.header.publishedAt"
-    msgstr: "Published {date}"
-    msgctxt: "Article publish date, {date} is a formatted date"
+    msgid: 'article.header.publishedAt'
+    msgstr: 'Published {date}'
+    msgctxt: 'Article publish date, {date} is a formatted date'
 
   updatedAt:
-    msgid: "article.header.updatedAt"
-    msgstr: "Updated {date}"
-    msgctxt: "Article last-updated date, {date} is a formatted date"
+    msgid: 'article.header.updatedAt'
+    msgstr: 'Updated {date}'
+    msgctxt: 'Article last-updated date, {date} is a formatted date'
 
   draft:
-    msgid: "article.header.draft"
-    msgstr: "Draft"
-    msgctxt: "Badge shown when previewing an unpublished article"
+    msgid: 'article.header.draft'
+    msgstr: 'Draft'
+    msgctxt: 'Badge shown when previewing an unpublished article'
 
   unpublishedNotice:
-    msgid: "article.header.unpublishedNotice"
-    msgstr: "This article is not published yet. Anyone with the link can read it."
-    msgctxt: "Notice shown on the public page of an unpublished or scheduled article"
+    msgid: 'article.header.unpublishedNotice'
+    msgstr: 'This article is not published yet. Anyone with the link can read it.'
+    msgctxt: 'Notice shown on the public page of an unpublished or scheduled article'
 
   #. Article block failure states
   #: src/components/article/blocks/ImageBlock.vue
   imageUnavailable:
-    msgid: "article.block.imageUnavailable"
-    msgstr: "This image is no longer available."
-    msgctxt: "Fallback when an image block cannot be loaded"
+    msgid: 'article.block.imageUnavailable'
+    msgstr: 'This image is no longer available.'
+    msgctxt: 'Fallback when an image block cannot be loaded'
 
   #: src/components/article/blocks/ExcalidrawBlock.vue
   drawingLoading:
-    msgid: "article.block.drawingLoading"
-    msgstr: "Loading drawing..."
-    msgctxt: "Loading state for a drawing block"
+    msgid: 'article.block.drawingLoading'
+    msgstr: 'Loading drawing...'
+    msgctxt: 'Loading state for a drawing block'
 
   drawingUnavailable:
-    msgid: "article.block.drawingUnavailable"
-    msgstr: "This drawing could not be loaded."
-    msgctxt: "Fallback when a drawing block cannot be loaded"
+    msgid: 'article.block.drawingUnavailable'
+    msgstr: 'This drawing could not be loaded.'
+    msgctxt: 'Fallback when a drawing block cannot be loaded'
 
   drawingInteract:
-    msgid: "article.block.drawingInteract"
-    msgstr: "Click to interact with the drawing"
-    msgctxt: "Hint shown over an embedded drawing until it is clicked"
+    msgid: 'article.block.drawingInteract'
+    msgstr: 'Click to interact with the drawing'
+    msgctxt: 'Hint shown over an embedded drawing until it is clicked'
 
   #. Article editor
   #: src/components/editor/article/ArticleEditor.vue
   editorTitle:
-    msgid: "article.editor.title"
-    msgstr: "Article Editor"
-    msgctxt: "Article editor page title"
+    msgid: 'article.editor.title'
+    msgstr: 'Article Editor'
+    msgctxt: 'Article editor page title'
 
   listTitle:
-    msgid: "article.editor.listTitle"
-    msgstr: "Articles"
-    msgctxt: "Heading above the article list in the editor"
+    msgid: 'article.editor.listTitle'
+    msgstr: 'Articles'
+    msgctxt: 'Heading above the article list in the editor'
 
   newArticle:
-    msgid: "article.editor.newArticle"
-    msgstr: "+ New Article"
-    msgctxt: "Button that starts a new article"
+    msgid: 'article.editor.newArticle'
+    msgstr: '+ New Article'
+    msgctxt: 'Button that starts a new article'
 
   uriPlaceholder:
-    msgid: "article.editor.uriPlaceholder"
-    msgstr: "article-uri"
-    msgctxt: "Placeholder for a new article URI"
+    msgid: 'article.editor.uriPlaceholder'
+    msgstr: 'article-uri'
+    msgctxt: 'Placeholder for a new article URI'
 
   uriLabel:
-    msgid: "article.editor.uriLabel"
-    msgstr: "URI"
-    msgctxt: "Article URI field label"
+    msgid: 'article.editor.uriLabel'
+    msgstr: 'URI'
+    msgctxt: 'Article URI field label'
 
   confirmCreateBlank:
-    msgid: "article.editor.confirmCreateBlank"
-    msgstr: "Create a new article? You can set its URI after it opens."
-    msgctxt: "Confirmation dialog before creating an article without entering a URI"
+    msgid: 'article.editor.confirmCreateBlank'
+    msgstr: 'Create a new article? You can set its URI after it opens.'
+    msgctxt: 'Confirmation dialog before creating an article without entering a URI'
 
   conflict:
-    msgid: "article.editor.conflict"
-    msgstr: "That URI is already in use."
-    msgctxt: "Error shown when a URI already exists"
+    msgid: 'article.editor.conflict'
+    msgstr: 'That URI is already in use.'
+    msgctxt: 'Error shown when a URI already exists'
 
   invalidUri:
-    msgid: "article.editor.invalidUri"
-    msgstr: "Use only lowercase letters, numbers, and hyphens."
-    msgctxt: "Error shown for an invalid article URI"
+    msgid: 'article.editor.invalidUri'
+    msgstr: 'Use only lowercase letters, numbers, and hyphens.'
+    msgctxt: 'Error shown for an invalid article URI'
 
   selectArticle:
-    msgid: "article.editor.selectArticle"
-    msgstr: "Select an article to edit."
-    msgctxt: "Empty state beside the article list"
+    msgid: 'article.editor.selectArticle'
+    msgstr: 'Select an article to edit.'
+    msgctxt: 'Empty state beside the article list'
 
   loadFailed:
-    msgid: "article.editor.loadFailed"
-    msgstr: "Could not open the article."
-    msgctxt: "Error shown when an article cannot be opened"
+    msgid: 'article.editor.loadFailed'
+    msgstr: 'Could not open the article.'
+    msgctxt: 'Error shown when an article cannot be opened'
 
   titlePlaceholder:
-    msgid: "article.editor.titlePlaceholder"
-    msgstr: "Article title"
-    msgctxt: "Article title input placeholder"
+    msgid: 'article.editor.titlePlaceholder'
+    msgstr: 'Article title'
+    msgctxt: 'Article title input placeholder'
 
   subtitlePlaceholder:
-    msgid: "article.editor.subtitlePlaceholder"
-    msgstr: "Article subtitle"
-    msgctxt: "Article subtitle input placeholder"
+    msgid: 'article.editor.subtitlePlaceholder'
+    msgstr: 'Article subtitle'
+    msgctxt: 'Article subtitle input placeholder'
 
   publishDate:
-    msgid: "article.editor.publishDate"
-    msgstr: "Publish date"
-    msgctxt: "Publish date field label"
+    msgid: 'article.editor.publishDate'
+    msgstr: 'Publish date'
+    msgctxt: 'Publish date field label'
 
   publishNow:
-    msgid: "article.editor.publishNow"
-    msgstr: "Publish now"
-    msgctxt: "Button that sets the publish time to now and saves the article"
+    msgid: 'article.editor.publishNow'
+    msgstr: 'Publish now'
+    msgctxt: 'Button that sets the publish time to now and saves the article'
 
   unpublished:
-    msgid: "article.editor.unpublished"
-    msgstr: "Unpublished"
-    msgctxt: "Article status when not published"
+    msgid: 'article.editor.unpublished'
+    msgstr: 'Unpublished'
+    msgctxt: 'Article status when not published'
 
   blocks:
-    msgid: "article.editor.blocks"
-    msgstr: "Blocks"
-    msgctxt: "Heading above the block list"
+    msgid: 'article.editor.blocks'
+    msgstr: 'Blocks'
+    msgctxt: 'Heading above the block list'
 
   addBlock:
-    msgid: "article.editor.addBlock"
-    msgstr: "Add block"
-    msgctxt: "Label above the block palette"
+    msgid: 'article.editor.addBlock'
+    msgstr: 'Add block'
+    msgctxt: 'Label above the block palette'
 
   blockMarkdown:
-    msgid: "article.editor.blockMarkdown"
-    msgstr: "Markdown"
-    msgctxt: "Block palette entry"
+    msgid: 'article.editor.blockMarkdown'
+    msgstr: 'Markdown'
+    msgctxt: 'Block palette entry'
 
   blockImage:
-    msgid: "article.editor.blockImage"
-    msgstr: "Gallery image"
-    msgctxt: "Block palette entry"
+    msgid: 'article.editor.blockImage'
+    msgstr: 'Gallery image'
+    msgctxt: 'Block palette entry'
 
   blockMusic:
-    msgid: "article.editor.blockMusic"
-    msgstr: "Music"
-    msgctxt: "Block palette entry"
+    msgid: 'article.editor.blockMusic'
+    msgstr: 'Music'
+    msgctxt: 'Block palette entry'
 
   blockDrawing:
-    msgid: "article.editor.blockDrawing"
-    msgstr: "Drawing"
-    msgctxt: "Block palette entry"
+    msgid: 'article.editor.blockDrawing'
+    msgstr: 'Drawing'
+    msgctxt: 'Block palette entry'
 
   moveUp:
-    msgid: "article.editor.moveUp"
-    msgstr: "Move up"
-    msgctxt: "Block reorder button title"
+    msgid: 'article.editor.moveUp'
+    msgstr: 'Move up'
+    msgctxt: 'Block reorder button title'
 
   moveDown:
-    msgid: "article.editor.moveDown"
-    msgstr: "Move down"
-    msgctxt: "Block reorder button title"
+    msgid: 'article.editor.moveDown'
+    msgstr: 'Move down'
+    msgctxt: 'Block reorder button title'
 
   duplicateBlock:
-    msgid: "article.editor.duplicateBlock"
-    msgstr: "Duplicate block"
-    msgctxt: "Block duplication button title"
+    msgid: 'article.editor.duplicateBlock'
+    msgstr: 'Duplicate block'
+    msgctxt: 'Block duplication button title'
 
   removeBlock:
-    msgid: "article.editor.removeBlock"
-    msgstr: "Remove block"
-    msgctxt: "Block removal button title"
+    msgid: 'article.editor.removeBlock'
+    msgstr: 'Remove block'
+    msgctxt: 'Block removal button title'
 
   markdownPlaceholder:
-    msgid: "article.editor.markdownPlaceholder"
-    msgstr: "Write markdown here. Drop an image to upload it."
-    msgctxt: "Markdown block editor placeholder"
+    msgid: 'article.editor.markdownPlaceholder'
+    msgstr: 'Write markdown here. Drop an image to upload it.'
+    msgctxt: 'Markdown block editor placeholder'
 
   captionPlaceholder:
-    msgid: "article.editor.captionPlaceholder"
-    msgstr: "Caption (optional)"
-    msgctxt: "Image caption input placeholder"
+    msgid: 'article.editor.captionPlaceholder'
+    msgstr: 'Caption (optional)'
+    msgctxt: 'Image caption input placeholder'
 
   chooseImage:
-    msgid: "article.editor.chooseImage"
-    msgstr: "Choose gallery image"
-    msgctxt: "Button that opens the gallery picker"
+    msgid: 'article.editor.chooseImage'
+    msgstr: 'Choose gallery image'
+    msgctxt: 'Button that opens the gallery picker'
 
   changeImage:
-    msgid: "article.editor.changeImage"
-    msgstr: "Change image"
-    msgctxt: "Button that reopens the gallery picker"
+    msgid: 'article.editor.changeImage'
+    msgstr: 'Change image'
+    msgctxt: 'Button that reopens the gallery picker'
 
   chooseMusic:
-    msgid: "article.editor.chooseMusic"
-    msgstr: "Choose song"
-    msgctxt: "Button that opens the music picker"
+    msgid: 'article.editor.chooseMusic'
+    msgstr: 'Choose song'
+    msgctxt: 'Button that opens the music picker'
 
   changeMusic:
-    msgid: "article.editor.changeMusic"
-    msgstr: "Change song"
-    msgctxt: "Button that reopens the music picker"
+    msgid: 'article.editor.changeMusic'
+    msgstr: 'Change song'
+    msgctxt: 'Button that reopens the music picker'
 
   noSelection:
-    msgid: "article.editor.noSelection"
-    msgstr: "Nothing selected yet."
-    msgctxt: "Placeholder when a media block has no selection"
+    msgid: 'article.editor.noSelection'
+    msgstr: 'Nothing selected yet.'
+    msgctxt: 'Placeholder when a media block has no selection'
 
   uploadFailed:
-    msgid: "article.editor.uploadFailed"
-    msgstr: "Upload failed."
-    msgctxt: "Error shown when an image upload fails"
+    msgid: 'article.editor.uploadFailed'
+    msgstr: 'Upload failed.'
+    msgctxt: 'Error shown when an image upload fails'
 
   uploadImage:
-    msgid: "article.editor.uploadImage"
-    msgstr: "Upload image"
-    msgctxt: "Button that uploads an image into a markdown block"
+    msgid: 'article.editor.uploadImage'
+    msgstr: 'Upload image'
+    msgctxt: 'Button that uploads an image into a markdown block'
 
   preview:
-    msgid: "article.editor.preview"
-    msgstr: "Preview"
-    msgctxt: "Heading above the live article preview"
+    msgid: 'article.editor.preview'
+    msgstr: 'Preview'
+    msgctxt: 'Heading above the live article preview'
 
   previewHint:
-    msgid: "article.editor.previewHint"
-    msgstr: "Refreshes within a second of your last edit."
-    msgctxt: "Hint under the article editor preview heading"
+    msgid: 'article.editor.previewHint'
+    msgstr: 'Refreshes within a second of your last edit.'
+    msgctxt: 'Hint under the article editor preview heading'
 
   saved:
-    msgid: "article.editor.saved"
-    msgstr: "Article saved."
-    msgctxt: "Success alert after saving an article"
+    msgid: 'article.editor.saved'
+    msgstr: 'Article saved.'
+    msgctxt: 'Success alert after saving an article'
 
   published:
-    msgid: "article.editor.published"
-    msgstr: "Article published."
-    msgctxt: "Success toast after publishing an article immediately"
+    msgid: 'article.editor.published'
+    msgstr: 'Article published.'
+    msgctxt: 'Success toast after publishing an article immediately'
 
   saveFailed:
-    msgid: "article.editor.saveFailed"
-    msgstr: "Could not save the article."
-    msgctxt: "Error shown when saving an article fails"
+    msgid: 'article.editor.saveFailed'
+    msgstr: 'Could not save the article.'
+    msgctxt: 'Error shown when saving an article fails'
 
   sceneFailed:
-    msgid: "article.editor.sceneFailed"
-    msgstr: "Could not save the drawing."
-    msgctxt: "Error shown when a drawing scene fails to save"
+    msgid: 'article.editor.sceneFailed'
+    msgstr: 'Could not save the drawing.'
+    msgctxt: 'Error shown when a drawing scene fails to save'
 
   sceneLoadFailed:
-    msgid: "article.editor.sceneLoadFailed"
-    msgstr: "Could not load the drawing."
-    msgctxt: "Error shown when a drawing scene fails to load in the editor"
+    msgid: 'article.editor.sceneLoadFailed'
+    msgstr: 'Could not load the drawing.'
+    msgctxt: 'Error shown when a drawing scene fails to load in the editor'
 
   drawingHint:
-    msgid: "article.editor.drawingHint"
-    msgstr: "Draw in the canvas, then save the article. The drawing is stored with this block."
-    msgctxt: "Help text under a drawing block editor"
+    msgid: 'article.editor.drawingHint'
+    msgstr: 'Draw in the canvas, then save the article. The drawing is stored with this block.'
+    msgctxt: 'Help text under a drawing block editor'
 
   saveDrawing:
-    msgid: "article.editor.saveDrawing"
-    msgstr: "Save drawing"
-    msgctxt: "Button that stores the current drawing scene"
+    msgid: 'article.editor.saveDrawing'
+    msgstr: 'Save drawing'
+    msgctxt: 'Button that stores the current drawing scene'
 
   galleryTitle:
-    msgid: "article.editor.galleryTitle"
-    msgstr: "Gallery"
-    msgctxt: "Gallery picker title"
+    msgid: 'article.editor.galleryTitle'
+    msgstr: 'Gallery'
+    msgctxt: 'Gallery picker title'
 
   allCollections:
-    msgid: "article.editor.allCollections"
-    msgstr: "All"
-    msgctxt: "Option that shows assets from every gallery collection"
+    msgid: 'article.editor.allCollections'
+    msgstr: 'All'
+    msgctxt: 'Option that shows assets from every gallery collection'
 
   musicTitle:
-    msgid: "article.editor.musicTitle"
-    msgstr: "Music"
-    msgctxt: "Music picker title"
+    msgid: 'article.editor.musicTitle'
+    msgstr: 'Music'
+    msgctxt: 'Music picker title'
 
   youtubeLinkPlaceholder:
-    msgid: "article.editor.youtubeLinkPlaceholder"
-    msgstr: "Paste a YouTube link"
-    msgctxt: "Placeholder for the YouTube link input in the music picker"
+    msgid: 'article.editor.youtubeLinkPlaceholder'
+    msgstr: 'Paste a YouTube link'
+    msgctxt: 'Placeholder for the YouTube link input in the music picker'
 
   useLink:
-    msgid: "article.editor.useLink"
-    msgstr: "Use link"
-    msgctxt: "Button that selects the video from the pasted YouTube link"
+    msgid: 'article.editor.useLink'
+    msgstr: 'Use link'
+    msgctxt: 'Button that selects the video from the pasted YouTube link'
 
   useThisSong:
-    msgid: "article.editor.useThisSong"
-    msgstr: "Use this song"
-    msgctxt: "Button that confirms the previewed YouTube link"
+    msgid: 'article.editor.useThisSong'
+    msgstr: 'Use this song'
+    msgctxt: 'Button that confirms the previewed YouTube link'
 
   resolvingLink:
-    msgid: "article.editor.resolvingLink"
-    msgstr: "Loading..."
-    msgctxt: "Button label while the video details are being resolved"
+    msgid: 'article.editor.resolvingLink'
+    msgstr: 'Loading...'
+    msgctxt: 'Button label while the video details are being resolved'
 
   invalidYoutubeLink:
-    msgid: "article.editor.invalidYoutubeLink"
+    msgid: 'article.editor.invalidYoutubeLink'
     msgstr: "That doesn't look like a YouTube link."
-    msgctxt: "Error when the pasted text is not a YouTube link"
+    msgctxt: 'Error when the pasted text is not a YouTube link'
 
   youtubeLinkFailed:
-    msgid: "article.editor.youtubeLinkFailed"
+    msgid: 'article.editor.youtubeLinkFailed'
     msgstr: "Couldn't load that video. Check the link and try again."
-    msgctxt: "Error when the video behind a YouTube link cannot be read"
+    msgctxt: 'Error when the video behind a YouTube link cannot be read'
 
   loadMore:
-    msgid: "article.editor.loadMore"
-    msgstr: "Load more"
-    msgctxt: "Button that loads the next page of gallery assets"
+    msgid: 'article.editor.loadMore'
+    msgstr: 'Load more'
+    msgctxt: 'Button that loads the next page of gallery assets'
 
   noAssets:
-    msgid: "article.editor.noAssets"
-    msgstr: "No assets in this collection."
-    msgctxt: "Empty state for the gallery picker"
+    msgid: 'article.editor.noAssets'
+    msgstr: 'No assets in this collection.'
+    msgctxt: 'Empty state for the gallery picker'
 
   noSongs:
-    msgid: "article.editor.noSongs"
-    msgstr: "No songs available."
-    msgctxt: "Empty state for the music picker"
+    msgid: 'article.editor.noSongs'
+    msgstr: 'No songs available.'
+    msgctxt: 'Empty state for the music picker'
 
   confirmUnpublish:
-    msgid: "article.editor.confirmUnpublish"
-    msgstr: "Unpublish this article? Its blocks and assets are kept."
-    msgctxt: "Confirmation dialog before unpublishing an article"
+    msgid: 'article.editor.confirmUnpublish'
+    msgstr: 'Unpublish this article? Its blocks and assets are kept.'
+    msgctxt: 'Confirmation dialog before unpublishing an article'
 
   confirmDiscard:
-    msgid: "article.editor.confirmDiscard"
-    msgstr: "You have unsaved changes. Discard them?"
-    msgctxt: "Confirmation shown before leaving the editor with unsaved changes"
+    msgid: 'article.editor.confirmDiscard'
+    msgstr: 'You have unsaved changes. Discard them?'
+    msgctxt: 'Confirmation shown before leaving the editor with unsaved changes'
 
   confirmDelete:
-    msgid: "article.editor.confirmDelete"
-    msgstr: "Permanently delete this article and its drawings? This cannot be undone."
-    msgctxt: "Confirmation dialog before permanently deleting an article"
+    msgid: 'article.editor.confirmDelete'
+    msgstr: 'Permanently delete this article and its drawings? This cannot be undone.'
+    msgctxt: 'Confirmation dialog before permanently deleting an article'
 
   unpublish:
-    msgid: "article.editor.unpublish"
-    msgstr: "Unpublish"
-    msgctxt: "Button that unpublishes an article while keeping its content"
+    msgid: 'article.editor.unpublish'
+    msgstr: 'Unpublish'
+    msgctxt: 'Button that unpublishes an article while keeping its content'
 
   unpublishedToast:
-    msgid: "article.editor.unpublishedToast"
-    msgstr: "Article unpublished."
-    msgctxt: "Success toast after unpublishing an article"
+    msgid: 'article.editor.unpublishedToast'
+    msgstr: 'Article unpublished.'
+    msgctxt: 'Success toast after unpublishing an article'
 
   unpublishFailed:
-    msgid: "article.editor.unpublishFailed"
-    msgstr: "Could not unpublish the article."
-    msgctxt: "Error toast when unpublishing an article fails"
+    msgid: 'article.editor.unpublishFailed'
+    msgstr: 'Could not unpublish the article.'
+    msgctxt: 'Error toast when unpublishing an article fails'
 
   deleted:
-    msgid: "article.editor.deleted"
-    msgstr: "Article deleted."
-    msgctxt: "Success toast after permanently deleting an article"
+    msgid: 'article.editor.deleted'
+    msgstr: 'Article deleted.'
+    msgctxt: 'Success toast after permanently deleting an article'
 
   deleteFailed:
-    msgid: "article.editor.deleteFailed"
-    msgstr: "Could not delete the article."
-    msgctxt: "Error toast when permanently deleting an article fails"
+    msgid: 'article.editor.deleteFailed'
+    msgstr: 'Could not delete the article.'
+    msgctxt: 'Error toast when permanently deleting an article fails'
 
   columnTitle:
-    msgid: "article.editor.columnTitle"
-    msgstr: "Title"
-    msgctxt: "Article editor table column header"
+    msgid: 'article.editor.columnTitle'
+    msgstr: 'Title'
+    msgctxt: 'Article editor table column header'
 
   columnUri:
-    msgid: "article.editor.columnUri"
-    msgstr: "URI"
-    msgctxt: "Article editor table column header"
+    msgid: 'article.editor.columnUri'
+    msgstr: 'URI'
+    msgctxt: 'Article editor table column header'
 
   columnPublished:
-    msgid: "article.editor.columnPublished"
-    msgstr: "Published"
-    msgctxt: "Article editor table column header"
+    msgid: 'article.editor.columnPublished'
+    msgstr: 'Published'
+    msgctxt: 'Article editor table column header'
 
   publishedAgo:
-    msgid: "article.editor.publishedAgo"
-    msgstr: "Published ({time})"
-    msgctxt: "Article status with relative time, {time} is relative time string"
+    msgid: 'article.editor.publishedAgo'
+    msgstr: 'Published ({time})'
+    msgctxt: 'Article status with relative time, {time} is relative time string'
 
   scheduledAgo:
-    msgid: "article.editor.scheduledAgo"
-    msgstr: "Scheduled ({time})"
-    msgctxt: "Article status for scheduled articles, {time} is relative time string"
+    msgid: 'article.editor.scheduledAgo'
+    msgstr: 'Scheduled ({time})'
+    msgctxt: 'Article status for scheduled articles, {time} is relative time string'
 
   open:
-    msgid: "article.editor.open"
-    msgstr: "Open"
-    msgctxt: "Button that opens an article in the editor"
+    msgid: 'article.editor.open'
+    msgstr: 'Open'
+    msgctxt: 'Button that opens an article in the editor'
 
   listHint:
-    msgid: "article.editor.listHint"
-    msgstr: "Open an article to edit it, or create a new one."
-    msgctxt: "Short description above the article listing"
+    msgid: 'article.editor.listHint'
+    msgstr: 'Open an article to edit it, or create a new one.'
+    msgctxt: 'Short description above the article listing'
 
   details:
-    msgid: "article.editor.details"
-    msgstr: "Details"
-    msgctxt: "Button that toggles the article metadata sidebar on narrow screens"
+    msgid: 'article.editor.details'
+    msgstr: 'Details'
+    msgctxt: 'Button that toggles the article metadata sidebar on narrow screens'
 
   editTab:
-    msgid: "article.editor.editTab"
-    msgstr: "Edit"
-    msgctxt: "Tab that shows the editor on narrow screens"
+    msgid: 'article.editor.editTab'
+    msgstr: 'Edit'
+    msgctxt: 'Tab that shows the editor on narrow screens'
 
   previewTab:
-    msgid: "article.editor.previewTab"
-    msgstr: "Preview"
-    msgctxt: "Tab that shows the live preview on narrow screens"
+    msgid: 'article.editor.previewTab'
+    msgstr: 'Preview'
+    msgctxt: 'Tab that shows the live preview on narrow screens'
 
   unsaved:
-    msgid: "article.editor.unsaved"
-    msgstr: "Unsaved changes"
-    msgctxt: "Editor status when the article has unsaved changes"
+    msgid: 'article.editor.unsaved'
+    msgstr: 'Unsaved changes'
+    msgctxt: 'Editor status when the article has unsaved changes'
 
   allSaved:
-    msgid: "article.editor.allSaved"
-    msgstr: "Saved"
-    msgctxt: "Editor status when the article has no unsaved changes"
+    msgid: 'article.editor.allSaved'
+    msgstr: 'Saved'
+    msgctxt: 'Editor status when the article has no unsaved changes'
 
   statusDraft:
-    msgid: "article.editor.statusDraft"
-    msgstr: "Draft"
-    msgctxt: "Article publication status"
+    msgid: 'article.editor.statusDraft'
+    msgstr: 'Draft'
+    msgctxt: 'Article publication status'
 
   statusScheduled:
-    msgid: "article.editor.statusScheduled"
-    msgstr: "Scheduled"
-    msgctxt: "Article publication status for a future publish date"
+    msgid: 'article.editor.statusScheduled'
+    msgstr: 'Scheduled'
+    msgctxt: 'Article publication status for a future publish date'
 
   statusPublished:
-    msgid: "article.editor.statusPublished"
-    msgstr: "Published"
-    msgctxt: "Article publication status for a past publish date"
+    msgid: 'article.editor.statusPublished'
+    msgstr: 'Published'
+    msgctxt: 'Article publication status for a past publish date'
 
   openPublic:
-    msgid: "article.editor.openPublic"
-    msgstr: "Open public page"
-    msgctxt: "Link that opens the published article in a new tab"
+    msgid: 'article.editor.openPublic'
+    msgstr: 'Open public page'
+    msgctxt: 'Link that opens the published article in a new tab'
 
   copyLink:
-    msgid: "article.editor.copyLink"
-    msgstr: "Copy link"
+    msgid: 'article.editor.copyLink'
+    msgstr: 'Copy link'
     msgctxt: "Button that copies the article's public URL"
 
   copied:
-    msgid: "article.editor.copied"
-    msgstr: "Copied"
+    msgid: 'article.editor.copied'
+    msgstr: 'Copied'
     msgctxt: "Feedback after copying the article's public URL"
 
   editorCreatedAt:
-    msgid: "article.editor.createdAt"
-    msgstr: "Created {date}"
-    msgctxt: "Article creation timestamp in the sidebar, {date} is formatted"
+    msgid: 'article.editor.createdAt'
+    msgstr: 'Created {date}'
+    msgctxt: 'Article creation timestamp in the sidebar, {date} is formatted'
 
   editorUpdatedAt:
-    msgid: "article.editor.updatedAt"
-    msgstr: "Updated {date}"
-    msgctxt: "Article update timestamp in the sidebar, {date} is formatted"
+    msgid: 'article.editor.updatedAt'
+    msgstr: 'Updated {date}'
+    msgctxt: 'Article update timestamp in the sidebar, {date} is formatted'
 
   emptyList:
-    msgid: "article.editor.emptyList"
-    msgstr: "No articles yet."
-    msgctxt: "Empty state for the article listing"
+    msgid: 'article.editor.emptyList'
+    msgstr: 'No articles yet.'
+    msgctxt: 'Empty state for the article listing'
 
   listFailed:
-    msgid: "article.editor.listFailed"
-    msgstr: "Could not load articles."
-    msgctxt: "Error shown when the article listing fails to load"
+    msgid: 'article.editor.listFailed'
+    msgstr: 'Could not load articles.'
+    msgctxt: 'Error shown when the article listing fails to load'
 
   createFailed:
-    msgid: "article.editor.createFailed"
-    msgstr: "Could not create the article."
-    msgctxt: "Error shown when creating an article fails"
+    msgid: 'article.editor.createFailed'
+    msgstr: 'Could not create the article.'
+    msgctxt: 'Error shown when creating an article fails'
 
   pageSummary:
-    msgid: "article.editor.pageSummary"
-    msgstr: "{start}-{end} of {total}"
-    msgctxt: "Article listing pagination summary; start, end, and total are numbers"
+    msgid: 'article.editor.pageSummary'
+    msgstr: '{start}-{end} of {total}'
+    msgctxt: 'Article listing pagination summary; start, end, and total are numbers'
 
   columnStatus:
-    msgid: "article.editor.columnStatus"
-    msgstr: "Status"
-    msgctxt: "Article editor table column header"
+    msgid: 'article.editor.columnStatus'
+    msgstr: 'Status'
+    msgctxt: 'Article editor table column header'
 
   columnUpdated:
-    msgid: "article.editor.columnUpdated"
-    msgstr: "Updated"
-    msgctxt: "Article editor table column header"
+    msgid: 'article.editor.columnUpdated'
+    msgstr: 'Updated'
+    msgctxt: 'Article editor table column header'
 
 coffee:
   #. Coffee view strings
   #: src/views/CoffeeView.vue
   viewTitle:
-    msgid: "coffee.view.title"
-    msgstr: "My Coffee Journey"
-    msgctxt: "Coffee page title"
+    msgid: 'coffee.view.title'
+    msgstr: 'My Coffee Journey'
+    msgctxt: 'Coffee page title'
 
   viewSubtitle:
-    msgid: "coffee.view.subtitle"
-    msgstr: "Just a list of the coffee I have tried for my own reference, nothing special here."
-    msgctxt: "Coffee page subtitle"
+    msgid: 'coffee.view.subtitle'
+    msgstr: 'Just a list of the coffee I have tried for my own reference, nothing special here.'
+    msgctxt: 'Coffee page subtitle'
 
   noTastings:
-    msgid: "coffee.view.noTastings"
-    msgstr: "No tastings recorded yet."
-    msgctxt: "Empty state when no tastings exist"
+    msgid: 'coffee.view.noTastings'
+    msgstr: 'No tastings recorded yet.'
+    msgctxt: 'Empty state when no tastings exist'
 
   equipmentCredit:
-    msgid: "coffee.view.equipmentCredit"
-    msgstr: "Equipment illustration icon by {author} in CC Attribution License via {source}."
-    msgctxt: "Equipment icon attribution, {author} and {source} are links"
+    msgid: 'coffee.view.equipmentCredit'
+    msgstr: 'Equipment illustration icon by {author} in CC Attribution License via {source}.'
+    msgctxt: 'Equipment icon attribution, {author} and {source} are links'
 
   equipmentCreditAuthor:
-    msgid: "coffee.view.equipmentCreditAuthor"
-    msgstr: "Alvin Arief"
-    msgctxt: "Author name in equipment icon attribution"
+    msgid: 'coffee.view.equipmentCreditAuthor'
+    msgstr: 'Alvin Arief'
+    msgctxt: 'Author name in equipment icon attribution'
 
   equipmentCreditSource:
-    msgid: "coffee.view.equipmentCreditSource"
-    msgstr: "SVG Repo"
-    msgctxt: "Source name in equipment icon attribution"
+    msgid: 'coffee.view.equipmentCreditSource'
+    msgstr: 'SVG Repo'
+    msgctxt: 'Source name in equipment icon attribution'
 
   #. Coffee editor strings
   #: src/views/editor/
   tabBeans:
-    msgid: "coffee.editor.tabBeans"
-    msgstr: "Beans"
-    msgctxt: "Coffee editor tab label"
+    msgid: 'coffee.editor.tabBeans'
+    msgstr: 'Beans'
+    msgctxt: 'Coffee editor tab label'
 
   tabEquipment:
-    msgid: "coffee.editor.tabEquipment"
-    msgstr: "Equipment"
-    msgctxt: "Coffee editor tab label"
+    msgid: 'coffee.editor.tabEquipment'
+    msgstr: 'Equipment'
+    msgctxt: 'Coffee editor tab label'
 
   tabTasting:
-    msgid: "coffee.editor.tabTasting"
-    msgstr: "Tasting"
-    msgctxt: "Coffee editor tab label"
+    msgid: 'coffee.editor.tabTasting'
+    msgstr: 'Tasting'
+    msgctxt: 'Coffee editor tab label'
 
   newBean:
-    msgid: "coffee.editor.newBean"
-    msgstr: "+ New Bean"
-    msgctxt: "Button to create new bean"
+    msgid: 'coffee.editor.newBean'
+    msgstr: '+ New Bean'
+    msgctxt: 'Button to create new bean'
 
   newEquipment:
-    msgid: "coffee.editor.newEquipment"
-    msgstr: "+ New Equipment"
-    msgctxt: "Button to create new equipment"
+    msgid: 'coffee.editor.newEquipment'
+    msgstr: '+ New Equipment'
+    msgctxt: 'Button to create new equipment'
 
   newTasting:
-    msgid: "coffee.editor.newTasting"
-    msgstr: "+ New Tasting"
-    msgctxt: "Button to create new tasting"
+    msgid: 'coffee.editor.newTasting'
+    msgstr: '+ New Tasting'
+    msgctxt: 'Button to create new tasting'
 
   noBeans:
-    msgid: "coffee.editor.noBeans"
-    msgstr: "No beans yet"
-    msgctxt: "Empty state for beans list"
+    msgid: 'coffee.editor.noBeans'
+    msgstr: 'No beans yet'
+    msgctxt: 'Empty state for beans list'
 
   noEquipment:
-    msgid: "coffee.editor.noEquipment"
-    msgstr: "No equipment yet"
-    msgctxt: "Empty state for equipment list"
+    msgid: 'coffee.editor.noEquipment'
+    msgstr: 'No equipment yet'
+    msgctxt: 'Empty state for equipment list'
 
   noTastingsYet:
-    msgid: "coffee.editor.noTastingsYet"
-    msgstr: "No tastings yet"
-    msgctxt: "Empty state for tastings list"
+    msgid: 'coffee.editor.noTastingsYet'
+    msgstr: 'No tastings yet'
+    msgctxt: 'Empty state for tastings list'
 
   unknownBean:
-    msgid: "coffee.editor.unknownBean"
-    msgstr: "Unknown bean"
-    msgctxt: "Fallback when tasting has no bean"
+    msgid: 'coffee.editor.unknownBean'
+    msgstr: 'Unknown bean'
+    msgctxt: 'Fallback when tasting has no bean'
 
   confirmDeleteBean:
-    msgid: "coffee.editor.confirmDeleteBean"
-    msgstr: "Delete \"{name}\"?"
-    msgctxt: "Confirmation dialog for deleting a bean, {name} is bean name"
+    msgid: 'coffee.editor.confirmDeleteBean'
+    msgstr: 'Delete "{name}"?'
+    msgctxt: 'Confirmation dialog for deleting a bean, {name} is bean name'
 
   confirmDeleteEquipment:
-    msgid: "coffee.editor.confirmDeleteEquipment"
-    msgstr: "Delete \"{name}\"?"
-    msgctxt: "Confirmation dialog for deleting equipment, {name} is equipment name"
+    msgid: 'coffee.editor.confirmDeleteEquipment'
+    msgstr: 'Delete "{name}"?'
+    msgctxt: 'Confirmation dialog for deleting equipment, {name} is equipment name'
 
   confirmDeleteTasting:
-    msgid: "coffee.editor.confirmDeleteTasting"
-    msgstr: "Delete tasting \"{label}\"?"
-    msgctxt: "Confirmation dialog for deleting a tasting, {label} is tasting label"
+    msgid: 'coffee.editor.confirmDeleteTasting'
+    msgstr: 'Delete tasting "{label}"?'
+    msgctxt: 'Confirmation dialog for deleting a tasting, {label} is tasting label'
 
   failedDeleteBean:
-    msgid: "coffee.editor.failedDeleteBean"
-    msgstr: "Failed to delete bean"
-    msgctxt: "Alert when bean deletion fails"
+    msgid: 'coffee.editor.failedDeleteBean'
+    msgstr: 'Failed to delete bean'
+    msgctxt: 'Alert when bean deletion fails'
 
   failedDeleteEquipment:
-    msgid: "coffee.editor.failedDeleteEquipment"
-    msgstr: "Failed to delete equipment"
-    msgctxt: "Alert when equipment deletion fails"
+    msgid: 'coffee.editor.failedDeleteEquipment'
+    msgstr: 'Failed to delete equipment'
+    msgctxt: 'Alert when equipment deletion fails'
 
   failedDeleteTasting:
-    msgid: "coffee.editor.failedDeleteTasting"
-    msgstr: "Failed to delete tasting"
-    msgctxt: "Alert when tasting deletion fails"
+    msgid: 'coffee.editor.failedDeleteTasting'
+    msgstr: 'Failed to delete tasting'
+    msgctxt: 'Alert when tasting deletion fails'
 
   #. TastingForm strings
   #: src/components/coffee/TastingForm.vue
   tastingForm:
     titleEdit:
-      msgid: "coffee.tastingForm.titleEdit"
-      msgstr: "Edit Tasting"
-      msgctxt: "Tasting form title when editing"
+      msgid: 'coffee.tastingForm.titleEdit'
+      msgstr: 'Edit Tasting'
+      msgctxt: 'Tasting form title when editing'
 
     titleNew:
-      msgid: "coffee.tastingForm.titleNew"
-      msgstr: "New Tasting"
-      msgctxt: "Tasting form title when creating"
+      msgid: 'coffee.tastingForm.titleNew'
+      msgstr: 'New Tasting'
+      msgctxt: 'Tasting form title when creating'
 
     bean:
-      msgid: "coffee.tastingForm.bean"
-      msgstr: "Bean"
-      msgctxt: "Bean field label"
+      msgid: 'coffee.tastingForm.bean'
+      msgstr: 'Bean'
+      msgctxt: 'Bean field label'
 
     equipment:
-      msgid: "coffee.tastingForm.equipment"
-      msgstr: "Equipment"
-      msgctxt: "Equipment field label"
+      msgid: 'coffee.tastingForm.equipment'
+      msgstr: 'Equipment'
+      msgctxt: 'Equipment field label'
 
     date:
-      msgid: "coffee.tastingForm.date"
-      msgstr: "Date"
-      msgctxt: "Date field label"
+      msgid: 'coffee.tastingForm.date'
+      msgstr: 'Date'
+      msgctxt: 'Date field label'
 
     rating:
-      msgid: "coffee.tastingForm.rating"
-      msgstr: "Rating (1-10)"
-      msgctxt: "Rating field label"
+      msgid: 'coffee.tastingForm.rating'
+      msgstr: 'Rating (1-10)'
+      msgctxt: 'Rating field label'
 
     addNew:
-      msgid: "coffee.tastingForm.addNew"
-      msgstr: "+ new"
-      msgctxt: "Quick add button text"
+      msgid: 'coffee.tastingForm.addNew'
+      msgstr: '+ new'
+      msgctxt: 'Quick add button text'
 
     selectBean:
-      msgid: "coffee.tastingForm.selectBean"
-      msgstr: "Select bean..."
-      msgctxt: "Bean dropdown placeholder"
+      msgid: 'coffee.tastingForm.selectBean'
+      msgstr: 'Select bean...'
+      msgctxt: 'Bean dropdown placeholder'
 
     selectEquipment:
-      msgid: "coffee.tastingForm.selectEquipment"
-      msgstr: "Select equipment..."
-      msgctxt: "Equipment dropdown placeholder"
+      msgid: 'coffee.tastingForm.selectEquipment'
+      msgstr: 'Select equipment...'
+      msgctxt: 'Equipment dropdown placeholder'
 
     selectGrind:
-      msgid: "coffee.tastingForm.selectGrind"
-      msgstr: "Select..."
-      msgctxt: "Grind size dropdown placeholder"
+      msgid: 'coffee.tastingForm.selectGrind'
+      msgstr: 'Select...'
+      msgctxt: 'Grind size dropdown placeholder'
 
     beanName:
-      msgid: "coffee.tastingForm.beanName"
-      msgstr: "Bean name *"
-      msgctxt: "Quick bean form name placeholder"
+      msgid: 'coffee.tastingForm.beanName'
+      msgstr: 'Bean name *'
+      msgctxt: 'Quick bean form name placeholder'
 
     roaster:
-      msgid: "coffee.tastingForm.roaster"
-      msgstr: "Roaster"
-      msgctxt: "Quick bean form roaster placeholder"
+      msgid: 'coffee.tastingForm.roaster'
+      msgstr: 'Roaster'
+      msgctxt: 'Quick bean form roaster placeholder'
 
     origin:
-      msgid: "coffee.tastingForm.origin"
-      msgstr: "Origin"
-      msgctxt: "Quick bean form origin placeholder"
+      msgid: 'coffee.tastingForm.origin'
+      msgstr: 'Origin'
+      msgctxt: 'Quick bean form origin placeholder'
 
     equipmentName:
-      msgid: "coffee.tastingForm.equipmentName"
-      msgstr: "Equipment name *"
-      msgctxt: "Quick equipment form name placeholder"
+      msgid: 'coffee.tastingForm.equipmentName'
+      msgstr: 'Equipment name *'
+      msgctxt: 'Quick equipment form name placeholder'
 
     grinder:
-      msgid: "coffee.tastingForm.grinder"
-      msgstr: "Grinder"
-      msgctxt: "Brew recipe field label"
+      msgid: 'coffee.tastingForm.grinder'
+      msgstr: 'Grinder'
+      msgctxt: 'Brew recipe field label'
 
     grindSize:
-      msgid: "coffee.tastingForm.grindSize"
-      msgstr: "Grind Size"
-      msgctxt: "Brew recipe field label"
+      msgid: 'coffee.tastingForm.grindSize'
+      msgstr: 'Grind Size'
+      msgctxt: 'Brew recipe field label'
 
     grindSetting:
-      msgid: "coffee.tastingForm.grindSetting"
-      msgstr: "Grind Setting"
-      msgctxt: "Brew recipe field label"
+      msgid: 'coffee.tastingForm.grindSetting'
+      msgstr: 'Grind Setting'
+      msgctxt: 'Brew recipe field label'
 
     coffeeDose:
-      msgid: "coffee.tastingForm.coffeeDose"
-      msgstr: "Coffee Dose (g)"
-      msgctxt: "Brew recipe field label"
+      msgid: 'coffee.tastingForm.coffeeDose'
+      msgstr: 'Coffee Dose (g)'
+      msgctxt: 'Brew recipe field label'
 
     waterIn:
-      msgid: "coffee.tastingForm.waterIn"
-      msgstr: "Water In (ml)"
-      msgctxt: "Brew recipe field label"
+      msgid: 'coffee.tastingForm.waterIn'
+      msgstr: 'Water In (ml)'
+      msgctxt: 'Brew recipe field label'
 
     coffeeOut:
-      msgid: "coffee.tastingForm.coffeeOut"
-      msgstr: "Coffee Out (ml)"
-      msgctxt: "Brew recipe field label"
+      msgid: 'coffee.tastingForm.coffeeOut'
+      msgstr: 'Coffee Out (ml)'
+      msgctxt: 'Brew recipe field label'
 
     ratio:
-      msgid: "coffee.tastingForm.ratio"
-      msgstr: "Ratio"
-      msgctxt: "Brew recipe field label"
+      msgid: 'coffee.tastingForm.ratio'
+      msgstr: 'Ratio'
+      msgctxt: 'Brew recipe field label'
 
     idk:
-      msgid: "coffee.tastingForm.idk"
-      msgstr: "IDK"
-      msgctxt: "Ratio display when unknown"
+      msgid: 'coffee.tastingForm.idk'
+      msgstr: 'IDK'
+      msgctxt: 'Ratio display when unknown'
 
     brewTime:
-      msgid: "coffee.tastingForm.brewTime"
-      msgstr: "Brew Time"
-      msgctxt: "Brew recipe field label"
+      msgid: 'coffee.tastingForm.brewTime'
+      msgstr: 'Brew Time'
+      msgctxt: 'Brew recipe field label'
 
     waterTemp:
-      msgid: "coffee.tastingForm.waterTemp"
-      msgstr: "Water Temp (°C)"
-      msgctxt: "Brew recipe field label"
+      msgid: 'coffee.tastingForm.waterTemp'
+      msgstr: 'Water Temp (°C)'
+      msgctxt: 'Brew recipe field label'
 
     brewRecipe:
-      msgid: "coffee.tastingForm.brewRecipe"
-      msgstr: "Brew Recipe"
-      msgctxt: "Brew recipe fieldset legend"
+      msgid: 'coffee.tastingForm.brewRecipe'
+      msgstr: 'Brew Recipe'
+      msgctxt: 'Brew recipe fieldset legend'
 
     tasteProfile:
-      msgid: "coffee.tastingForm.tasteProfile"
-      msgstr: "Taste Profile (0-10)"
-      msgctxt: "Taste profile fieldset legend"
+      msgid: 'coffee.tastingForm.tasteProfile'
+      msgstr: 'Taste Profile (0-10)'
+      msgctxt: 'Taste profile fieldset legend'
 
     notes:
-      msgid: "coffee.tastingForm.notes"
-      msgstr: "Notes"
-      msgctxt: "Notes field label"
+      msgid: 'coffee.tastingForm.notes'
+      msgstr: 'Notes'
+      msgctxt: 'Notes field label'
 
     pinTasting:
-      msgid: "coffee.tastingForm.pinTasting"
-      msgstr: "Pin this tasting"
-      msgctxt: "Pin checkbox label"
+      msgid: 'coffee.tastingForm.pinTasting'
+      msgstr: 'Pin this tasting'
+      msgctxt: 'Pin checkbox label'
 
     failedAddBean:
-      msgid: "coffee.tastingForm.failedAddBean"
-      msgstr: "Failed to add bean"
-      msgctxt: "Alert when quick bean add fails"
+      msgid: 'coffee.tastingForm.failedAddBean'
+      msgstr: 'Failed to add bean'
+      msgctxt: 'Alert when quick bean add fails'
 
     failedAddEquipment:
-      msgid: "coffee.tastingForm.failedAddEquipment"
-      msgstr: "Failed to add equipment"
-      msgctxt: "Alert when quick equipment add fails"
+      msgid: 'coffee.tastingForm.failedAddEquipment'
+      msgstr: 'Failed to add equipment'
+      msgctxt: 'Alert when quick equipment add fails'
 
     failedSaveTasting:
-      msgid: "coffee.tastingForm.failedSaveTasting"
-      msgstr: "Failed to save tasting"
-      msgctxt: "Alert when tasting save fails"
+      msgid: 'coffee.tastingForm.failedSaveTasting'
+      msgstr: 'Failed to save tasting'
+      msgctxt: 'Alert when tasting save fails'
 
     loading:
-      msgid: "coffee.tastingForm.loading"
-      msgstr: "..."
-      msgctxt: "Loading indicator in quick add button"
+      msgid: 'coffee.tastingForm.loading'
+      msgstr: '...'
+      msgctxt: 'Loading indicator in quick add button'
 
   #. TastingCard strings
   #: src/components/coffee/TastingCard.vue
   tastingCard:
     idk:
-      msgid: "coffee.tastingCard.idk"
+      msgid: 'coffee.tastingCard.idk'
       msgstr: "IDK ¯\\_(ツ)_/¯"
-      msgctxt: "Fallback value when data is unknown"
+      msgctxt: 'Fallback value when data is unknown'
 
     equipment:
-      msgid: "coffee.tastingCard.equipment"
-      msgstr: "Equipment"
-      msgctxt: "Alt text fallback for equipment image"
+      msgid: 'coffee.tastingCard.equipment'
+      msgstr: 'Equipment'
+      msgctxt: 'Alt text fallback for equipment image'
 
     variety:
-      msgid: "coffee.tastingCard.variety"
-      msgstr: "Variety:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.variety'
+      msgstr: 'Variety:'
+      msgctxt: 'Tasting card field label'
 
     altitude:
-      msgid: "coffee.tastingCard.altitude"
-      msgstr: "Altitude:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.altitude'
+      msgstr: 'Altitude:'
+      msgctxt: 'Tasting card field label'
 
     grinder:
-      msgid: "coffee.tastingCard.grinder"
-      msgstr: "Grinder:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.grinder'
+      msgstr: 'Grinder:'
+      msgctxt: 'Tasting card field label'
 
     grindSize:
-      msgid: "coffee.tastingCard.grindSize"
-      msgstr: "Grind Size:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.grindSize'
+      msgstr: 'Grind Size:'
+      msgctxt: 'Tasting card field label'
 
     grindSetting:
-      msgid: "coffee.tastingCard.grindSetting"
-      msgstr: "Grind Setting:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.grindSetting'
+      msgstr: 'Grind Setting:'
+      msgctxt: 'Tasting card field label'
 
     dose:
-      msgid: "coffee.tastingCard.dose"
-      msgstr: "Dose:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.dose'
+      msgstr: 'Dose:'
+      msgctxt: 'Tasting card field label'
 
     water:
-      msgid: "coffee.tastingCard.water"
-      msgstr: "Water:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.water'
+      msgstr: 'Water:'
+      msgctxt: 'Tasting card field label'
 
     yield:
-      msgid: "coffee.tastingCard.yield"
-      msgstr: "Yield:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.yield'
+      msgstr: 'Yield:'
+      msgctxt: 'Tasting card field label'
 
     ratio:
-      msgid: "coffee.tastingCard.ratio"
-      msgstr: "Ratio:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.ratio'
+      msgstr: 'Ratio:'
+      msgctxt: 'Tasting card field label'
 
     brewTime:
-      msgid: "coffee.tastingCard.brewTime"
-      msgstr: "Brew Time:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.brewTime'
+      msgstr: 'Brew Time:'
+      msgctxt: 'Tasting card field label'
 
     waterTemp:
-      msgid: "coffee.tastingCard.waterTemp"
-      msgstr: "Water Temp:"
-      msgctxt: "Tasting card field label"
+      msgid: 'coffee.tastingCard.waterTemp'
+      msgstr: 'Water Temp:'
+      msgctxt: 'Tasting card field label'
 
   #. BeanForm strings
   #: src/components/coffee/BeanForm.vue
   beanForm:
     titleEdit:
-      msgid: "coffee.beanForm.titleEdit"
-      msgstr: "Edit Bean"
-      msgctxt: "Bean form title when editing"
+      msgid: 'coffee.beanForm.titleEdit'
+      msgstr: 'Edit Bean'
+      msgctxt: 'Bean form title when editing'
 
     titleNew:
-      msgid: "coffee.beanForm.titleNew"
-      msgstr: "New Bean"
-      msgctxt: "Bean form title when creating"
+      msgid: 'coffee.beanForm.titleNew'
+      msgstr: 'New Bean'
+      msgctxt: 'Bean form title when creating'
 
     name:
-      msgid: "coffee.beanForm.name"
-      msgstr: "Name *"
-      msgctxt: "Bean form field label"
+      msgid: 'coffee.beanForm.name'
+      msgstr: 'Name *'
+      msgctxt: 'Bean form field label'
 
     namePlaceholder:
-      msgid: "coffee.beanForm.namePlaceholder"
-      msgstr: "e.g. Yirgacheffe Kochere"
-      msgctxt: "Bean name input placeholder"
+      msgid: 'coffee.beanForm.namePlaceholder'
+      msgstr: 'e.g. Yirgacheffe Kochere'
+      msgctxt: 'Bean name input placeholder'
 
     origin:
-      msgid: "coffee.beanForm.origin"
-      msgstr: "Origin"
-      msgctxt: "Bean form field label"
+      msgid: 'coffee.beanForm.origin'
+      msgstr: 'Origin'
+      msgctxt: 'Bean form field label'
 
     originPlaceholder:
-      msgid: "coffee.beanForm.originPlaceholder"
-      msgstr: "e.g. Ethiopia"
-      msgctxt: "Bean origin input placeholder"
+      msgid: 'coffee.beanForm.originPlaceholder'
+      msgstr: 'e.g. Ethiopia'
+      msgctxt: 'Bean origin input placeholder'
 
     roaster:
-      msgid: "coffee.beanForm.roaster"
-      msgstr: "Roaster"
-      msgctxt: "Bean form field label"
+      msgid: 'coffee.beanForm.roaster'
+      msgstr: 'Roaster'
+      msgctxt: 'Bean form field label'
 
     roasterPlaceholder:
-      msgid: "coffee.beanForm.roasterPlaceholder"
-      msgstr: "e.g. Blue Bottle"
-      msgctxt: "Bean roaster input placeholder"
+      msgid: 'coffee.beanForm.roasterPlaceholder'
+      msgstr: 'e.g. Blue Bottle'
+      msgctxt: 'Bean roaster input placeholder'
 
     roastDate:
-      msgid: "coffee.beanForm.roastDate"
-      msgstr: "Roast Date"
-      msgctxt: "Bean form field label"
+      msgid: 'coffee.beanForm.roastDate'
+      msgstr: 'Roast Date'
+      msgctxt: 'Bean form field label'
 
     variety:
-      msgid: "coffee.beanForm.variety"
-      msgstr: "Variety"
-      msgctxt: "Bean form field label"
+      msgid: 'coffee.beanForm.variety'
+      msgstr: 'Variety'
+      msgctxt: 'Bean form field label'
 
     varietyPlaceholder:
-      msgid: "coffee.beanForm.varietyPlaceholder"
-      msgstr: "e.g. Heirloom"
-      msgctxt: "Bean variety input placeholder"
+      msgid: 'coffee.beanForm.varietyPlaceholder'
+      msgstr: 'e.g. Heirloom'
+      msgctxt: 'Bean variety input placeholder'
 
     process:
-      msgid: "coffee.beanForm.process"
-      msgstr: "Process"
-      msgctxt: "Bean form field label"
+      msgid: 'coffee.beanForm.process'
+      msgstr: 'Process'
+      msgctxt: 'Bean form field label'
 
     processPlaceholder:
-      msgid: "coffee.beanForm.processPlaceholder"
-      msgstr: "e.g. Washed"
-      msgctxt: "Bean process input placeholder"
+      msgid: 'coffee.beanForm.processPlaceholder'
+      msgstr: 'e.g. Washed'
+      msgctxt: 'Bean process input placeholder'
 
     altitude:
-      msgid: "coffee.beanForm.altitude"
-      msgstr: "Altitude"
-      msgctxt: "Bean form field label"
+      msgid: 'coffee.beanForm.altitude'
+      msgstr: 'Altitude'
+      msgctxt: 'Bean form field label'
 
     altitudePlaceholder:
-      msgid: "coffee.beanForm.altitudePlaceholder"
-      msgstr: "e.g. 1900-2100 masl"
-      msgctxt: "Bean altitude input placeholder"
+      msgid: 'coffee.beanForm.altitudePlaceholder'
+      msgstr: 'e.g. 1900-2100 masl'
+      msgctxt: 'Bean altitude input placeholder'
 
     description:
-      msgid: "coffee.beanForm.description"
-      msgstr: "Description"
-      msgctxt: "Bean form field label"
+      msgid: 'coffee.beanForm.description'
+      msgstr: 'Description'
+      msgctxt: 'Bean form field label'
 
     descriptionPlaceholder:
-      msgid: "coffee.beanForm.descriptionPlaceholder"
-      msgstr: "Tasting notes, flavor profile..."
-      msgctxt: "Bean description textarea placeholder"
+      msgid: 'coffee.beanForm.descriptionPlaceholder'
+      msgstr: 'Tasting notes, flavor profile...'
+      msgctxt: 'Bean description textarea placeholder'
 
     failedSave:
-      msgid: "coffee.beanForm.failedSave"
-      msgstr: "Failed to save bean"
-      msgctxt: "Alert when bean save fails"
+      msgid: 'coffee.beanForm.failedSave'
+      msgstr: 'Failed to save bean'
+      msgctxt: 'Alert when bean save fails'
 
   #. EquipmentForm strings
   #: src/components/coffee/EquipmentForm.vue
   equipmentForm:
     titleEdit:
-      msgid: "coffee.equipmentForm.titleEdit"
-      msgstr: "Edit Equipment"
-      msgctxt: "Equipment form title when editing"
+      msgid: 'coffee.equipmentForm.titleEdit'
+      msgstr: 'Edit Equipment'
+      msgctxt: 'Equipment form title when editing'
 
     titleNew:
-      msgid: "coffee.equipmentForm.titleNew"
-      msgstr: "New Equipment"
-      msgctxt: "Equipment form title when creating"
+      msgid: 'coffee.equipmentForm.titleNew'
+      msgstr: 'New Equipment'
+      msgctxt: 'Equipment form title when creating'
 
     name:
-      msgid: "coffee.equipmentForm.name"
-      msgstr: "Name *"
-      msgctxt: "Equipment form field label"
+      msgid: 'coffee.equipmentForm.name'
+      msgstr: 'Name *'
+      msgctxt: 'Equipment form field label'
 
     namePlaceholder:
-      msgid: "coffee.equipmentForm.namePlaceholder"
-      msgstr: "e.g. Hario V60"
-      msgctxt: "Equipment name input placeholder"
+      msgid: 'coffee.equipmentForm.namePlaceholder'
+      msgstr: 'e.g. Hario V60'
+      msgctxt: 'Equipment name input placeholder'
 
     type:
-      msgid: "coffee.equipmentForm.type"
-      msgstr: "Type"
-      msgctxt: "Equipment form field label"
+      msgid: 'coffee.equipmentForm.type'
+      msgstr: 'Type'
+      msgctxt: 'Equipment form field label'
 
     description:
-      msgid: "coffee.equipmentForm.description"
-      msgstr: "Description"
-      msgctxt: "Equipment form field label"
+      msgid: 'coffee.equipmentForm.description'
+      msgstr: 'Description'
+      msgctxt: 'Equipment form field label'
 
     descriptionPlaceholder:
-      msgid: "coffee.equipmentForm.descriptionPlaceholder"
-      msgstr: "Details about this equipment..."
-      msgctxt: "Equipment description textarea placeholder"
+      msgid: 'coffee.equipmentForm.descriptionPlaceholder'
+      msgstr: 'Details about this equipment...'
+      msgctxt: 'Equipment description textarea placeholder'
 
     failedSave:
-      msgid: "coffee.equipmentForm.failedSave"
-      msgstr: "Failed to save equipment"
-      msgctxt: "Alert when equipment save fails"
+      msgid: 'coffee.equipmentForm.failedSave'
+      msgstr: 'Failed to save equipment'
+      msgctxt: 'Alert when equipment save fails'
 
   #. TasteRadarChart strings
   #: src/components/coffee/TasteRadarChart.vue
   radarChart:
     noData:
-      msgid: "coffee.radarChart.noData"
-      msgstr: "No taste data"
-      msgctxt: "Empty state for taste radar chart"
+      msgid: 'coffee.radarChart.noData'
+      msgstr: 'No taste data'
+      msgctxt: 'Empty state for taste radar chart'
 
   #. Coffee constants - grind sizes
   #: src/helpers/coffee.ts
   grindSizes:
     extraFine:
-      msgid: "coffee.grindSizes.extraFine"
-      msgstr: "Extra Fine"
-      msgctxt: "Grind size option"
+      msgid: 'coffee.grindSizes.extraFine'
+      msgstr: 'Extra Fine'
+      msgctxt: 'Grind size option'
 
     fine:
-      msgid: "coffee.grindSizes.fine"
-      msgstr: "Fine"
-      msgctxt: "Grind size option"
+      msgid: 'coffee.grindSizes.fine'
+      msgstr: 'Fine'
+      msgctxt: 'Grind size option'
 
     mediumFine:
-      msgid: "coffee.grindSizes.mediumFine"
-      msgstr: "Medium-Fine"
-      msgctxt: "Grind size option"
+      msgid: 'coffee.grindSizes.mediumFine'
+      msgstr: 'Medium-Fine'
+      msgctxt: 'Grind size option'
 
     medium:
-      msgid: "coffee.grindSizes.medium"
-      msgstr: "Medium"
-      msgctxt: "Grind size option"
+      msgid: 'coffee.grindSizes.medium'
+      msgstr: 'Medium'
+      msgctxt: 'Grind size option'
 
     mediumCoarse:
-      msgid: "coffee.grindSizes.mediumCoarse"
-      msgstr: "Medium-Coarse"
-      msgctxt: "Grind size option"
+      msgid: 'coffee.grindSizes.mediumCoarse'
+      msgstr: 'Medium-Coarse'
+      msgctxt: 'Grind size option'
 
     coarse:
-      msgid: "coffee.grindSizes.coarse"
-      msgstr: "Coarse"
-      msgctxt: "Grind size option"
+      msgid: 'coffee.grindSizes.coarse'
+      msgstr: 'Coarse'
+      msgctxt: 'Grind size option'
 
     extraCoarse:
-      msgid: "coffee.grindSizes.extraCoarse"
-      msgstr: "Extra Coarse"
-      msgctxt: "Grind size option"
+      msgid: 'coffee.grindSizes.extraCoarse'
+      msgstr: 'Extra Coarse'
+      msgctxt: 'Grind size option'
 
   #. Coffee constants - taste dimensions
   #: src/helpers/coffee.ts
   tasteDimensions:
     fruity:
-      msgid: "coffee.tasteDimensions.fruity"
-      msgstr: "Fruity"
-      msgctxt: "Taste dimension label for radar chart"
+      msgid: 'coffee.tasteDimensions.fruity'
+      msgstr: 'Fruity'
+      msgctxt: 'Taste dimension label for radar chart'
 
     sour:
-      msgid: "coffee.tasteDimensions.sour"
-      msgstr: "Sour"
-      msgctxt: "Taste dimension label for radar chart"
+      msgid: 'coffee.tasteDimensions.sour'
+      msgstr: 'Sour'
+      msgctxt: 'Taste dimension label for radar chart'
 
     fermented:
-      msgid: "coffee.tasteDimensions.fermented"
-      msgstr: "Fermented"
-      msgctxt: "Taste dimension label for radar chart"
+      msgid: 'coffee.tasteDimensions.fermented'
+      msgstr: 'Fermented'
+      msgctxt: 'Taste dimension label for radar chart'
 
     nutty:
-      msgid: "coffee.tasteDimensions.nutty"
-      msgstr: "Nutty"
-      msgctxt: "Taste dimension label for radar chart"
+      msgid: 'coffee.tasteDimensions.nutty'
+      msgstr: 'Nutty'
+      msgctxt: 'Taste dimension label for radar chart'
 
     spice:
-      msgid: "coffee.tasteDimensions.spice"
-      msgstr: "Spice"
-      msgctxt: "Taste dimension label for radar chart"
+      msgid: 'coffee.tasteDimensions.spice'
+      msgstr: 'Spice'
+      msgctxt: 'Taste dimension label for radar chart'
 
     sweetness:
-      msgid: "coffee.tasteDimensions.sweetness"
-      msgstr: "Sweetness"
-      msgctxt: "Taste dimension label for radar chart"
+      msgid: 'coffee.tasteDimensions.sweetness'
+      msgstr: 'Sweetness'
+      msgctxt: 'Taste dimension label for radar chart'
 
     floral:
-      msgid: "coffee.tasteDimensions.floral"
-      msgstr: "Floral"
-      msgctxt: "Taste dimension label for radar chart"
+      msgid: 'coffee.tasteDimensions.floral'
+      msgstr: 'Floral'
+      msgctxt: 'Taste dimension label for radar chart'
 
     green:
-      msgid: "coffee.tasteDimensions.green"
-      msgstr: "Green"
-      msgctxt: "Taste dimension label for radar chart"
+      msgid: 'coffee.tasteDimensions.green'
+      msgstr: 'Green'
+      msgctxt: 'Taste dimension label for radar chart'
 
     tobacco:
-      msgid: "coffee.tasteDimensions.tobacco"
-      msgstr: "Tobacco"
-      msgctxt: "Taste dimension label for radar chart"
+      msgid: 'coffee.tasteDimensions.tobacco'
+      msgstr: 'Tobacco'
+      msgctxt: 'Taste dimension label for radar chart'
 
     bitter:
-      msgid: "coffee.tasteDimensions.bitter"
-      msgstr: "Bitter"
-      msgctxt: "Taste dimension label for radar chart"
+      msgid: 'coffee.tasteDimensions.bitter'
+      msgstr: 'Bitter'
+      msgctxt: 'Taste dimension label for radar chart'
 
   #. Coffee constants - equipment types
   #: src/helpers/coffee.ts
   equipmentTypes:
     grinder:
-      msgid: "coffee.equipmentTypes.grinder"
-      msgstr: "Grinder"
-      msgctxt: "Equipment type option"
+      msgid: 'coffee.equipmentTypes.grinder'
+      msgstr: 'Grinder'
+      msgctxt: 'Equipment type option'
 
     pourOver:
-      msgid: "coffee.equipmentTypes.pourOver"
-      msgstr: "Pour Over"
-      msgctxt: "Equipment type option"
+      msgid: 'coffee.equipmentTypes.pourOver'
+      msgstr: 'Pour Over'
+      msgctxt: 'Equipment type option'
 
     espresso:
-      msgid: "coffee.equipmentTypes.espresso"
-      msgstr: "Espresso"
-      msgctxt: "Equipment type option"
+      msgid: 'coffee.equipmentTypes.espresso'
+      msgstr: 'Espresso'
+      msgctxt: 'Equipment type option'
 
     frenchPress:
-      msgid: "coffee.equipmentTypes.frenchPress"
-      msgstr: "French Press"
-      msgctxt: "Equipment type option"
+      msgid: 'coffee.equipmentTypes.frenchPress'
+      msgstr: 'French Press'
+      msgctxt: 'Equipment type option'
 
     mokaPot:
-      msgid: "coffee.equipmentTypes.mokaPot"
-      msgstr: "Moka Pot"
-      msgctxt: "Equipment type option"
+      msgid: 'coffee.equipmentTypes.mokaPot'
+      msgstr: 'Moka Pot'
+      msgctxt: 'Equipment type option'
 
     syphon:
-      msgid: "coffee.equipmentTypes.syphon"
-      msgstr: "Syphon"
-      msgctxt: "Equipment type option"
+      msgid: 'coffee.equipmentTypes.syphon'
+      msgstr: 'Syphon'
+      msgctxt: 'Equipment type option'
 
     other:
-      msgid: "coffee.equipmentTypes.other"
-      msgstr: "Other"
-      msgctxt: "Equipment type option"
+      msgid: 'coffee.equipmentTypes.other'
+      msgstr: 'Other'
+      msgctxt: 'Equipment type option'
 
 notFound:
   #. 404 page strings
   #: src/components/shared/NotFound.vue
   title:
-    msgid: "notFound.title"
-    msgstr: "Where are you trying to go?"
-    msgctxt: "404 page title"
+    msgid: 'notFound.title'
+    msgstr: 'Where are you trying to go?'
+    msgctxt: '404 page title'
 
   message:
-    msgid: "notFound.message"
-    msgstr: "You have either entered the wrong path, or the page simply does not exists in this universe."
-    msgctxt: "404 page message"
+    msgid: 'notFound.message'
+    msgstr: 'You have either entered the wrong path, or the page simply does not exists in this universe.'
+    msgctxt: '404 page message'
 
   hint:
-    msgid: "notFound.hint"
-    msgstr: "Simply say: 404 Not Found for those who are nerds."
-    msgctxt: "404 page small hint text"
+    msgid: 'notFound.hint'
+    msgstr: 'Simply say: 404 Not Found for those who are nerds.'
+    msgctxt: '404 page small hint text'
 
 tool:
   #. Dot Matrix tool strings
   #: src/views/DotMatrix.vue
   dotMatrix:
     finest:
-      msgid: "tool.dotMatrix.finest"
-      msgstr: "Finest:"
-      msgctxt: "Dot matrix tool field label"
+      msgid: 'tool.dotMatrix.finest'
+      msgstr: 'Finest:'
+      msgctxt: 'Dot matrix tool field label'
 
     gap:
-      msgid: "tool.dotMatrix.gap"
-      msgstr: "Gap:"
-      msgctxt: "Dot matrix tool field label"
+      msgid: 'tool.dotMatrix.gap'
+      msgstr: 'Gap:'
+      msgctxt: 'Dot matrix tool field label'
 
   #. Excalidraw tool strings
   #: src/views/ExcalidrawView.vue
   excalidraw:
     lzCompressed:
-      msgid: "tool.excalidraw.lzCompressed"
-      msgstr: "LZ Compressed + Base64"
-      msgctxt: "Excalidraw tool encoding toggle label"
+      msgid: 'tool.excalidraw.lzCompressed'
+      msgstr: 'LZ Compressed + Base64'
+      msgctxt: 'Excalidraw tool encoding toggle label'
 
     loadError:
-      msgid: "tool.excalidraw.loadError"
-      msgstr: "Could not load this drawing: it is not a valid Excalidraw scene."
-      msgctxt: "Error shown when a saved drawing cannot be loaded"
+      msgid: 'tool.excalidraw.loadError'
+      msgstr: 'Could not load this drawing: it is not a valid Excalidraw scene.'
+      msgctxt: 'Error shown when a saved drawing cannot be loaded'
 
 updateNotification:
   #. App update banner strings
   #: src/components/layout/UpdateNotification.vue
   message:
-    msgid: "updateNotification.message"
-    msgstr: "A new version of the site is available."
-    msgctxt: "Banner shown when the running main JS hash differs from the deployed one"
+    msgid: 'updateNotification.message'
+    msgstr: 'A new version of the site is available.'
+    msgctxt: 'Banner shown when the running main JS hash differs from the deployed one'
 
   action:
-    msgid: "updateNotification.action"
-    msgstr: "Clear cache & reload"
-    msgctxt: "Button that clears the app cache and reloads the page"
+    msgid: 'updateNotification.action'
+    msgstr: 'Clear cache & reload'
+    msgctxt: 'Button that clears the app cache and reloads the page'
 
   clearing:
-    msgid: "updateNotification.clearing"
-    msgstr: "Clearing..."
-    msgctxt: "Button label while clearing the app cache"
+    msgid: 'updateNotification.clearing'
+    msgstr: 'Clearing...'
+    msgctxt: 'Button label while clearing the app cache'
 
   dismiss:
-    msgid: "updateNotification.dismiss"
-    msgstr: "Dismiss"
-    msgctxt: "Button to dismiss the update notification"
+    msgid: 'updateNotification.dismiss'
+    msgstr: 'Dismiss'
+    msgctxt: 'Button to dismiss the update notification'
 
 #. Editor console strings
 editor:
   title:
-    msgid: "editor.title"
-    msgstr: "Editor"
-    msgctxt: "Label for the editor console"
+    msgid: 'editor.title'
+    msgstr: 'Editor'
+    msgctxt: 'Label for the editor console'
 
   openMenu:
-    msgid: "editor.openMenu"
-    msgstr: "Open editor menu"
-    msgctxt: "Accessible label for the sidebar toggle"
+    msgid: 'editor.openMenu'
+    msgstr: 'Open editor menu'
+    msgctxt: 'Accessible label for the sidebar toggle'
 
   closeMenu:
-    msgid: "editor.closeMenu"
-    msgstr: "Close editor menu"
-    msgctxt: "Accessible label for closing the sidebar"
+    msgid: 'editor.closeMenu'
+    msgstr: 'Close editor menu'
+    msgctxt: 'Accessible label for closing the sidebar'
 
   viewSite:
-    msgid: "editor.viewSite"
-    msgstr: "View site"
-    msgctxt: "Sidebar link back to the public site"
+    msgid: 'editor.viewSite'
+    msgstr: 'View site'
+    msgctxt: 'Sidebar link back to the public site'
 
   content:
-    msgid: "editor.content"
-    msgstr: "Content"
-    msgctxt: "Sidebar group heading for article content"
+    msgid: 'editor.content'
+    msgstr: 'Content'
+    msgctxt: 'Sidebar group heading for article content'
 
   coffee:
-    msgid: "editor.coffee"
-    msgstr: "Coffee"
-    msgctxt: "Sidebar group heading for coffee content"
+    msgid: 'editor.coffee'
+    msgstr: 'Coffee'
+    msgctxt: 'Sidebar group heading for coffee content'
 
   music:
-    msgid: "editor.music"
-    msgstr: "Music"
-    msgctxt: "Sidebar group heading for music content"
+    msgid: 'editor.music'
+    msgstr: 'Music'
+    msgctxt: 'Sidebar group heading for music content'
 
   travel:
-    msgid: "editor.travel"
-    msgstr: "Travel"
-    msgctxt: "Sidebar group heading for travel content"
+    msgid: 'editor.travel'
+    msgstr: 'Travel'
+    msgctxt: 'Sidebar group heading for travel content'
 
   articles:
-    msgid: "editor.articles"
-    msgstr: "Articles"
-    msgctxt: "Sidebar entry for the article editor"
+    msgid: 'editor.articles'
+    msgstr: 'Articles'
+    msgctxt: 'Sidebar entry for the article editor'
+
+  gallery:
+    msgid: 'editor.gallery'
+    msgstr: 'Gallery'
+    msgctxt: 'Sidebar entry for the gallery editor'
 
   beans:
-    msgid: "editor.beans"
-    msgstr: "Beans"
-    msgctxt: "Sidebar entry for the bean editor"
+    msgid: 'editor.beans'
+    msgstr: 'Beans'
+    msgctxt: 'Sidebar entry for the bean editor'
 
   equipment:
-    msgid: "editor.equipment"
-    msgstr: "Equipment"
-    msgctxt: "Sidebar entry for the equipment editor"
+    msgid: 'editor.equipment'
+    msgstr: 'Equipment'
+    msgctxt: 'Sidebar entry for the equipment editor'
 
   tastings:
-    msgid: "editor.tastings"
-    msgstr: "Tastings"
-    msgctxt: "Sidebar entry for the tasting editor"
+    msgid: 'editor.tastings'
+    msgstr: 'Tastings'
+    msgctxt: 'Sidebar entry for the tasting editor'
 
   playlists:
-    msgid: "editor.playlists"
-    msgstr: "Playlists"
-    msgctxt: "Sidebar entry for the playlist editor"
+    msgid: 'editor.playlists'
+    msgstr: 'Playlists'
+    msgctxt: 'Sidebar entry for the playlist editor'
 
   mapLocations:
-    msgid: "editor.mapLocations"
-    msgstr: "Map Locations"
-    msgctxt: "Sidebar entry for the map location editor"
+    msgid: 'editor.mapLocations'
+    msgstr: 'Map Locations'
+    msgctxt: 'Sidebar entry for the map location editor'
 
   backToList:
-    msgid: "editor.backToList"
-    msgstr: "Back to list"
-    msgctxt: "Link returning to a section listing"
+    msgid: 'editor.backToList'
+    msgstr: 'Back to list'
+    msgctxt: 'Link returning to a section listing'
 
   notFound:
-    msgid: "editor.notFound"
-    msgstr: "Item not found."
-    msgctxt: "Message shown when an edit route names a missing item"
+    msgid: 'editor.notFound'
+    msgstr: 'Item not found.'
+    msgctxt: 'Message shown when an edit route names a missing item'
 
   loadFailed:
-    msgid: "editor.loadFailed"
-    msgstr: "Something went wrong. Please try again."
-    msgctxt: "Error shown when an editor listing fails to load"
+    msgid: 'editor.loadFailed'
+    msgstr: 'Something went wrong. Please try again.'
+    msgctxt: 'Error shown when an editor listing fails to load'
 
 #. Router page titles
 router:
   editor:
-    msgid: "router.editor"
-    msgstr: "Editor"
-    msgctxt: "Page title for the editor console"
+    msgid: 'router.editor'
+    msgstr: 'Editor'
+    msgctxt: 'Page title for the editor console'
 
   editorArticles:
-    msgid: "router.editorArticles"
-    msgstr: "Article Editor"
-    msgctxt: "Page title for the article editor routes"
+    msgid: 'router.editorArticles'
+    msgstr: 'Article Editor'
+    msgctxt: 'Page title for the article editor routes'
 
   editorBeans:
-    msgid: "router.editorBeans"
-    msgstr: "Bean Editor"
-    msgctxt: "Page title for the bean editor routes"
+    msgid: 'router.editorBeans'
+    msgstr: 'Bean Editor'
+    msgctxt: 'Page title for the bean editor routes'
 
   editorEquipment:
-    msgid: "router.editorEquipment"
-    msgstr: "Equipment Editor"
-    msgctxt: "Page title for the equipment editor routes"
+    msgid: 'router.editorEquipment'
+    msgstr: 'Equipment Editor'
+    msgctxt: 'Page title for the equipment editor routes'
 
   editorTastings:
-    msgid: "router.editorTastings"
-    msgstr: "Tasting Editor"
-    msgctxt: "Page title for the tasting editor routes"
+    msgid: 'router.editorTastings'
+    msgstr: 'Tasting Editor'
+    msgctxt: 'Page title for the tasting editor routes'
 
   editorPlaylists:
-    msgid: "router.editorPlaylists"
-    msgstr: "Playlist Editor"
-    msgctxt: "Page title for the playlist editor routes"
+    msgid: 'router.editorPlaylists'
+    msgstr: 'Playlist Editor'
+    msgctxt: 'Page title for the playlist editor routes'
 
   editorMapLocations:
-    msgid: "router.editorMapLocations"
-    msgstr: "Map Location Editor"
-    msgctxt: "Page title for the map location editor routes"
+    msgid: 'router.editorMapLocations'
+    msgstr: 'Map Location Editor'
+    msgctxt: 'Page title for the map location editor routes'
+
+  editorGallery:
+    msgid: 'router.editorGallery'
+    msgstr: 'Gallery Editor'
+    msgctxt: 'Page title for the gallery editor routes'
 
   home:
-    msgid: "router.home"
-    msgstr: "Home"
-    msgctxt: "Page title for home route"
+    msgid: 'router.home'
+    msgstr: 'Home'
+    msgctxt: 'Page title for home route'
 
   blog:
-    msgid: "router.blog"
-    msgstr: "Blog"
-    msgctxt: "Page title for blog route"
+    msgid: 'router.blog'
+    msgstr: 'Blog'
+    msgctxt: 'Page title for blog route'
 
   blogEditor:
-    msgid: "router.blogEditor"
-    msgstr: "Blog Editor"
-    msgctxt: "Page title for blog editor route"
+    msgid: 'router.blogEditor'
+    msgstr: 'Blog Editor'
+    msgctxt: 'Page title for blog editor route'
 
   article:
-    msgid: "router.article"
-    msgstr: "Articles"
-    msgctxt: "Page title for article routes"
+    msgid: 'router.article'
+    msgstr: 'Articles'
+    msgctxt: 'Page title for article routes'
 
   articleEditor:
-    msgid: "router.articleEditor"
-    msgstr: "Article Editor"
-    msgctxt: "Page title for article editor route"
+    msgid: 'router.articleEditor'
+    msgstr: 'Article Editor'
+    msgctxt: 'Page title for article editor route'
 
   gallery:
-    msgid: "router.gallery"
-    msgstr: "Gallery"
-    msgctxt: "Page title for gallery route"
+    msgid: 'router.gallery'
+    msgstr: 'Gallery'
+    msgctxt: 'Page title for gallery route'
 
   travelersMap:
-    msgid: "router.travelersMap"
+    msgid: 'router.travelersMap'
     msgstr: "Traveler's Map"
-    msgctxt: "Page title for map route"
+    msgctxt: 'Page title for map route'
 
   music:
-    msgid: "router.music"
-    msgstr: "Music Matters"
-    msgctxt: "Page title for music route"
+    msgid: 'router.music'
+    msgstr: 'Music Matters'
+    msgctxt: 'Page title for music route'
 
   musicEditor:
-    msgid: "router.musicEditor"
-    msgstr: "Music Playlist Editor"
-    msgctxt: "Page title for music playlist editor route"
+    msgid: 'router.musicEditor'
+    msgstr: 'Music Playlist Editor'
+    msgctxt: 'Page title for music playlist editor route'
 
   coffee:
-    msgid: "router.coffee"
-    msgstr: "Coffee Taste Log"
-    msgctxt: "Page title for coffee route"
+    msgid: 'router.coffee'
+    msgstr: 'Coffee Taste Log'
+    msgctxt: 'Page title for coffee route'
 
   coffeeEditor:
-    msgid: "router.coffeeEditor"
-    msgstr: "Coffee Tasting Editor"
-    msgctxt: "Page title for coffee editor route"
+    msgid: 'router.coffeeEditor'
+    msgstr: 'Coffee Tasting Editor'
+    msgctxt: 'Page title for coffee editor route'
 
   pageNotFound:
-    msgid: "router.pageNotFound"
-    msgstr: "Page Not Found"
-    msgctxt: "Page title for 404 route"
+    msgid: 'router.pageNotFound'
+    msgstr: 'Page Not Found'
+    msgctxt: 'Page title for 404 route'
 
   dotMatrix:
-    msgid: "router.dotMatrix"
-    msgstr: "Dot Matrix Generator"
-    msgctxt: "Page title for dot matrix tool route"
+    msgid: 'router.dotMatrix'
+    msgstr: 'Dot Matrix Generator'
+    msgctxt: 'Page title for dot matrix tool route'
 
   excalidraw:
-    msgid: "router.excalidraw"
-    msgstr: "Excalidraw;"
-    msgctxt: "Page title for Excalidraw tool route"
+    msgid: 'router.excalidraw'
+    msgstr: 'Excalidraw;'
+    msgctxt: 'Page title for Excalidraw tool route'

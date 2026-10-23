@@ -8,7 +8,7 @@ Gallery assets are already published from the `assets/` pipeline, but the metada
 
 - Add a Gallery section to the editor console with a collections listing at `/editor/gallery` and a per-collection workspace at `/editor/gallery/:collection`.
 - List existing collections with their title, cover, and asset count.
-- Discover asset directories present in `files.json` that have no collection metadata and offer to adopt them, so a collection is only created for a directory that actually contains assets.
+- Discover asset directories present in `files.json` that have no collection metadata and offer to publish them, so a collection is only created for a directory that actually contains assets.
 - Edit collection metadata: title and cover. Cover selection SHALL reuse the article editor's gallery picker, restricted to the collection's assets.
 - Expose the currently implicit `filename: "*"` detail row as collection defaults for timezone adjustment and fallback description.
 - Edit per-image overrides against the assets that exist: description and timezone adjustment, with a preview of the resulting local time.
@@ -20,7 +20,7 @@ Gallery assets are already published from the `assets/` pipeline, but the metada
 
 ### New Capabilities
 
-- `gallery-editor`: Collection adoption and metadata curation, including collection defaults, per-image overrides, and stale-override cleanup.
+- `gallery-editor`: Collection publishing and metadata curation, including collection defaults, per-image overrides, and stale-override cleanup.
 
 ### Modified Capabilities
 

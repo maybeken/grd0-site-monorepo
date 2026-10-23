@@ -59,6 +59,7 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	restrictV1.DELETE("/article/:uri/scene/:sid", h.DeleteArticleScene)
 	restrictV1.PUT("/article/attachment/:key", h.GenerateArticlePresignedUrl)
 
+	restrictV1.GET("/gallery/directories", h.GetGalleryDirectories)
 	v1.GET("/gallery/details/:path", h.GetGalleryDetail)
 	v2.GET("/gallery/details/:path", h.GetGalleryDetailV2)
 	restrictV1.PUT("/gallery/details/:path", h.UpsertGalleryDetail)

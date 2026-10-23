@@ -1,8 +1,52 @@
 import { useRequest } from 'alova/client'
-import { dataInstance } from './api'
+import { adminInstance, dataInstance } from './api'
 
 import type { Ref } from 'vue'
-import type { GalleryDetail, GalleryCollection, PaginatedResponse, Asset } from '@/interfaces/Gallery'
+import type {
+  GalleryDetail,
+  GalleryCollection,
+  GalleryCollectionDetail,
+  GalleryDirectory,
+  PaginatedResponse,
+  Asset
+} from '@/interfaces/Gallery'
+
+const DETAIL_PAGE_SIZE = 200
+
+function galleryDetailPath(collection: string): string {
+  return `/gallery/${collection}`
+}
+
+function getGalleryDirectoriesRaw() {
+  return adminInstance.Get<GalleryDirectory[]>('/gallery/directories')
+}
+
+function upsertGalleryCollectionRaw(collection: GalleryCollectionDetail) {
+  return adminInstance.Put<GalleryCollectionDetail>('/gallery/collection', collection)
+}
+
+function deleteGalleryCollectionRaw(name: string) {
+  return adminInstance.Delete(`/gallery/collection/${encodeURIComponent(name)}`)
+}
+
+function getGalleryDetailsRaw(collection: string, page = 1) {
+  return dataInstance.Get<PaginatedResponse<GalleryDetail>>(
+    `/v2/gallery/details/${galleryDetailPath(collection)}?page=${page}&page_size=${DETAIL_PAGE_SIZE}`
+  )
+}
+
+function upsertGalleryDetailRaw(collection: string, detail: GalleryDetail) {
+  return adminInstance.Put<GalleryDetail>(
+    `/gallery/details/${galleryDetailPath(collection)}`,
+    detail
+  )
+}
+
+function deleteGalleryDetailRaw(collection: string, filename: string) {
+  return adminInstance.Delete<unknown>(`/gallery/details/${galleryDetailPath(collection)}`, {
+    filename
+  })
+}
 
 function loadMoreAssets(collection: string, page: number) {
   return dataInstance.Get<PaginatedResponse<Asset>>(
@@ -43,4 +87,16 @@ function getGalleryCollection(): { loading: Ref<boolean, boolean>; data: Ref<Gal
   }
 }
 
-export { loadMoreAssets, getGalleryDetail, getGalleryCollectionRaw, getGalleryCollection }
+export {
+  galleryDetailPath,
+  getGalleryDirectoriesRaw,
+  upsertGalleryCollectionRaw,
+  deleteGalleryCollectionRaw,
+  getGalleryDetailsRaw,
+  upsertGalleryDetailRaw,
+  deleteGalleryDetailRaw,
+  loadMoreAssets,
+  getGalleryDetail,
+  getGalleryCollectionRaw,
+  getGalleryCollection
+}

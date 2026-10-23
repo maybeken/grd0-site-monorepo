@@ -15,10 +15,11 @@ Detail rows are stored with `path` equal to `/gallery/<directory>` while collect
 
 **Goals:**
 
-- One admin read endpoint that exposes asset directories and counts, so adoption and the listing share a single data source.
+- One admin read endpoint that exposes asset directories and counts, so publishing and the listing share a single data source.
 - A workspace that treats `files.json` as the source of truth for which assets exist and SQLite as the source of truth for overrides.
 - Keep the existing public read path and its endpoints untouched.
 - Reuse the article editor's gallery picker and the existing editor shell conventions.
+- Mirror the public gallery's cover presentation and image zoom inside the workspace.
 
 **Non-Goals:**
 
@@ -31,7 +32,7 @@ Detail rows are stored with `path` equal to `/gallery/<directory>` while collect
 
 **1. Add one admin directory endpoint rather than changing the asset endpoints**
 
-`GET /gallery/directories` (inside `restrictV1`) reads `files.json` through `data.ReadAsset()` and returns each `/gallery/*` directory with its bare name, stored key, and asset count. The editor merges this with `GET /gallery/collection` to split directories into collections and adoptable directories.
+`GET /gallery/directories` (inside `restrictV1`) reads `files.json` through `data.ReadAsset()` and returns each `/gallery/*` directory with its bare name, stored key, and asset count. The editor merges this with `GET /gallery/collection` to split directories into collections and available directories.
 
 Alternatives considered:
 
@@ -50,7 +51,7 @@ Alternatives considered:
 
 **3. The workspace joins paginated assets with all override rows**
 
-Assets are read page by page through `loadMoreAssets(collection, page)` (40 per page). Overrides are read from `GET /v2/gallery/details/<storedPath>` with `page_size=200`, looping until `total_pages` is exhausted, then indexed by filename. This keeps the asset page size aligned with the public gallery while fetching the comparatively small override set once.
+Assets are read page by page through `loadMoreAssets(collection, page)` (40 per page) until `total_pages` is exhausted, then the loaded list is paginated locally at 40 per page. Reading every asset page also gives the complete filename index the stale-override check needs. Overrides are read from `GET /v2/gallery/details/<storedPath>` with `page_size=200`, looping until `total_pages` is exhausted, then indexed by filename. This keeps the asset page size aligned with the public gallery while fetching the comparatively small override set once.
 
 Alternatives considered:
 
@@ -59,7 +60,7 @@ Alternatives considered:
 
 **4. Pending changes are accumulated and saved explicitly**
 
-The view keeps a pending map keyed by filename containing the desired description and timezone adjustment, independent of the currently loaded page. Dirty state is derived from the pending map, so pagination does not discard edits and `useUnsavedGuard` can protect navigation. Saving upserts each pending row and deletes rows whose both fields were cleared, then reloads.
+The view keeps a pending map keyed by filename containing the desired description and timezone adjustment, independent of the currently loaded page. Dirty state is derived from the pending map, so pagination does not discard edits and `useUnsavedGuard` can protect navigation. Saving — from the Save button or Ctrl/Cmd+S — saves changed metadata first, then upserts each pending row and deletes rows whose both fields were cleared, then reloads.
 
 Alternatives considered:
 
@@ -74,17 +75,47 @@ Because the renderer does not merge fields, creating a row for an image replaces
 
 `GalleryPicker` gains an optional `collection` prop. When supplied, the collection selector is hidden and assets are loaded for that collection only. This mirrors how `PlaylistForm` reuses the article editor's `MusicPicker` rather than duplicating an asset browser.
 
-**7. Adoption creates metadata only**
+**7. Publishing creates metadata only**
 
-Adoption upserts a `GalleryCollectionDetail` with `path` set to the bare directory name and an empty title and cover. No asset is touched. Deleting a collection removes only that row; the design deliberately leaves overrides in place and reports the consequence in the confirmation text.
+Publishing upserts a `GalleryCollectionDetail` with `path` set to the bare directory name, the directory name as its title, and an empty cover. No asset is touched. Unpublishing a collection removes only that row; the design deliberately leaves overrides in place and reports the consequence in the confirmation text.
+
+**8. Write endpoints persist cleared fields and require a collection title**
+
+GORM struct updates skip zero values, so the existing collection and detail upserts were changed to update through maps. Collection titles are validated as non-empty because a collection without a title has no meaningful identity in the editor; descriptions and timezone adjustments may be cleared to empty and zero. Publishing therefore supplies the directory name as the title.
+
+**9. The workspace mirrors the public gallery's cover presentation**
+
+The cover uses the same full-width, height-capped (`max-h-32 md:max-h-48 lg:max-h-96`), blurred (`blur-[2px]`) and darkened (`brightness-50`) treatment as `GalleryView.vue`, with the title and directory centred over it. The title remains an editable input; the overlay is pointer-transparent except for the input. Save and unpublish sit above the banner, cover selection sits over its lower edge, and the banner reserves its height so it stays visible and interactive before the image loads.
+
+Alternatives considered:
+
+- *Keep a square album-style tile beside the fields*: rejected because it diverges from the cover the public gallery actually shows.
+
+**10. Timezone is selected as a UTC offset, not a named zone**
+
+`GalleryDetail.tz_adjustment` is an `int8` hour offset, so the workspace presents a select of UTC offsets from UTC-12:00 through UTC+14:00, plus any stored outlier and a no-adjustment option. Named IANA zones would imply daylight-saving rules the row cannot store; the chosen offset already includes any daylight-saving shift, and the local-time preview shows the result.
+
+Alternatives considered:
+
+- *Store an IANA zone name*: rejected because it changes the schema and the public renderer for a control the stored offset already expresses.
+
+**11. Asset rows are compact, paired at `xl`, and zoomable**
+
+Each asset is a flex row: thumbnail, a metadata line (filename, inherited badge, computed local time) above the description field, and the timezone select alongside, so the thumbnail, description, and timezone stay on one row. The list is a grid with `xl:grid-cols-2`, so two cards appear per row at `xl` and one below it. Activating a thumbnail opens the existing `GalleryZoom` overlay; the cover banner is deliberately not a zoom trigger.
+
+Alternatives considered:
+
+- *Stack description and timezone under the thumbnail*: rejected because it lengthens long collections and breaks the one-row editing flow.
+- *Zoom from the banner*: rejected because the banner is the editing surface for the title and the asset thumbnails are the images being curated.
 
 ## Risks / Trade-offs
 
 - **The detail path convention is fragile** → Isolate it in one `galleryDetailPath` helper and add an integration task that exercises collection load and save against the running API. A future API cleanup can replace the helper without touching views.
 - **Large collections produce many override rows** → Assets stay at 40 per page, overrides use the 200 maximum plus a bounded loop, and pending state is a map rather than a full copy.
 - **Clearing fields deletes a row, which is irreversible in the UI** → Deletion only happens on explicit save, dirty state is visible, and the unsaved guard covers navigation.
-- **Adopting a directory with a poor name publishes a collection with a bare-name title** → Adoption keeps the author on the listing with the new row visible, and the workspace is one click away for renaming.
+- **Publishing a directory with a poor name publishes a collection with a bare-name title** → Publishing keeps the author on the listing with the new row visible, and the workspace is one click away for renaming.
 - **Stale override detection depends on `files.json` freshness** → It uses the same runtime index as the public gallery, so it can only report what the public gallery would also see.
+- **The timezone control stores an offset, not a zone** → The author chooses the offset that applied when the photo was taken; the list covers standard and daylight-saving offsets and the local-time preview makes the result explicit.
 - **Two editor changes touch `editor-console`** → This change lands first and adds only the Gallery entry; the traveler's map change extends the same sidebar requirement afterwards.
 
 ## Migration Plan

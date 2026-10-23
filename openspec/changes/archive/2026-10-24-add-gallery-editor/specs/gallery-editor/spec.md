@@ -2,13 +2,13 @@
 
 ## Purpose
 
-Lets an authenticated author adopt asset directories as gallery collections and curate the metadata that the public gallery renders, without editing the database directly.
+Lets an authenticated author publish asset directories as gallery collections and curate the metadata that the public gallery renders, without editing the database directly.
 
 ## ADDED Requirements
 
 ### Requirement: Gallery collections listing
 
-The gallery editor SHALL provide a listing at `/editor/gallery` that shows every collection with its display title, cover, and asset count, and SHALL show the directories available for adoption separately from existing collections.
+The gallery editor SHALL provide a listing at `/editor/gallery` that shows every collection with its display title, cover, and asset count, and SHALL show the directories available for publishing separately from existing collections.
 
 #### Scenario: Existing collections
 - **WHEN** the author opens the gallery listing
@@ -42,40 +42,51 @@ The system SHALL expose the gallery asset directories found in `files.json` to a
 - **WHEN** a client without an application token requests the gallery directories
 - **THEN** the API SHALL reject the request as unauthorised
 
-#### Scenario: Directories already adopted
+#### Scenario: Directories already published
 - **WHEN** a directory already has collection metadata
-- **THEN** it SHALL appear as a collection rather than as an adoptable directory
+- **THEN** it SHALL appear as a collection rather than as an available directory
 
-### Requirement: Collection adoption
+### Requirement: Collection publishing
 
-The gallery listing SHALL offer an adopt action for each directory that has no collection metadata. Adopting SHALL create the collection, keep the author on the listing, and refresh it.
+The gallery listing SHALL offer a publish action for each directory that has no collection metadata. Publishing SHALL create the collection, keep the author on the listing, and refresh it.
 
-#### Scenario: Adopt a directory
-- **WHEN** the author adopts an available directory
-- **THEN** the collection SHALL be created for that directory
+#### Scenario: Publish a directory
+- **WHEN** the author publishes an available directory
+- **THEN** the collection SHALL be created for that directory with the directory name as its title
 - **THEN** the directory SHALL move from the available list into the collections list
 - **THEN** no asset SHALL be created, moved, or deleted
 
-#### Scenario: Adopt an unavailable directory
-- **WHEN** the author adopts a directory that already has collection metadata
+#### Scenario: Publish an unavailable directory
+- **WHEN** the author publishes a directory that already has collection metadata
 - **THEN** the system SHALL NOT create a second collection for it
 
-#### Scenario: Adoption fails
+#### Scenario: Publishing fails
 - **WHEN** creating the collection fails
 - **THEN** the editor SHALL report the failure and leave the directory available
 
 ### Requirement: Collection metadata editing
 
-Each collection SHALL have a workspace at `/editor/gallery/:collection` that edits its display title and cover. Opening the route directly SHALL load the collection without visiting the listing first.
+Each collection SHALL have a workspace at `/editor/gallery/:collection` that edits its display title and cover. The title SHALL be required and the cover SHALL be optional. Opening the route directly SHALL load the collection without visiting the listing first.
+
+The workspace SHALL present the title and directory over the cover using the public gallery's cover treatment. Save, unpublish, and cover selection SHALL remain reachable.
 
 #### Scenario: Edit title
 - **WHEN** the author changes the collection title and saves
 - **THEN** the new title SHALL be persisted
 - **THEN** the listing SHALL show the new title on return
 
-#### Scenario: Clear title
-- **WHEN** the author clears the collection title and saves
-- **THEN** the public gallery SHALL fall back to the directory name
+#### Scenario: Title over the cover
+- **WHEN** the author opens a collection workspace
+- **THEN** the collection title SHALL be editable in place over the cover
+- **THEN** the directory name SHALL be shown beneath the title
+
+#### Scenario: Cover presentation
+- **WHEN** a collection has a cover
+- **THEN** the workspace SHALL show it full width with the public gallery's height cap, blur, and brightness treatment
+
+#### Scenario: Require a title
+- **WHEN** the author clears the collection title
+- **THEN** the editor SHALL NOT save until a title is entered
 
 #### Scenario: Choose a cover
 - **WHEN** the author opens the cover picker
@@ -95,15 +106,15 @@ Each collection SHALL have a workspace at `/editor/gallery/:collection` that edi
 - **WHEN** the author edits a collection
 - **THEN** the directory the collection points at SHALL NOT be changeable
 
-#### Scenario: Delete a collection
-- **WHEN** the author deletes a collection and confirms
+#### Scenario: Unpublish a collection
+- **WHEN** the author unpublishes a collection and confirms
 - **THEN** the collection metadata SHALL be removed
 - **THEN** the assets and per-image overrides SHALL remain on disk and in storage
 - **THEN** the editor SHALL return to the listing
 
 ### Requirement: Collection defaults
 
-The collection workspace SHALL expose the wildcard detail row (`filename` equal to `*`) as editable collection defaults for timezone adjustment and fallback description, and SHALL explain that these apply to images without their own override.
+The collection workspace SHALL expose the wildcard detail row (`filename` equal to `*`) as editable collection defaults for timezone adjustment and fallback description, and SHALL explain that these apply to images without their own override. The timezone adjustment SHALL be chosen from a list of UTC offsets covering offsets used with and without daylight saving.
 
 #### Scenario: Defaults applied
 - **WHEN** an image has no per-image override
@@ -113,6 +124,10 @@ The collection workspace SHALL expose the wildcard detail row (`filename` equal 
 - **WHEN** an image has its own override
 - **THEN** the public gallery SHALL use the per-image values instead of the collection defaults
 
+#### Scenario: Choose a timezone
+- **WHEN** the author opens the timezone list
+- **THEN** it SHALL offer a no-adjustment option and UTC offsets from UTC-12:00 through UTC+14:00
+
 #### Scenario: Clear defaults
 - **WHEN** the author clears the default description or timezone adjustment and saves
 - **THEN** the wildcard row SHALL stop supplying that value
@@ -121,9 +136,24 @@ The collection workspace SHALL expose the wildcard detail row (`filename` equal 
 
 The collection workspace SHALL list the assets that exist in the collection's directory and SHALL allow each asset's description and timezone adjustment to be overridden. Changing an override MUST NOT modify the asset file or its EXIF metadata.
 
+Each asset SHALL show its thumbnail, description, and timezone adjustment on one row, with two assets per row from the `xl` breakpoint and one per row below it. Activating a thumbnail SHALL open the full asset in a zoom overlay.
+
 #### Scenario: List assets
 - **WHEN** the author opens a collection workspace
 - **THEN** every asset in the collection SHALL be listed with its thumbnail, filename, and existing override values
+
+#### Scenario: Wide asset layout
+- **WHEN** the viewport is at least the `xl` breakpoint
+- **THEN** the workspace SHALL show two assets per row
+
+#### Scenario: Narrow asset layout
+- **WHEN** the viewport is below the `xl` breakpoint
+- **THEN** the workspace SHALL show one asset per row
+
+#### Scenario: Zoom an asset
+- **WHEN** the author activates an asset thumbnail
+- **THEN** the workspace SHALL show the full asset in a zoom overlay
+- **THEN** the cover banner SHALL NOT open the zoom overlay
 
 #### Scenario: Show inherited defaults
 - **WHEN** an asset has no stored override row
@@ -157,7 +187,7 @@ The collection workspace SHALL list the assets that exist in the collection's di
 
 ### Requirement: Save and discard behaviour
 
-The collection workspace SHALL apply override changes only when the author saves, and SHALL warn before discarding pending changes through in-application navigation, reload, or closing the tab.
+The collection workspace SHALL apply metadata and override changes only when the author saves, SHALL support saving from a keyboard shortcut, and SHALL warn before discarding pending changes through in-application navigation, reload, or closing the tab.
 
 #### Scenario: Pending changes
 - **WHEN** the author edits overrides without saving
@@ -167,6 +197,10 @@ The collection workspace SHALL apply override changes only when the author saves
 - **WHEN** the author saves with valid pending changes
 - **THEN** every pending override SHALL be persisted
 - **THEN** the workspace SHALL report success
+
+#### Scenario: Keyboard save
+- **WHEN** the author presses Ctrl+S or Cmd+S
+- **THEN** the workspace SHALL save any changed collection metadata and every pending override
 
 #### Scenario: Navigate away with pending changes
 - **WHEN** the author navigates away with pending changes

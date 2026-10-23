@@ -2,7 +2,11 @@
   <div class="flex flex-col gap-3 rounded-xl border border-dotted p-3">
     <div class="flex flex-wrap items-center gap-2">
       <span class="font-bold">{{ $t('article.editor.galleryTitle') }}</span>
-      <select v-model="selected" class="rounded-full border border-dotted px-3 py-1 bg-background">
+      <select
+        v-if="!$props.collection"
+        v-model="selected"
+        class="rounded-full border border-dotted px-3 py-1 bg-background"
+      >
         <option v-for="option in collections" :key="option.id" :value="option.id">
           {{ option.label }}
         </option>
@@ -54,13 +58,17 @@ import { getGalleryCollectionRaw, loadMoreAssets } from '@/services/gallery'
 
 import type { Asset, GalleryCollection } from '@/interfaces/Gallery'
 
+const $props = defineProps<{
+  collection?: string
+}>()
+
 const $emit = defineEmits<{
   select: [asset: { collection: string; filename: string }]
   close: []
 }>()
 
 const collections = ref<{ id: string; label: string }[]>([])
-const selected = ref('all')
+const selected = ref($props.collection ?? 'all')
 const assets = ref<Asset[]>([])
 const page = ref(0)
 const total_pages = ref(0)
@@ -73,6 +81,11 @@ function assetUri(asset: Asset): string {
 }
 
 async function loadCollections(): Promise<void> {
+  if ($props.collection) {
+    collections.value = [{ id: $props.collection, label: $props.collection }]
+    return
+  }
+
   try {
     const response = await getGalleryCollectionRaw().send()
     const data = response as GalleryCollection
@@ -123,6 +136,13 @@ watch(selected, () => {
   total_pages.value = 0
   load(1)
 })
+
+watch(
+  () => $props.collection,
+  (value) => {
+    selected.value = value ?? 'all'
+  }
+)
 
 onMounted(() => {
   loadCollections()

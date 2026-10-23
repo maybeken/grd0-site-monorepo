@@ -18,3 +18,9 @@ type GalleryCollectionDetail struct {
 	Title string `json:"title,omitempty"`
 	Cover string `json:"cover,omitempty"`
 }
+
+type GalleryDirectory struct {
+	Name  string `json:"name"`
+	Path  string `json:"path"`
+	Count int    `json:"count"`
+}

@@ -162,6 +162,18 @@ const router = createRouter({
           meta: { title: 'router.editorArticles' }
         },
         {
+          path: 'gallery',
+          name: 'Editor Gallery',
+          component: () => import('@/views/editor/EditorGalleryListView.vue'),
+          meta: { title: 'router.editorGallery' }
+        },
+        {
+          path: 'gallery/:collection',
+          name: 'Editor Gallery Collection',
+          component: () => import('@/views/editor/EditorGalleryView.vue'),
+          meta: { title: 'router.editorGallery' }
+        },
+        {
           path: 'coffee',
           redirect: '/editor/coffee/beans'
         },
@@ -267,7 +279,7 @@ const router = createRouter({
             sessionStorage.setItem('jwt_token', token)
             sessionStorage.setItem('refresh_token', refresh)
             sessionStorage.setItem('jwt_expires', String(expires_at))
-            return { path: '/' }
+            return { path: '/editor' }
           }
         }
       ]

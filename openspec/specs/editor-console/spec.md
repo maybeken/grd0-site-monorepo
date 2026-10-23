@@ -25,11 +25,11 @@ The system SHALL provide a full-screen editor shell at `/editor` that renders a 
 
 ### Requirement: Sidebar section navigation
 
-The sidebar SHALL list the available editor sections as Articles under Content; Beans, Equipment, and Tastings under Coffee; Playlists under Music; and Map Locations under Travel. Each entry SHALL navigate to its section's list page, and the entry for the active section SHALL be visually distinguished.
+The sidebar SHALL list the available editor sections as Articles and Gallery under Content; Beans, Equipment, and Tastings under Coffee; Playlists under Music; and Map Locations under Travel. Each entry SHALL navigate to its section's list page, and the entry for the active section SHALL be visually distinguished.
 
 #### Scenario: Section entries
 - **WHEN** the sidebar renders
-- **THEN** it SHALL offer Articles, Beans, Equipment, Tastings, Playlists, and Map Locations entries
+- **THEN** it SHALL offer Articles, Gallery, Beans, Equipment, Tastings, Playlists, and Map Locations entries
 - **THEN** the entries SHALL be grouped under Content, Coffee, Music, and Travel headings
 
 #### Scenario: Active section
@@ -54,7 +54,7 @@ The shell root SHALL redirect to the Articles listing, and the coffee root SHALL
 
 ### Requirement: List and edit routes
 
-Each section SHALL expose a list route and an edit route whose path identifies one item. The Articles section SHALL identify items by URI; map locations SHALL be identified by slug, and the remaining sections SHALL identify items by identifier. An edit route SHALL load its item without visiting the list page first.
+Each section SHALL expose a list route and an edit route whose path identifies one item. The Articles section SHALL identify items by URI. Gallery items SHALL be identified by their collection directory name; map locations SHALL be identified by slug, and the remaining sections SHALL identify items by identifier. An edit route SHALL load its item without visiting the list page first.
 
 #### Scenario: Direct edit link
 - **WHEN** the author opens an edit route directly for an existing item

@@ -66,7 +66,10 @@ const route = useRoute()
 const groups = [
   {
     label: 'editor.content',
-    items: [{ label: 'editor.articles', to: '/editor/articles', match: '/editor/articles' }]
+    items: [
+      { label: 'editor.articles', to: '/editor/articles', match: '/editor/articles' },
+      { label: 'editor.gallery', to: '/editor/gallery', match: '/editor/gallery' }
+    ]
   },
   {
     label: 'editor.coffee',

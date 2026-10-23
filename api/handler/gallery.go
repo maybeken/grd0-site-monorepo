@@ -99,7 +99,11 @@ func (h *Handler) UpsertGalleryDetail(c echo.Context) error {
 	gallery_detail.Path = path
 
 	if err := db.Create(&gallery_detail).Error; errors.Is(err, gorm.ErrDuplicatedKey) {
-		if err := db.Unscoped().Model(schema.GalleryDetail{}).Where("path = ? AND filename = ?", path, gallery_detail.Filename).Updates(&gallery_detail).Update("deleted_at", nil).Error; err != nil {
+		if err := db.Unscoped().Model(schema.GalleryDetail{}).Where("path = ? AND filename = ?", path, gallery_detail.Filename).Updates(map[string]interface{}{
+			"description":   gallery_detail.Description,
+			"tz_adjustment": gallery_detail.TzAdjustment,
+			"deleted_at":    nil,
+		}).Error; err != nil {
 			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 		}
 	} else if err != nil {
@@ -157,6 +161,34 @@ func (h *Handler) GetGalleryCollection(c echo.Context) error {
 	return c.JSON(http.StatusOK, collection_by_key)
 }
 
+func (h *Handler) GetGalleryDirectories(c echo.Context) error {
+	asset_list, err := data.ReadAsset()
+
+	if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	directories := make([]schema.GalleryDirectory, 0)
+
+	for key, assets := range asset_list {
+		if !strings.HasPrefix(key, "/gallery/") {
+			continue
+		}
+
+		directories = append(directories, schema.GalleryDirectory{
+			Name:  strings.TrimPrefix(key, "/gallery/"),
+			Path:  key,
+			Count: len(assets),
+		})
+	}
+
+	sort.Slice(directories, func(i, j int) bool {
+		return directories[i].Name < directories[j].Name
+	})
+
+	return c.JSON(http.StatusOK, directories)
+}
+
 func (h *Handler) UpsertGalleryCollection(c echo.Context) error {
 	db := h.DB
 
@@ -165,8 +197,16 @@ func (h *Handler) UpsertGalleryCollection(c echo.Context) error {
 		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
 	}
 
+	if strings.TrimSpace(collection.Title) == "" {
+		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Title is required.")
+	}
+
 	if err := db.Create(&collection).Error; errors.Is(err, gorm.ErrDuplicatedKey) {
-		if err := db.Unscoped().Model(schema.GalleryCollectionDetail{}).Where("path = ?", collection.Path).Updates(&collection).Update("deleted_at", nil).Error; err != nil {
+		if err := db.Unscoped().Model(schema.GalleryCollectionDetail{}).Where("path = ?", collection.Path).Updates(map[string]interface{}{
+			"title":      collection.Title,
+			"cover":      collection.Cover,
+			"deleted_at": nil,
+		}).Error; err != nil {
 			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 		}
 	} else if err != nil {
