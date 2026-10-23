@@ -25,16 +25,23 @@ The system SHALL provide a full-screen editor shell at `/editor` that renders a 
 
 ### Requirement: Sidebar section navigation
 
-The sidebar SHALL list the available editor sections as Articles and Gallery under Content; Beans, Equipment, and Tastings under Coffee; Playlists under Music; and Map Locations under Travel. Each entry SHALL navigate to its section's list page, and the entry for the active section SHALL be visually distinguished.
+The sidebar SHALL list the available editor sections as Articles and Gallery under Content; Beans, Equipment, and Tastings under Coffee; Songs and Playlists under Music; and Map Locations under Travel. Each entry SHALL navigate to its section's list page, and the entry for the active section SHALL be visually distinguished.
 
 #### Scenario: Section entries
 - **WHEN** the sidebar renders
-- **THEN** it SHALL offer Articles, Gallery, Beans, Equipment, Tastings, Playlists, and Map Locations entries
+- **THEN** it SHALL offer Articles, Gallery, Beans, Equipment, Tastings, Songs, Playlists, and Map Locations entries
 - **THEN** the entries SHALL be grouped under Content, Coffee, Music, and Travel headings
+
+#### Scenario: Music group entries
+- **WHEN** the sidebar renders the Music group
+- **THEN** it SHALL offer Songs and Playlists entries
+- **THEN** the Songs entry SHALL navigate to `/editor/music/songs`
 
 #### Scenario: Active section
 - **WHEN** the author is viewing a section's list or edit page
 - **THEN** that section's sidebar entry SHALL be marked as active
+- **WHEN** the author is viewing a songs route
+- **THEN** the Songs entry SHALL be marked as active and the Playlists entry SHALL NOT be
 
 #### Scenario: Navigate between sections
 - **WHEN** the author activates a sidebar entry
@@ -54,12 +61,17 @@ The shell root SHALL redirect to the Articles listing, and the coffee root SHALL
 
 ### Requirement: List and edit routes
 
-Each section SHALL expose a list route and an edit route whose path identifies one item. The Articles section SHALL identify items by URI. Gallery items SHALL be identified by their collection directory name; map locations SHALL be identified by slug, and the remaining sections SHALL identify items by identifier. An edit route SHALL load its item without visiting the list page first.
+Each section SHALL expose a list route. A section SHALL either expose an edit route whose path identifies one item or allow editing that item inline on its list page. The music catalogue SHALL edit entries inline. Sections that expose an edit route SHALL identify items by URI, gallery collection directory name, slug, or identifier, and SHALL load the item without visiting the list page first.
 
 #### Scenario: Direct edit link
-- **WHEN** the author opens an edit route directly for an existing item
+- **WHEN** the author opens an edit route directly for an existing item in a section that has one
 - **THEN** the editor SHALL load that item and its form
 - **THEN** the list page SHALL NOT need to be visited first
+
+#### Scenario: Inline editing
+- **WHEN** a section edits entries inline
+- **THEN** its list route SHALL serve as the editing surface
+- **THEN** no edit route SHALL be required for that section
 
 #### Scenario: Browser navigation
 - **WHEN** the author moves between an item's edit route and other routes

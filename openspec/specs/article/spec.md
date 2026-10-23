@@ -156,7 +156,7 @@ An article SHALL store an ordered list of blocks. Each block MUST have a stable 
 
 #### Scenario: Music block authored from a YouTube link
 - **WHEN** a music block is read that was authored from a YouTube link
-- **THEN** it SHALL reference the link's video identifier and SHALL carry the title and artist resolved at authoring time
+- **THEN** it SHALL reference the link's video identifier and SHALL carry the title and artist confirmed at authoring time, which MAY be author overrides of the resolved values
 - **THEN** it SHALL be indistinguishable from a music block authored from the catalogue
 
 ### Requirement: List projection
