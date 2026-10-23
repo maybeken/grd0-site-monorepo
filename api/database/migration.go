@@ -16,6 +16,7 @@ var tables = []interface{}{
 	&schema.GalleryCollectionDetail{},
 	&schema.MapLocation{},
 	&schema.Music{},
+	&schema.Playlist{},
 	&schema.TastingNote{},
 }
 

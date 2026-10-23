@@ -127,6 +127,15 @@ const router = createRouter({
       component: () => import('@/views/MusicView.vue')
     },
     {
+      path: '/music/editor',
+      name: 'Music Playlist Editor',
+      meta: {
+        title: 'router.musicEditor',
+        requiresAuth: true
+      },
+      component: () => import('@/views/MusicEditorView.vue')
+    },
+    {
       path: '/coffee',
       name: 'coffee',
       meta: { title: 'router.coffee' },

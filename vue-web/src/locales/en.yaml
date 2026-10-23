@@ -77,6 +77,11 @@ nav:
     msgstr: "Tool - Tasting Editor"
     msgctxt: "Hidden navigation item for coffee tasting editor"
 
+  toolMusicEditor:
+    msgid: "nav.toolMusicEditor"
+    msgstr: "Tool - Music Playlist Editor"
+    msgctxt: "Hidden navigation item for music playlist editor"
+
   toolDotMatrix:
     msgid: "nav.toolDotMatrix"
     msgstr: "Tool - Dot Matrix"
@@ -289,6 +294,127 @@ music:
     msgid: "music.playlist"
     msgstr: "Playlist"
     msgctxt: "Playlist section title"
+
+  emptyPlaylist:
+    msgid: "music.emptyPlaylist"
+    msgstr: "This playlist has no songs yet."
+    msgctxt: "Empty state for a playlist with no songs"
+
+  editor:
+    title:
+      msgid: "music.editor.title"
+      msgstr: "Music Playlist Editor"
+      msgctxt: "Music playlist editor page title"
+
+    listHint:
+      msgid: "music.editor.listHint"
+      msgstr: "Create playlists and choose which songs belong to each one."
+      msgctxt: "Short description above the playlist listing"
+
+    newPlaylist:
+      msgid: "music.editor.newPlaylist"
+      msgstr: "+ New Playlist"
+      msgctxt: "Button that opens the new playlist form"
+
+    titleNew:
+      msgid: "music.editor.titleNew"
+      msgstr: "New Playlist"
+      msgctxt: "Playlist form title when creating"
+
+    titleEdit:
+      msgid: "music.editor.titleEdit"
+      msgstr: "Edit Playlist"
+      msgctxt: "Playlist form title when editing"
+
+    titleField:
+      msgid: "music.editor.titleField"
+      msgstr: "Title *"
+      msgctxt: "Playlist title field label"
+
+    titlePlaceholder:
+      msgid: "music.editor.titlePlaceholder"
+      msgstr: "e.g. Late Night Drive"
+      msgctxt: "Playlist title input placeholder"
+
+    descriptionField:
+      msgid: "music.editor.descriptionField"
+      msgstr: "Description"
+      msgctxt: "Playlist description field label"
+
+    descriptionPlaceholder:
+      msgid: "music.editor.descriptionPlaceholder"
+      msgstr: "What is this playlist about?"
+      msgctxt: "Playlist description textarea placeholder"
+
+    sortingField:
+      msgid: "music.editor.sortingField"
+      msgstr: "Sorting"
+      msgctxt: "Playlist sorting field label"
+
+    songsField:
+      msgid: "music.editor.songsField"
+      msgstr: "Songs"
+      msgctxt: "Playlist songs field label, followed by the selected count"
+
+    addSong:
+      msgid: "music.editor.addSong"
+      msgstr: "+ Add song"
+      msgctxt: "Button that opens the song picker in the playlist editor"
+
+    failedAddSong:
+      msgid: "music.editor.failedAddSong"
+      msgstr: "Failed to add song"
+      msgctxt: "Alert when adding a song to the catalogue fails"
+
+    removeSong:
+      msgid: "music.editor.removeSong"
+      msgstr: "Remove"
+      msgctxt: "Button that removes a song from the catalogue"
+
+    confirmRemoveSong:
+      msgid: "music.editor.confirmRemoveSong"
+      msgstr: "Remove \"{title}\" from the catalogue?"
+      msgctxt: "Confirmation dialog for removing a song, {title} is the song title"
+
+    failedRemoveSong:
+      msgid: "music.editor.failedRemoveSong"
+      msgstr: "Failed to remove song"
+      msgctxt: "Alert when removing a song from the catalogue fails"
+
+    noSongsAvailable:
+      msgid: "music.editor.noSongsAvailable"
+      msgstr: "No songs in the catalogue yet."
+      msgctxt: "Empty state when the music catalogue has no songs"
+
+    songCount:
+      msgid: "music.editor.songCount"
+      msgstr: "{count} songs"
+      msgctxt: "Number of songs in a playlist, {count} is a number"
+
+    noPlaylists:
+      msgid: "music.editor.noPlaylists"
+      msgstr: "No playlists yet."
+      msgctxt: "Empty state for the playlist listing"
+
+    confirmDelete:
+      msgid: "music.editor.confirmDelete"
+      msgstr: "Delete playlist \"{title}\"?"
+      msgctxt: "Confirmation dialog for deleting a playlist, {title} is playlist title"
+
+    failedLoad:
+      msgid: "music.editor.failedLoad"
+      msgstr: "Failed to load playlists"
+      msgctxt: "Alert when loading playlists fails"
+
+    failedSave:
+      msgid: "music.editor.failedSave"
+      msgstr: "Failed to save playlist"
+      msgctxt: "Alert when playlist save fails"
+
+    failedDelete:
+      msgid: "music.editor.failedDelete"
+      msgstr: "Failed to delete playlist"
+      msgctxt: "Alert when playlist deletion fails"
 
 blog:
   #. Blog detail strings
@@ -693,6 +819,11 @@ article:
     msgid: "article.editor.useLink"
     msgstr: "Use link"
     msgctxt: "Button that selects the video from the pasted YouTube link"
+
+  useThisSong:
+    msgid: "article.editor.useThisSong"
+    msgstr: "Use this song"
+    msgctxt: "Button that confirms the previewed YouTube link"
 
   resolvingLink:
     msgid: "article.editor.resolvingLink"
@@ -1627,6 +1758,11 @@ router:
     msgid: "router.music"
     msgstr: "Music Matters"
     msgctxt: "Page title for music route"
+
+  musicEditor:
+    msgid: "router.musicEditor"
+    msgstr: "Music Playlist Editor"
+    msgctxt: "Page title for music playlist editor route"
 
   coffee:
     msgid: "router.coffee"

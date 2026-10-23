@@ -28,11 +28,31 @@
       <p v-if="error" class="text-sm text-secondary">{{ error }}</p>
     </form>
 
-    <p v-if="!loading && (!songs || songs.length === 0)" class="text-sm text-secondary">
+    <div v-if="preview" class="flex flex-col gap-2 rounded-xl bg-shade p-3">
+      <MusicPlayer
+        variant="compact"
+        :v="preview.v"
+        :title="preview.title"
+        :artist="preview.artist"
+      ></MusicPlayer>
+      <div class="flex justify-end gap-2">
+        <button class="rounded-full border border-dotted px-3 py-1" @click="preview = null">
+          {{ $t('common.cancel') }}
+        </button>
+        <button class="rounded-full border border-dotted px-3 py-1" @click="confirmPreview">
+          {{ $t('article.editor.useThisSong') }}
+        </button>
+      </div>
+    </div>
+
+    <p
+      v-if="!$props.link_only && !loading && (!songs || songs.length === 0)"
+      class="text-sm text-secondary"
+    >
       {{ $t('article.editor.noSongs') }}
     </p>
 
-    <div class="flex flex-col max-h-[50vh] overflow-y-auto">
+    <div v-if="!$props.link_only" class="flex flex-col max-h-[50vh] overflow-y-auto">
       <button
         v-for="song in songs"
         :key="song.v"
@@ -54,8 +74,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
+import MusicPlayer from '@/components/music/MusicPlayer.vue'
 import { getMusic } from '@/services/music'
 
 import { t } from '@/i18n'
@@ -67,6 +88,15 @@ const $emit = defineEmits<{
   close: []
 }>()
 
+const $props = withDefaults(
+  defineProps<{
+    link_only?: boolean
+  }>(),
+  {
+    link_only: false
+  }
+)
+
 const response = getMusic()
 const songs = response.data
 const loading = response.loading
@@ -74,6 +104,11 @@ const loading = response.loading
 const link = ref('')
 const resolving = ref(false)
 const error = ref('')
+const preview = ref<{ v: string; title: string; artist?: string } | null>(null)
+
+watch(link, () => {
+  preview.value = null
+})
 
 const youtube_id = /^[A-Za-z0-9_-]{11}$/
 
@@ -139,7 +174,7 @@ async function useLink(): Promise<void> {
 
   try {
     const song = await fetchSong(v)
-    $emit('select', { v, ...song })
+    preview.value = { v, ...song }
   } catch {
     error.value = t('article.editor.youtubeLinkFailed')
   } finally {
@@ -147,7 +182,15 @@ async function useLink(): Promise<void> {
   }
 }
 
+function confirmPreview(): void {
+  if (!preview.value) return
+
+  $emit('select', preview.value)
+  preview.value = null
+}
+
 function select(song: Music): void {
+  preview.value = null
   $emit('select', { v: song.v, title: song.title, artist: song.artist })
 }
 </script>

@@ -78,6 +78,19 @@ All write endpoints require `Authorization: Bearer <token>`. Article URIs must m
 
 Blocks are an ordered array. Each block has `id` and `type`; payloads are `markdown` (`md`), `image` (`collection`, `filename`, optional `caption`), `music` (`v`, `title`, optional `artist`), and `excalidraw` (`scene_path`). The server validates types, required fields, and unique block IDs, and derives the list `summary` and `cover` on save.
 
+## Music API
+
+Playlists group catalogue songs; a song can belong to more than one playlist. Playlist writes replace the full song list in a transaction.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| `GET` | `/music` | no | List every song in the catalogue, ordered by `sorting` then creation time. |
+| `PUT` | `/music` | yes | Upsert a song by its YouTube video ID (`v`). |
+| `DELETE` | `/music/:v` | yes | Soft-delete a song; it disappears from playlists, while article blocks keep their snapshotted values. |
+| `GET` | `/music/playlists` | no | List playlists with their songs, ordered by `sorting` then creation time. |
+| `PUT` | `/music/playlist` | yes | Create or update a playlist. Send `id` to update; `songs` is the full replacement list and may contain only song IDs. A blank title is rejected and repeated IDs are stored once. |
+| `DELETE` | `/music/playlist/:id` | yes | Delete a playlist and its song associations. Songs themselves are kept. |
+
 ## Data
 
 The API reads its content from `data/files/*.json`, which is not committed. Generate it with `assets-helper` or from the `grd0-site-data` sub-repo.

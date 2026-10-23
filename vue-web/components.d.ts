@@ -53,6 +53,8 @@ declare module 'vue' {
     Navbar: typeof import('./src/components/layout/Navbar.vue')['default']
     NotFound: typeof import('./src/components/shared/NotFound.vue')['default']
     ParticleBackground: typeof import('./src/components/layout/ParticleBackground.vue')['default']
+    PlaylistForm: typeof import('./src/components/music/PlaylistForm.vue')['default']
+    PlaylistSelector: typeof import('./src/components/music/PlaylistSelector.vue')['default']
     PostTable: typeof import('./src/components/editor/PostTable.vue')['default']
     ProfileIcon: typeof import('./src/components/blog/ProfileIcon.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

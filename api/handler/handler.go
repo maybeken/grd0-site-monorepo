@@ -76,8 +76,11 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	restrictV1.DELETE("/travel/map/:slug", h.DeleteMapLocation)
 
 	v1.GET("/music", h.GetMusic)
+	v1.GET("/music/playlists", h.GetPlaylists)
 	restrictV1.PUT("/music", h.UpsertMusic)
 	restrictV1.DELETE("/music/:v", h.DeleteMusic)
+	restrictV1.PUT("/music/playlist", h.UpsertPlaylist)
+	restrictV1.DELETE("/music/playlist/:id", h.DeletePlaylist)
 
 	v1.GET("/coffee/beans", h.GetCoffeeBeans)
 	restrictV1.PUT("/coffee/bean", h.UpsertCoffeeBean)
