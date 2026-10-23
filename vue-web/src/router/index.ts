@@ -220,6 +220,12 @@ const router = createRouter({
           meta: { title: 'router.editorPlaylists' }
         },
         {
+          path: 'music/songs',
+          name: 'Editor Songs',
+          component: () => import('@/views/editor/EditorSongListView.vue'),
+          meta: { title: 'router.editorSongs' }
+        },
+        {
           path: 'music/:id',
           name: 'Editor Playlist',
           component: () => import('@/views/editor/EditorPlaylistView.vue'),

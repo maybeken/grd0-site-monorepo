@@ -51,6 +51,7 @@ declare module 'vue' {
     MenuLinkBtn: typeof import('./src/components/layout/MenuLinkBtn.vue')['default']
     MusicBlock: typeof import('./src/components/article/blocks/MusicBlock.vue')['default']
     MusicBlockEditor: typeof import('./src/components/editor/article/blocks/MusicBlockEditor.vue')['default']
+    MusicEntryForm: typeof import('./src/components/music/MusicEntryForm.vue')['default']
     MusicPicker: typeof import('./src/components/editor/article/MusicPicker.vue')['default']
     MusicPlayer: typeof import('./src/components/music/MusicPlayer.vue')['default']
     MusicProgressBar: typeof import('./src/components/music/MusicProgressBar.vue')['default']

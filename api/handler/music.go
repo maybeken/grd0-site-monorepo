@@ -29,21 +29,34 @@ func (h *Handler) GetMusic(c echo.Context) error {
 func (h *Handler) UpsertMusic(c echo.Context) error {
 	db := h.DB
 
-	// var music schema.Music
 	var music schema.Music
 	if err := c.Bind(&music); err != nil {
 		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Unable to parse input.")
 	}
 
+	music.BaseColumns = schema.BaseColumns{}
+
 	if err := db.Create(&music).Error; errors.Is(err, gorm.ErrDuplicatedKey) {
-		if err := db.Unscoped().Model(schema.Music{}).Where("v = ?", music.V).Updates(&music).Update("deleted_at", nil).Error; err != nil {
+		err := db.Transaction(func(tx *gorm.DB) error {
+			if err := tx.Unscoped().Model(&schema.Music{}).Where("v = ?", music.V).Update("deleted_at", nil).Error; err != nil {
+				return err
+			}
+
+			return tx.Unscoped().Model(&schema.Music{}).Where("v = ?", music.V).Select("title", "artist", "description").Updates(&music).Error
+		})
+		if err != nil {
 			return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 		}
 	} else if err != nil {
 		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, music)
+	var saved schema.Music
+	if err := db.Where("v = ?", music.V).First(&saved).Error; err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, saved)
 }
 
 func (h *Handler) DeleteMusic(c echo.Context) error {

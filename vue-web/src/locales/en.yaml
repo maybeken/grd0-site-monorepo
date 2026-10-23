@@ -868,10 +868,135 @@ music:
       msgstr: '+ Add song'
       msgctxt: 'Button that opens the song picker in the playlist editor'
 
+    titleOverride:
+      msgid: 'music.editor.titleOverride'
+      msgstr: 'Title override'
+      msgctxt: 'Override input for the title resolved from a YouTube link'
+
+    artistOverride:
+      msgid: 'music.editor.artistOverride'
+      msgstr: 'Artist override'
+      msgctxt: 'Override input for the artist resolved from a YouTube link'
+
     failedAddSong:
       msgid: 'music.editor.failedAddSong'
       msgstr: 'Failed to add song'
       msgctxt: 'Alert when adding a song to the catalogue fails'
+
+    correctOnSongsPage:
+      msgid: 'music.editor.correctOnSongsPage'
+      msgstr: 'Already in the catalogue. Correct its details on the Songs page.'
+      msgctxt: 'Hint shown when overrides are ignored because the song already exists'
+
+    songsHint:
+      msgid: 'music.editor.songsHint'
+      msgstr: 'Add songs, write notes, and edit entries inline.'
+      msgctxt: 'Short description above the songs listing'
+
+    newSong:
+      msgid: 'music.editor.newSong'
+      msgstr: '+ New Song'
+      msgctxt: 'Button that opens the new song form'
+
+    songTitleNew:
+      msgid: 'music.editor.songTitleNew'
+      msgstr: 'New Song'
+      msgctxt: 'Song form title when creating'
+
+    songTitleEdit:
+      msgid: 'music.editor.songTitleEdit'
+      msgstr: 'Edit Song'
+      msgctxt: 'Song form title when editing'
+
+    videoField:
+      msgid: 'music.editor.videoField'
+      msgstr: 'YouTube video'
+      msgctxt: 'Label for the song video identifier'
+
+    videoUnset:
+      msgid: 'music.editor.videoUnset'
+      msgstr: 'None selected'
+      msgctxt: 'Shown when a new song has no video identifier yet'
+
+    resolveLink:
+      msgid: 'music.editor.resolveLink'
+      msgstr: '+ Resolve link'
+      msgctxt: 'Button that opens the picker to resolve a YouTube link'
+
+    changeLink:
+      msgid: 'music.editor.changeLink'
+      msgstr: 'Change link'
+      msgctxt: 'Button that reopens the picker for an already resolved link'
+
+    duplicateSong:
+      msgid: 'music.editor.duplicateSong'
+      msgstr: 'This song is already in the catalogue.'
+      msgctxt: 'Notice shown when the resolved video already has a catalogue entry'
+
+    editExisting:
+      msgid: 'music.editor.editExisting'
+      msgstr: 'Edit the existing entry'
+      msgctxt: 'Link to the existing catalogue entry'
+
+    songTitleField:
+      msgid: 'music.editor.songTitleField'
+      msgstr: 'Title *'
+      msgctxt: 'Song title field label'
+
+    songTitlePlaceholder:
+      msgid: 'music.editor.songTitlePlaceholder'
+      msgstr: 'e.g. Song title'
+      msgctxt: 'Song title input placeholder'
+
+    songArtistField:
+      msgid: 'music.editor.songArtistField'
+      msgstr: 'Artist'
+      msgctxt: 'Song artist field label'
+
+    songArtistPlaceholder:
+      msgid: 'music.editor.songArtistPlaceholder'
+      msgstr: 'e.g. Artist name'
+      msgctxt: 'Song artist input placeholder'
+
+    notesField:
+      msgid: 'music.editor.notesField'
+      msgstr: 'Notes'
+      msgctxt: 'Song notes field label, stored as the public description'
+
+    notesPlaceholder:
+      msgid: 'music.editor.notesPlaceholder'
+      msgstr: 'What does this song mean to you?'
+      msgctxt: 'Song notes textarea placeholder'
+
+    playlistCount:
+      msgid: 'music.editor.playlistCount'
+      msgstr: '{count} playlists'
+      msgctxt: 'Number of playlists containing a song, {count} is a number'
+
+    confirmDeleteSong:
+      msgid: 'music.editor.confirmDeleteSong'
+      msgstr: 'Delete "{title}" from the catalogue? It is in {count} playlists.'
+      msgctxt: 'Confirmation for deleting a song, {title} is the title and {count} the playlist count'
+
+    failedLoadSongs:
+      msgid: 'music.editor.failedLoadSongs'
+      msgstr: 'Failed to load songs'
+      msgctxt: 'Alert when loading the music catalogue fails'
+
+    failedMembership:
+      msgid: 'music.editor.failedMembership'
+      msgstr: 'Playlist membership could not be loaded.'
+      msgctxt: 'Warning when playlist counts are unavailable'
+
+    failedSaveSong:
+      msgid: 'music.editor.failedSaveSong'
+      msgstr: 'Failed to save song'
+      msgctxt: 'Alert when saving a catalogue song fails'
+
+    failedDeleteSong:
+      msgid: 'music.editor.failedDeleteSong'
+      msgstr: 'Failed to delete song'
+      msgctxt: 'Alert when deleting a catalogue song fails'
 
     removeSong:
       msgid: 'music.editor.removeSong'
@@ -2286,6 +2411,11 @@ editor:
     msgstr: 'Tastings'
     msgctxt: 'Sidebar entry for the tasting editor'
 
+  songs:
+    msgid: 'editor.songs'
+    msgstr: 'Songs'
+    msgctxt: 'Sidebar entry for the music catalogue editor'
+
   playlists:
     msgid: 'editor.playlists'
     msgstr: 'Playlists'
@@ -2342,6 +2472,11 @@ router:
     msgid: 'router.editorPlaylists'
     msgstr: 'Playlist Editor'
     msgctxt: 'Page title for the playlist editor routes'
+
+  editorSongs:
+    msgid: 'router.editorSongs'
+    msgstr: 'Song Editor'
+    msgctxt: 'Page title for the music catalogue editor routes'
 
   editorMapLocations:
     msgid: 'router.editorMapLocations'

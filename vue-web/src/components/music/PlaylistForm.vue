@@ -111,7 +111,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import MusicPicker from '@/components/editor/article/MusicPicker.vue'
@@ -150,7 +150,7 @@ async function fetchCatalogue(): Promise<void> {
   }
 }
 
-fetchCatalogue()
+const catalogue_ready = fetchCatalogue().catch(() => undefined)
 
 const is_edit = computed(() => !!props.playlist?.id)
 const saving = ref(false)
@@ -201,7 +201,15 @@ async function onAddSong(song: { v: string; title: string; artist?: string }): P
   if (!song.v) return
 
   try {
-    if (!catalogue_songs.value.some((item) => item.v === song.v)) {
+    await catalogue_ready
+
+    const existing = catalogue_songs.value.find((item) => item.v === song.v)
+
+    if (existing) {
+      if (existing.title !== song.title || (existing.artist ?? '') !== (song.artist ?? '')) {
+        toast.info(t('music.editor.correctOnSongsPage'))
+      }
+    } else {
       await upsertMusicRaw({ v: song.v, title: song.title, artist: song.artist })
       await fetchCatalogue()
     }
@@ -262,4 +270,14 @@ async function save(): Promise<void> {
     saving.value = false
   }
 }
+
+function on_save_shortcut(event: KeyboardEvent): void {
+  if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 's') return
+
+  event.preventDefault()
+  void save()
+}
+
+onMounted(() => window.addEventListener('keydown', on_save_shortcut))
+onBeforeUnmount(() => window.removeEventListener('keydown', on_save_shortcut))
 </script>

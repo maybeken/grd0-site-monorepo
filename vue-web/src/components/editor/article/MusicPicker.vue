@@ -32,11 +32,33 @@
       <MusicPlayer
         variant="compact"
         :v="preview.v"
-        :title="preview.title"
-        :artist="preview.artist"
+        :title="title_override || preview.title"
+        :artist="artist_override || preview.artist"
       ></MusicPlayer>
+
+      <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+        <label class="flex flex-col gap-1 text-sm">
+          <span class="text-foreground/60">{{ $t('music.editor.titleOverride') }}</span>
+          <input
+            v-model="title_override"
+            class="rounded-full border border-dotted bg-background px-3 py-1"
+            type="text"
+            :placeholder="preview.title"
+          />
+        </label>
+        <label class="flex flex-col gap-1 text-sm">
+          <span class="text-foreground/60">{{ $t('music.editor.artistOverride') }}</span>
+          <input
+            v-model="artist_override"
+            class="rounded-full border border-dotted bg-background px-3 py-1"
+            type="text"
+            :placeholder="preview.artist"
+          />
+        </label>
+      </div>
+
       <div class="flex justify-end gap-2">
-        <button class="rounded-full border border-dotted px-3 py-1" @click="preview = null">
+        <button class="rounded-full border border-dotted px-3 py-1" @click="clearPreview">
           {{ $t('common.cancel') }}
         </button>
         <button class="rounded-full border border-dotted px-3 py-1" @click="confirmPreview">
@@ -105,10 +127,16 @@ const link = ref('')
 const resolving = ref(false)
 const error = ref('')
 const preview = ref<{ v: string; title: string; artist?: string } | null>(null)
+const title_override = ref('')
+const artist_override = ref('')
 
-watch(link, () => {
+function clearPreview(): void {
   preview.value = null
-})
+  title_override.value = ''
+  artist_override.value = ''
+}
+
+watch(link, clearPreview)
 
 const youtube_id = /^[A-Za-z0-9_-]{11}$/
 
@@ -175,6 +203,8 @@ async function useLink(): Promise<void> {
   try {
     const song = await fetchSong(v)
     preview.value = { v, ...song }
+    title_override.value = song.title
+    artist_override.value = song.artist ?? ''
   } catch {
     error.value = t('article.editor.youtubeLinkFailed')
   } finally {
@@ -185,12 +215,15 @@ async function useLink(): Promise<void> {
 function confirmPreview(): void {
   if (!preview.value) return
 
-  $emit('select', preview.value)
-  preview.value = null
+  const title = title_override.value.trim() || preview.value.title
+  const artist = artist_override.value.trim() || preview.value.artist
+
+  $emit('select', { v: preview.value.v, title, artist })
+  clearPreview()
 }
 
 function select(song: Music): void {
-  preview.value = null
+  clearPreview()
   $emit('select', { v: song.v, title: song.title, artist: song.artist })
 }
 </script>

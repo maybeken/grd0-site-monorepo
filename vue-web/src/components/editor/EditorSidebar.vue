@@ -51,6 +51,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 defineProps<{
@@ -63,7 +64,18 @@ defineEmits<{
 
 const route = useRoute()
 
-const groups = [
+interface Entry {
+  label: string
+  to: string
+  match: string
+}
+
+interface Group {
+  label: string
+  items: Entry[]
+}
+
+const groups: Group[] = [
   {
     label: 'editor.content',
     items: [
@@ -85,20 +97,26 @@ const groups = [
   },
   {
     label: 'editor.music',
-    items: [{ label: 'editor.playlists', to: '/editor/music', match: '/editor/music' }]
+    items: [
+      { label: 'editor.songs', to: '/editor/music/songs', match: '/editor/music/songs' },
+      { label: 'editor.playlists', to: '/editor/music', match: '/editor/music' }
+    ]
   },
   {
     label: 'editor.travel',
     items: [{ label: 'editor.mapLocations', to: '/editor/travel', match: '/editor/travel' }]
   }
-] as const
+]
 
-interface Entry {
-  to: string
-  match: string
-}
+const active_match = computed(() => {
+  const matches = groups
+    .flatMap((group) => group.items)
+    .filter((item) => route.path === item.match || route.path.startsWith(`${item.match}/`))
+
+  return matches.sort((left, right) => right.match.length - left.match.length)[0]?.match ?? ''
+})
 
 function isActive(item: Entry): boolean {
-  return route.path === item.match || route.path.startsWith(`${item.match}/`)
+  return active_match.value === item.match
 }
 </script>
