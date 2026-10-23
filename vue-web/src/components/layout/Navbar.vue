@@ -45,9 +45,7 @@ const menuItems = [
   { displayNameKey: 'nav.linkedin', link: 'https://www.linkedin.com/in/maybeken/' },
   { displayNameKey: 'nav.buyMeCoffee', link: 'https://ko-fi.com/maybeken' },
   { displayNameKey: 'nav.cmsLogin', link: '/redirect/auth/login', hidden: true },
-  { displayNameKey: 'nav.toolArticleEditor', link: '/article/editor', hidden: true },
-  { displayNameKey: 'nav.toolTastingEditor', link: '/coffee/editor', hidden: true },
-  { displayNameKey: 'nav.toolMusicEditor', link: '/music/editor', hidden: true },
+  { displayNameKey: 'nav.toolEditor', link: '/editor', hidden: true },
   { displayNameKey: 'nav.toolDotMatrix', link: '/tool/dotmatrix', hidden: true },
   { displayNameKey: 'nav.toolExcalidraw', link: '/tool/draw', hidden: true }
 ]

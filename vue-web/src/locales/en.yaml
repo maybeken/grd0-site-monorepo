@@ -65,22 +65,7 @@ nav:
   toolEditor:
     msgid: "nav.toolEditor"
     msgstr: "Tool - Editor"
-    msgctxt: "Hidden navigation item for blog editor"
-
-  toolArticleEditor:
-    msgid: "nav.toolArticleEditor"
-    msgstr: "Tool - Article Editor"
-    msgctxt: "Hidden navigation item for article editor"
-
-  toolTastingEditor:
-    msgid: "nav.toolTastingEditor"
-    msgstr: "Tool - Tasting Editor"
-    msgctxt: "Hidden navigation item for coffee tasting editor"
-
-  toolMusicEditor:
-    msgid: "nav.toolMusicEditor"
-    msgstr: "Tool - Music Playlist Editor"
-    msgctxt: "Hidden navigation item for music playlist editor"
+    msgctxt: "Hidden navigation item for the content editor"
 
   toolDotMatrix:
     msgid: "nav.toolDotMatrix"
@@ -129,6 +114,11 @@ common:
     msgstr: "Save"
     msgctxt: "Save button label"
 
+  loading:
+    msgid: "common.loading"
+    msgstr: "Loading..."
+    msgctxt: "Placeholder shown while content loads"
+
   saving:
     msgid: "common.saving"
     msgstr: "Saving..."
@@ -163,6 +153,11 @@ common:
     msgid: "common.done"
     msgstr: "Done."
     msgctxt: "Success alert message"
+
+  confirmDiscard:
+    msgid: "common.confirmDiscard"
+    msgstr: "You have unsaved changes. Discard them?"
+    msgctxt: "Confirmation shown before leaving an editor with unsaved changes"
 
   failed:
     msgid: "common.failed"
@@ -925,11 +920,6 @@ article:
     msgstr: "Open"
     msgctxt: "Button that opens an article in the editor"
 
-  backToList:
-    msgid: "article.editor.backToList"
-    msgstr: "Back to articles"
-    msgctxt: "Link that returns to the article listing from the editor"
-
   listHint:
     msgid: "article.editor.listHint"
     msgstr: "Open an article to edit it, or create a new one."
@@ -1064,7 +1054,7 @@ coffee:
     msgctxt: "Source name in equipment icon attribution"
 
   #. Coffee editor strings
-  #: src/views/CoffeeEditorView.vue
+  #: src/views/editor/
   tabBeans:
     msgid: "coffee.editor.tabBeans"
     msgstr: "Beans"
@@ -1717,8 +1707,115 @@ updateNotification:
     msgstr: "Dismiss"
     msgctxt: "Button to dismiss the update notification"
 
+#. Editor console strings
+editor:
+  title:
+    msgid: "editor.title"
+    msgstr: "Editor"
+    msgctxt: "Label for the editor console"
+
+  openMenu:
+    msgid: "editor.openMenu"
+    msgstr: "Open editor menu"
+    msgctxt: "Accessible label for the sidebar toggle"
+
+  closeMenu:
+    msgid: "editor.closeMenu"
+    msgstr: "Close editor menu"
+    msgctxt: "Accessible label for closing the sidebar"
+
+  viewSite:
+    msgid: "editor.viewSite"
+    msgstr: "View site"
+    msgctxt: "Sidebar link back to the public site"
+
+  content:
+    msgid: "editor.content"
+    msgstr: "Content"
+    msgctxt: "Sidebar group heading for article content"
+
+  coffee:
+    msgid: "editor.coffee"
+    msgstr: "Coffee"
+    msgctxt: "Sidebar group heading for coffee content"
+
+  music:
+    msgid: "editor.music"
+    msgstr: "Music"
+    msgctxt: "Sidebar group heading for music content"
+
+  articles:
+    msgid: "editor.articles"
+    msgstr: "Articles"
+    msgctxt: "Sidebar entry for the article editor"
+
+  beans:
+    msgid: "editor.beans"
+    msgstr: "Beans"
+    msgctxt: "Sidebar entry for the bean editor"
+
+  equipment:
+    msgid: "editor.equipment"
+    msgstr: "Equipment"
+    msgctxt: "Sidebar entry for the equipment editor"
+
+  tastings:
+    msgid: "editor.tastings"
+    msgstr: "Tastings"
+    msgctxt: "Sidebar entry for the tasting editor"
+
+  playlists:
+    msgid: "editor.playlists"
+    msgstr: "Playlists"
+    msgctxt: "Sidebar entry for the playlist editor"
+
+  backToList:
+    msgid: "editor.backToList"
+    msgstr: "Back to list"
+    msgctxt: "Link returning to a section listing"
+
+  notFound:
+    msgid: "editor.notFound"
+    msgstr: "Item not found."
+    msgctxt: "Message shown when an edit route names a missing item"
+
+  loadFailed:
+    msgid: "editor.loadFailed"
+    msgstr: "Something went wrong. Please try again."
+    msgctxt: "Error shown when an editor listing fails to load"
+
 #. Router page titles
 router:
+  editor:
+    msgid: "router.editor"
+    msgstr: "Editor"
+    msgctxt: "Page title for the editor console"
+
+  editorArticles:
+    msgid: "router.editorArticles"
+    msgstr: "Article Editor"
+    msgctxt: "Page title for the article editor routes"
+
+  editorBeans:
+    msgid: "router.editorBeans"
+    msgstr: "Bean Editor"
+    msgctxt: "Page title for the bean editor routes"
+
+  editorEquipment:
+    msgid: "router.editorEquipment"
+    msgstr: "Equipment Editor"
+    msgctxt: "Page title for the equipment editor routes"
+
+  editorTastings:
+    msgid: "router.editorTastings"
+    msgstr: "Tasting Editor"
+    msgctxt: "Page title for the tasting editor routes"
+
+  editorPlaylists:
+    msgid: "router.editorPlaylists"
+    msgstr: "Playlist Editor"
+    msgctxt: "Page title for the playlist editor routes"
+
   home:
     msgid: "router.home"
     msgstr: "Home"

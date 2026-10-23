@@ -30,6 +30,12 @@ function getPlaylistsRaw() {
   return dataInstance.Get<Playlist[]>('/music/playlists')
 }
 
+async function getPlaylistRaw(id: string): Promise<Playlist | null> {
+  const value = await dataInstance.Get<Playlist>(`/music/playlist/${id}`)
+
+  return value && typeof value === 'object' && 'id' in value ? value : null
+}
+
 function getPlaylists(): { loading: Ref<boolean, boolean>; data: Ref<Playlist[]> } {
   try {
     const { loading, data } = useRequest(getPlaylistsRaw())
@@ -55,6 +61,7 @@ export {
   deleteMusicRaw,
   getPlaylistsRaw,
   getPlaylists,
+  getPlaylistRaw,
   upsertPlaylistRaw,
   deletePlaylistRaw
 }

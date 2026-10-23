@@ -77,20 +77,24 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 
 	v1.GET("/music", h.GetMusic)
 	v1.GET("/music/playlists", h.GetPlaylists)
+	v1.GET("/music/playlist/:id", h.GetPlaylist)
 	restrictV1.PUT("/music", h.UpsertMusic)
 	restrictV1.DELETE("/music/:v", h.DeleteMusic)
 	restrictV1.PUT("/music/playlist", h.UpsertPlaylist)
 	restrictV1.DELETE("/music/playlist/:id", h.DeletePlaylist)
 
 	v1.GET("/coffee/beans", h.GetCoffeeBeans)
+	v1.GET("/coffee/bean/:id", h.GetCoffeeBean)
 	restrictV1.PUT("/coffee/bean", h.UpsertCoffeeBean)
 	restrictV1.DELETE("/coffee/bean/:id", h.DeleteCoffeeBean)
 
 	v1.GET("/coffee/equipment", h.GetCoffeeEquipment)
+	v1.GET("/coffee/equipment/:id", h.GetCoffeeEquipmentItem)
 	restrictV1.PUT("/coffee/equipment", h.UpsertCoffeeEquipment)
 	restrictV1.DELETE("/coffee/equipment/:id", h.DeleteCoffeeEquipment)
 
 	v1.GET("/coffee/tastings", h.GetCoffeeTastings)
+	v1.GET("/coffee/tasting/:id", h.GetCoffeeTasting)
 	restrictV1.PUT("/coffee/tasting", h.UpsertCoffeeTasting)
 	restrictV1.DELETE("/coffee/tasting/:id", h.DeleteCoffeeTasting)
 }

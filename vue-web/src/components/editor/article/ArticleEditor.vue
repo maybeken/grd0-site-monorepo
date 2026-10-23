@@ -1,11 +1,13 @@
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col gap-4 lg:h-[calc(100vh-3rem)] lg:min-h-0">
     <div class="flex flex-wrap items-center gap-2">
       <router-link
         :to="back_to"
-        class="rounded-full border border-dotted px-3 py-1"
+        class="p-1 text-secondary hover:text-foreground"
+        :aria-label="$t('editor.backToList')"
+        :title="$t('editor.backToList')"
       >
-        {{ $t('article.editor.backToList') }}
+        <Icon icon="mynaui:arrow-left" />
       </router-link>
 
       <div class="ml-auto flex items-center gap-3">
@@ -50,7 +52,7 @@
 
     <div
       v-else-if="article"
-      class="flex flex-col gap-4 lg:h-[calc(100vh-11rem)] lg:flex-row lg:items-stretch"
+      class="flex flex-col gap-4 lg:min-h-0 lg:flex-1 lg:flex-row lg:items-stretch"
     >
       <div class="flex min-w-0 flex-1 flex-col gap-4 lg:min-h-0">
         <div class="flex flex-col gap-3">
@@ -88,7 +90,7 @@
         <div class="flex flex-col gap-4 lg:min-h-0 lg:flex-1 lg:grid lg:grid-cols-2">
           <section
             ref="editor_pane"
-            class="min-h-0 flex-col gap-6 overflow-y-auto p-4 max-lg:h-[calc(100vh-24rem)] lg:flex"
+            class="min-h-0 flex-col gap-6 overflow-y-auto p-4 max-lg:h-[calc(100vh-19rem)] lg:flex"
             :class="view === 'edit' ? 'flex' : 'hidden'"
           >
             <div class="flex flex-col gap-6">
@@ -139,7 +141,7 @@
 
           <section
             ref="preview_pane"
-            class="min-h-0 flex-col gap-4 overflow-y-auto p-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-lg:h-[calc(100vh-24rem)] lg:flex lg:border-l lg:border-dotted"
+            class="min-h-0 flex-col gap-4 overflow-y-auto p-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-lg:h-[calc(100vh-19rem)] lg:flex lg:border-l lg:border-dotted"
             :class="view === 'preview' ? 'flex' : 'hidden'"
           >
             <div class="flex flex-col gap-4">
@@ -174,7 +176,7 @@
     <div v-else class="flex flex-col items-start gap-3">
       <p class="text-red-400">{{ $t('article.editor.loadFailed') }}</p>
       <router-link :to="back_to" class="rounded-full border border-dotted px-3 py-1">
-        {{ $t('article.editor.backToList') }}
+        {{ $t('editor.backToList') }}
       </router-link>
     </div>
   </div>
@@ -183,11 +185,12 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 
 import { articleSceneId, createArticleBlock } from '@/helpers/article'
 import { useToast } from '@/composables/useToast'
+import { useUnsavedGuard } from '@/composables/useUnsavedGuard'
 import {
   getArticleDraftSceneRaw,
   purgeArticleRaw,
@@ -236,6 +239,8 @@ const {
   reset
 } = useArticleDraft()
 
+useUnsavedGuard(dirty, 'article.editor.confirmDiscard')
+
 const PREVIEW_DEBOUNCE_MS = 750
 
 const editor_pane = ref<HTMLElement | null>(null)
@@ -271,9 +276,9 @@ const status_label = computed(() => {
 
 const back_to = computed(() => {
   const value = Number(route.query.page)
-  if (!Number.isInteger(value) || value <= 0) return '/article/editor'
+  if (!Number.isInteger(value) || value <= 0) return '/editor/articles'
 
-  return { path: '/article/editor', query: { page: String(value) } }
+  return { path: '/editor/articles', query: { page: String(value) } }
 })
 
 function cloneBlocks(value: ArticleBlock[]): ArticleBlock[] {
@@ -463,13 +468,6 @@ function onKeyDown(event: KeyboardEvent): void {
   void saveArticle()
 }
 
-function onBeforeUnload(event: BeforeUnloadEvent): void {
-  if (!dirty.value) return
-
-  event.preventDefault()
-  event.returnValue = ''
-}
-
 function updateWidth(): void {
   is_wide.value = media_query?.matches ?? false
 }
@@ -480,7 +478,6 @@ onMounted(() => {
   media_query.addEventListener('change', updateWidth)
 
   window.addEventListener('keydown', onKeyDown)
-  window.addEventListener('beforeunload', onBeforeUnload)
 })
 
 watch(
@@ -533,22 +530,9 @@ watch(
   { immediate: true }
 )
 
-onBeforeRouteLeave(() => {
-  if (!dirty.value) return true
-
-  return window.confirm(t('article.editor.confirmDiscard'))
-})
-
-onBeforeRouteUpdate(() => {
-  if (!dirty.value) return true
-
-  return window.confirm(t('article.editor.confirmDiscard'))
-})
-
 onUnmounted(() => {
   media_query?.removeEventListener('change', updateWidth)
   window.removeEventListener('keydown', onKeyDown)
-  window.removeEventListener('beforeunload', onBeforeUnload)
   window.clearTimeout(preview_timer)
 })
 </script>

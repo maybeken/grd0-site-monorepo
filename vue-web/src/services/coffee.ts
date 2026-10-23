@@ -8,6 +8,12 @@ function getCoffeeBeansRaw() {
   return dataInstance.Get<CoffeeBean[]>('/coffee/beans')
 }
 
+async function getCoffeeBeanRaw(id: string): Promise<CoffeeBean | null> {
+  const value = await dataInstance.Get<CoffeeBean>(`/coffee/bean/${id}`)
+
+  return value && typeof value === 'object' && 'id' in value ? value : null
+}
+
 function getCoffeeBeans(): { loading: Ref<boolean, boolean>; data: Ref<CoffeeBean[]> } {
   try {
     const { loading, data } = useRequest(getCoffeeBeansRaw())
@@ -27,6 +33,12 @@ function deleteCoffeeBeanRaw(id: string) {
 
 function getCoffeeEquipmentRaw() {
   return dataInstance.Get<BrewEquipment[]>('/coffee/equipment')
+}
+
+async function getCoffeeEquipmentItemRaw(id: string): Promise<BrewEquipment | null> {
+  const value = await dataInstance.Get<BrewEquipment>(`/coffee/equipment/${id}`)
+
+  return value && typeof value === 'object' && 'id' in value ? value : null
 }
 
 function getCoffeeEquipment(): { loading: Ref<boolean, boolean>; data: Ref<BrewEquipment[]> } {
@@ -50,6 +62,12 @@ function getCoffeeTastingsRaw() {
   return dataInstance.Get<TastingNote[]>('/coffee/tastings')
 }
 
+async function getCoffeeTastingRaw(id: string): Promise<TastingNote | null> {
+  const value = await dataInstance.Get<TastingNote>(`/coffee/tasting/${id}`)
+
+  return value && typeof value === 'object' && 'id' in value ? value : null
+}
+
 function getCoffeeTastings(): { loading: Ref<boolean, boolean>; data: Ref<TastingNote[]> } {
   try {
     const { loading, data } = useRequest(getCoffeeTastingsRaw())
@@ -70,14 +88,17 @@ function deleteCoffeeTastingRaw(id: string) {
 export {
   getCoffeeBeansRaw,
   getCoffeeBeans,
+  getCoffeeBeanRaw,
   upsertCoffeeBeanRaw,
   deleteCoffeeBeanRaw,
   getCoffeeEquipmentRaw,
   getCoffeeEquipment,
+  getCoffeeEquipmentItemRaw,
   upsertCoffeeEquipmentRaw,
   deleteCoffeeEquipmentRaw,
   getCoffeeTastingsRaw,
   getCoffeeTastings,
+  getCoffeeTastingRaw,
   upsertCoffeeTastingRaw,
   deleteCoffeeTastingRaw
 }

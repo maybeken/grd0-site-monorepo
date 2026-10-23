@@ -1,6 +1,7 @@
 import { nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { formatCollectionName } from '@/helpers/collection'
+import { isLocalEnvironment } from '@/helpers/environment'
 import { getGalleryCollectionRaw } from '@/services/gallery'
 import { getBlogPostRaw } from '@/services/blogPost'
 import { getArticleRaw } from '@/services/article'
@@ -14,6 +15,7 @@ declare module 'vue-router' {
     url?: string
     requiresAuth?: boolean
     titleSuffix?: string
+    layout?: 'editor'
   }
 }
 
@@ -73,21 +75,14 @@ const router = createRouter({
     },
     {
       path: '/article/editor',
-      name: 'Article Editor',
-      meta: {
-        title: 'router.articleEditor',
-        requiresAuth: true
-      },
-      component: () => import('@/views/ArticleEditorListView.vue')
+      redirect: '/editor/articles'
     },
     {
       path: '/article/editor/:uri',
-      name: 'Article Editor Workspace',
-      meta: {
-        title: 'router.articleEditor',
-        requiresAuth: true
-      },
-      component: () => import('@/views/ArticleEditorView.vue')
+      redirect: (to) => ({
+        path: `/editor/articles/${to.params.uri}`,
+        query: to.query
+      })
     },
     {
       path: '/article/:slug',
@@ -128,12 +123,7 @@ const router = createRouter({
     },
     {
       path: '/music/editor',
-      name: 'Music Playlist Editor',
-      meta: {
-        title: 'router.musicEditor',
-        requiresAuth: true
-      },
-      component: () => import('@/views/MusicEditorView.vue')
+      redirect: '/editor/music'
     },
     {
       path: '/coffee',
@@ -143,12 +133,87 @@ const router = createRouter({
     },
     {
       path: '/coffee/editor',
-      name: 'Coffee Tasting Editor',
+      redirect: '/editor/coffee/beans'
+    },
+    {
+      path: '/editor',
+      name: 'Editor',
+      component: () => import('@/components/editor/EditorLayout.vue'),
       meta: {
-        title: 'router.coffeeEditor',
-        requiresAuth: true
+        title: 'router.editor',
+        requiresAuth: true,
+        layout: 'editor'
       },
-      component: () => import('@/views/CoffeeEditorView.vue'),
+      children: [
+        {
+          path: '',
+          redirect: '/editor/articles'
+        },
+        {
+          path: 'articles',
+          name: 'Editor Articles',
+          component: () => import('@/views/editor/EditorArticleListView.vue'),
+          meta: { title: 'router.editorArticles' }
+        },
+        {
+          path: 'articles/:uri',
+          name: 'Editor Article',
+          component: () => import('@/views/editor/EditorArticleView.vue'),
+          meta: { title: 'router.editorArticles' }
+        },
+        {
+          path: 'coffee',
+          redirect: '/editor/coffee/beans'
+        },
+        {
+          path: 'coffee/beans',
+          name: 'Editor Beans',
+          component: () => import('@/views/editor/EditorBeanListView.vue'),
+          meta: { title: 'router.editorBeans' }
+        },
+        {
+          path: 'coffee/beans/:id',
+          name: 'Editor Bean',
+          component: () => import('@/views/editor/EditorBeanView.vue'),
+          meta: { title: 'router.editorBeans' }
+        },
+        {
+          path: 'coffee/equipment',
+          name: 'Editor Equipment',
+          component: () => import('@/views/editor/EditorEquipmentListView.vue'),
+          meta: { title: 'router.editorEquipment' }
+        },
+        {
+          path: 'coffee/equipment/:id',
+          name: 'Editor Equipment Item',
+          component: () => import('@/views/editor/EditorEquipmentView.vue'),
+          meta: { title: 'router.editorEquipment' }
+        },
+        {
+          path: 'coffee/tastings',
+          name: 'Editor Tastings',
+          component: () => import('@/views/editor/EditorTastingListView.vue'),
+          meta: { title: 'router.editorTastings' }
+        },
+        {
+          path: 'coffee/tastings/:id',
+          name: 'Editor Tasting',
+          component: () => import('@/views/editor/EditorTastingView.vue'),
+          meta: { title: 'router.editorTastings' }
+        },
+        {
+          path: 'music',
+          name: 'Editor Playlists',
+          component: () => import('@/views/editor/EditorPlaylistListView.vue'),
+          meta: { title: 'router.editorPlaylists' }
+        },
+        {
+          path: 'music/:id',
+          name: 'Editor Playlist',
+          component: () => import('@/views/editor/EditorPlaylistView.vue'),
+          meta: { title: 'router.editorPlaylists' }
+        }
+      ]
     },
     {
       path: '/redirect',
@@ -245,6 +310,11 @@ router.afterEach((to, from) => {
 })
 
 router.beforeEach(async (to, from) => {
+  if (to.meta.requiresAuth && !isLocalEnvironment() && !sessionStorage.getItem('jwt_token')) {
+    window.location.href = '/redirect/auth/login'
+    return false
+  }
+
   const name = to.name
   const params = to.params
   const title = to.meta.title

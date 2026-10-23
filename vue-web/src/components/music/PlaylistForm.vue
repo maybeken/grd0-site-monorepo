@@ -119,6 +119,7 @@ import { getMusicRaw, deleteMusicRaw, upsertMusicRaw, upsertPlaylistRaw } from '
 import { useToast } from '@/composables/useToast'
 
 import type { Music, Playlist } from '@/interfaces/Music'
+import { useUnsavedGuard } from '@/composables/useUnsavedGuard'
 
 interface Props {
   playlist?: Playlist | null
@@ -161,6 +162,12 @@ const form = reactive({
   sorting: 0
 })
 
+const baseline = ref('')
+
+function snapshot(): string {
+  return JSON.stringify({ form, selected_ids: selected_ids.value })
+}
+
 watch(
   () => props.playlist,
   (playlist) => {
@@ -170,9 +177,15 @@ watch(
     selected_ids.value = (playlist?.songs ?? [])
       .map((song) => song.id)
       .filter((id): id is string => !!id)
+
+    baseline.value = snapshot()
   },
   { immediate: true }
 )
+
+const dirty = computed(() => snapshot() !== baseline.value)
+
+useUnsavedGuard(dirty)
 
 function toggle(song: Music): void {
   if (!song.id) return
@@ -241,6 +254,7 @@ async function save(): Promise<void> {
       songs
     })
 
+    baseline.value = snapshot()
     $emit('saved')
   } catch {
     toast.error(t('music.editor.failedSave'))

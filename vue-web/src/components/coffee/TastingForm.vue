@@ -342,6 +342,7 @@ import {
 import IdkToggle from './IdkToggle.vue'
 import BrewTimeInput from './BrewTimeInput.vue'
 import { useToast } from '@/composables/useToast'
+import { useUnsavedGuard } from '@/composables/useUnsavedGuard'
 
 const { t } = useI18n()
 const toast = useToast()
@@ -412,6 +413,11 @@ function createEmptyForm(): TastingNote {
 }
 
 const form = reactive<TastingNote>(createEmptyForm())
+const baseline = ref('')
+
+function snapshot(): string {
+  return JSON.stringify(form)
+}
 
 const idkFields = reactive<Record<string, boolean>>({
   grider: false,
@@ -451,9 +457,15 @@ watch(
         idkFields[key] = false
       }
     }
+
+    baseline.value = snapshot()
   },
   { immediate: true }
 )
+
+const dirty = computed(() => snapshot() !== baseline.value)
+
+useUnsavedGuard(dirty)
 
 for (const key of Object.keys(idkFields)) {
   watch(
@@ -523,6 +535,7 @@ async function save() {
       ...form,
       tasted_at: new Date(form.tasted_at).toISOString()
     })
+    baseline.value = snapshot()
     emit('saved')
   } catch (e) {
     toast.error(t('coffee.tastingForm.failedSaveTasting'))

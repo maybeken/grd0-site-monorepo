@@ -50,7 +50,7 @@
             <td class="flex flex-wrap justify-center gap-2 py-2">
               <router-link
                 class="rounded-xl border border-dotted px-4 py-px"
-                :to="{ path: `/article/editor/${entry.uri}`, query: { page: $props.page } }"
+                :to="{ path: `/editor/articles/${entry.uri}`, query: { page: $props.page } }"
               >
                 {{ $t('article.editor.open') }}
               </router-link>
@@ -192,7 +192,7 @@ async function create(): Promise<void> {
       return
     }
 
-    await router.push({ path: `/article/editor/${response.uri}`, query: { page: $props.page } })
+    await router.push({ path: `/editor/articles/${response.uri}`, query: { page: $props.page } })
   } catch (failure) {
     conflict.value = errorStatus(failure) === 409
     create_failed.value = !conflict.value

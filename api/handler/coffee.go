@@ -1,10 +1,12 @@
 package handler
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
+	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
 	"grd0.net/api/schema"
@@ -17,6 +19,23 @@ func (h *Handler) GetCoffeeBeans(c echo.Context) error {
 	db.Order("created_at DESC").Find(&beans)
 
 	return c.JSON(http.StatusOK, beans)
+}
+
+func (h *Handler) GetCoffeeBean(c echo.Context) error {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
+	}
+
+	var bean schema.CoffeeBean
+	if err := h.DB.First(&bean, "id = ?", id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
+		}
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, bean)
 }
 
 func (h *Handler) UpsertCoffeeBean(c echo.Context) error {
@@ -72,6 +91,23 @@ func (h *Handler) GetCoffeeEquipment(c echo.Context) error {
 	return c.JSON(http.StatusOK, equipment)
 }
 
+func (h *Handler) GetCoffeeEquipmentItem(c echo.Context) error {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
+	}
+
+	var equipment schema.BrewEquipment
+	if err := h.DB.First(&equipment, "id = ?", id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
+		}
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, equipment)
+}
+
 func (h *Handler) UpsertCoffeeEquipment(c echo.Context) error {
 	db := h.DB
 
@@ -123,6 +159,27 @@ func (h *Handler) GetCoffeeTastings(c echo.Context) error {
 	db.Preload("Bean").Preload("Equipment").Preload("Grinder").Order("pinned DESC").Order("tasted_at DESC").Find(&tastings)
 
 	return c.JSON(http.StatusOK, tastings)
+}
+
+func (h *Handler) GetCoffeeTasting(c echo.Context) error {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
+	}
+
+	var tasting schema.TastingNote
+	if err := h.DB.
+		Preload("Bean").
+		Preload("Equipment").
+		Preload("Grinder").
+		First(&tasting, "id = ?", id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
+		}
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, tasting)
 }
 
 func (h *Handler) UpsertCoffeeTasting(c echo.Context) error {

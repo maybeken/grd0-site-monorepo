@@ -102,6 +102,7 @@ import { useI18n } from 'vue-i18n'
 import type { CoffeeBean } from '@/interfaces/Coffee'
 import { upsertCoffeeBeanRaw } from '@/services/coffee'
 import { useToast } from '@/composables/useToast'
+import { useUnsavedGuard } from '@/composables/useUnsavedGuard'
 
 const { t } = useI18n()
 const toast = useToast()
@@ -136,6 +137,11 @@ function createEmptyForm(): CoffeeBean {
 }
 
 const form = reactive<CoffeeBean>(createEmptyForm())
+const baseline = ref('')
+
+function snapshot(): string {
+  return JSON.stringify(form)
+}
 
 watch(
   () => props.bean,
@@ -148,9 +154,15 @@ watch(
     } else {
       Object.assign(form, createEmptyForm())
     }
+
+    baseline.value = snapshot()
   },
   { immediate: true }
 )
+
+const dirty = computed(() => snapshot() !== baseline.value)
+
+useUnsavedGuard(dirty)
 
 async function save() {
   if (!form.name.trim()) return
@@ -160,6 +172,7 @@ async function save() {
       ...form,
       roast_date: form.roast_date ? new Date(form.roast_date).toISOString() : null
     })
+    baseline.value = snapshot()
     emit('saved')
   } catch {
     toast.error(t('coffee.beanForm.failedSave'))

@@ -79,6 +79,23 @@ func (h *Handler) GetPlaylists(c echo.Context) error {
 	return c.JSON(http.StatusOK, playlists)
 }
 
+func (h *Handler) GetPlaylist(c echo.Context) error {
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
+	}
+
+	var playlist schema.Playlist
+	if err := h.DB.Preload("Songs", orderSongs).First(&playlist, "id = ?", id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return h.ErrorResponseConstructor(c, http.StatusNotFound, "")
+		}
+		return h.ErrorResponseConstructor(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, playlist)
+}
+
 func replacePlaylistSongs(tx *gorm.DB, playlist_id uuid.UUID, songs []schema.Music) error {
 	ids := make([]uuid.UUID, 0, len(songs))
 	seen := make(map[uuid.UUID]bool, len(songs))

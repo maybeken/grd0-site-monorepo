@@ -59,6 +59,7 @@ import { useI18n } from 'vue-i18n'
 import type { BrewEquipment } from '@/interfaces/Coffee'
 import { upsertCoffeeEquipmentRaw } from '@/services/coffee'
 import { useToast } from '@/composables/useToast'
+import { useUnsavedGuard } from '@/composables/useUnsavedGuard'
 import { EQUIPMENT_TYPES } from '@/helpers/coffee'
 
 const { t } = useI18n()
@@ -91,6 +92,11 @@ function createEmptyForm(): BrewEquipment {
 }
 
 const form = reactive<BrewEquipment>(createEmptyForm())
+const baseline = ref('')
+
+function snapshot(): string {
+  return JSON.stringify(form)
+}
 
 watch(
   () => props.equipment,
@@ -100,15 +106,22 @@ watch(
     } else {
       Object.assign(form, createEmptyForm())
     }
+
+    baseline.value = snapshot()
   },
   { immediate: true }
 )
+
+const dirty = computed(() => snapshot() !== baseline.value)
+
+useUnsavedGuard(dirty)
 
 async function save() {
   if (!form.name.trim()) return
   saving.value = true
   try {
     await upsertCoffeeEquipmentRaw(form)
+    baseline.value = snapshot()
     emit('saved')
   } catch {
     toast.error(t('coffee.equipmentForm.failedSave'))
