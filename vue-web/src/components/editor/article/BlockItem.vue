@@ -4,39 +4,39 @@
     :class="$props.active ? 'border-accent' : ''"
   >
     <div class="flex items-center justify-between gap-2">
-      <span class="text-sm text-secondary">{{ $t(labelKey) }}</span>
+      <span class="text-sm font-medium text-foreground/60">{{ $t(labelKey) }}</span>
 
       <div class="flex gap-2">
-        <button
-          class="rounded-full border border-dotted p-1 disabled:opacity-30"
-          :title="$t('article.editor.moveUp')"
+        <EditorButton
+          variant="icon"
+          :label="$t('article.editor.moveUp')"
           :disabled="$props.index <= 0"
           @click="$emit('move-up')"
         >
           <Icon icon="mynaui:arrow-up" height="1.25rem"></Icon>
-        </button>
-        <button
-          class="rounded-full border border-dotted p-1 disabled:opacity-30"
-          :title="$t('article.editor.moveDown')"
+        </EditorButton>
+        <EditorButton
+          variant="icon"
+          :label="$t('article.editor.moveDown')"
           :disabled="$props.index >= $props.count - 1"
           @click="$emit('move-down')"
         >
           <Icon icon="mynaui:arrow-down" height="1.25rem"></Icon>
-        </button>
-        <button
-          class="rounded-full border border-dotted p-1"
-          :title="$t('article.editor.duplicateBlock')"
+        </EditorButton>
+        <EditorButton
+          variant="icon"
+          :label="$t('article.editor.duplicateBlock')"
           @click="$emit('duplicate')"
         >
           <Icon icon="mynaui:copy" height="1.25rem"></Icon>
-        </button>
-        <button
-          class="rounded-full border border-dotted p-1"
-          :title="$t('article.editor.removeBlock')"
+        </EditorButton>
+        <EditorButton
+          variant="icon"
+          :label="$t('article.editor.removeBlock')"
           @click="$emit('remove')"
         >
           <Icon icon="mynaui:trash" height="1.25rem"></Icon>
-        </button>
+        </EditorButton>
       </div>
     </div>
 
@@ -46,6 +46,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import Icon from '@/components/shared/Icon.vue'
 
 import type { ArticleBlockType } from '@/interfaces/Article'
 

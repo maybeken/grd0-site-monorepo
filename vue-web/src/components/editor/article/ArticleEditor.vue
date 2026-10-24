@@ -1,37 +1,33 @@
 <template>
-  <div class="flex flex-col gap-4 lg:h-[calc(100vh-3rem)] lg:min-h-0">
-    <div class="flex flex-wrap items-center gap-2">
-      <router-link
-        :to="back_to"
-        class="p-1 text-secondary hover:text-foreground"
-        :aria-label="$t('editor.backToList')"
-        :title="$t('editor.backToList')"
-      >
-        <Icon icon="mynaui:arrow-left" />
-      </router-link>
-
-      <div class="ml-auto flex items-center gap-3">
-        <span v-if="article" class="text-sm text-secondary">{{ status_label }}</span>
-        <button
-          class="rounded-full border border-dotted px-3 py-1 lg:hidden"
-          @click="sidebar_open = !sidebar_open"
-        >
+  <EditorPage full class="lg:h-[calc(100vh-3rem)] lg:min-h-0">
+    <EditorPageHeader
+      :title="article?.title || $t('article.editor.title')"
+      title-sr-only
+      :back-to="back_to"
+      :back-label="$t('editor.ui.backTo', { section: $t('editor.articles') })"
+    >
+      <template #actions>
+        <span v-if="article" class="text-sm font-medium text-foreground/60">{{ status_label }}</span>
+        <span v-if="article" class="text-sm font-medium text-foreground/60">
+          {{ saving ? $t('common.saving') : dirty ? $t('article.editor.unsaved') : $t('common.saved') }}
+        </span>
+        <EditorButton variant="secondary" class="lg:hidden" @click="sidebar_open = !sidebar_open">
           {{ $t('article.editor.details') }}
-        </button>
-        <button
-          class="rounded-full border border-dotted px-4 py-1 disabled:opacity-50"
-          :class="!dirty && !saving ? 'text-secondary' : ''"
-          :disabled="saving || loading"
+        </EditorButton>
+        <EditorButton
+          variant="primary"
+          :disabled="saving || loading || !dirty"
+          :loading="saving"
           aria-keyshortcuts="Control+S Meta+S"
           @click="saveArticle()"
         >
-          {{ saving ? $t('common.saving') : dirty ? $t('common.save') : $t('article.editor.allSaved') }}
-        </button>
-      </div>
-    </div>
+          {{ $t('common.save') }}
+        </EditorButton>
+      </template>
+    </EditorPageHeader>
 
-    <p v-if="conflict" class="text-red-400">{{ $t('article.editor.conflict') }}</p>
-    <p v-else-if="error" class="text-red-400">{{ $t(error_message) }}</p>
+    <EditorError v-if="conflict" :message="$t('article.editor.conflict')"></EditorError>
+    <EditorError v-else-if="error" :message="$t(error_message)"></EditorError>
 
     <div v-if="loading" class="grid grid-cols-1 gap-4 lg:grid-cols-3">
       <div class="flex flex-col gap-3">
@@ -57,13 +53,13 @@
       <div class="flex min-w-0 flex-1 flex-col gap-4 lg:min-h-0">
         <div class="flex flex-col gap-3">
           <input
-            class="text-3xl w-full border-b border-dotted bg-transparent px-1 py-2 outline-none"
+            class="w-full border-b border-dotted bg-transparent px-1 py-2 text-3xl outline-none focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-foreground/60"
             type="text"
             :placeholder="$t('article.editor.titlePlaceholder')"
             v-model="title"
           />
           <input
-            class="text-2xl w-full border-b border-dotted bg-transparent px-1 py-2 outline-none"
+            class="w-full border-b border-dotted bg-transparent px-1 py-2 text-2xl outline-none focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-foreground/60"
             type="text"
             :placeholder="$t('article.editor.subtitlePlaceholder')"
             v-model="subtitle"
@@ -174,12 +170,15 @@
     </div>
 
     <div v-else class="flex flex-col items-start gap-3">
-      <p class="text-red-400">{{ $t('article.editor.loadFailed') }}</p>
-      <router-link :to="back_to" class="rounded-full border border-dotted px-3 py-1">
-        {{ $t('editor.backToList') }}
-      </router-link>
+      <EditorError :message="$t('article.editor.loadFailed')">
+        <template #actions>
+          <EditorButton variant="secondary" :to="back_to">
+            {{ $t('editor.ui.backTo', { section: $t('editor.articles') }) }}
+          </EditorButton>
+        </template>
+      </EditorError>
     </div>
-  </div>
+  </EditorPage>
 </template>
 
 <script setup lang="ts">
@@ -188,7 +187,12 @@ import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorError from '@/components/editor/ui/EditorError.vue'
+import EditorPage from '@/components/editor/ui/EditorPage.vue'
+import EditorPageHeader from '@/components/editor/ui/EditorPageHeader.vue'
 import { articleSceneId, createArticleBlock } from '@/helpers/article'
+import { useSaveShortcut } from '@/composables/useSaveShortcut'
 import { useToast } from '@/composables/useToast'
 import { useUnsavedGuard } from '@/composables/useUnsavedGuard'
 import {
@@ -239,7 +243,8 @@ const {
   reset
 } = useArticleDraft()
 
-useUnsavedGuard(dirty, 'article.editor.confirmDiscard')
+useUnsavedGuard(dirty)
+useSaveShortcut(saveArticle, { enabled: () => dirty.value && !saving.value && !loading.value })
 
 const PREVIEW_DEBOUNCE_MS = 750
 
@@ -460,14 +465,6 @@ async function purgeArticle(): Promise<void> {
   }
 }
 
-function onKeyDown(event: KeyboardEvent): void {
-  if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 's') return
-  if (event.repeat) return
-
-  event.preventDefault()
-  void saveArticle()
-}
-
 function updateWidth(): void {
   is_wide.value = media_query?.matches ?? false
 }
@@ -476,8 +473,6 @@ onMounted(() => {
   media_query = window.matchMedia('(min-width: 1024px)')
   updateWidth()
   media_query.addEventListener('change', updateWidth)
-
-  window.addEventListener('keydown', onKeyDown)
 })
 
 watch(
@@ -532,7 +527,6 @@ watch(
 
 onUnmounted(() => {
   media_query?.removeEventListener('change', updateWidth)
-  window.removeEventListener('keydown', onKeyDown)
   window.clearTimeout(preview_timer)
 })
 </script>

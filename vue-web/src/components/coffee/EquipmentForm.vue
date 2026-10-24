@@ -1,86 +1,105 @@
 <template>
-  <div class="flex flex-col gap-4 bg-background rounded-xl p-4 border border-accent/20">
-    <div class="flex items-center justify-between">
-      <h3 class="text-lg font-bold">{{ isEdit ? $t('coffee.equipmentForm.titleEdit') : $t('coffee.equipmentForm.titleNew') }}</h3>
-      <div class="flex gap-2">
-        <button
-          @click="$emit('cancel')"
-          class="px-3 py-1 rounded border border-accent/40 text-sm hover:bg-accent/10"
-        >
-          {{ $t('common.cancel') }}
-        </button>
-        <button
-          @click="save"
-          :disabled="saving || !form.name.trim()"
-          class="px-3 py-1 rounded bg-accent text-background text-sm font-semibold hover:brightness-110 disabled:opacity-50"
-        >
-          {{ saving ? $t('common.saving') : $t('common.save') }}
-        </button>
-      </div>
-    </div>
+  <EditorSection
+    :title="
+      standalone
+        ? isEdit
+          ? $t('coffee.equipmentForm.titleEdit')
+          : $t('coffee.equipmentForm.titleNew')
+        : ''
+    "
+  >
+    <template v-if="standalone" #actions>
+      <EditorButton variant="secondary" @click="requestCancel">
+        {{ $t('common.cancel') }}
+      </EditorButton>
+      <EditorButton
+        type="submit"
+        :form="formId"
+        variant="primary"
+        :disabled="saving || !can_save"
+        :loading="saving"
+      >
+        {{ $t('common.save') }}
+      </EditorButton>
+    </template>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">{{ $t('coffee.equipmentForm.name') }}</label>
-        <input
-          v-model="form.name"
-          class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
-          :placeholder="$t('coffee.equipmentForm.namePlaceholder')"
-        />
+    <form :id="formId" class="flex flex-col gap-4" @submit.prevent="save">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <EditorField :label="$t('coffee.equipmentForm.name')" html-for="equipment-name" required>
+          <EditorInput
+            id="equipment-name"
+            v-model="form.name"
+            :placeholder="$t('coffee.equipmentForm.namePlaceholder')"
+            required
+          ></EditorInput>
+        </EditorField>
+
+        <EditorField :label="$t('coffee.equipmentForm.type')" html-for="equipment-type">
+          <EditorSelect id="equipment-type" v-model="type_value">
+            <option value="">{{ $t('common.selectType') }}</option>
+            <option v-for="type in allTypes" :key="type.value" :value="type.value">
+              {{ $t(type.label) }}
+            </option>
+          </EditorSelect>
+        </EditorField>
       </div>
 
-      <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">{{ $t('coffee.equipmentForm.type') }}</label>
-        <select
-          v-model="form.type"
-          class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
-        >
-          <option :value="null">{{ $t('common.selectType') }}</option>
-          <option v-for="t in allTypes" :key="t.value" :value="t.value">{{ $t(t.label) }}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="flex flex-col gap-1">
-      <label class="text-sm font-semibold">{{ $t('coffee.equipmentForm.description') }}</label>
-      <textarea
-        v-model="form.description"
-        rows="3"
-        class="bg-background border border-accent/40 rounded px-2 py-1 text-sm resize-y"
-        :placeholder="$t('coffee.equipmentForm.descriptionPlaceholder')"
-      />
-    </div>
-  </div>
+      <EditorField :label="$t('coffee.equipmentForm.description')" html-for="equipment-description">
+        <EditorTextarea
+          id="equipment-description"
+          v-model="form.description"
+          :placeholder="$t('coffee.equipmentForm.descriptionPlaceholder')"
+        ></EditorTextarea>
+      </EditorField>
+    </form>
+  </EditorSection>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, computed } from 'vue'
+import { computed, reactive, ref, watch, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { BrewEquipment } from '@/interfaces/Coffee'
-import { upsertCoffeeEquipmentRaw } from '@/services/coffee'
+
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorField from '@/components/editor/ui/EditorField.vue'
+import EditorInput from '@/components/editor/ui/EditorInput.vue'
+import EditorSection from '@/components/editor/ui/EditorSection.vue'
+import EditorSelect from '@/components/editor/ui/EditorSelect.vue'
+import EditorTextarea from '@/components/editor/ui/EditorTextarea.vue'
+import { useConfirmDiscard } from '@/composables/useConfirmDiscard'
+import { useSaveShortcut } from '@/composables/useSaveShortcut'
 import { useToast } from '@/composables/useToast'
 import { useUnsavedGuard } from '@/composables/useUnsavedGuard'
 import { EQUIPMENT_TYPES } from '@/helpers/coffee'
+import { upsertCoffeeEquipmentRaw } from '@/services/coffee'
 
-const { t } = useI18n()
-const toast = useToast()
+import type { BrewEquipment } from '@/interfaces/Coffee'
 
 interface Props {
   equipment?: BrewEquipment | null
+  standalone?: boolean
+  formId?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  equipment: null
+  equipment: null,
+  standalone: true,
+  formId: 'equipment-form'
 })
 
 const emit = defineEmits<{
   saved: []
   cancel: []
+  'update:saving': [saving: boolean]
+  'update:can-save': [can_save: boolean]
+  'update:dirty': [dirty: boolean]
 }>()
+
+const { t } = useI18n()
+const toast = useToast()
+const confirmDiscard = useConfirmDiscard()
 
 const isEdit = computed(() => !!props.equipment?.id)
 const saving = ref(false)
-
 const allTypes = [...EQUIPMENT_TYPES]
 
 function createEmptyForm(): BrewEquipment {
@@ -94,15 +113,22 @@ function createEmptyForm(): BrewEquipment {
 const form = reactive<BrewEquipment>(createEmptyForm())
 const baseline = ref('')
 
+const type_value = computed({
+  get: () => form.type ?? '',
+  set: (value: string) => {
+    form.type = value || null
+  }
+})
+
 function snapshot(): string {
   return JSON.stringify(form)
 }
 
 watch(
   () => props.equipment,
-  (e) => {
-    if (e) {
-      Object.assign(form, createEmptyForm(), e)
+  (equipment) => {
+    if (equipment) {
+      Object.assign(form, createEmptyForm(), equipment)
     } else {
       Object.assign(form, createEmptyForm())
     }
@@ -113,12 +139,27 @@ watch(
 )
 
 const dirty = computed(() => snapshot() !== baseline.value)
+const can_save = computed(() => !!form.name.trim() && dirty.value)
 
 useUnsavedGuard(dirty)
+useSaveShortcut(save, { enabled: () => can_save.value && !saving.value })
 
-async function save() {
-  if (!form.name.trim()) return
+watchEffect(() => emit('update:saving', saving.value))
+watchEffect(() => emit('update:can-save', can_save.value))
+watchEffect(() => emit('update:dirty', dirty.value))
+
+function requestCancel(): void {
+  if (!confirmDiscard(dirty.value)) return
+
+  baseline.value = snapshot()
+  emit('cancel')
+}
+
+async function save(): Promise<void> {
+  if (!can_save.value || saving.value) return
+
   saving.value = true
+
   try {
     await upsertCoffeeEquipmentRaw(form)
     baseline.value = snapshot()
@@ -129,4 +170,6 @@ async function save() {
     saving.value = false
   }
 }
+
+defineExpose({ requestCancel })
 </script>

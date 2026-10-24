@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col gap-2">
-    <p class="text-sm text-secondary">{{ $t('article.editor.drawingHint') }}</p>
+    <p class="text-lg font-medium text-foreground/60">{{ $t('article.editor.drawingHint') }}</p>
 
     <div class="relative" @mouseleave="interactive = false">
       <iframe
         ref="iframe"
-        class="w-full h-[60vh] rounded-xl"
+        class="h-[60vh] w-full rounded-xl"
         :class="interactive ? '' : 'pointer-events-none'"
         src="/excalidraw/index.html"
         frameborder="0"
@@ -13,11 +13,11 @@
 
       <div
         v-if="!interactive && !load_failed"
-        class="absolute inset-0 rounded-xl cursor-pointer"
+        class="absolute inset-0 cursor-pointer rounded-xl"
         @click="activate"
       >
         <span
-          class="absolute bottom-2 right-2 rounded-full border border-dotted bg-background/80 px-3 py-1 text-xs text-secondary"
+          class="absolute bottom-2 right-2 rounded-full border border-dotted bg-background/80 px-3 py-1 text-sm font-medium text-foreground/60"
         >
           {{ $t('article.block.drawingInteract') }}
         </span>
@@ -25,25 +25,28 @@
 
       <p
         v-if="loading"
-        class="absolute inset-0 grid place-content-center text-secondary pointer-events-none"
+        class="pointer-events-none absolute inset-0 grid place-content-center text-lg font-medium text-foreground/60"
       >
         {{ $t('article.block.drawingLoading') }}
       </p>
     </div>
 
     <div class="flex flex-wrap items-center gap-2">
-      <button
-        class="rounded-full border border-dotted px-3 py-1 disabled:opacity-50"
+      <EditorButton
+        variant="secondary"
+        size="sm"
         :disabled="!ready || saving"
         @click="saveScene"
       >
         {{ $t('article.editor.saveDrawing') }}
-      </button>
-      <span v-if="saving" class="text-sm text-secondary">{{ $t('common.saving') }}</span>
-      <span v-if="save_failed" class="text-sm text-red-400">
+      </EditorButton>
+      <span v-if="saving" class="text-sm font-medium text-foreground/60">
+        {{ $t('common.saving') }}
+      </span>
+      <span v-if="save_failed" class="text-sm font-medium text-red-400">
         {{ $t('article.editor.sceneFailed') }}
       </span>
-      <span v-if="load_failed" class="text-sm text-red-400">
+      <span v-if="load_failed" class="text-sm font-medium text-red-400">
         {{ $t('article.editor.sceneLoadFailed') }}
       </span>
     </div>
@@ -53,6 +56,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
 
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
 import { articleSceneId } from '@/helpers/article'
 import { getArticleDraftSceneRaw, putArticleSceneRaw } from '@/services/article'
 

@@ -1,31 +1,33 @@
 <template>
   <div class="flex flex-col gap-3 rounded-xl border border-dotted p-3">
     <div class="flex items-center gap-2">
-      <span class="font-bold">{{ $t('article.editor.musicTitle') }}</span>
-      <button class="ml-auto rounded-full border border-dotted px-3 py-1" @click="$emit('close')">
+      <span class="text-lg font-bold">{{ $t('article.editor.musicTitle') }}</span>
+      <EditorButton variant="secondary" size="sm" class="ml-auto" @click="$emit('close')">
         {{ $t('common.cancel') }}
-      </button>
+      </EditorButton>
     </div>
 
     <form class="flex flex-col gap-2" @submit.prevent="useLink">
-      <div class="flex flex-col gap-2 sm:flex-row">
-        <input
+      <div class="flex flex-col gap-2">
+        <EditorInput
           v-model="link"
-          class="grow rounded-full border border-dotted bg-background px-3 py-1"
-          type="text"
           inputmode="url"
           :aria-label="$t('article.editor.youtubeLinkPlaceholder')"
           :placeholder="$t('article.editor.youtubeLinkPlaceholder')"
-        />
-        <button
-          class="rounded-full border border-dotted px-3 py-1 disabled:opacity-50"
-          type="submit"
-          :disabled="resolving || !link.trim()"
-        >
-          {{ resolving ? $t('article.editor.resolvingLink') : $t('article.editor.useLink') }}
-        </button>
+        ></EditorInput>
+        <div class="flex justify-end">
+          <EditorButton
+            type="submit"
+            variant="primary"
+            size="sm"
+            :disabled="resolving || !link.trim()"
+            :loading="resolving"
+          >
+            {{ resolving ? $t('article.editor.resolvingLink') : $t('article.editor.useLink') }}
+          </EditorButton>
+        </div>
       </div>
-      <p v-if="error" class="text-sm text-secondary">{{ error }}</p>
+      <p v-if="error" class="text-sm font-medium text-red-400">{{ error }}</p>
     </form>
 
     <div v-if="preview" class="flex flex-col gap-2 rounded-xl bg-shade p-3">
@@ -36,49 +38,45 @@
         :artist="artist_override || preview.artist"
       ></MusicPlayer>
 
-      <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
-        <label class="flex flex-col gap-1 text-sm">
-          <span class="text-foreground/60">{{ $t('music.editor.titleOverride') }}</span>
-          <input
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <EditorField :label="$t('music.editor.titleOverride')" html-for="music-title-override">
+          <EditorInput
+            id="music-title-override"
             v-model="title_override"
-            class="rounded-full border border-dotted bg-background px-3 py-1"
-            type="text"
             :placeholder="preview.title"
-          />
-        </label>
-        <label class="flex flex-col gap-1 text-sm">
-          <span class="text-foreground/60">{{ $t('music.editor.artistOverride') }}</span>
-          <input
+          ></EditorInput>
+        </EditorField>
+        <EditorField :label="$t('music.editor.artistOverride')" html-for="music-artist-override">
+          <EditorInput
+            id="music-artist-override"
             v-model="artist_override"
-            class="rounded-full border border-dotted bg-background px-3 py-1"
-            type="text"
             :placeholder="preview.artist"
-          />
-        </label>
+          ></EditorInput>
+        </EditorField>
       </div>
 
       <div class="flex justify-end gap-2">
-        <button class="rounded-full border border-dotted px-3 py-1" @click="clearPreview">
+        <EditorButton variant="secondary" size="sm" @click="clearPreview">
           {{ $t('common.cancel') }}
-        </button>
-        <button class="rounded-full border border-dotted px-3 py-1" @click="confirmPreview">
+        </EditorButton>
+        <EditorButton variant="primary" size="sm" @click="confirmPreview">
           {{ $t('article.editor.useThisSong') }}
-        </button>
+        </EditorButton>
       </div>
     </div>
 
     <p
       v-if="!$props.link_only && !loading && (!songs || songs.length === 0)"
-      class="text-sm text-secondary"
+      class="text-lg font-medium text-foreground/60"
     >
       {{ $t('article.editor.noSongs') }}
     </p>
 
-    <div v-if="!$props.link_only" class="flex flex-col max-h-[50vh] overflow-y-auto">
+    <div v-if="!$props.link_only" class="flex max-h-[50vh] flex-col overflow-y-auto">
       <button
         v-for="song in songs"
         :key="song.v"
-        class="flex items-center gap-3 border-b py-2 text-left hover:bg-shade"
+        class="flex items-center gap-3 border-b py-2 text-left hover:bg-shade focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground/60"
         @click="select(song)"
       >
         <img
@@ -87,8 +85,10 @@
           loading="lazy"
         />
         <span class="flex flex-col">
-          <span class="font-bold">{{ song.title }}</span>
-          <span class="text-sm text-secondary">{{ song.artist || $t('music.unknown') }}</span>
+          <span class="text-lg font-medium">{{ song.title }}</span>
+          <span class="text-sm font-medium text-foreground/60">
+            {{ song.artist || $t('music.unknown') }}
+          </span>
         </span>
       </button>
     </div>
@@ -97,11 +97,13 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorField from '@/components/editor/ui/EditorField.vue'
+import EditorInput from '@/components/editor/ui/EditorInput.vue'
 import MusicPlayer from '@/components/music/MusicPlayer.vue'
 import { getMusic } from '@/services/music'
-
-import { t } from '@/i18n'
 
 import type { Music } from '@/interfaces/Music'
 
@@ -118,6 +120,8 @@ const $props = withDefaults(
     link_only: false
   }
 )
+
+const { t } = useI18n()
 
 const response = getMusic()
 const songs = response.data

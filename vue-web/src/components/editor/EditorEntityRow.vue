@@ -3,27 +3,21 @@
     class="flex items-center justify-between gap-4 rounded-lg border border-accent/20 bg-background p-3"
   >
     <div class="flex min-w-0 flex-col">
-      <span class="truncate text-sm font-semibold">{{ title }}</span>
+      <span class="truncate text-lg font-medium" :title="title">{{ title }}</span>
       <slot></slot>
     </div>
-    <div class="flex shrink-0 gap-2">
-      <RouterLink
-        :to="to"
-        class="rounded border border-accent/40 px-2 py-1 text-xs hover:bg-accent/10"
-      >
-        {{ $t('common.edit') }}
-      </RouterLink>
-      <button
-        class="rounded border border-red-500/40 px-2 py-1 text-xs text-red-400 hover:bg-red-500/10"
-        @click="$emit('delete')"
-      >
+    <div class="flex shrink-0 flex-wrap gap-2">
+      <EditorButton :to="to" size="sm" variant="secondary">{{ $t('common.edit') }}</EditorButton>
+      <EditorButton size="sm" variant="destructive" @click="$emit('delete')">
         {{ $t('common.delete') }}
-      </button>
+      </EditorButton>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import EditorButton from './ui/EditorButton.vue'
+
 defineProps<{
   title: string
   to: string

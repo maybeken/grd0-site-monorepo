@@ -114,15 +114,25 @@ common:
     msgstr: 'Save'
     msgctxt: 'Save button label'
 
-  loading:
-    msgid: 'common.loading'
-    msgstr: 'Loading...'
-    msgctxt: 'Placeholder shown while content loads'
-
   saving:
     msgid: 'common.saving'
-    msgstr: 'Saving...'
+    msgstr: 'Saving…'
     msgctxt: 'Save button label while saving'
+
+  saved:
+    msgid: 'common.saved'
+    msgstr: 'Saved'
+    msgctxt: 'Status text when there are no unsaved changes'
+
+  retry:
+    msgid: 'common.retry'
+    msgstr: 'Retry'
+    msgctxt: 'Button that retries a failed operation'
+
+  loading:
+    msgid: 'common.loading'
+    msgstr: 'Loading…'
+    msgctxt: 'Placeholder shown while content loads'
 
   cancel:
     msgid: 'common.cancel'
@@ -139,6 +149,26 @@ common:
     msgstr: 'Delete'
     msgctxt: 'Delete button label'
 
+  publish:
+    msgid: 'common.publish'
+    msgstr: 'Publish'
+    msgctxt: 'Button that makes content visible publicly'
+
+  unpublish:
+    msgid: 'common.unpublish'
+    msgstr: 'Unpublish'
+    msgctxt: 'Button that removes content from public view'
+
+  loadMore:
+    msgid: 'common.loadMore'
+    msgstr: 'Load more'
+    msgctxt: 'Button that loads the next page of results'
+
+  confirmDeleteItem:
+    msgid: 'common.confirmDeleteItem'
+    msgstr: 'Delete "{name}"? This cannot be undone.'
+    msgctxt: 'Confirmation for deleting a named item, {name} is the item name'
+
   add:
     msgid: 'common.add'
     msgstr: 'Add'
@@ -153,6 +183,16 @@ common:
     msgid: 'common.done'
     msgstr: 'Done.'
     msgctxt: 'Success alert message'
+
+  deleted:
+    msgid: 'common.deleted'
+    msgstr: 'Deleted.'
+    msgctxt: 'Success alert after deleting an item'
+
+  notAvailable:
+    msgid: 'common.notAvailable'
+    msgstr: '—'
+    msgctxt: 'Fallback shown when a value is unavailable'
 
   confirmDiscard:
     msgid: 'common.confirmDiscard'
@@ -261,35 +301,20 @@ gallery:
       msgstr: 'No collections or asset directories are available.'
       msgctxt: 'Empty gallery listing message'
 
-    publish:
-      msgid: 'gallery.editor.publish'
-      msgstr: 'Publish'
-      msgctxt: 'Button that publishes a directory as a collection'
-
     publishing:
       msgid: 'gallery.editor.publishing'
-      msgstr: 'Publishing...'
+      msgstr: 'Publishing…'
       msgctxt: 'Publish button label while creating the collection'
 
     publishFailed:
       msgid: 'gallery.editor.publishFailed'
-      msgstr: 'Failed to publish directory'
+      msgstr: 'Could not publish the directory.'
       msgctxt: 'Alert when publishing fails'
-
-    unpublish:
-      msgid: 'gallery.editor.unpublish'
-      msgstr: 'Unpublish'
-      msgctxt: 'Button that removes a collection from the gallery'
 
     assetCount:
       msgid: 'gallery.editor.assetCount'
-      msgstr: '{count} assets'
+      msgstr: '{count} asset | {count} assets'
       msgctxt: 'Number of assets in a directory, {count} is a number'
-
-    metadata:
-      msgid: 'gallery.editor.metadata'
-      msgstr: 'Collection metadata'
-      msgctxt: 'Heading for the collection title and cover form'
 
     titleLabel:
       msgid: 'gallery.editor.titleLabel'
@@ -315,11 +340,6 @@ gallery:
       msgid: 'gallery.editor.directoryFixed'
       msgstr: 'The directory cannot be changed.'
       msgctxt: 'Explanation that the collection directory is fixed'
-
-    cover:
-      msgid: 'gallery.editor.cover'
-      msgstr: 'Cover'
-      msgctxt: 'Label for the collection cover'
 
     chooseCover:
       msgid: 'gallery.editor.chooseCover'
@@ -350,11 +370,6 @@ gallery:
       msgid: 'gallery.editor.timezoneAdjustment'
       msgstr: 'Timezone'
       msgctxt: 'Label for the timezone field'
-
-    timezoneShort:
-      msgid: 'gallery.editor.timezoneShort'
-      msgstr: 'TZ'
-      msgctxt: 'Compact label for the timezone field in image rows'
 
     noTimezoneAdjustment:
       msgid: 'gallery.editor.noTimezoneAdjustment'
@@ -398,37 +413,27 @@ gallery:
 
     confirmDeleteStale:
       msgid: 'gallery.editor.confirmDeleteStale'
-      msgstr: 'Delete the override for "{filename}"?'
+      msgstr: 'Delete the override for "{filename}"? This cannot be undone.'
       msgctxt: 'Confirmation dialog for deleting a stale override, {filename} is a file name'
 
     pending:
       msgid: 'gallery.editor.pending'
-      msgstr: '{count} pending changes'
+      msgstr: '{count} pending change | {count} pending changes'
       msgctxt: 'Number of unsaved override edits, {count} is a number'
-
-    saveChanges:
-      msgid: 'gallery.editor.saveChanges'
-      msgstr: 'Save changes'
-      msgctxt: 'Button that persists pending override edits'
-
-    saveMetadata:
-      msgid: 'gallery.editor.saveMetadata'
-      msgstr: 'Save metadata'
-      msgctxt: 'Button that persists the collection title and cover'
 
     failedLoad:
       msgid: 'gallery.editor.failedLoad'
-      msgstr: 'Failed to load gallery'
+      msgstr: 'Could not load the gallery.'
       msgctxt: 'Alert when gallery data fails to load'
 
     failedSave:
       msgid: 'gallery.editor.failedSave'
-      msgstr: 'Failed to save gallery changes'
+      msgstr: 'Could not save the gallery.'
       msgctxt: 'Alert when saving gallery data fails'
 
     failedDelete:
       msgid: 'gallery.editor.failedDelete'
-      msgstr: 'Failed to delete'
+      msgstr: 'Could not delete the override.'
       msgctxt: 'Alert when deleting a stale override fails'
 
     confirmUnpublish:
@@ -438,7 +443,7 @@ gallery:
 
     failedUnpublish:
       msgid: 'gallery.editor.failedUnpublish'
-      msgstr: 'Failed to unpublish collection'
+      msgstr: 'Could not unpublish the collection.'
       msgctxt: 'Alert when unpublishing a collection fails'
 
   #. Gallery view strings
@@ -480,11 +485,6 @@ map:
 
   #. Map location editor strings
   editor:
-    locationsTitle:
-      msgid: 'map.editor.locationsTitle'
-      msgstr: 'Map Locations'
-      msgctxt: 'Heading for the map locations editor listing'
-
     locationsHint:
       msgid: 'map.editor.locationsHint'
       msgstr: "Create, place, and maintain the locations shown on the travelers' map."
@@ -492,12 +492,12 @@ map:
 
     newLocation:
       msgid: 'map.editor.newLocation'
-      msgstr: '+ New Location'
+      msgstr: 'New Location'
       msgctxt: 'Button that opens the new map location form'
 
     titleField:
       msgid: 'map.editor.titleField'
-      msgstr: 'Title *'
+      msgstr: 'Title'
       msgctxt: 'Map location title field label'
 
     titlePlaceholder:
@@ -507,7 +507,7 @@ map:
 
     create:
       msgid: 'map.editor.create'
-      msgstr: 'Create'
+      msgstr: 'Create location'
       msgctxt: 'Button that creates a map location from the inline form'
 
     noLocations:
@@ -532,7 +532,7 @@ map:
 
     confirmDelete:
       msgid: 'map.editor.confirmDelete'
-      msgstr: 'Delete location "{title}"?'
+      msgstr: 'Delete location "{title}"? This cannot be undone.'
       msgctxt: 'Confirmation dialog for deleting a map location'
 
     slugCollision:
@@ -574,16 +574,6 @@ map:
       msgid: 'map.editor.draftHint'
       msgstr: 'Hidden from the public map until published.'
       msgctxt: 'Explanation of the draft status'
-
-    publish:
-      msgid: 'map.editor.publish'
-      msgstr: 'Publish'
-      msgctxt: 'Button that marks a draft location for publication'
-
-    unpublish:
-      msgid: 'map.editor.unpublish'
-      msgstr: 'Unpublish'
-      msgctxt: 'Button that hides a published location from the public map'
 
     editTitle:
       msgid: 'map.editor.editTitle'
@@ -634,11 +624,6 @@ map:
       msgid: 'map.editor.iconShowing'
       msgstr: 'Showing {visible} of {total} icons'
       msgctxt: 'Count of icons currently rendered versus all matching icons'
-
-    iconLoadMore:
-      msgid: 'map.editor.iconLoadMore'
-      msgstr: 'Load more'
-      msgctxt: 'Button that renders the next page of icons in the selector'
 
     iconClear:
       msgid: 'map.editor.iconClear'
@@ -808,11 +793,6 @@ music:
     msgctxt: 'Empty state for a playlist with no songs'
 
   editor:
-    title:
-      msgid: 'music.editor.title'
-      msgstr: 'Music Playlist Editor'
-      msgctxt: 'Music playlist editor page title'
-
     listHint:
       msgid: 'music.editor.listHint'
       msgstr: 'Create playlists and choose which songs belong to each one.'
@@ -820,7 +800,7 @@ music:
 
     newPlaylist:
       msgid: 'music.editor.newPlaylist'
-      msgstr: '+ New Playlist'
+      msgstr: 'New Playlist'
       msgctxt: 'Button that opens the new playlist form'
 
     titleNew:
@@ -835,7 +815,7 @@ music:
 
     titleField:
       msgid: 'music.editor.titleField'
-      msgstr: 'Title *'
+      msgstr: 'Title'
       msgctxt: 'Playlist title field label'
 
     titlePlaceholder:
@@ -858,14 +838,9 @@ music:
       msgstr: 'Sorting'
       msgctxt: 'Playlist sorting field label'
 
-    songsField:
-      msgid: 'music.editor.songsField'
-      msgstr: 'Songs'
-      msgctxt: 'Playlist songs field label, followed by the selected count'
-
     addSong:
       msgid: 'music.editor.addSong'
-      msgstr: '+ Add song'
+      msgstr: 'Add song'
       msgctxt: 'Button that opens the song picker in the playlist editor'
 
     titleOverride:
@@ -880,7 +855,7 @@ music:
 
     failedAddSong:
       msgid: 'music.editor.failedAddSong'
-      msgstr: 'Failed to add song'
+      msgstr: 'Could not add the song.'
       msgctxt: 'Alert when adding a song to the catalogue fails'
 
     correctOnSongsPage:
@@ -895,7 +870,7 @@ music:
 
     newSong:
       msgid: 'music.editor.newSong'
-      msgstr: '+ New Song'
+      msgstr: 'New Song'
       msgctxt: 'Button that opens the new song form'
 
     songTitleNew:
@@ -920,7 +895,7 @@ music:
 
     resolveLink:
       msgid: 'music.editor.resolveLink'
-      msgstr: '+ Resolve link'
+      msgstr: 'Resolve link'
       msgctxt: 'Button that opens the picker to resolve a YouTube link'
 
     changeLink:
@@ -940,7 +915,7 @@ music:
 
     songTitleField:
       msgid: 'music.editor.songTitleField'
-      msgstr: 'Title *'
+      msgstr: 'Title'
       msgctxt: 'Song title field label'
 
     songTitlePlaceholder:
@@ -970,17 +945,17 @@ music:
 
     playlistCount:
       msgid: 'music.editor.playlistCount'
-      msgstr: '{count} playlists'
+      msgstr: '{count} playlist | {count} playlists'
       msgctxt: 'Number of playlists containing a song, {count} is a number'
 
     confirmDeleteSong:
       msgid: 'music.editor.confirmDeleteSong'
-      msgstr: 'Delete "{title}" from the catalogue? It is in {count} playlists.'
+      msgstr: 'Delete "{title}" from the catalogue? It is in {count} playlists. This cannot be undone.'
       msgctxt: 'Confirmation for deleting a song, {title} is the title and {count} the playlist count'
 
     failedLoadSongs:
       msgid: 'music.editor.failedLoadSongs'
-      msgstr: 'Failed to load songs'
+      msgstr: 'Could not load songs.'
       msgctxt: 'Alert when loading the music catalogue fails'
 
     failedMembership:
@@ -990,28 +965,18 @@ music:
 
     failedSaveSong:
       msgid: 'music.editor.failedSaveSong'
-      msgstr: 'Failed to save song'
+      msgstr: 'Could not save the song.'
       msgctxt: 'Alert when saving a catalogue song fails'
 
     failedDeleteSong:
       msgid: 'music.editor.failedDeleteSong'
-      msgstr: 'Failed to delete song'
+      msgstr: 'Could not delete the song.'
       msgctxt: 'Alert when deleting a catalogue song fails'
 
-    removeSong:
-      msgid: 'music.editor.removeSong'
-      msgstr: 'Remove'
-      msgctxt: 'Button that removes a song from the catalogue'
-
-    confirmRemoveSong:
-      msgid: 'music.editor.confirmRemoveSong'
-      msgstr: 'Remove "{title}" from the catalogue?'
-      msgctxt: 'Confirmation dialog for removing a song, {title} is the song title'
-
-    failedRemoveSong:
-      msgid: 'music.editor.failedRemoveSong'
-      msgstr: 'Failed to remove song'
-      msgctxt: 'Alert when removing a song from the catalogue fails'
+    removeFromPlaylist:
+      msgid: 'music.editor.removeFromPlaylist'
+      msgstr: 'Remove from playlist'
+      msgctxt: 'Button that removes a song from the current playlist'
 
     noSongsAvailable:
       msgid: 'music.editor.noSongsAvailable'
@@ -1020,7 +985,7 @@ music:
 
     songCount:
       msgid: 'music.editor.songCount'
-      msgstr: '{count} songs'
+      msgstr: '{count} song | {count} songs'
       msgctxt: 'Number of songs in a playlist, {count} is a number'
 
     noPlaylists:
@@ -1030,22 +995,22 @@ music:
 
     confirmDelete:
       msgid: 'music.editor.confirmDelete'
-      msgstr: 'Delete playlist "{title}"?'
+      msgstr: 'Delete playlist "{title}"? This cannot be undone.'
       msgctxt: 'Confirmation dialog for deleting a playlist, {title} is playlist title'
 
     failedLoad:
       msgid: 'music.editor.failedLoad'
-      msgstr: 'Failed to load playlists'
+      msgstr: 'Could not load playlists.'
       msgctxt: 'Alert when loading playlists fails'
 
     failedSave:
       msgid: 'music.editor.failedSave'
-      msgstr: 'Failed to save playlist'
+      msgstr: 'Could not save the playlist.'
       msgctxt: 'Alert when playlist save fails'
 
     failedDelete:
       msgid: 'music.editor.failedDelete'
-      msgstr: 'Failed to delete playlist'
+      msgstr: 'Could not delete the playlist.'
       msgctxt: 'Alert when playlist deletion fails'
 
 blog:
@@ -1217,14 +1182,9 @@ article:
     msgstr: 'Article Editor'
     msgctxt: 'Article editor page title'
 
-  listTitle:
-    msgid: 'article.editor.listTitle'
-    msgstr: 'Articles'
-    msgctxt: 'Heading above the article list in the editor'
-
   newArticle:
     msgid: 'article.editor.newArticle'
-    msgstr: '+ New Article'
+    msgstr: 'New Article'
     msgctxt: 'Button that starts a new article'
 
   uriPlaceholder:
@@ -1236,6 +1196,11 @@ article:
     msgid: 'article.editor.uriLabel'
     msgstr: 'URI'
     msgctxt: 'Article URI field label'
+
+  uriPrefix:
+    msgid: 'article.editor.uriPrefix'
+    msgstr: '/article/'
+    msgctxt: 'Public path prefix shown before an article URI'
 
   confirmCreateBlank:
     msgid: 'article.editor.confirmCreateBlank'
@@ -1251,11 +1216,6 @@ article:
     msgid: 'article.editor.invalidUri'
     msgstr: 'Use only lowercase letters, numbers, and hyphens.'
     msgctxt: 'Error shown for an invalid article URI'
-
-  selectArticle:
-    msgid: 'article.editor.selectArticle'
-    msgstr: 'Select an article to edit.'
-    msgctxt: 'Empty state beside the article list'
 
   loadFailed:
     msgid: 'article.editor.loadFailed'
@@ -1286,11 +1246,6 @@ article:
     msgid: 'article.editor.unpublished'
     msgstr: 'Unpublished'
     msgctxt: 'Article status when not published'
-
-  blocks:
-    msgid: 'article.editor.blocks'
-    msgstr: 'Blocks'
-    msgctxt: 'Heading above the block list'
 
   addBlock:
     msgid: 'article.editor.addBlock'
@@ -1374,7 +1329,7 @@ article:
 
   uploadFailed:
     msgid: 'article.editor.uploadFailed'
-    msgstr: 'Upload failed.'
+    msgstr: 'Could not upload the image.'
     msgctxt: 'Error shown when an image upload fails'
 
   uploadImage:
@@ -1386,11 +1341,6 @@ article:
     msgid: 'article.editor.preview'
     msgstr: 'Preview'
     msgctxt: 'Heading above the live article preview'
-
-  previewHint:
-    msgid: 'article.editor.previewHint'
-    msgstr: 'Refreshes within a second of your last edit.'
-    msgctxt: 'Hint under the article editor preview heading'
 
   saved:
     msgid: 'article.editor.saved'
@@ -1459,7 +1409,7 @@ article:
 
   resolvingLink:
     msgid: 'article.editor.resolvingLink'
-    msgstr: 'Loading...'
+    msgstr: 'Resolving…'
     msgctxt: 'Button label while the video details are being resolved'
 
   invalidYoutubeLink:
@@ -1469,13 +1419,8 @@ article:
 
   youtubeLinkFailed:
     msgid: 'article.editor.youtubeLinkFailed'
-    msgstr: "Couldn't load that video. Check the link and try again."
+    msgstr: 'Could not load that video. Check the link and try again.'
     msgctxt: 'Error when the video behind a YouTube link cannot be read'
-
-  loadMore:
-    msgid: 'article.editor.loadMore'
-    msgstr: 'Load more'
-    msgctxt: 'Button that loads the next page of gallery assets'
 
   noAssets:
     msgid: 'article.editor.noAssets'
@@ -1492,20 +1437,10 @@ article:
     msgstr: 'Unpublish this article? Its blocks and assets are kept.'
     msgctxt: 'Confirmation dialog before unpublishing an article'
 
-  confirmDiscard:
-    msgid: 'article.editor.confirmDiscard'
-    msgstr: 'You have unsaved changes. Discard them?'
-    msgctxt: 'Confirmation shown before leaving the editor with unsaved changes'
-
   confirmDelete:
     msgid: 'article.editor.confirmDelete'
     msgstr: 'Permanently delete this article and its drawings? This cannot be undone.'
     msgctxt: 'Confirmation dialog before permanently deleting an article'
-
-  unpublish:
-    msgid: 'article.editor.unpublish'
-    msgstr: 'Unpublish'
-    msgctxt: 'Button that unpublishes an article while keeping its content'
 
   unpublishedToast:
     msgid: 'article.editor.unpublishedToast'
@@ -1581,11 +1516,6 @@ article:
     msgid: 'article.editor.unsaved'
     msgstr: 'Unsaved changes'
     msgctxt: 'Editor status when the article has unsaved changes'
-
-  allSaved:
-    msgid: 'article.editor.allSaved'
-    msgstr: 'Saved'
-    msgctxt: 'Editor status when the article has no unsaved changes'
 
   statusDraft:
     msgid: 'article.editor.statusDraft'
@@ -1692,49 +1622,34 @@ coffee:
 
   #. Coffee editor strings
   #: src/views/editor/
-  tabBeans:
-    msgid: 'coffee.editor.tabBeans'
-    msgstr: 'Beans'
-    msgctxt: 'Coffee editor tab label'
-
-  tabEquipment:
-    msgid: 'coffee.editor.tabEquipment'
-    msgstr: 'Equipment'
-    msgctxt: 'Coffee editor tab label'
-
-  tabTasting:
-    msgid: 'coffee.editor.tabTasting'
-    msgstr: 'Tasting'
-    msgctxt: 'Coffee editor tab label'
-
   newBean:
     msgid: 'coffee.editor.newBean'
-    msgstr: '+ New Bean'
+    msgstr: 'New Bean'
     msgctxt: 'Button to create new bean'
 
   newEquipment:
     msgid: 'coffee.editor.newEquipment'
-    msgstr: '+ New Equipment'
+    msgstr: 'New Equipment'
     msgctxt: 'Button to create new equipment'
 
   newTasting:
     msgid: 'coffee.editor.newTasting'
-    msgstr: '+ New Tasting'
+    msgstr: 'New Tasting'
     msgctxt: 'Button to create new tasting'
 
   noBeans:
     msgid: 'coffee.editor.noBeans'
-    msgstr: 'No beans yet'
+    msgstr: 'No beans yet.'
     msgctxt: 'Empty state for beans list'
 
   noEquipment:
     msgid: 'coffee.editor.noEquipment'
-    msgstr: 'No equipment yet'
+    msgstr: 'No equipment yet.'
     msgctxt: 'Empty state for equipment list'
 
   noTastingsYet:
     msgid: 'coffee.editor.noTastingsYet'
-    msgstr: 'No tastings yet'
+    msgstr: 'No tastings yet.'
     msgctxt: 'Empty state for tastings list'
 
   unknownBean:
@@ -1742,34 +1657,34 @@ coffee:
     msgstr: 'Unknown bean'
     msgctxt: 'Fallback when tasting has no bean'
 
-  confirmDeleteBean:
-    msgid: 'coffee.editor.confirmDeleteBean'
-    msgstr: 'Delete "{name}"?'
-    msgctxt: 'Confirmation dialog for deleting a bean, {name} is bean name'
+  dotSeparator:
+    msgid: 'coffee.editor.dotSeparator'
+    msgstr: ' · '
+    msgctxt: 'Separator between metadata values in a coffee list row'
 
-  confirmDeleteEquipment:
-    msgid: 'coffee.editor.confirmDeleteEquipment'
-    msgstr: 'Delete "{name}"?'
-    msgctxt: 'Confirmation dialog for deleting equipment, {name} is equipment name'
+  rating:
+    msgid: 'coffee.editor.rating'
+    msgstr: '★ {rating}'
+    msgctxt: 'Tasting rating in a coffee list row, {rating} is a number'
 
   confirmDeleteTasting:
     msgid: 'coffee.editor.confirmDeleteTasting'
-    msgstr: 'Delete tasting "{label}"?'
+    msgstr: 'Delete tasting "{label}"? This cannot be undone.'
     msgctxt: 'Confirmation dialog for deleting a tasting, {label} is tasting label'
 
   failedDeleteBean:
     msgid: 'coffee.editor.failedDeleteBean'
-    msgstr: 'Failed to delete bean'
+    msgstr: 'Could not delete the bean.'
     msgctxt: 'Alert when bean deletion fails'
 
   failedDeleteEquipment:
     msgid: 'coffee.editor.failedDeleteEquipment'
-    msgstr: 'Failed to delete equipment'
+    msgstr: 'Could not delete the equipment.'
     msgctxt: 'Alert when equipment deletion fails'
 
   failedDeleteTasting:
     msgid: 'coffee.editor.failedDeleteTasting'
-    msgstr: 'Failed to delete tasting'
+    msgstr: 'Could not delete the tasting.'
     msgctxt: 'Alert when tasting deletion fails'
 
   #. TastingForm strings
@@ -1807,27 +1722,27 @@ coffee:
 
     addNew:
       msgid: 'coffee.tastingForm.addNew'
-      msgstr: '+ new'
+      msgstr: 'Add new'
       msgctxt: 'Quick add button text'
 
     selectBean:
       msgid: 'coffee.tastingForm.selectBean'
-      msgstr: 'Select bean...'
+      msgstr: 'Select bean…'
       msgctxt: 'Bean dropdown placeholder'
 
     selectEquipment:
       msgid: 'coffee.tastingForm.selectEquipment'
-      msgstr: 'Select equipment...'
+      msgstr: 'Select equipment…'
       msgctxt: 'Equipment dropdown placeholder'
 
     selectGrind:
       msgid: 'coffee.tastingForm.selectGrind'
-      msgstr: 'Select...'
+      msgstr: 'Select…'
       msgctxt: 'Grind size dropdown placeholder'
 
     beanName:
       msgid: 'coffee.tastingForm.beanName'
-      msgstr: 'Bean name *'
+      msgstr: 'Bean name'
       msgctxt: 'Quick bean form name placeholder'
 
     roaster:
@@ -1842,7 +1757,7 @@ coffee:
 
     equipmentName:
       msgid: 'coffee.tastingForm.equipmentName'
-      msgstr: 'Equipment name *'
+      msgstr: 'Equipment name'
       msgctxt: 'Quick equipment form name placeholder'
 
     grinder:
@@ -1852,27 +1767,27 @@ coffee:
 
     grindSize:
       msgid: 'coffee.tastingForm.grindSize'
-      msgstr: 'Grind Size'
+      msgstr: 'Grind size'
       msgctxt: 'Brew recipe field label'
 
     grindSetting:
       msgid: 'coffee.tastingForm.grindSetting'
-      msgstr: 'Grind Setting'
+      msgstr: 'Grind setting'
       msgctxt: 'Brew recipe field label'
 
     coffeeDose:
       msgid: 'coffee.tastingForm.coffeeDose'
-      msgstr: 'Coffee Dose (g)'
+      msgstr: 'Dose (g)'
       msgctxt: 'Brew recipe field label'
 
     waterIn:
       msgid: 'coffee.tastingForm.waterIn'
-      msgstr: 'Water In (ml)'
+      msgstr: 'Water in (ml)'
       msgctxt: 'Brew recipe field label'
 
     coffeeOut:
       msgid: 'coffee.tastingForm.coffeeOut'
-      msgstr: 'Coffee Out (ml)'
+      msgstr: 'Coffee out (ml)'
       msgctxt: 'Brew recipe field label'
 
     ratio:
@@ -1887,12 +1802,17 @@ coffee:
 
     brewTime:
       msgid: 'coffee.tastingForm.brewTime'
-      msgstr: 'Brew Time'
+      msgstr: 'Brew time'
       msgctxt: 'Brew recipe field label'
+
+    brewTimePlaceholder:
+      msgid: 'coffee.tastingForm.brewTimePlaceholder'
+      msgstr: 'mm:ss'
+      msgctxt: 'Placeholder for the brew time input'
 
     waterTemp:
       msgid: 'coffee.tastingForm.waterTemp'
-      msgstr: 'Water Temp (°C)'
+      msgstr: 'Water temp (°C)'
       msgctxt: 'Brew recipe field label'
 
     brewRecipe:
@@ -1917,23 +1837,18 @@ coffee:
 
     failedAddBean:
       msgid: 'coffee.tastingForm.failedAddBean'
-      msgstr: 'Failed to add bean'
+      msgstr: 'Could not add the bean.'
       msgctxt: 'Alert when quick bean add fails'
 
     failedAddEquipment:
       msgid: 'coffee.tastingForm.failedAddEquipment'
-      msgstr: 'Failed to add equipment'
+      msgstr: 'Could not add the equipment.'
       msgctxt: 'Alert when quick equipment add fails'
 
     failedSaveTasting:
       msgid: 'coffee.tastingForm.failedSaveTasting'
-      msgstr: 'Failed to save tasting'
+      msgstr: 'Could not save the tasting.'
       msgctxt: 'Alert when tasting save fails'
-
-    loading:
-      msgid: 'coffee.tastingForm.loading'
-      msgstr: '...'
-      msgctxt: 'Loading indicator in quick add button'
 
   #. TastingCard strings
   #: src/components/coffee/TastingCard.vue
@@ -2018,7 +1933,7 @@ coffee:
 
     name:
       msgid: 'coffee.beanForm.name'
-      msgstr: 'Name *'
+      msgstr: 'Name'
       msgctxt: 'Bean form field label'
 
     namePlaceholder:
@@ -2048,7 +1963,7 @@ coffee:
 
     roastDate:
       msgid: 'coffee.beanForm.roastDate'
-      msgstr: 'Roast Date'
+      msgstr: 'Roast date'
       msgctxt: 'Bean form field label'
 
     variety:
@@ -2088,12 +2003,12 @@ coffee:
 
     descriptionPlaceholder:
       msgid: 'coffee.beanForm.descriptionPlaceholder'
-      msgstr: 'Tasting notes, flavor profile...'
+      msgstr: 'Tasting notes, flavour profile…'
       msgctxt: 'Bean description textarea placeholder'
 
     failedSave:
       msgid: 'coffee.beanForm.failedSave'
-      msgstr: 'Failed to save bean'
+      msgstr: 'Could not save the bean.'
       msgctxt: 'Alert when bean save fails'
 
   #. EquipmentForm strings
@@ -2111,7 +2026,7 @@ coffee:
 
     name:
       msgid: 'coffee.equipmentForm.name'
-      msgstr: 'Name *'
+      msgstr: 'Name'
       msgctxt: 'Equipment form field label'
 
     namePlaceholder:
@@ -2131,12 +2046,12 @@ coffee:
 
     descriptionPlaceholder:
       msgid: 'coffee.equipmentForm.descriptionPlaceholder'
-      msgstr: 'Details about this equipment...'
+      msgstr: 'Details about this equipment…'
       msgctxt: 'Equipment description textarea placeholder'
 
     failedSave:
       msgid: 'coffee.equipmentForm.failedSave'
-      msgstr: 'Failed to save equipment'
+      msgstr: 'Could not save the equipment.'
       msgctxt: 'Alert when equipment save fails'
 
   #. TasteRadarChart strings
@@ -2426,11 +2341,6 @@ editor:
     msgstr: 'Map Locations'
     msgctxt: 'Sidebar entry for the map location editor'
 
-  backToList:
-    msgid: 'editor.backToList'
-    msgstr: 'Back to list'
-    msgctxt: 'Link returning to a section listing'
-
   notFound:
     msgid: 'editor.notFound'
     msgstr: 'Item not found.'
@@ -2438,8 +2348,14 @@ editor:
 
   loadFailed:
     msgid: 'editor.loadFailed'
-    msgstr: 'Something went wrong. Please try again.'
+    msgstr: 'Could not load the editor.'
     msgctxt: 'Error shown when an editor listing fails to load'
+
+  ui:
+    backTo:
+      msgid: 'editor.ui.backTo'
+      msgstr: 'Back to {section}'
+      msgctxt: 'Back link on an edit page, {section} is the destination section name'
 
 #. Router page titles
 router:
@@ -2450,42 +2366,42 @@ router:
 
   editorArticles:
     msgid: 'router.editorArticles'
-    msgstr: 'Article Editor'
+    msgstr: 'Articles'
     msgctxt: 'Page title for the article editor routes'
 
   editorBeans:
     msgid: 'router.editorBeans'
-    msgstr: 'Bean Editor'
+    msgstr: 'Beans'
     msgctxt: 'Page title for the bean editor routes'
 
   editorEquipment:
     msgid: 'router.editorEquipment'
-    msgstr: 'Equipment Editor'
+    msgstr: 'Equipment'
     msgctxt: 'Page title for the equipment editor routes'
 
   editorTastings:
     msgid: 'router.editorTastings'
-    msgstr: 'Tasting Editor'
+    msgstr: 'Tastings'
     msgctxt: 'Page title for the tasting editor routes'
 
   editorPlaylists:
     msgid: 'router.editorPlaylists'
-    msgstr: 'Playlist Editor'
+    msgstr: 'Playlists'
     msgctxt: 'Page title for the playlist editor routes'
 
   editorSongs:
     msgid: 'router.editorSongs'
-    msgstr: 'Song Editor'
+    msgstr: 'Songs'
     msgctxt: 'Page title for the music catalogue editor routes'
 
   editorMapLocations:
     msgid: 'router.editorMapLocations'
-    msgstr: 'Map Location Editor'
+    msgstr: 'Map Locations'
     msgctxt: 'Page title for the map location editor routes'
 
   editorGallery:
     msgid: 'router.editorGallery'
-    msgstr: 'Gallery Editor'
+    msgstr: 'Gallery'
     msgctxt: 'Page title for the gallery editor routes'
 
   home:

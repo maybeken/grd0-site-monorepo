@@ -1,12 +1,12 @@
 <template>
-  <label class="inline-flex items-center gap-1 text-xs cursor-pointer select-none">
+  <label class="inline-flex cursor-pointer select-none items-center gap-1.5 text-sm font-medium">
     <input
       type="checkbox"
       :checked="modelValue"
+      class="h-4 w-4 accent-accent"
       @change="$emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
-      class="accent-accent w-3 h-3"
     />
-    <span class="opacity-70">IDK</span>
+    <span class="text-foreground/60">{{ $t('coffee.tastingForm.idk') }}</span>
   </label>
 </template>
 

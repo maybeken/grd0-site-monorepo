@@ -1,77 +1,82 @@
 <template>
   <div class="flex flex-col gap-3">
-    <div class="flex flex-wrap items-center gap-2">
-      <p class="text-lg font-bold">{{ $t('article.editor.listTitle') }}</p>
-      <button
-        class="ml-auto rounded-full border border-dotted px-3 py-1 disabled:opacity-50"
-        :disabled="busy"
-        @click="create"
-      >
-        {{ $t('article.editor.newArticle') }}
-      </button>
-    </div>
-
-    <p v-if="conflict" class="text-red-400">{{ $t('article.editor.conflict') }}</p>
-    <p v-else-if="create_failed" class="text-red-400">
+    <p v-if="conflict" class="text-sm font-medium text-red-400">{{ $t('article.editor.conflict') }}</p>
+    <p v-else-if="create_failed" class="text-sm font-medium text-red-400">
       {{ $t('article.editor.createFailed') }}
     </p>
 
-    <div v-if="loading" class="flex flex-col gap-2">
-      <Skeleton h="sm" w="full" :loading="true"></Skeleton>
-      <Skeleton h="sm" w="full" :loading="true"></Skeleton>
-      <Skeleton h="sm" w="full" :loading="true"></Skeleton>
-    </div>
+    <EditorError v-if="list_failed" :message="$t('article.editor.listFailed')">
+      <template #actions>
+        <EditorButton variant="secondary" @click="refresh">{{ $t('common.retry') }}</EditorButton>
+      </template>
+    </EditorError>
 
-    <p v-else-if="list_failed" class="text-red-400">{{ $t('article.editor.listFailed') }}</p>
+    <EditorLoading v-else-if="loading"></EditorLoading>
 
-    <p v-else-if="entries.length === 0" class="text-secondary">
-      {{ $t('article.editor.emptyList') }}
-    </p>
+    <EditorEmptyState
+      v-else-if="entries.length === 0"
+      :message="$t('article.editor.emptyList')"
+    ></EditorEmptyState>
 
     <template v-else>
-      <table class="w-full table-auto">
-        <thead class="border-b">
-          <tr>
-            <th class="py-2 text-left">{{ $t('article.editor.columnTitle') }}</th>
-            <th class="py-2 text-left">{{ $t('article.editor.columnUri') }}</th>
-            <th class="py-2 text-left">{{ $t('article.editor.columnStatus') }}</th>
-            <th class="py-2 text-left">{{ $t('article.editor.columnUpdated') }}</th>
-            <th class="py-2 text-left">{{ $t('article.editor.columnPublished') }}</th>
-            <th class="py-2">{{ $t('common.actions') }}</th>
-          </tr>
-        </thead>
-        <tbody class="border-b">
-          <tr v-for="entry in entries" :key="entry.uri">
-            <td class="py-2">{{ entry.title || entry.uri }}</td>
-            <td class="py-2 text-secondary">/article/{{ entry.uri }}</td>
-            <td class="py-2 text-secondary">{{ formatStatus(entry) }}</td>
-            <td class="py-2 text-secondary">{{ formatUpdated(entry.updated_at) }}</td>
-            <td class="py-2 text-secondary">{{ formatPublished(entry.published_at) }}</td>
-            <td class="flex flex-wrap justify-center gap-2 py-2">
-              <router-link
-                class="rounded-xl border border-dotted px-4 py-px"
-                :to="{ path: `/editor/articles/${entry.uri}`, query: { page: $props.page } }"
-              >
-                {{ $t('article.editor.open') }}
-              </router-link>
-              <button
-                class="rounded-xl border border-dotted px-4 py-px disabled:opacity-50"
-                :disabled="busy || !entry.published_at"
-                @click="unpublish(entry.uri)"
-              >
-                {{ $t('article.editor.unpublish') }}
-              </button>
-              <button
-                class="rounded-xl border border-red-500/40 px-4 py-px text-red-400 disabled:opacity-50"
-                :disabled="busy"
-                @click="purge(entry.uri)"
-              >
-                {{ $t('common.delete') }}
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="overflow-x-auto">
+        <table class="w-full table-auto">
+          <thead class="border-b border-accent/20">
+            <tr class="text-sm font-medium text-foreground/60">
+              <th class="py-2 text-left">{{ $t('article.editor.columnTitle') }}</th>
+              <th class="py-2 text-left">{{ $t('article.editor.columnUri') }}</th>
+              <th class="py-2 text-left">{{ $t('article.editor.columnStatus') }}</th>
+              <th class="py-2 text-left">{{ $t('article.editor.columnUpdated') }}</th>
+              <th class="py-2 text-left">{{ $t('article.editor.columnPublished') }}</th>
+              <th class="py-2">{{ $t('common.actions') }}</th>
+            </tr>
+          </thead>
+          <tbody class="border-b border-accent/20">
+            <tr v-for="entry in entries" :key="entry.uri">
+              <td class="py-2">
+                <div class="max-w-96 truncate text-lg font-medium" :title="entry.title || entry.uri">
+                  {{ entry.title || entry.uri }}
+                </div>
+              </td>
+              <td class="py-2 text-sm font-medium text-foreground/60">
+                {{ $t('article.editor.uriPrefix') }}{{ entry.uri }}
+              </td>
+              <td class="py-2 text-sm font-medium text-foreground/60">{{ formatStatus(entry) }}</td>
+              <td class="py-2 text-sm font-medium text-foreground/60">
+                {{ formatUpdated(entry.updated_at) }}
+              </td>
+              <td class="py-2 text-sm font-medium text-foreground/60">
+                {{ formatPublished(entry.published_at) }}
+              </td>
+              <td class="flex flex-wrap justify-center gap-2 py-2">
+                <EditorButton
+                  size="sm"
+                  variant="secondary"
+                  :to="{ path: `/editor/articles/${entry.uri}`, query: { page: $props.page } }"
+                >
+                  {{ $t('article.editor.open') }}
+                </EditorButton>
+                <EditorButton
+                  size="sm"
+                  variant="secondary"
+                  :disabled="busy || !entry.published_at"
+                  @click="unpublish(entry.uri)"
+                >
+                  {{ $t('common.unpublish') }}
+                </EditorButton>
+                <EditorButton
+                  size="sm"
+                  variant="destructive"
+                  :disabled="busy"
+                  @click="purge(entry.uri)"
+                >
+                  {{ $t('common.delete') }}
+                </EditorButton>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <ArticlePager
         :page="$props.page"
@@ -92,6 +97,10 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 import ArticlePager from './ArticlePager.vue'
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorEmptyState from '@/components/editor/ui/EditorEmptyState.vue'
+import EditorError from '@/components/editor/ui/EditorError.vue'
+import EditorLoading from '@/components/editor/ui/EditorLoading.vue'
 import { errorStatus, isArticle } from '@/helpers/article'
 import { useToast } from '@/composables/useToast'
 import {
@@ -180,6 +189,7 @@ async function create(): Promise<void> {
   conflict.value = false
   create_failed.value = false
 
+  if (busy.value) return
   if (!confirm(t('article.editor.confirmCreateBlank'))) return
 
   busy.value = true
@@ -240,4 +250,6 @@ async function purge(uri: string): Promise<void> {
 watch(() => [$props.page, $props.page_size], refresh)
 
 onMounted(refresh)
+
+defineExpose({ create })
 </script>

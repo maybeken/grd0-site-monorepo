@@ -1,84 +1,85 @@
 <template>
   <div class="flex h-full flex-col gap-5">
     <div class="flex flex-col gap-1">
-      <p class="text-lg font-bold">{{ $t('article.editor.details') }}</p>
-      <span class="text-sm text-secondary">{{ status_label }}</span>
+      <h2 class="text-xl font-bold">{{ $t('article.editor.details') }}</h2>
+      <span class="text-sm font-medium text-foreground/60">{{ status_label }}</span>
     </div>
 
     <div class="flex flex-col gap-2">
       <div class="flex items-center justify-between gap-2">
-        <label for="article-sidebar-uri">{{ $t('article.editor.uriLabel') }}</label>
-        <button
+        <label for="article-sidebar-uri" class="text-lg font-medium">
+          {{ $t('article.editor.uriLabel') }}
+        </label>
+        <EditorButton
           v-if="$props.article.published_at"
-          class="shrink-0 rounded-full border border-dotted p-1 text-secondary"
-          :title="copied ? $t('article.editor.copied') : $t('article.editor.copyLink')"
-          :aria-label="copied ? $t('article.editor.copied') : $t('article.editor.copyLink')"
+          variant="icon"
+          :label="copied ? $t('article.editor.copied') : $t('article.editor.copyLink')"
           @click="copyLink"
         >
           <Icon :icon="copied ? 'mynaui:check' : 'mynaui:copy'" height="1rem"></Icon>
-        </button>
+        </EditorButton>
       </div>
-      <div class="flex flex-wrap items-center gap-1 text-sm">
-        <span class="text-secondary">/article/</span>
-        <input
-          id="article-sidebar-uri"
-          class="min-w-0 flex-1 rounded-full border border-dotted bg-background px-3 py-1"
-          type="text"
-          :placeholder="$t('article.editor.uriPlaceholder')"
-          v-model="uri"
-        />
-      </div>
-      <p v-if="!valid" class="text-sm text-red-400">{{ $t('article.editor.invalidUri') }}</p>
+      <p class="text-sm font-medium text-foreground/60">
+        {{ $t('article.editor.uriPrefix') }}
+      </p>
+      <EditorInput
+        id="article-sidebar-uri"
+        v-model="uri"
+        :placeholder="$t('article.editor.uriPlaceholder')"
+      ></EditorInput>
+      <p v-if="!valid" class="text-sm font-medium text-red-400">
+        {{ $t('article.editor.invalidUri') }}
+      </p>
     </div>
 
     <div class="flex flex-col gap-2">
-      <label for="article-sidebar-publish">{{ $t('article.editor.publishDate') }}</label>
-      <input
+      <label for="article-sidebar-publish" class="text-lg font-medium">
+        {{ $t('article.editor.publishDate') }}
+      </label>
+      <EditorInput
         id="article-sidebar-publish"
-        class="rounded-xl border border-dotted bg-background px-2 py-1"
-        type="datetime-local"
         v-model="publish_local"
-      />
+        type="datetime-local"
+      ></EditorInput>
       <div class="flex flex-wrap gap-2">
-        <button
+        <EditorButton
           v-if="status !== 'published'"
-          class="rounded-full border border-dotted px-3 py-1 text-sm disabled:opacity-50"
+          variant="secondary"
+          size="sm"
           :disabled="saving"
           @click="$emit('publish-now')"
         >
           {{ $t('article.editor.publishNow') }}
-        </button>
-        <button
+        </EditorButton>
+        <EditorButton
           v-if="status !== 'draft'"
-          class="rounded-full border border-dotted px-3 py-1 text-sm disabled:opacity-50"
+          variant="secondary"
+          size="sm"
           :disabled="saving"
           @click="$emit('unpublish')"
         >
-          {{ $t('article.editor.unpublish') }}
-        </button>
+          {{ $t('common.unpublish') }}
+        </EditorButton>
       </div>
     </div>
 
-    <div class="flex flex-col gap-1 text-sm text-secondary">
+    <div class="flex flex-col gap-1 text-sm font-medium text-foreground/60">
       <span>{{ $t('article.editor.createdAt', { date: formatDate($props.article.created_at) }) }}</span>
       <span>{{ $t('article.editor.updatedAt', { date: formatDate($props.article.updated_at) }) }}</span>
     </div>
 
-    <router-link
-      :to="`/article/${$props.article.uri}`"
-      target="_blank"
-      class="rounded-full border border-dotted px-3 py-1 text-center text-sm"
-    >
+    <EditorButton variant="secondary" :to="`/article/${$props.article.uri}`" target="_blank">
       {{ $t('article.editor.openPublic') }}
-    </router-link>
+    </EditorButton>
 
-    <button
-      class="mt-auto rounded-full border border-red-500/40 px-3 py-1 text-sm text-red-400 disabled:opacity-50"
+    <EditorButton
+      variant="destructive"
+      class="mt-auto"
       :disabled="saving"
       @click="$emit('delete')"
     >
       {{ $t('common.delete') }}
-    </button>
+    </EditorButton>
   </div>
 </template>
 
@@ -87,6 +88,10 @@ import { computed, onBeforeUnmount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorInput from '@/components/editor/ui/EditorInput.vue'
+import Icon from '@/components/shared/Icon.vue'
 
 import type { Article } from '@/interfaces/Article'
 
@@ -143,7 +148,7 @@ function formatDate(value: string): string {
 async function copyLink(): Promise<void> {
   try {
     await navigator.clipboard.writeText(
-      `${window.location.origin}/article/${$props.article.uri}`
+      `${window.location.origin}${t('article.editor.uriPrefix')}${$props.article.uri}`
     )
     copied.value = true
 

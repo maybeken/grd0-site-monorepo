@@ -1,110 +1,144 @@
 <template>
-  <div class="flex flex-col gap-6">
-    <header class="flex flex-col gap-2">
-      <h1 class="text-2xl font-bold">{{ $t('editor.gallery') }}<CursorBlink /></h1>
-      <p class="text-secondary">{{ $t('gallery.editor.listHint') }}</p>
-    </header>
+  <EditorPage>
+    <EditorPageHeader
+      :title="$t('editor.gallery')"
+      :description="$t('gallery.editor.listHint')"
+    ></EditorPageHeader>
 
-    <p v-if="loading" class="py-4 text-sm text-foreground/40">{{ $t('common.loading') }}</p>
+    <EditorError v-if="load_failed" :message="t('gallery.editor.failedLoad')">
+      <template #actions>
+        <EditorButton variant="secondary" @click="load(true)">
+          {{ $t('common.retry') }}
+        </EditorButton>
+      </template>
+    </EditorError>
 
-    <p v-else-if="load_failed" class="py-4 text-sm text-red-400">
-      {{ $t('gallery.editor.failedLoad') }}
-    </p>
+    <EditorLoading v-else-if="loading"></EditorLoading>
+
+    <EditorEmptyState
+      v-else-if="!collections.length && !directories.length"
+      :message="$t('gallery.editor.empty')"
+    ></EditorEmptyState>
 
     <template v-else>
-      <p
-        v-if="!collections.length && !directories.length"
-        class="py-4 text-center text-sm text-foreground/40"
-      >
-        {{ $t('gallery.editor.empty') }}
-      </p>
+      <EditorSection :title="$t('gallery.editor.collections')">
+        <EditorEmptyState
+          v-if="!collections.length"
+          :message="$t('gallery.editor.noCollections')"
+        ></EditorEmptyState>
 
-      <section class="flex flex-col gap-2">
-        <h2 class="text-lg font-bold">{{ $t('gallery.editor.collections') }}</h2>
-
-        <p v-if="!collections.length" class="py-4 text-center text-sm text-foreground/40">
-          {{ $t('gallery.editor.noCollections') }}
-        </p>
-
-        <div
-          v-for="collection in collections"
-          :key="collection.name"
-          class="flex items-center gap-3 rounded-lg border border-accent/20 bg-background p-3"
-        >
-          <CDNImage
-            v-if="coverUri(collection)"
-            class="h-12 w-12 shrink-0 rounded object-cover"
-            :uri="coverUri(collection)!"
-            :resolution="120"
-            :quality="70"
-          ></CDNImage>
+        <div v-else class="flex flex-col gap-2">
           <div
-            v-else
-            class="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-shade text-foreground/40"
+            v-for="collection in collections"
+            :key="collection.name"
+            class="flex items-center gap-3 rounded-lg border border-accent/20 bg-background p-3"
           >
-            <Icon icon="mynaui:image" />
-          </div>
+            <CDNImage
+              v-if="coverUri(collection)"
+              class="h-12 w-12 shrink-0 rounded object-cover"
+              :uri="coverUri(collection)!"
+              :resolution="120"
+              :quality="70"
+            ></CDNImage>
+            <div
+              v-else
+              class="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-shade text-foreground/60"
+            >
+              <Icon icon="mynaui:image"></Icon>
+            </div>
 
-          <div class="flex min-w-0 flex-1 flex-col">
-            <span class="truncate text-sm font-semibold">
-              {{ collection.title || collection.name }}
-            </span>
-            <span class="truncate text-xs text-foreground/50">{{ collection.name }}</span>
-            <span class="text-xs text-foreground/40">
-              {{ $t('gallery.editor.assetCount', { count: collection.count }) }}
-            </span>
-          </div>
+            <div class="flex min-w-0 flex-1 flex-col">
+              <span class="truncate text-lg font-medium" :title="collection.title || collection.name">
+                {{ collection.title || collection.name }}
+              </span>
+              <span class="truncate text-sm font-medium text-foreground/60">
+                {{ collection.name }}
+              </span>
+              <span class="text-sm font-medium text-foreground/60">
+                {{
+                  $t(
+                    'gallery.editor.assetCount',
+                    { count: collection.count },
+                    collection.count
+                  )
+                }}
+              </span>
+            </div>
 
-          <RouterLink
-            :to="collectionRoute(collection.name)"
-            class="shrink-0 rounded border border-accent/40 px-2 py-1 text-xs hover:bg-accent/10"
-          >
-            {{ $t('common.edit') }}
-          </RouterLink>
+            <EditorButton
+              size="sm"
+              variant="secondary"
+              :to="collectionRoute(collection.name)"
+            >
+              {{ $t('common.edit') }}
+            </EditorButton>
+          </div>
         </div>
-      </section>
+      </EditorSection>
 
-      <section class="flex flex-col gap-2">
-        <h2 class="text-lg font-bold">{{ $t('gallery.editor.available') }}</h2>
-        <p class="text-sm text-secondary">{{ $t('gallery.editor.availableHint') }}</p>
+      <EditorSection
+        :title="$t('gallery.editor.available')"
+        :description="$t('gallery.editor.availableHint')"
+      >
+        <EditorEmptyState
+          v-if="!directories.length"
+          :message="$t('gallery.editor.noDirectories')"
+        ></EditorEmptyState>
 
-        <p v-if="!directories.length" class="py-4 text-center text-sm text-foreground/40">
-          {{ $t('gallery.editor.noDirectories') }}
-        </p>
-
-        <div
-          v-for="directory in directories"
-          :key="directory.name"
-          class="flex items-center justify-between gap-3 rounded-lg border border-dotted border-accent/20 p-3"
-        >
-          <div class="flex min-w-0 flex-col">
-            <span class="truncate text-sm font-semibold">{{ directory.name }}</span>
-            <span class="text-xs text-foreground/40">
-              {{ $t('gallery.editor.assetCount', { count: directory.count }) }}
-            </span>
-          </div>
-
-          <button
-            class="shrink-0 rounded bg-accent px-3 py-1 text-xs font-semibold text-background hover:brightness-110 disabled:opacity-50"
-            :disabled="!!publishing"
-            @click="publish_directory(directory)"
+        <div v-else class="flex flex-col gap-2">
+          <div
+            v-for="directory in directories"
+            :key="directory.name"
+            class="flex items-center justify-between gap-3 rounded-lg border border-dotted border-accent/20 p-3"
           >
-            {{
-              publishing === directory.name
-                ? $t('gallery.editor.publishing')
-                : $t('gallery.editor.publish')
-            }}
-          </button>
+            <div class="flex min-w-0 flex-col">
+              <span class="truncate text-lg font-medium" :title="directory.name">
+                {{ directory.name }}
+              </span>
+              <span class="text-sm font-medium text-foreground/60">
+                {{
+                  $t(
+                    'gallery.editor.assetCount',
+                    { count: directory.count },
+                    directory.count
+                  )
+                }}
+              </span>
+            </div>
+
+            <EditorButton
+              size="sm"
+              variant="secondary"
+              :disabled="!!publishing"
+              :loading="publishing === directory.name"
+              @click="publish_directory(directory)"
+            >
+              {{
+                publishing === directory.name
+                  ? $t('gallery.editor.publishing')
+                  : $t('common.publish')
+              }}
+            </EditorButton>
+          </div>
         </div>
-      </section>
+      </EditorSection>
     </template>
-  </div>
+  </EditorPage>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorEmptyState from '@/components/editor/ui/EditorEmptyState.vue'
+import EditorError from '@/components/editor/ui/EditorError.vue'
+import EditorLoading from '@/components/editor/ui/EditorLoading.vue'
+import EditorPage from '@/components/editor/ui/EditorPage.vue'
+import EditorPageHeader from '@/components/editor/ui/EditorPageHeader.vue'
+import EditorSection from '@/components/editor/ui/EditorSection.vue'
+import CDNImage from '@/components/shared/CDNImage.vue'
+import Icon from '@/components/shared/Icon.vue'
 import { useToast } from '@/composables/useToast'
 import {
   galleryDetailPath,
@@ -168,7 +202,6 @@ async function load(initial = false): Promise<void> {
     load_failed.value = false
   } catch {
     load_failed.value = true
-    toast.error(t('gallery.editor.failedLoad'))
   } finally {
     loading.value = false
   }
@@ -185,6 +218,7 @@ async function publish_directory(directory: GalleryDirectory): Promise<void> {
       title: directory.name,
       cover: ''
     })
+    toast.success(t('common.done'))
     await load()
   } catch {
     toast.error(t('gallery.editor.publishFailed'))

@@ -7,16 +7,16 @@
         :title="$props.block.title"
         :artist="$props.block.artist"
       ></MusicPlayer>
-      <button class="rounded-full border border-dotted px-3 py-1" @click="picker = !picker">
+      <EditorButton variant="secondary" size="sm" @click="picker = !picker">
         {{ $t('article.editor.changeMusic') }}
-      </button>
+      </EditorButton>
     </div>
 
     <div v-else class="flex flex-wrap items-center gap-2">
-      <p class="text-secondary">{{ $t('article.editor.noSelection') }}</p>
-      <button class="rounded-full border border-dotted px-3 py-1" @click="picker = true">
+      <p class="text-lg font-medium text-foreground/60">{{ $t('article.editor.noSelection') }}</p>
+      <EditorButton variant="secondary" size="sm" @click="picker = true">
         {{ $t('article.editor.chooseMusic') }}
-      </button>
+      </EditorButton>
     </div>
 
     <MusicPicker v-if="picker" @select="onSelect" @close="picker = false"></MusicPicker>
@@ -26,7 +26,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
 import MusicPlayer from '@/components/music/MusicPlayer.vue'
+import MusicPicker from './../MusicPicker.vue'
 
 import type { ArticleBlockMusic } from '@/interfaces/Article'
 

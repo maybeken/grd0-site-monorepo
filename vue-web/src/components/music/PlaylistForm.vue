@@ -1,141 +1,166 @@
 <template>
-  <div class="flex flex-col gap-4 bg-background rounded-xl p-4 border border-accent/20">
-    <div class="flex items-center justify-between">
-      <h3 class="text-lg font-bold">
-        {{ is_edit ? $t('music.editor.titleEdit') : $t('music.editor.titleNew') }}
-      </h3>
-      <div class="flex gap-2">
-        <button
-          @click="$emit('cancel')"
-          class="px-3 py-1 rounded border border-accent/40 text-sm hover:bg-accent/10"
-        >
-          {{ $t('common.cancel') }}
-        </button>
-        <button
-          @click="save"
-          :disabled="saving || !form.title.trim()"
-          class="px-3 py-1 rounded bg-accent text-background text-sm font-semibold hover:brightness-110 disabled:opacity-50"
-        >
-          {{ saving ? $t('common.saving') : $t('common.save') }}
-        </button>
-      </div>
-    </div>
+  <EditorSection
+    :title="
+      standalone
+        ? is_edit
+          ? $t('music.editor.titleEdit')
+          : $t('music.editor.titleNew')
+        : ''
+    "
+  >
+    <template v-if="standalone" #actions>
+      <EditorButton variant="secondary" @click="requestCancel">
+        {{ $t('common.cancel') }}
+      </EditorButton>
+      <EditorButton
+        type="submit"
+        :form="formId"
+        variant="primary"
+        :disabled="saving || !can_save"
+        :loading="saving"
+      >
+        {{ $t('common.save') }}
+      </EditorButton>
+    </template>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">{{ $t('music.editor.titleField') }}</label>
-        <input
-          v-model="form.title"
-          class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
-          :placeholder="$t('music.editor.titlePlaceholder')"
-        />
-      </div>
+    <form :id="formId" class="flex flex-col gap-4" @submit.prevent="save">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <EditorField :label="$t('music.editor.titleField')" html-for="playlist-title" required>
+          <EditorInput
+            id="playlist-title"
+            v-model="form.title"
+            :placeholder="$t('music.editor.titlePlaceholder')"
+            required
+          ></EditorInput>
+        </EditorField>
 
-      <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">{{ $t('music.editor.sortingField') }}</label>
-        <input
-          v-model.number="form.sorting"
-          type="number"
-          class="bg-background border border-accent/40 rounded px-2 py-1 text-sm"
-        />
-      </div>
-    </div>
-
-    <div class="flex flex-col gap-1">
-      <label class="text-sm font-semibold">{{ $t('music.editor.descriptionField') }}</label>
-      <textarea
-        v-model="form.description"
-        rows="2"
-        class="bg-background border border-accent/40 rounded px-2 py-1 text-sm resize-y"
-        :placeholder="$t('music.editor.descriptionPlaceholder')"
-      />
-    </div>
-
-    <div class="flex flex-col gap-2">
-      <div class="flex items-center justify-between">
-        <label class="text-sm font-semibold">
-          {{ $t('music.editor.songsField') }} ({{ selected_ids.length }})
-        </label>
-        <button
-          class="px-2 py-1 rounded text-xs border border-accent/40 hover:bg-accent/10"
-          @click="picker = true"
-        >
-          {{ $t('music.editor.addSong') }}
-        </button>
+        <EditorField :label="$t('music.editor.sortingField')" html-for="playlist-sorting">
+          <EditorInput
+            id="playlist-sorting"
+            v-model="sorting_value"
+            type="number"
+            :number="true"
+          ></EditorInput>
+        </EditorField>
       </div>
 
-      <MusicPicker
-        v-if="picker"
-        :link_only="true"
-        @select="onAddSong"
-        @close="picker = false"
-      ></MusicPicker>
+      <EditorField :label="$t('music.editor.descriptionField')" html-for="playlist-description">
+        <EditorTextarea
+          id="playlist-description"
+          v-model="form.description"
+          :rows="2"
+          :placeholder="$t('music.editor.descriptionPlaceholder')"
+        ></EditorTextarea>
+      </EditorField>
 
-      <p v-if="!catalogue_songs || catalogue_songs.length === 0" class="text-sm text-secondary">
-        {{ $t('music.editor.noSongsAvailable') }}
-      </p>
+      <div class="flex flex-col gap-2 rounded-lg border border-accent/20 p-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <p class="text-lg font-medium">
+            {{
+              $t(
+                'music.editor.songCount',
+                { count: selected_ids.length },
+                selected_ids.length
+              )
+            }}
+          </p>
+          <EditorButton size="sm" variant="secondary" @click="picker = true">
+            {{ $t('music.editor.addSong') }}
+          </EditorButton>
+        </div>
 
-      <div v-else class="flex max-h-72 flex-col overflow-y-auto rounded border border-accent/20">
-        <label
-          v-for="song in catalogue_songs"
-          :key="song.id || song.v"
-          class="flex cursor-pointer items-center gap-3 border-b border-accent/10 px-3 py-2 hover:bg-shade"
-        >
-          <input
-            type="checkbox"
-            class="accent-accent"
-            :checked="song.id ? selected_ids.includes(song.id) : false"
-            @change="toggle(song)"
-          />
-          <img
-            class="h-10 w-10 rounded object-cover"
-            :src="`https://i.ytimg.com/vi_webp/${song.v}/default.webp`"
-            loading="lazy"
-          />
-          <span class="flex min-w-0 flex-1 flex-col">
-            <span class="truncate text-sm font-semibold">{{ song.title }}</span>
-            <span class="truncate text-xs text-secondary">
-              {{ song.artist || $t('music.unknown') }}
-            </span>
-          </span>
-          <button
-            class="shrink-0 rounded border border-red-500/40 px-2 py-1 text-xs text-red-400 hover:bg-red-500/10"
-            @click.stop.prevent="removeSong(song)"
+        <MusicPicker
+          v-if="picker"
+          :link_only="true"
+          @select="onAddSong"
+          @close="picker = false"
+        ></MusicPicker>
+
+        <EditorEmptyState
+          v-if="!catalogue_songs || catalogue_songs.length === 0"
+          :message="$t('music.editor.noSongsAvailable')"
+        ></EditorEmptyState>
+
+        <div v-else class="flex max-h-72 flex-col overflow-y-auto rounded border border-accent/20">
+          <label
+            v-for="song in catalogue_songs"
+            :key="song.id || song.v"
+            class="flex cursor-pointer items-center gap-3 border-b border-accent/10 px-3 py-2 hover:bg-shade"
           >
-            {{ $t('music.editor.removeSong') }}
-          </button>
-        </label>
+            <input
+              type="checkbox"
+              class="h-4 w-4 accent-accent"
+              :checked="song.id ? selected_ids.includes(song.id) : false"
+              @change="toggle(song)"
+            />
+            <img
+              class="h-10 w-10 rounded object-cover"
+              :src="`https://i.ytimg.com/vi_webp/${song.v}/default.webp`"
+              loading="lazy"
+            />
+            <span class="flex min-w-0 flex-1 flex-col">
+              <span class="truncate text-lg font-medium">{{ song.title }}</span>
+              <span class="truncate text-sm font-medium text-foreground/60">
+                {{ song.artist || $t('music.unknown') }}
+              </span>
+            </span>
+            <EditorButton
+              size="sm"
+              variant="destructive"
+              :disabled="!song.id || !selected_ids.includes(song.id)"
+              @click.stop.prevent="removeFromPlaylist(song)"
+            >
+              {{ $t('music.editor.removeFromPlaylist') }}
+            </EditorButton>
+          </label>
+        </div>
       </div>
-    </div>
-  </div>
+    </form>
+  </EditorSection>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import { computed, reactive, ref, watch, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import MusicPicker from '@/components/editor/article/MusicPicker.vue'
-import { getMusicRaw, deleteMusicRaw, upsertMusicRaw, upsertPlaylistRaw } from '@/services/music'
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorEmptyState from '@/components/editor/ui/EditorEmptyState.vue'
+import EditorField from '@/components/editor/ui/EditorField.vue'
+import EditorInput from '@/components/editor/ui/EditorInput.vue'
+import EditorSection from '@/components/editor/ui/EditorSection.vue'
+import EditorTextarea from '@/components/editor/ui/EditorTextarea.vue'
+import { useConfirmDiscard } from '@/composables/useConfirmDiscard'
+import { useSaveShortcut } from '@/composables/useSaveShortcut'
 import { useToast } from '@/composables/useToast'
+import { useUnsavedGuard } from '@/composables/useUnsavedGuard'
+import { getMusicRaw, upsertMusicRaw, upsertPlaylistRaw } from '@/services/music'
 
 import type { Music, Playlist } from '@/interfaces/Music'
-import { useUnsavedGuard } from '@/composables/useUnsavedGuard'
 
 interface Props {
   playlist?: Playlist | null
+  standalone?: boolean
+  formId?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  playlist: null
+  playlist: null,
+  standalone: true,
+  formId: 'playlist-form'
 })
 
-const $emit = defineEmits<{
+const emit = defineEmits<{
   saved: []
   cancel: []
+  'update:saving': [saving: boolean]
+  'update:can-save': [can_save: boolean]
+  'update:dirty': [dirty: boolean]
 }>()
 
 const { t } = useI18n()
 const toast = useToast()
+const confirmDiscard = useConfirmDiscard()
 
 const catalogue_songs = ref<Music[]>([])
 const catalogue_loaded = ref(false)
@@ -164,6 +189,13 @@ const form = reactive({
 
 const baseline = ref('')
 
+const sorting_value = computed({
+  get: () => form.sorting,
+  set: (value: string | number | null) => {
+    form.sorting = typeof value === 'number' ? value : 0
+  }
+})
+
 function snapshot(): string {
   return JSON.stringify({ form, selected_ids: selected_ids.value })
 }
@@ -184,8 +216,14 @@ watch(
 )
 
 const dirty = computed(() => snapshot() !== baseline.value)
+const can_save = computed(() => !!form.title.trim() && dirty.value)
 
 useUnsavedGuard(dirty)
+useSaveShortcut(save, { enabled: () => can_save.value && !saving.value })
+
+watchEffect(() => emit('update:saving', saving.value))
+watchEffect(() => emit('update:can-save', can_save.value))
+watchEffect(() => emit('update:dirty', dirty.value))
 
 function toggle(song: Music): void {
   if (!song.id) return
@@ -195,6 +233,19 @@ function toggle(song: Music): void {
   } else {
     selected_ids.value = [...selected_ids.value, song.id]
   }
+}
+
+function removeFromPlaylist(song: Music): void {
+  if (!song.id) return
+
+  selected_ids.value = selected_ids.value.filter((id) => id !== song.id)
+}
+
+function requestCancel(): void {
+  if (!confirmDiscard(dirty.value)) return
+
+  baseline.value = snapshot()
+  emit('cancel')
 }
 
 async function onAddSong(song: { v: string; title: string; artist?: string }): Promise<void> {
@@ -226,32 +277,14 @@ async function onAddSong(song: { v: string; title: string; artist?: string }): P
   }
 }
 
-async function removeSong(song: Music): Promise<void> {
-  if (!song.v || !confirm(t('music.editor.confirmRemoveSong', { title: song.title }))) return
-
-  try {
-    await deleteMusicRaw(song.v)
-
-    if (song.id) {
-      selected_ids.value = selected_ids.value.filter((id) => id !== song.id)
-    }
-
-    await fetchCatalogue()
-  } catch {
-    toast.error(t('music.editor.failedRemoveSong'))
-  }
-}
-
 async function save(): Promise<void> {
-  if (!form.title.trim() || saving.value) return
+  if (!can_save.value || saving.value) return
 
   saving.value = true
 
   try {
     const songs = catalogue_loaded.value
-      ? catalogue_songs.value.filter(
-          (song) => song.id && selected_ids.value.includes(song.id)
-        )
+      ? catalogue_songs.value.filter((song) => song.id && selected_ids.value.includes(song.id))
       : (props.playlist?.songs ?? [])
 
     await upsertPlaylistRaw({
@@ -263,7 +296,7 @@ async function save(): Promise<void> {
     })
 
     baseline.value = snapshot()
-    $emit('saved')
+    emit('saved')
   } catch {
     toast.error(t('music.editor.failedSave'))
   } finally {
@@ -271,13 +304,5 @@ async function save(): Promise<void> {
   }
 }
 
-function on_save_shortcut(event: KeyboardEvent): void {
-  if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 's') return
-
-  event.preventDefault()
-  void save()
-}
-
-onMounted(() => window.addEventListener('keydown', on_save_shortcut))
-onBeforeUnmount(() => window.removeEventListener('keydown', on_save_shortcut))
+defineExpose({ requestCancel })
 </script>

@@ -1,14 +1,15 @@
 <template>
-  <div class="flex flex-col gap-4">
-    <ArticleEditor v-if="uri" :uri="uri" @saved="onSaved"></ArticleEditor>
+  <ArticleEditor v-if="uri" :uri="uri" @saved="onSaved"></ArticleEditor>
 
-    <div v-else class="flex flex-col items-start gap-3">
-      <p class="text-red-400">{{ $t('editor.notFound') }}</p>
-      <router-link to="/editor/articles" class="rounded-full border border-dotted px-3 py-1">
-        {{ $t('editor.backToList') }}
-      </router-link>
-    </div>
-  </div>
+  <EditorPage v-else>
+    <EditorError :message="$t('editor.notFound')">
+      <template #actions>
+        <EditorButton variant="secondary" to="/editor/articles">
+          {{ $t('editor.ui.backTo', { section: $t('editor.articles') }) }}
+        </EditorButton>
+      </template>
+    </EditorError>
+  </EditorPage>
 </template>
 
 <script setup lang="ts">
@@ -16,6 +17,9 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import ArticleEditor from '@/components/editor/article/ArticleEditor.vue'
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorError from '@/components/editor/ui/EditorError.vue'
+import EditorPage from '@/components/editor/ui/EditorPage.vue'
 
 const route = useRoute()
 const router = useRouter()

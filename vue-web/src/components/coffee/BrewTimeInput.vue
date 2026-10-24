@@ -2,12 +2,12 @@
   <input
     type="text"
     :value="isFocused ? rawInput : displayValue"
+    :disabled="disabled"
+    :placeholder="$t('coffee.tastingForm.brewTimePlaceholder')"
+    class="w-full rounded border border-foreground/40 bg-background px-2.5 py-1.5 text-center text-lg font-medium placeholder:text-foreground/60 focus:border-foreground/80 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-foreground/60 disabled:cursor-not-allowed disabled:opacity-50"
     @input="onInput"
     @focus="onFocus"
     @blur="onBlur"
-    :disabled="disabled"
-    placeholder="mm:ss"
-    class="bg-background border border-accent rounded px-2 py-1 w-20 text-center disabled:opacity-50"
   />
 </template>
 
@@ -54,13 +54,13 @@ function parseValue(input: string): number | null {
   return null
 }
 
-function onFocus() {
+function onFocus(): void {
   isFocused.value = true
   rawInput.value = displayValue.value
 }
 
-function onInput(e: Event) {
-  const input = (e.target as HTMLInputElement).value.replace(/[^0-9:]/g, '')
+function onInput(event: Event): void {
+  const input = (event.target as HTMLInputElement).value.replace(/[^0-9:]/g, '')
   rawInput.value = input
 
   if (input.includes(':')) {
@@ -68,7 +68,7 @@ function onInput(e: Event) {
   }
 }
 
-function onBlur() {
+function onBlur(): void {
   isFocused.value = false
   emit('update:modelValue', parseValue(rawInput.value))
 }

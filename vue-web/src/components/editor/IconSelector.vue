@@ -2,12 +2,12 @@
   <div ref="container" class="relative">
     <button
       type="button"
-      class="flex w-full items-center gap-2 rounded border border-accent/40 bg-background px-2 py-1 text-left text-sm hover:bg-accent/5"
+      class="flex w-full items-center gap-2 rounded border border-foreground/40 bg-background px-2.5 py-1.5 text-left text-lg font-medium hover:bg-accent/5"
       :aria-expanded="open"
       aria-haspopup="listbox"
       @click="toggle"
     >
-      <span :class="modelValue ? 'font-mono text-xs' : 'text-foreground/40'">
+      <span :class="modelValue ? 'font-mono text-lg' : 'text-foreground/60'">
         {{ modelValue || $t('map.editor.iconSelect') }}
       </span>
       <Icon icon="mynaui:chevron-down" class="ml-auto shrink-0" height="1rem" />
@@ -21,26 +21,26 @@
       <div class="relative">
         <Icon
           icon="mynaui:search"
-          class="pointer-events-none absolute top-1/2 left-2 -translate-y-1/2 text-foreground/40"
+          class="pointer-events-none absolute top-1/2 left-2 -translate-y-1/2 text-foreground/60"
           height="1rem"
         />
         <input
           ref="search_input"
           v-model="query"
           type="search"
-          class="w-full rounded border border-accent/40 bg-background py-1 pr-2 pl-7 text-sm"
+          class="w-full rounded border border-foreground/40 bg-background py-1.5 pr-2 pl-7 text-lg font-medium placeholder:text-foreground/60 focus:border-foreground/80 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-foreground/60"
           :placeholder="$t('map.editor.iconSearchPlaceholder')"
           @keydown.enter.prevent="selectFirst"
         />
       </div>
 
-      <p v-if="loading" class="py-4 text-center text-xs text-foreground/50">
+      <p v-if="loading" class="py-4 text-center text-sm font-medium text-foreground/60">
         {{ $t('common.loading') }}
       </p>
-      <p v-else-if="failed" class="py-4 text-center text-xs text-red-400">
+      <p v-else-if="failed" class="py-4 text-center text-sm font-medium text-red-400">
         {{ $t('map.editor.iconLoadFailed') }}
       </p>
-      <p v-else-if="!results.length" class="py-4 text-center text-xs text-foreground/50">
+      <p v-else-if="!results.length" class="py-4 text-center text-sm font-medium text-foreground/60">
         {{ $t('map.editor.iconNoResults') }}
       </p>
       <div
@@ -52,7 +52,7 @@
           v-for="name in results"
           :key="name"
           type="button"
-          class="flex aspect-square items-center justify-center rounded border text-foreground/70 hover:bg-accent/10"
+          class="flex aspect-square items-center justify-center rounded border text-foreground/80 hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground/60"
           :class="
             name === modelValue
               ? 'border-accent bg-accent/15 text-accent'
@@ -70,26 +70,26 @@
         v-if="!loading && !failed"
         class="flex items-center justify-between gap-2 border-t border-accent/10 pt-2"
       >
-        <span class="text-xs text-foreground/40">
+        <span class="text-sm font-medium text-foreground/60">
           {{ $t('map.editor.iconShowing', { visible: results.length, total: resultsAll.length }) }}
         </span>
         <div class="flex shrink-0 items-center gap-2">
-          <button
+          <EditorButton
             v-if="hasMore"
-            type="button"
-            class="rounded border border-accent/40 px-2 py-0.5 text-xs hover:bg-accent/10"
+            size="sm"
+            variant="secondary"
             @click="loadMore"
           >
-            {{ $t('map.editor.iconLoadMore') }}
-          </button>
-          <button
+            {{ $t('common.loadMore') }}
+          </EditorButton>
+          <EditorButton
             v-if="modelValue"
-            type="button"
-            class="rounded border border-accent/40 px-2 py-0.5 text-xs hover:bg-accent/10"
+            size="sm"
+            variant="secondary"
             @click="clear"
           >
             {{ $t('map.editor.iconClear') }}
-          </button>
+          </EditorButton>
         </div>
       </div>
     </div>
@@ -99,6 +99,8 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import Icon from '@/components/shared/Icon.vue'
 import { loadIconCollection } from '@/helpers/icons'
 
 const PREFIX = 'mynaui'

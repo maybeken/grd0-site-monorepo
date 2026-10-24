@@ -1,17 +1,20 @@
 <template>
   <div class="flex flex-wrap gap-2">
-    <button
+    <EditorButton
       v-for="item in items"
       :key="item.type"
-      class="rounded-full border border-dotted px-4 py-1"
+      variant="secondary"
+      size="sm"
       @click="$emit('add', item.type)"
     >
       {{ $t(item.label) }}
-    </button>
+    </EditorButton>
   </div>
 </template>
 
 <script setup lang="ts">
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+
 import type { ArticleBlockType } from '@/interfaces/Article'
 
 const $emit = defineEmits<{

@@ -1,18 +1,13 @@
 <template>
-  <div class="flex flex-col gap-6">
-    <header class="flex flex-col gap-2">
-      <h1 class="text-2xl font-bold">{{ $t('editor.playlists') }}<CursorBlink /></h1>
-      <p class="text-secondary">{{ $t('music.editor.listHint') }}</p>
-    </header>
-
-    <div v-if="!show_form" class="flex justify-end">
-      <button
-        class="rounded bg-accent px-3 py-1 text-sm font-semibold text-background hover:brightness-110"
-        @click="show_form = true"
-      >
-        {{ $t('music.editor.newPlaylist') }}
-      </button>
-    </div>
+  <EditorPage>
+    <EditorPageHeader :title="$t('editor.playlists')" :description="$t('music.editor.listHint')">
+      <template #actions>
+        <EditorButton v-if="!show_form" variant="primary" @click="show_form = true">
+          <Icon icon="mynaui:plus" height="1rem"></Icon>
+          {{ $t('music.editor.newPlaylist') }}
+        </EditorButton>
+      </template>
+    </EditorPageHeader>
 
     <PlaylistForm
       v-if="show_form"
@@ -21,7 +16,17 @@
       @cancel="show_form = false"
     ></PlaylistForm>
 
-    <div v-if="!show_form" class="flex flex-col gap-2">
+    <EditorError v-else-if="load_failed" :message="t('music.editor.failedLoad')">
+      <template #actions>
+        <EditorButton variant="secondary" @click="fetchPlaylists">
+          {{ $t('common.retry') }}
+        </EditorButton>
+      </template>
+    </EditorError>
+
+    <EditorLoading v-else-if="loading"></EditorLoading>
+
+    <div v-else class="flex flex-col gap-2">
       <EditorEntityRow
         v-for="playlist in playlists"
         :key="playlist.id"
@@ -29,19 +34,29 @@
         :to="`/editor/music/${playlist.id}`"
         @delete="remove(playlist)"
       >
-        <span v-if="playlist.description" class="truncate text-xs text-foreground/60">
+        <span
+          v-if="playlist.description"
+          class="truncate text-sm font-medium text-foreground/60"
+        >
           {{ playlist.description }}
         </span>
-        <span class="text-xs text-foreground/40">
-          {{ $t('music.editor.songCount', { count: playlist.songs?.length ?? 0 }) }}
+        <span class="text-sm font-medium text-foreground/60">
+          {{
+            $t(
+              'music.editor.songCount',
+              { count: playlist.songs?.length ?? 0 },
+              playlist.songs?.length ?? 0
+            )
+          }}
         </span>
       </EditorEntityRow>
 
-      <p v-if="!playlists.length" class="py-4 text-center text-sm text-foreground/40">
-        {{ $t('music.editor.noPlaylists') }}
-      </p>
+      <EditorEmptyState
+        v-if="!playlists.length"
+        :message="$t('music.editor.noPlaylists')"
+      ></EditorEmptyState>
     </div>
-  </div>
+  </EditorPage>
 </template>
 
 <script setup lang="ts">
@@ -50,6 +65,13 @@ import { useI18n } from 'vue-i18n'
 
 import PlaylistForm from '@/components/music/PlaylistForm.vue'
 import EditorEntityRow from '@/components/editor/EditorEntityRow.vue'
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorEmptyState from '@/components/editor/ui/EditorEmptyState.vue'
+import EditorError from '@/components/editor/ui/EditorError.vue'
+import EditorLoading from '@/components/editor/ui/EditorLoading.vue'
+import EditorPage from '@/components/editor/ui/EditorPage.vue'
+import EditorPageHeader from '@/components/editor/ui/EditorPageHeader.vue'
+import Icon from '@/components/shared/Icon.vue'
 import { deletePlaylistRaw, getPlaylistsRaw } from '@/services/music'
 import { useToast } from '@/composables/useToast'
 
@@ -60,17 +82,26 @@ const toast = useToast()
 
 const playlists = ref<Playlist[]>([])
 const show_form = ref(false)
+const loading = ref(true)
+const load_failed = ref(false)
 
 async function fetchPlaylists(): Promise<void> {
+  loading.value = true
+  load_failed.value = false
+
   try {
     playlists.value = await getPlaylistsRaw()
   } catch {
-    toast.error(t('music.editor.failedLoad'))
+    playlists.value = []
+    load_failed.value = true
+  } finally {
+    loading.value = false
   }
 }
 
 async function onSaved(): Promise<void> {
   show_form.value = false
+  toast.success(t('common.done'))
   await fetchPlaylists()
 }
 
@@ -79,6 +110,7 @@ async function remove(playlist: Playlist): Promise<void> {
 
   try {
     await deletePlaylistRaw(playlist.id)
+    toast.success(t('common.deleted'))
     await fetchPlaylists()
   } catch {
     toast.error(t('music.editor.failedDelete'))

@@ -1,65 +1,70 @@
 <template>
-  <div class="flex flex-col gap-6">
-    <header class="flex flex-col gap-2">
-      <h1 class="text-2xl font-bold">{{ $t('map.editor.locationsTitle') }}<CursorBlink /></h1>
-      <p class="text-secondary">{{ $t('map.editor.locationsHint') }}</p>
-    </header>
-
-    <div v-if="!show_form" class="flex justify-end">
-      <button
-        class="rounded bg-accent px-3 py-1 text-sm font-semibold text-background hover:brightness-110"
-        @click="openForm"
-      >
-        {{ $t('map.editor.newLocation') }}
-      </button>
-    </div>
-
-    <form
-      v-else
-      class="flex flex-col gap-4 rounded-xl border border-accent/20 bg-background p-4"
-      @submit.prevent="create"
+  <EditorPage>
+    <EditorPageHeader
+      :title="$t('editor.mapLocations')"
+      :description="$t('map.editor.locationsHint')"
     >
-      <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold" for="new-map-location-title">
-          {{ $t('map.editor.titleField') }}
-        </label>
-        <input
-          id="new-map-location-title"
-          ref="title_input"
-          v-model="new_title"
-          class="rounded border border-accent/40 bg-background px-2 py-1 text-sm"
-          :placeholder="$t('map.editor.titlePlaceholder')"
-          :disabled="creating"
-        />
-        <p v-if="generated_slug" class="font-mono text-xs text-foreground/40">
-          {{ $t('map.editor.slugField') }}: {{ generated_slug }}
+      <template #actions>
+        <EditorButton v-if="!show_form" variant="primary" @click="openForm">
+          <Icon icon="mynaui:plus" height="1rem"></Icon>
+          {{ $t('map.editor.newLocation') }}
+        </EditorButton>
+      </template>
+    </EditorPageHeader>
+
+    <EditorSection v-if="show_form" :title="$t('map.editor.newLocation')">
+      <form class="flex flex-col gap-4" @submit.prevent="create">
+        <EditorField
+          :label="$t('map.editor.titleField')"
+          html-for="new-map-location-title"
+          required
+          :help="
+            generated_slug
+              ? $t('map.editor.slugField') + ': ' + generated_slug
+              : $t('map.editor.slugImmutable')
+          "
+        >
+          <EditorInput
+            id="new-map-location-title"
+            ref="title_input"
+            v-model="new_title"
+            :placeholder="$t('map.editor.titlePlaceholder')"
+            :disabled="creating"
+            required
+          ></EditorInput>
+        </EditorField>
+
+        <p v-if="collision" class="text-sm font-medium text-red-400" role="alert">
+          {{ $t('map.editor.slugCollision', { slug: generated_slug }) }}
         </p>
-      </div>
 
-      <p v-if="collision" class="text-sm text-red-400">
-        {{ $t('map.editor.slugCollision', { slug: generated_slug }) }}
-      </p>
+        <div class="flex justify-end gap-2">
+          <EditorButton variant="secondary" :disabled="creating" @click="closeForm">
+            {{ $t('common.cancel') }}
+          </EditorButton>
+          <EditorButton
+            type="submit"
+            variant="primary"
+            :disabled="creating || !generated_slug"
+            :loading="creating"
+          >
+            {{ $t('map.editor.create') }}
+          </EditorButton>
+        </div>
+      </form>
+    </EditorSection>
 
-      <div class="flex justify-end gap-2">
-        <button
-          type="button"
-          class="rounded border border-accent/40 px-3 py-1 text-sm hover:bg-accent/10"
-          :disabled="creating"
-          @click="closeForm"
-        >
-          {{ $t('common.cancel') }}
-        </button>
-        <button
-          type="submit"
-          class="rounded bg-accent px-3 py-1 text-sm font-semibold text-background hover:brightness-110 disabled:opacity-50"
-          :disabled="creating || !generated_slug"
-        >
-          {{ creating ? $t('common.saving') : $t('map.editor.create') }}
-        </button>
-      </div>
-    </form>
+    <EditorError v-else-if="load_failed" :message="t('map.editor.failedLoad')">
+      <template #actions>
+        <EditorButton variant="secondary" @click="fetchLocations">
+          {{ $t('common.retry') }}
+        </EditorButton>
+      </template>
+    </EditorError>
 
-    <div v-if="!show_form" class="flex flex-col gap-2">
+    <EditorLoading v-else-if="loading"></EditorLoading>
+
+    <div v-else class="flex flex-col gap-2">
       <EditorEntityRow
         v-for="location in locations"
         :key="location.slug"
@@ -67,13 +72,18 @@
         :to="`/editor/travel/${location.slug}`"
         @delete="remove(location)"
       >
-        <span v-if="location.subtitle" class="truncate text-xs text-foreground/60">
+        <span
+          v-if="location.subtitle"
+          class="truncate text-sm font-medium text-foreground/60"
+        >
           {{ location.subtitle }}
         </span>
         <span class="flex items-center gap-2">
-          <span class="truncate font-mono text-xs text-foreground/40">{{ location.slug }}</span>
+          <span class="truncate font-mono text-sm font-medium text-foreground/60">
+            {{ location.slug }}
+          </span>
           <span
-            class="rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide"
+            class="rounded-full px-2 py-0.5 text-sm font-medium uppercase tracking-wide"
             :class="
               location.published
                 ? 'bg-emerald-600/20 text-emerald-400'
@@ -85,17 +95,12 @@
         </span>
       </EditorEntityRow>
 
-      <p v-if="loading" class="py-4 text-center text-sm text-foreground/40">
-        {{ $t('common.loading') }}
-      </p>
-      <p
-        v-else-if="!locations.length"
-        class="py-4 text-center text-sm text-foreground/40"
-      >
-        {{ $t('map.editor.noLocations') }}
-      </p>
+      <EditorEmptyState
+        v-if="!locations.length"
+        :message="$t('map.editor.noLocations')"
+      ></EditorEmptyState>
     </div>
-  </div>
+  </EditorPage>
 </template>
 
 <script setup lang="ts">
@@ -104,6 +109,16 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import EditorEntityRow from '@/components/editor/EditorEntityRow.vue'
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorEmptyState from '@/components/editor/ui/EditorEmptyState.vue'
+import EditorError from '@/components/editor/ui/EditorError.vue'
+import EditorField from '@/components/editor/ui/EditorField.vue'
+import EditorInput from '@/components/editor/ui/EditorInput.vue'
+import EditorLoading from '@/components/editor/ui/EditorLoading.vue'
+import EditorPage from '@/components/editor/ui/EditorPage.vue'
+import EditorPageHeader from '@/components/editor/ui/EditorPageHeader.vue'
+import EditorSection from '@/components/editor/ui/EditorSection.vue'
+import Icon from '@/components/shared/Icon.vue'
 import {
   deleteMapLocation,
   getAllMapLocationsRaw,
@@ -120,6 +135,7 @@ const router = useRouter()
 
 const locations = ref<MapLocation[]>([])
 const loading = ref(true)
+const load_failed = ref(false)
 const show_form = ref(false)
 const creating = ref(false)
 const new_title = ref('')
@@ -134,13 +150,15 @@ const collision = computed(
 
 async function fetchLocations(): Promise<void> {
   loading.value = true
+  load_failed.value = false
 
   try {
     const response = await getAllMapLocationsRaw()
 
     locations.value = Array.isArray(response) ? response : []
   } catch {
-    toast.error(t('map.editor.failedLoad'))
+    locations.value = []
+    load_failed.value = true
   } finally {
     loading.value = false
   }
@@ -184,6 +202,7 @@ async function create(): Promise<void> {
 
     show_form.value = false
     new_title.value = ''
+    toast.success(t('common.done'))
     await router.push(`/editor/travel/${slug}`)
   } catch {
     toast.error(t('map.editor.failedCreate'))
@@ -200,6 +219,7 @@ async function remove(location: MapLocation): Promise<void> {
   try {
     await deleteMapLocation(location.slug)
     locations.value = locations.value.filter((item) => item.slug !== location.slug)
+    toast.success(t('common.deleted'))
   } catch {
     toast.error(t('map.editor.failedDelete'))
   }

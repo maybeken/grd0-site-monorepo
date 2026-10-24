@@ -1,59 +1,62 @@
 <template>
   <div class="flex flex-col gap-3 rounded-xl border border-dotted p-3">
     <div class="flex flex-wrap items-center gap-2">
-      <span class="font-bold">{{ $t('article.editor.galleryTitle') }}</span>
+      <span class="text-lg font-bold">{{ $t('article.editor.galleryTitle') }}</span>
       <select
         v-if="!$props.collection"
         v-model="selected"
-        class="rounded-full border border-dotted px-3 py-1 bg-background"
+        class="rounded border border-foreground/40 bg-background px-2.5 py-1.5 text-lg font-medium"
       >
         <option v-for="option in collections" :key="option.id" :value="option.id">
           {{ option.label }}
         </option>
       </select>
-      <button class="ml-auto rounded-full border border-dotted px-3 py-1" @click="$emit('close')">
+      <EditorButton variant="secondary" size="sm" class="ml-auto" @click="$emit('close')">
         {{ $t('common.cancel') }}
-      </button>
+      </EditorButton>
     </div>
 
-    <p v-if="!loading && assets.length === 0" class="text-sm text-secondary">
+    <p v-if="!loading && assets.length === 0" class="text-lg font-medium text-foreground/60">
       {{ $t('article.editor.noAssets') }}
     </p>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 max-h-[50vh] overflow-y-auto">
+    <div class="grid max-h-[50vh] grid-cols-2 gap-2 overflow-y-auto md:grid-cols-4">
       <button
         v-for="asset in assets"
         :key="assetUri(asset)"
-        class="flex flex-col gap-1 rounded-xl bg-shade p-1 text-left text-xs"
+        class="flex flex-col gap-1 rounded-xl bg-shade p-1 text-left text-lg font-medium hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground/60"
         @click="select(asset)"
       >
         <CDNImage
-          class="w-full aspect-square object-cover rounded-lg"
+          class="aspect-square w-full rounded-lg object-cover"
           :uri="assetUri(asset)"
           :resolution="320"
           :quality="70"
         ></CDNImage>
-        <span class="truncate">{{ asset.filename }}</span>
+        <span class="truncate" :title="asset.filename">{{ asset.filename }}</span>
       </button>
     </div>
 
     <div class="flex justify-center">
-      <button
+      <EditorButton
         v-if="page < total_pages"
-        class="rounded-full border border-dotted px-4 py-1 disabled:opacity-50"
+        size="sm"
+        variant="secondary"
         :disabled="loading"
         @click="load(page + 1)"
       >
-        {{ $t('article.editor.loadMore') }}
-      </button>
+        {{ $t('common.loadMore') }}
+      </EditorButton>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-import { t } from '@/i18n'
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import CDNImage from '@/components/shared/CDNImage.vue'
 import { getGalleryCollectionRaw, loadMoreAssets } from '@/services/gallery'
 
 import type { Asset, GalleryCollection } from '@/interfaces/Gallery'
@@ -66,6 +69,8 @@ const $emit = defineEmits<{
   select: [asset: { collection: string; filename: string }]
   close: []
 }>()
+
+const { t } = useI18n()
 
 const collections = ref<{ id: string; label: string }[]>([])
 const selected = ref($props.collection ?? 'all')

@@ -3,14 +3,12 @@
     <div ref="editor" class="w-full"></div>
 
     <div class="flex items-center gap-2">
-      <button
-        class="rounded-full border border-dotted px-3 py-1 disabled:opacity-50"
-        :disabled="uploading"
-        @click="pickFile"
-      >
+      <EditorButton variant="secondary" size="sm" :disabled="uploading" @click="pickFile">
         {{ $t('article.editor.uploadImage') }}
-      </button>
-      <span v-if="uploading" class="text-sm text-secondary">{{ $t('common.saving') }}</span>
+      </EditorButton>
+      <span v-if="uploading" class="text-sm font-medium text-foreground/60">
+        {{ $t('common.saving') }}
+      </span>
       <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="onPick" />
     </div>
   </div>
@@ -18,10 +16,11 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 // @ts-ignore
 import OverType from 'overtype'
 
-import { t } from '@/i18n'
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
 import { useToast } from '@/composables/useToast'
 import { requestArticleAttachmentRaw } from '@/services/article'
 
@@ -33,6 +32,7 @@ interface Props {
 
 const $props = defineProps<Props>()
 
+const { t } = useI18n()
 const toast = useToast()
 
 const editor = useTemplateRef('editor')

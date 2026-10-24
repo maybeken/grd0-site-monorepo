@@ -1,34 +1,37 @@
 <template>
-  <div class="flex flex-wrap items-center gap-3 text-sm">
-    <span class="text-secondary">{{ summary }}</span>
+  <div class="flex flex-wrap items-center gap-3">
+    <span class="text-sm font-medium text-foreground/60">{{ summary }}</span>
 
     <div class="ml-auto flex flex-wrap items-center gap-1">
-      <button
-        class="rounded-full border border-dotted px-3 py-1 disabled:opacity-40"
+      <EditorButton
+        size="sm"
+        variant="secondary"
         :disabled="page <= 1"
         @click="$emit('change', page - 1)"
       >
         {{ $t('common.previous') }}
-      </button>
+      </EditorButton>
 
-      <button
+      <EditorButton
         v-for="value in pages"
         :key="value"
-        class="rounded-full border border-dotted px-3 py-1 disabled:opacity-40"
+        size="sm"
+        variant="secondary"
         :class="value === page ? 'bg-shade' : ''"
         :disabled="value === page"
         @click="$emit('change', value)"
       >
         {{ value }}
-      </button>
+      </EditorButton>
 
-      <button
-        class="rounded-full border border-dotted px-3 py-1 disabled:opacity-40"
+      <EditorButton
+        size="sm"
+        variant="secondary"
         :disabled="page >= last_page"
         @click="$emit('change', page + 1)"
       >
         {{ $t('common.next') }}
-      </button>
+      </EditorButton>
     </div>
   </div>
 </template>
@@ -36,6 +39,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
 
 interface Props {
   page: number

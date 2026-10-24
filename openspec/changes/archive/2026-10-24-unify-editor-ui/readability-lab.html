@@ -1,0 +1,1378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor readability lab</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
+
+:root {
+  --bg: #0a0a0a;
+  --fg: #f5f5f5;
+  --accent: #525252;
+  --red: #f87171;
+  --emerald: #34d399;
+  --orange: #fb923c;
+  --line: #262626;
+  --line-soft: #1a1a1a;
+
+  --muted-alpha: .6;
+  --border-alpha: .4;
+  --base-size: 18px;
+  --body-weight: 500;
+  --leading: 1.625;
+  --muted-color: #8d8d8d;
+  --border-color: #686868;
+  --focus-color: #a3a3a3;
+  --font-editor: 'Doto', ui-sans-serif, system-ui, sans-serif;
+  --font-lab: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; background: var(--bg); color: var(--fg); }
+
+body {
+  font-family: var(--font-lab);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea { font: inherit; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* ---------- lab shell ---------- */
+
+.lab {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  min-height: 100dvh;
+}
+
+.controls {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  overflow-y: auto;
+  padding: 24px 20px 40px;
+  background: #0c0c0c;
+  border-right: 1px solid var(--line);
+}
+
+.stage {
+  min-width: 0;
+  padding: 28px 28px 80px;
+}
+
+@media (max-width: 920px) {
+  .lab { grid-template-columns: 1fr; }
+  .controls {
+    position: static;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stage { padding: 20px 16px 64px; }
+}
+
+/* ---------- control rail ---------- */
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted-color);
+}
+
+.rail-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 650;
+  letter-spacing: -.01em;
+}
+
+.rail-intro {
+  margin: 0 0 22px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted-color);
+}
+
+.control-group {
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+
+.control-group h2 {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #d4d4d4;
+}
+
+.control {
+  margin-bottom: 16px;
+}
+.control:last-child { margin-bottom: 0; }
+
+.control-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+
+.control-head label {
+  font-size: 13px;
+  color: #e5e5e5;
+}
+
+.control-head output {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--muted-color);
+}
+
+input[type="range"] {
+  width: 100%;
+  margin: 0;
+  accent-color: #d4d4d4;
+  cursor: pointer;
+}
+
+.control-note {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted-color);
+}
+
+.seg {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.seg button {
+  flex: 1 1 auto;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: transparent;
+  color: #d4d4d4;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.seg button:hover { background: #171717; }
+
+.seg button[aria-pressed="true"] {
+  background: #f5f5f5;
+  border-color: #f5f5f5;
+  color: #0a0a0a;
+  font-weight: 600;
+}
+
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 13px;
+  color: #e5e5e5;
+}
+.check-row input {
+  width: 16px; height: 16px;
+  margin: 1px 0 0;
+  accent-color: #d4d4d4;
+}
+.check-row span small {
+  display: block;
+  color: var(--muted-color);
+  font-size: 12px;
+  line-height: 1.45;
+  margin-top: 2px;
+}
+
+.meters {
+  display: grid;
+  gap: 11px;
+}
+
+.meters-panel {
+  max-width: 1080px;
+  margin: 0 auto 20px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.meters-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.meters-panel-head h2 {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #d4d4d4;
+}
+
+.meters-panel-head p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted-color);
+}
+
+.meters-strip {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 980px) {
+  .meters-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .meters-strip { grid-template-columns: 1fr; }
+}
+
+.meter-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  color: #d4d4d4;
+}
+
+.meter-value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  color: var(--fg);
+}
+
+.badge {
+  display: inline-block;
+  min-width: 42px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-align: center;
+}
+.badge.pass { background: rgba(52,211,153,.16); color: #6ee7b7; }
+.badge.fail { background: rgba(248,113,113,.16); color: #fca5a5; }
+
+.meter-bar {
+  position: relative;
+  height: 5px;
+  margin-top: 5px;
+  border-radius: 999px;
+  background: #1f1f1f;
+  overflow: hidden;
+}
+.meter-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: #737373;
+}
+.meter-fill.pass { background: #34d399; }
+.meter-fill.fail { background: #f87171; }
+.meter-mark {
+  position: absolute;
+  top: -2px; bottom: -2px;
+  width: 1px;
+  background: #a3a3a3;
+  opacity: .7;
+}
+
+.reset {
+  width: 100%;
+  min-height: 38px;
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: #e5e5e5;
+  font-size: 13px;
+  cursor: pointer;
+}
+.reset:hover { background: #171717; }
+
+.font-status {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--muted-color);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* ---------- stage chrome ---------- */
+
+.stage-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1080px;
+  margin: 0 auto 20px;
+}
+
+.stage-actions {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.stage-actions .seg button {
+  min-height: 32px;
+  padding: 5px 10px;
+}
+
+.stage-actions .reset {
+  width: auto;
+  min-height: 32px;
+  margin-top: 0;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.stage-title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 650;
+  letter-spacing: -.015em;
+}
+
+.stage-sub {
+  margin: 5px 0 0;
+  font-size: 13px;
+  color: var(--muted-color);
+  max-width: 62ch;
+}
+
+.compare {
+  max-width: 1080px;
+  margin: 0 auto 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.compare-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 1fr;
+  gap: 12px;
+  padding: 9px 14px;
+  font-size: 12px;
+  line-height: 1.45;
+  border-bottom: 1px solid var(--line-soft);
+}
+.compare-row:last-child { border-bottom: 0; }
+.compare-row.head {
+  background: #101010;
+  color: var(--muted-color);
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.compare-row .now { color: #fca5a5; }
+.compare-row .next { color: #6ee7b7; }
+.compare-row strong { color: #e5e5e5; font-weight: 600; }
+
+@media (max-width: 720px) {
+  .compare-row { grid-template-columns: 1fr; gap: 4px; }
+  .compare-row.head { display: none; }
+}
+
+/* ---------- editor mock ---------- */
+
+.mock {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-editor);
+  font-size: var(--base-size);
+  font-weight: var(--body-weight);
+  line-height: var(--leading);
+}
+
+@media (max-width: 720px) {
+  .mock { padding: 18px; border-radius: 12px; }
+}
+
+.mock-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 22px;
+}
+
+.mock h1 {
+  margin: 0;
+  font-size: calc(var(--base-size) * 1.5);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+@media (min-width: 768px) {
+  .mock h1 { font-size: calc(var(--base-size) * 1.667); }
+}
+
+.mock h2 {
+  margin: 0;
+  font-size: max(17px, calc(var(--base-size) * 1.125));
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.mock p { margin: 0; }
+
+.muted { color: var(--muted-color); }
+
+.help {
+  margin-top: 6px !important;
+  font-size: max(16px, calc(var(--base-size) * .9));
+  line-height: 1.5;
+  color: var(--muted-color);
+}
+
+.meta {
+  font-size: max(14px, calc(var(--base-size) * .78));
+  color: var(--muted-color);
+}
+
+/* buttons */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--font-editor);
+  font-size: var(--base-size);
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: var(--fg);
+  font-weight: 600;
+}
+.btn.primary:hover { filter: brightness(1.12); }
+
+.btn.secondary {
+  border-color: var(--border-color);
+  color: var(--fg);
+}
+.btn.secondary:hover { background: rgba(245,245,245,.06); }
+
+.btn.destructive {
+  border-color: rgba(248,113,113,.55);
+  color: var(--red);
+}
+.btn.destructive:hover { background: rgba(248,113,113,.08); }
+
+.btn.icon {
+  width: 36px;
+  min-height: 36px;
+  padding: 0;
+  border-color: var(--border-color);
+  border-radius: 999px;
+  color: var(--fg);
+}
+.btn.icon:hover { background: rgba(245,245,245,.06); }
+
+.btn.small {
+  min-height: 30px;
+  padding: 4px 9px;
+  font-size: var(--base-size);
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+/* rows */
+
+.list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 9px;
+}
+
+.row-main { min-width: 0; flex: 1; }
+
+.row-title {
+  font-size: var(--base-size);
+  line-height: 1.35;
+  font-weight: var(--body-weight);
+}
+.row-title.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.row-title.wrap {
+  overflow-wrap: anywhere;
+}
+
+.row-sub {
+  margin-top: 3px !important;
+  font-size: max(14px, calc(var(--base-size) * .78));
+  line-height: 1.45;
+  color: var(--muted-color);
+}
+
+.row-actions {
+  display: flex;
+  gap: 6px;
+  flex: none;
+}
+
+@media (max-width: 640px) {
+  .row { align-items: flex-start; flex-direction: column; }
+  .row-actions { width: 100%; }
+}
+
+/* pills */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: max(14px, calc(var(--base-size) * .72));
+  font-weight: 650;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+.pill.published { background: rgba(52,211,153,.14); color: #6ee7b7; }
+.pill.draft { background: rgba(251,146,60,.14); color: #fdba74; }
+
+/* cards and forms */
+
+.card {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field.span-2 { grid-column: 1 / -1; }
+
+.field label {
+  font-size: var(--base-size);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.req { color: #fca5a5; }
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 38px;
+  padding: 7px 9px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-editor);
+  font-size: var(--base-size);
+  line-height: 1.4;
+}
+
+.field textarea { resize: vertical; line-height: var(--leading); }
+
+.field input::placeholder,
+.field textarea::placeholder { color: var(--muted-color); opacity: 1; }
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover { border-color: rgba(245,245,245,.55); }
+
+.field-error {
+  margin-top: 5px !important;
+  font-size: max(14px, calc(var(--base-size) * .75));
+  line-height: 1.45;
+  color: #fca5a5;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-soft);
+}
+
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .field.span-2 { grid-column: auto; }
+}
+
+/* states */
+
+[hidden] { display: none !important; }
+
+.skeleton-list { display: grid; gap: 8px; margin-bottom: 22px; }
+
+.skeleton-row {
+  height: 62px;
+  border-radius: 9px;
+  border: 1px solid var(--line-soft);
+  background: linear-gradient(100deg, #111 20%, #191919 38%, #111 56%);
+  background-size: 220% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: 120% 0; }
+  to { background-position: -120% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-row { animation: none; }
+}
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  padding: 30px 22px;
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+}
+
+.empty-title {
+  font-size: max(18px, calc(var(--base-size) * 1.05));
+  font-weight: 600;
+}
+
+.error-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(248,113,113,.5);
+  border-radius: 10px;
+  background: rgba(248,113,113,.06);
+}
+
+.error-title {
+  font-weight: 600;
+  color: #fca5a5;
+  font-size: max(17px, calc(var(--base-size) * .95));
+}
+
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 9px 13px;
+  border: 1px solid var(--border-color);
+  border-radius: 9px;
+  background: #111;
+  font-size: var(--base-size);
+  color: var(--fg);
+}
+
+.toast[data-tone="error"] { border-color: rgba(248,113,113,.5); color: #fca5a5; }
+
+.force-focus .focus-sample {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* notes */
+
+.notes {
+  max-width: 1080px;
+  margin: 28px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.notes h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 650;
+  color: #e5e5e5;
+}
+
+.notes p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--muted-color);
+}
+
+@media (max-width: 760px) {
+  .notes { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="lab">
+
+  <aside class="controls" aria-label="Readability controls">
+    <p class="eyebrow">Experiment</p>
+    <h1 class="rail-title">Readability lab</h1>
+    <p class="rail-intro">Adjust the tokens and watch the editor preview and live contrast meters. The preview uses Doto at the decided 18px/500 floor; this control rail uses a system font so the type experiment stays honest.</p>
+
+    <section class="control-group" aria-labelledby="type-heading">
+      <h2 id="type-heading">Type</h2>
+
+      <div class="control">
+        <div class="control-head"><label id="font-label">Preview typeface</label></div>
+        <div class="seg" role="group" aria-labelledby="font-label" id="font-toggle">
+          <button type="button" data-font="doto" aria-pressed="true">Doto</button>
+          <button type="button" data-font="system" aria-pressed="false">System sans</button>
+        </div>
+        <p class="control-note" id="font-status">Checking whether Doto loaded…</p>
+      </div>
+
+      <div class="control">
+        <div class="control-head">
+          <label for="size">Base size</label>
+          <output id="size-out" for="size">18px</output>
+        </div>
+        <input id="size" type="range" min="18" max="24" step="1" value="18">
+        <p class="control-note">The decided floor is 18px. Metadata stays at 14px; nothing in the editor goes below 14px.</p>
+      </div>
+
+      <div class="control">
+        <div class="control-head">
+          <label for="weight">Body weight</label>
+          <output id="weight-out" for="weight">500</output>
+        </div>
+        <input id="weight" type="range" min="400" max="700" step="100" value="500">
+        <p class="control-note">Doto's dots get denser as weight rises. Decided: 500 for body and controls.</p>
+      </div>
+
+      <div class="control">
+        <div class="control-head">
+          <label for="leading">Line height</label>
+          <output id="leading-out" for="leading">1.63</output>
+        </div>
+        <input id="leading" type="range" min="1.2" max="1.9" step="0.05" value="1.65">
+        <p class="control-note">Multi-line text should stay at 1.5 or above.</p>
+      </div>
+    </section>
+
+    <section class="control-group" aria-labelledby="contrast-heading">
+      <h2 id="contrast-heading">Contrast</h2>
+
+      <div class="control">
+        <div class="control-head">
+          <label for="muted">Muted text opacity</label>
+          <output id="muted-out" for="muted">60%</output>
+        </div>
+        <input id="muted" type="range" min="20" max="85" step="1" value="60">
+        <p class="control-note">App today uses 40%, which lands near 3.55:1 and fails AA.</p>
+      </div>
+
+      <div class="control">
+        <div class="control-head">
+          <label for="border">Control border opacity</label>
+          <output id="border-out" for="border">40%</output>
+        </div>
+        <input id="border" type="range" min="10" max="70" step="1" value="40">
+        <p class="control-note">Applied to foreground, not accent. Accent/40 is about 1.3:1.</p>
+      </div>
+
+      <div class="control">
+        <label class="check-row">
+          <input id="force-focus" type="checkbox">
+          <span>Always show focus
+            <small>Outlines the sample input and primary action without using the keyboard.</small>
+          </span>
+        </label>
+      </div>
+    </section>
+
+  </aside>
+
+  <main class="stage">
+    <div class="stage-bar">
+      <div>
+        <h1 class="stage-title">Editor readability lab</h1>
+        <p class="stage-sub">A live facsimile of the proposed editor surface. The decided direction is Doto at 18px/500. Change the controls on the left, switch states, and judge type, contrast, and hierarchy against the real content extremes.</p>
+      </div>
+      <div class="stage-actions">
+        <div class="seg" role="group" aria-label="Preview state" id="state-toggle">
+          <button type="button" data-state="default" aria-pressed="true">Default</button>
+          <button type="button" data-state="loading" aria-pressed="false">Loading</button>
+          <button type="button" data-state="empty" aria-pressed="false">Empty</button>
+          <button type="button" data-state="error" aria-pressed="false">Error</button>
+          <button type="button" data-state="long" aria-pressed="false">Long content</button>
+        </div>
+        <button type="button" class="reset" id="reset">Reset</button>
+      </div>
+    </div>
+
+    <div class="compare" role="table" aria-label="Current app versus proposed values">
+      <div class="compare-row head" role="row">
+        <span role="columnheader">Element</span>
+        <span role="columnheader">App today</span>
+        <span role="columnheader">Proposed</span>
+      </div>
+      <div class="compare-row" role="row">
+        <span role="cell"><strong>Typeface</strong></span>
+        <span class="now" role="cell">Doto 16px / weight 400</span>
+        <span class="next" role="cell">Doto 18px / weight 500</span>
+      </div>
+      <div class="compare-row" role="row">
+        <span role="cell"><strong>Muted text</strong></span>
+        <span class="now" role="cell">40% opacity · 3.55:1 · fails AA</span>
+        <span class="next" role="cell">60% opacity · 6.78:1 · passes AA</span>
+      </div>
+      <div class="compare-row" role="row">
+        <span role="cell"><strong>Control border</strong></span>
+        <span class="now" role="cell">accent/40 · 1.32:1 · fails 3:1</span>
+        <span class="next" role="cell">foreground/40 · 3.55:1 · passes 3:1</span>
+      </div>
+      <div class="compare-row" role="row">
+        <span role="cell"><strong>Primary button text</strong></span>
+        <span class="now" role="cell">dark text on accent · 2.53:1 · fails AA</span>
+        <span class="next" role="cell">light text on accent · 7.17:1 · passes AA</span>
+      </div>
+      <div class="compare-row" role="row">
+        <span role="cell"><strong>Smallest text</strong></span>
+        <span class="now" role="cell">10px status pills · 12px row actions</span>
+        <span class="next" role="cell">14px metadata · 18px body/controls at 500</span>
+      </div>
+      <div class="compare-row" role="row">
+        <span role="cell"><strong>Focus</strong></span>
+        <span class="now" role="cell">no visible focus ring</span>
+        <span class="next" role="cell">2px outline · 2px offset · 8.97:1</span>
+      </div>
+    </div>
+
+    <section class="meters-panel" aria-labelledby="meters-heading">
+      <div class="meters-panel-head">
+        <h2 id="meters-heading">Live meters</h2>
+        <p>Targets: 4.5:1 for text · 3:1 for boundaries</p>
+      </div>
+      <div class="meters meters-strip">
+        <div>
+          <div class="meter-top">
+            <span>Body text</span>
+            <span><span class="meter-value" id="body-ratio">18.16:1</span> <span class="badge pass" id="body-badge">AA</span></span>
+          </div>
+          <div class="meter-bar"><span class="meter-fill pass" id="body-bar"></span><span class="meter-mark" style="left:21.4%"></span></div>
+        </div>
+        <div>
+          <div class="meter-top">
+            <span>Muted / placeholder</span>
+            <span><span class="meter-value" id="muted-ratio">6.78:1</span> <span class="badge pass" id="muted-badge">AA</span></span>
+          </div>
+          <div class="meter-bar"><span class="meter-fill pass" id="muted-bar"></span><span class="meter-mark" style="left:21.4%"></span></div>
+        </div>
+        <div>
+          <div class="meter-top">
+            <span>Control border</span>
+            <span><span class="meter-value" id="border-ratio">3.55:1</span> <span class="badge pass" id="border-badge">3:1</span></span>
+          </div>
+          <div class="meter-bar"><span class="meter-fill pass" id="border-bar"></span><span class="meter-mark" style="left:14.3%"></span></div>
+        </div>
+        <div>
+          <div class="meter-top">
+            <span>Primary button text</span>
+            <span><span class="meter-value" id="primary-ratio">7.17:1</span> <span class="badge pass" id="primary-badge">AA</span></span>
+          </div>
+          <div class="meter-bar"><span class="meter-fill pass" id="primary-bar"></span><span class="meter-mark" style="left:21.4%"></span></div>
+        </div>
+        <div>
+          <div class="meter-top">
+            <span>Focus ring</span>
+            <span><span class="meter-value" id="focus-ratio">8.97:1</span> <span class="badge pass" id="focus-badge">3:1</span></span>
+          </div>
+          <div class="meter-bar"><span class="meter-fill pass" id="focus-bar"></span><span class="meter-mark" style="left:14.3%"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="mock" id="mock">
+      <header class="mock-header">
+        <div>
+          <h1>Beans</h1>
+          <p class="muted">Roasts and origins you have brewed.</p>
+        </div>
+        <button type="button" class="btn primary focus-sample" data-action="new">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          New Bean
+        </button>
+      </header>
+
+      <section data-panel="default" aria-label="Default state">
+        <div class="list">
+          <div class="row">
+            <div class="row-main">
+              <p class="row-title truncate" title="Ethiopia Yirgacheffe Kochere Natural Anaerobic">Ethiopia Yirgacheffe Kochere Natural Anaerobic</p>
+              <p class="row-sub">Ethiopia · Blue Bottle · Roasted 2026-09-14</p>
+            </div>
+            <div class="row-actions">
+              <button type="button" class="btn secondary small" data-action="edit">Edit</button>
+              <button type="button" class="btn destructive small" data-action="delete">Delete</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-main">
+              <p class="row-title truncate" title="Colombia Huila El Diviso Sidra">Colombia Huila El Diviso Sidra</p>
+              <p class="row-sub">Colombia · Passenger · Roasted 2026-10-02</p>
+            </div>
+            <div class="row-actions">
+              <button type="button" class="btn secondary small" data-action="edit">Edit</button>
+              <button type="button" class="btn destructive small" data-action="delete">Delete</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-main">
+              <p class="row-title truncate" title="Kenya Nyeri Gatomboya AA">Kenya Nyeri Gatomboya AA</p>
+              <p class="row-sub">Kenya · Tim Wendelboe · Roasted 2026-10-08</p>
+            </div>
+            <div class="row-actions">
+              <button type="button" class="btn secondary small" data-action="edit">Edit</button>
+              <button type="button" class="btn destructive small" data-action="delete">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <section class="card" aria-labelledby="edit-bean-title">
+          <div class="card-head">
+            <h2 id="edit-bean-title">Edit Bean</h2>
+            <span class="pill published">Published</span>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="bean-name">Name <span class="req" aria-hidden="true">*</span></label>
+              <input id="bean-name" class="focus-sample" value="Ethiopia Yirgacheffe Kochere" required>
+            </div>
+            <div class="field">
+              <label for="bean-origin">Origin</label>
+              <input id="bean-origin" value="Ethiopia">
+            </div>
+            <div class="field">
+              <label for="bean-roast">Roast date</label>
+              <input id="bean-roast" type="date" value="2026-09-14">
+            </div>
+            <div class="field">
+              <label for="bean-process">Process</label>
+              <select id="bean-process">
+                <option>Washed</option>
+                <option selected>Natural</option>
+                <option>Anaerobic</option>
+              </select>
+            </div>
+            <div class="field span-2 prose">
+              <label for="bean-notes">Description</label>
+              <textarea id="bean-notes" rows="3" placeholder="Tasting notes, flavour profile…">Jasmine, bergamot, white peach. A long, tea-like finish that stays bright as the cup cools.</textarea>
+              <p class="help">Use the notes printed on the bag. This field wraps at roughly 65 characters.</p>
+            </div>
+            <div class="field">
+              <label for="bean-altitude">Altitude (masl)</label>
+              <input id="bean-altitude" value="1900 masl">
+              <p class="field-error">Enter a number or range, e.g. 1900–2100.</p>
+            </div>
+            <div class="field">
+              <label for="bean-variety">Variety</label>
+              <input id="bean-variety" value="Heirloom" placeholder="e.g. Heirloom">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn secondary" data-action="cancel">Cancel</button>
+            <button type="button" class="btn primary" data-action="save">Save</button>
+          </div>
+        </section>
+
+        <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+      </section>
+
+      <section data-panel="loading" aria-label="Loading state" hidden>
+        <div class="skeleton-list" aria-busy="true">
+          <span class="sr-only">Loading beans…</span>
+          <div class="skeleton-row"></div>
+          <div class="skeleton-row"></div>
+          <div class="skeleton-row"></div>
+        </div>
+        <p class="muted">Loading beans…</p>
+      </section>
+
+      <section data-panel="empty" aria-label="Empty state" hidden>
+        <div class="empty">
+          <p class="empty-title">No beans yet.</p>
+          <p class="muted">Add the first bean to start tracking roasts and brew parameters.</p>
+          <button type="button" class="btn primary" data-action="new">New Bean</button>
+        </div>
+      </section>
+
+      <section data-panel="error" aria-label="Error state" hidden>
+        <div class="error-banner" role="alert">
+          <div>
+            <p class="error-title">Could not load beans.</p>
+            <p class="muted">Check your connection and try again.</p>
+          </div>
+          <button type="button" class="btn secondary" data-action="retry">Retry</button>
+        </div>
+      </section>
+
+      <section data-panel="long" aria-label="Long content state" hidden>
+        <div class="list">
+          <div class="row">
+            <div class="row-main">
+              <p class="row-title wrap">Ethiopia Yirgacheffe Kochere Natural Anaerobic Extended Fermentation Lot 14 — A name long enough to force a decision about wrapping</p>
+              <p class="row-sub">Ethiopia · Blue Bottle · Roasted 2026-09-14 · Very long subtitle to test the second line against the actions</p>
+            </div>
+            <div class="row-actions">
+              <button type="button" class="btn secondary small" data-action="edit">Edit</button>
+              <button type="button" class="btn destructive small" data-action="delete">Delete</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-main">
+              <p class="row-title truncate" title="Colombia Huila El Diviso Sidra Double Anaerobic Thermal Shock">Colombia Huila El Diviso Sidra Double Anaerobic Thermal Shock</p>
+              <p class="row-sub">Truncated on one line; the full value is in the tooltip.</p>
+            </div>
+            <div class="row-actions">
+              <button type="button" class="btn secondary small" data-action="edit">Edit</button>
+              <button type="button" class="btn destructive small" data-action="delete">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <section class="card" aria-labelledby="long-title">
+          <div class="card-head">
+            <h2 id="long-title">Edit Bean</h2>
+            <span class="pill draft">Draft</span>
+          </div>
+          <div class="form-grid">
+            <div class="field span-2">
+              <label for="long-name">Name <span class="req" aria-hidden="true">*</span></label>
+              <input id="long-name" value="Ethiopia Yirgacheffe Kochere Natural Anaerobic Extended Fermentation Lot 14">
+            </div>
+            <div class="field span-2 prose">
+              <label for="long-notes">Description</label>
+              <textarea id="long-notes" rows="5">Jasmine, bergamot, white peach. A long, tea-like finish that stays bright as the cup cools. This is deliberately a long paragraph so the line length and leading are visible at the same time. The field spans the full width of its card; the card width, not a character cap, controls the measure.</textarea>
+              <p class="help">Long prose stays readable because the measure is bounded, not because the window is small.</p>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn secondary" data-action="cancel">Cancel</button>
+            <button type="button" class="btn primary" data-action="save">Save</button>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <div class="notes">
+      <div>
+        <h3>Start with the typeface</h3>
+        <p>Doto stays by decision. The fix is size and weight: 18px at 500 makes the dots denser. Slide weight to 400 to see the old texture return, and toggle System sans only to see how much the typeface is doing.</p>
+      </div>
+      <div>
+        <h3>Then contrast and focus</h3>
+        <p>Can you read the muted description and placeholder without leaning in? Then check the input edges and turn on Always show focus.</p>
+      </div>
+      <div>
+        <h3>Then the extremes</h3>
+        <p>Switch to Long content. Titles should wrap or truncate without colliding with the row actions, and text fields should fill the card width without clipping.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var BG = [10, 10, 10];
+  var FG = [245, 245, 245];
+  var ACCENT = [82, 82, 82];
+  var FOCUS_ALPHA = 0.7;
+
+  var sizeInput = document.getElementById('size');
+  var weightInput = document.getElementById('weight');
+  var leadingInput = document.getElementById('leading');
+  var mutedInput = document.getElementById('muted');
+  var borderInput = document.getElementById('border');
+  var focusInput = document.getElementById('force-focus');
+  var mock = document.getElementById('mock');
+  var fontStatus = document.getElementById('font-status');
+
+  var sizeOut = document.getElementById('size-out');
+  var weightOut = document.getElementById('weight-out');
+  var leadingOut = document.getElementById('leading-out');
+  var mutedOut = document.getElementById('muted-out');
+  var borderOut = document.getElementById('border-out');
+
+  var bodyRatio = document.getElementById('body-ratio');
+  var bodyBadge = document.getElementById('body-badge');
+  var bodyBar = document.getElementById('body-bar');
+  var mutedRatio = document.getElementById('muted-ratio');
+  var mutedBadge = document.getElementById('muted-badge');
+  var mutedBar = document.getElementById('muted-bar');
+  var borderRatio = document.getElementById('border-ratio');
+  var borderBadge = document.getElementById('border-badge');
+  var borderBar = document.getElementById('border-bar');
+  var primaryRatio = document.getElementById('primary-ratio');
+  var primaryBadge = document.getElementById('primary-badge');
+  var primaryBar = document.getElementById('primary-bar');
+  var focusRatio = document.getElementById('focus-ratio');
+  var focusBadge = document.getElementById('focus-badge');
+  var focusBar = document.getElementById('focus-bar');
+
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+  var currentFont = 'doto';
+
+  function channelToLinear(value) {
+    var c = value / 255;
+    return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  }
+
+  function luminance(rgb) {
+    return 0.2126 * channelToLinear(rgb[0]) +
+           0.7152 * channelToLinear(rgb[1]) +
+           0.0722 * channelToLinear(rgb[2]);
+  }
+
+  function contrast(a, b) {
+    var la = luminance(a);
+    var lb = luminance(b);
+    var lighter = Math.max(la, lb);
+    var darker = Math.min(la, lb);
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+
+  function blend(alpha, fg, bg) {
+    return fg.map(function (value, index) {
+      return Math.round(alpha * value + (1 - alpha) * bg[index]);
+    });
+  }
+
+  function css(rgb) {
+    return 'rgb(' + rgb[0] + ' ' + rgb[1] + ' ' + rgb[2] + ')';
+  }
+
+  function applyMeter(ratioEl, badgeEl, barEl, ratio, threshold) {
+    var pass = ratio >= threshold;
+    ratioEl.textContent = ratio.toFixed(2) + ':1';
+    badgeEl.textContent = pass ? (threshold === 4.5 ? 'AA' : '3:1') : 'FAIL';
+    badgeEl.className = 'badge ' + (pass ? 'pass' : 'fail');
+    barEl.className = 'meter-fill ' + (pass ? 'pass' : 'fail');
+    barEl.style.width = Math.min(100, (ratio / 21) * 100) + '%';
+  }
+
+  function update() {
+    var size = Number(sizeInput.value);
+    var weight = Number(weightInput.value);
+    var leading = Number(leadingInput.value);
+    var mutedAlpha = Number(mutedInput.value) / 100;
+    var borderAlpha = Number(borderInput.value) / 100;
+    var focusColor = blend(FOCUS_ALPHA, FG, BG);
+    var mutedColor = blend(mutedAlpha, FG, BG);
+    var borderColor = blend(borderAlpha, FG, BG);
+
+    root.style.setProperty('--base-size', size + 'px');
+    root.style.setProperty('--body-weight', String(weight));
+    root.style.setProperty('--leading', String(leading));
+    root.style.setProperty('--muted-color', css(mutedColor));
+    root.style.setProperty('--border-color', css(borderColor));
+    root.style.setProperty('--focus-color', css(focusColor));
+    root.style.setProperty('--font-editor', currentFont === 'doto'
+      ? "'Doto', ui-sans-serif, system-ui, sans-serif"
+      : "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif");
+
+    sizeOut.textContent = size + 'px';
+    weightOut.textContent = String(weight);
+    leadingOut.textContent = leading.toFixed(2);
+    mutedOut.textContent = Math.round(mutedAlpha * 100) + '%';
+    borderOut.textContent = Math.round(borderAlpha * 100) + '%';
+
+    applyMeter(bodyRatio, bodyBadge, bodyBar, contrast(FG, BG), 4.5);
+    applyMeter(mutedRatio, mutedBadge, mutedBar, contrast(mutedColor, BG), 4.5);
+    applyMeter(borderRatio, borderBadge, borderBar, contrast(borderColor, BG), 3);
+    applyMeter(primaryRatio, primaryBadge, primaryBar, contrast(FG, ACCENT), 4.5);
+    applyMeter(focusRatio, focusBadge, focusBar, contrast(focusColor, BG), 3);
+
+    mock.classList.toggle('force-focus', focusInput.checked);
+  }
+
+  function showToast(message, tone) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.hidden = false;
+    toast.setAttribute('data-tone', tone || 'success');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toast.hidden = true;
+    }, 2600);
+  }
+
+  sizeInput.addEventListener('input', update);
+  weightInput.addEventListener('input', update);
+  leadingInput.addEventListener('input', update);
+  mutedInput.addEventListener('input', update);
+  borderInput.addEventListener('input', update);
+  focusInput.addEventListener('change', update);
+
+  document.querySelectorAll('#font-toggle button').forEach(function (button) {
+    button.addEventListener('click', function () {
+      currentFont = button.dataset.font;
+      document.querySelectorAll('#font-toggle button').forEach(function (other) {
+        other.setAttribute('aria-pressed', String(other === button));
+      });
+      update();
+    });
+  });
+
+  document.querySelectorAll('#state-toggle button').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var state = button.dataset.state;
+      document.querySelectorAll('[data-panel]').forEach(function (panel) {
+        panel.hidden = panel.dataset.panel !== state;
+      });
+      document.querySelectorAll('#state-toggle button').forEach(function (other) {
+        other.setAttribute('aria-pressed', String(other === button));
+      });
+    });
+  });
+
+  document.getElementById('reset').addEventListener('click', function () {
+    sizeInput.value = '18';
+    weightInput.value = '500';
+    leadingInput.value = '1.65';
+    mutedInput.value = '60';
+    borderInput.value = '40';
+    focusInput.checked = false;
+    currentFont = 'doto';
+    document.querySelectorAll('#font-toggle button').forEach(function (button) {
+      button.setAttribute('aria-pressed', String(button.dataset.font === 'doto'));
+    });
+    update();
+  });
+
+  mock.addEventListener('click', function (event) {
+    var action = event.target.closest('[data-action]');
+    if (!action) return;
+    var name = action.dataset.action;
+    if (name === 'save') showToast('Bean saved.');
+    if (name === 'delete') showToast('Bean deleted.', 'error');
+    if (name === 'retry') showToast('Retrying…');
+    if (name === 'cancel') showToast('Changes discarded.');
+    if (name === 'edit') showToast('Opened the bean.');
+    if (name === 'new') {
+      showToast('New bean form opened.');
+      var firstInput = mock.querySelector('[data-panel="default"] input');
+      if (firstInput) firstInput.focus();
+    }
+  });
+
+  update();
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      var loaded = document.fonts.check('16px Doto');
+      fontStatus.textContent = loaded
+        ? 'Doto loaded.'
+        : 'Doto unavailable in this environment; the preview is using the system fallback.';
+    });
+  } else {
+    fontStatus.textContent = 'Font loading status unavailable.';
+  }
+})();
+</script>
+</body>
+</html>

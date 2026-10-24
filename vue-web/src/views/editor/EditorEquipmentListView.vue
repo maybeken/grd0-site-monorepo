@@ -1,17 +1,13 @@
 <template>
-  <div class="flex flex-col gap-6">
-    <header class="flex flex-col gap-2">
-      <h1 class="text-2xl font-bold">{{ $t('editor.equipment') }}<CursorBlink /></h1>
-    </header>
-
-    <div v-if="!show_form" class="flex justify-end">
-      <button
-        class="rounded bg-accent px-3 py-1 text-sm font-semibold text-background hover:brightness-110"
-        @click="show_form = true"
-      >
-        {{ $t('coffee.editor.newEquipment') }}
-      </button>
-    </div>
+  <EditorPage>
+    <EditorPageHeader :title="$t('editor.equipment')">
+      <template #actions>
+        <EditorButton v-if="!show_form" variant="primary" @click="show_form = true">
+          <Icon icon="mynaui:plus" height="1rem"></Icon>
+          {{ $t('coffee.editor.newEquipment') }}
+        </EditorButton>
+      </template>
+    </EditorPageHeader>
 
     <EquipmentForm
       v-if="show_form"
@@ -20,7 +16,17 @@
       @cancel="show_form = false"
     ></EquipmentForm>
 
-    <div v-if="!show_form" class="flex flex-col gap-2">
+    <EditorError v-else-if="load_failed" :message="t('editor.loadFailed')">
+      <template #actions>
+        <EditorButton variant="secondary" @click="fetchEquipment">
+          {{ $t('common.retry') }}
+        </EditorButton>
+      </template>
+    </EditorError>
+
+    <EditorLoading v-else-if="loading"></EditorLoading>
+
+    <div v-else class="flex flex-col gap-2">
       <EditorEntityRow
         v-for="item in equipment"
         :key="item.id"
@@ -28,14 +34,17 @@
         :to="`/editor/coffee/equipment/${item.id}`"
         @delete="remove(item)"
       >
-        <span v-if="item.type" class="truncate text-xs text-foreground/60">{{ item.type }}</span>
+        <span v-if="item.type" class="truncate text-sm font-medium text-foreground/60">
+          {{ item.type }}
+        </span>
       </EditorEntityRow>
 
-      <p v-if="!equipment.length" class="py-4 text-center text-sm text-foreground/40">
-        {{ $t('coffee.editor.noEquipment') }}
-      </p>
+      <EditorEmptyState
+        v-if="!equipment.length"
+        :message="$t('coffee.editor.noEquipment')"
+      ></EditorEmptyState>
     </div>
-  </div>
+  </EditorPage>
 </template>
 
 <script setup lang="ts">
@@ -44,6 +53,13 @@ import { useI18n } from 'vue-i18n'
 
 import EquipmentForm from '@/components/coffee/EquipmentForm.vue'
 import EditorEntityRow from '@/components/editor/EditorEntityRow.vue'
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorEmptyState from '@/components/editor/ui/EditorEmptyState.vue'
+import EditorError from '@/components/editor/ui/EditorError.vue'
+import EditorLoading from '@/components/editor/ui/EditorLoading.vue'
+import EditorPage from '@/components/editor/ui/EditorPage.vue'
+import EditorPageHeader from '@/components/editor/ui/EditorPageHeader.vue'
+import Icon from '@/components/shared/Icon.vue'
 import { deleteCoffeeEquipmentRaw, getCoffeeEquipmentRaw } from '@/services/coffee'
 import { useToast } from '@/composables/useToast'
 
@@ -54,25 +70,35 @@ const toast = useToast()
 
 const equipment = ref<BrewEquipment[]>([])
 const show_form = ref(false)
+const loading = ref(true)
+const load_failed = ref(false)
 
 async function fetchEquipment(): Promise<void> {
+  loading.value = true
+  load_failed.value = false
+
   try {
     equipment.value = await getCoffeeEquipmentRaw()
   } catch {
-    toast.error(t('editor.loadFailed'))
+    equipment.value = []
+    load_failed.value = true
+  } finally {
+    loading.value = false
   }
 }
 
 async function onSaved(): Promise<void> {
   show_form.value = false
+  toast.success(t('common.done'))
   await fetchEquipment()
 }
 
 async function remove(item: BrewEquipment): Promise<void> {
-  if (!item.id || !confirm(t('coffee.editor.confirmDeleteEquipment', { name: item.name }))) return
+  if (!item.id || !confirm(t('common.confirmDeleteItem', { name: item.name }))) return
 
   try {
     await deleteCoffeeEquipmentRaw(item.id)
+    toast.success(t('common.deleted'))
     await fetchEquipment()
   } catch {
     toast.error(t('coffee.editor.failedDeleteEquipment'))

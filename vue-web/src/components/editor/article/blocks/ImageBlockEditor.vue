@@ -1,32 +1,32 @@
 <template>
   <div class="flex flex-col gap-2">
-    <div v-if="preview_uri" class="flex flex-col md:flex-row gap-3">
+    <div v-if="preview_uri" class="flex flex-col gap-3 md:flex-row">
       <CDNImage
-        class="w-full md:w-1/2 rounded-xl"
+        class="w-full rounded-xl md:w-1/2"
         :uri="preview_uri"
         :resolution="640"
         :quality="75"
       ></CDNImage>
 
-      <div class="flex flex-col gap-2 w-full">
-        <span class="text-sm text-secondary">{{ $props.block.filename }}</span>
-        <input
-          class="rounded-full border border-dotted px-3 py-1 bg-background"
-          type="text"
-          :placeholder="$t('article.editor.captionPlaceholder')"
+      <div class="flex w-full flex-col gap-2">
+        <span class="truncate text-sm font-medium text-foreground/60" :title="$props.block.filename">
+          {{ $props.block.filename }}
+        </span>
+        <EditorInput
           v-model="$props.block.caption"
-        />
-        <button class="rounded-full border border-dotted px-3 py-1" @click="picker = !picker">
+          :placeholder="$t('article.editor.captionPlaceholder')"
+        ></EditorInput>
+        <EditorButton variant="secondary" size="sm" @click="picker = !picker">
           {{ $t('article.editor.changeImage') }}
-        </button>
+        </EditorButton>
       </div>
     </div>
 
     <div v-else class="flex flex-wrap items-center gap-2">
-      <p class="text-secondary">{{ $t('article.editor.noSelection') }}</p>
-      <button class="rounded-full border border-dotted px-3 py-1" @click="picker = true">
+      <p class="text-lg font-medium text-foreground/60">{{ $t('article.editor.noSelection') }}</p>
+      <EditorButton variant="secondary" size="sm" @click="picker = true">
         {{ $t('article.editor.chooseImage') }}
-      </button>
+      </EditorButton>
     </div>
 
     <GalleryPicker
@@ -39,6 +39,11 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorInput from '@/components/editor/ui/EditorInput.vue'
+import CDNImage from '@/components/shared/CDNImage.vue'
+import GalleryPicker from './../GalleryPicker.vue'
 
 import type { ArticleBlockImage } from '@/interfaces/Article'
 

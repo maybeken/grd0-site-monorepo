@@ -1,103 +1,110 @@
 <template>
-  <div class="flex flex-col gap-4 rounded-xl border border-accent/20 bg-background p-4">
-    <div class="flex items-center justify-between">
-      <h3 class="text-lg font-bold">
-        {{ is_edit ? $t('music.editor.songTitleEdit') : $t('music.editor.songTitleNew') }}
-      </h3>
-      <div class="flex gap-2">
-        <button
-          v-if="is_edit && deletable"
-          class="rounded border border-red-500/40 px-3 py-1 text-sm text-red-400 hover:bg-red-500/10 disabled:opacity-50"
-          :disabled="saving"
-          @click="requestDelete"
-        >
-          {{ $t('common.delete') }}
-        </button>
-        <button
-          class="rounded border border-accent/40 px-3 py-1 text-sm hover:bg-accent/10"
-          @click="$emit('cancel')"
-        >
-          {{ $t('common.cancel') }}
-        </button>
-        <button
-          class="rounded bg-accent px-3 py-1 text-sm font-semibold text-background hover:brightness-110 disabled:opacity-50"
-          :disabled="saving || !can_save"
-          @click="save"
-        >
-          {{ saving ? $t('common.saving') : $t('common.save') }}
-        </button>
-      </div>
-    </div>
-
-    <div class="flex flex-wrap items-center gap-2 text-sm">
-      <span class="text-foreground/60">{{ $t('music.editor.videoField') }}:</span>
-      <span class="font-mono">{{ form.v || $t('music.editor.videoUnset') }}</span>
-      <button
-        v-if="!is_edit"
-        class="rounded border border-accent/40 px-2 py-1 text-xs hover:bg-accent/10"
-        @click="picker = true"
+  <EditorSection
+    :title="is_edit ? $t('music.editor.songTitleEdit') : $t('music.editor.songTitleNew')"
+  >
+    <template #actions>
+      <EditorButton
+        v-if="is_edit && deletable"
+        variant="destructive"
+        :disabled="saving"
+        @click="requestDelete"
       >
-        {{ form.v ? $t('music.editor.changeLink') : $t('music.editor.resolveLink') }}
-      </button>
-    </div>
+        {{ $t('common.delete') }}
+      </EditorButton>
+      <EditorButton variant="secondary" @click="requestCancel">
+        {{ $t('common.cancel') }}
+      </EditorButton>
+      <EditorButton
+        type="submit"
+        :form="formId"
+        variant="primary"
+        :disabled="saving || !can_save"
+        :loading="saving"
+      >
+        {{ $t('common.save') }}
+      </EditorButton>
+    </template>
 
-    <MusicPicker
-      v-if="picker"
-      :link_only="true"
-      @select="onSelect"
-      @close="picker = false"
-    ></MusicPicker>
-
-    <div
-      v-if="duplicate"
-      class="flex flex-wrap items-center gap-2 rounded border border-accent/30 bg-shade px-3 py-2 text-sm"
-    >
-      <span>{{ $t('music.editor.duplicateSong') }}</span>
-      <button class="underline hover:text-accent" @click="editExisting">
-        {{ $t('music.editor.editExisting') }}
-      </button>
-    </div>
-
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-      <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">{{ $t('music.editor.songTitleField') }}</label>
-        <input
-          v-model="form.title"
-          class="rounded border border-accent/40 bg-background px-2 py-1 text-sm"
-          :placeholder="$t('music.editor.songTitlePlaceholder')"
-        />
+    <form :id="formId" class="flex flex-col gap-4" @submit.prevent="save">
+      <div class="flex flex-wrap items-center gap-2 text-lg font-medium">
+        <span class="text-foreground/60">{{ $t('music.editor.videoField') }}:</span>
+        <span class="font-mono">{{ form.v || $t('music.editor.videoUnset') }}</span>
+        <EditorButton
+          v-if="!is_edit"
+          size="sm"
+          variant="secondary"
+          @click="picker = true"
+        >
+          {{ form.v ? $t('music.editor.changeLink') : $t('music.editor.resolveLink') }}
+        </EditorButton>
       </div>
 
-      <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold">{{ $t('music.editor.songArtistField') }}</label>
-        <input
-          v-model="form.artist"
-          class="rounded border border-accent/40 bg-background px-2 py-1 text-sm"
-          :placeholder="$t('music.editor.songArtistPlaceholder')"
-        />
-      </div>
-    </div>
+      <MusicPicker
+        v-if="picker"
+        :link_only="true"
+        @select="onSelect"
+        @close="picker = false"
+      ></MusicPicker>
 
-    <div class="flex flex-col gap-1">
-      <label class="text-sm font-semibold">{{ $t('music.editor.notesField') }}</label>
-      <textarea
-        v-model="form.description"
-        rows="3"
-        class="resize-y rounded border border-accent/40 bg-background px-2 py-1 text-sm"
-        :placeholder="$t('music.editor.notesPlaceholder')"
-      />
-    </div>
-  </div>
+      <div
+        v-if="duplicate"
+        class="flex flex-wrap items-center gap-2 rounded border border-accent/30 bg-shade px-3 py-2 text-lg"
+      >
+        <span>{{ $t('music.editor.duplicateSong') }}</span>
+        <button
+          type="button"
+          class="font-medium underline hover:text-foreground"
+          @click="editExisting"
+        >
+          {{ $t('music.editor.editExisting') }}
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <EditorField :label="$t('music.editor.songTitleField')" html-for="song-title" required>
+          <EditorInput
+            id="song-title"
+            v-model="form.title"
+            :placeholder="$t('music.editor.songTitlePlaceholder')"
+            required
+          ></EditorInput>
+        </EditorField>
+
+        <EditorField :label="$t('music.editor.songArtistField')" html-for="song-artist">
+          <EditorInput
+            id="song-artist"
+            v-model="form.artist"
+            :placeholder="$t('music.editor.songArtistPlaceholder')"
+          ></EditorInput>
+        </EditorField>
+      </div>
+
+      <EditorField :label="$t('music.editor.notesField')" html-for="song-notes">
+        <EditorTextarea
+          id="song-notes"
+          v-model="form.description"
+          :placeholder="$t('music.editor.notesPlaceholder')"
+        ></EditorTextarea>
+      </EditorField>
+    </form>
+  </EditorSection>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import MusicPicker from '@/components/editor/article/MusicPicker.vue'
-import { upsertMusicRaw } from '@/services/music'
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import EditorField from '@/components/editor/ui/EditorField.vue'
+import EditorInput from '@/components/editor/ui/EditorInput.vue'
+import EditorSection from '@/components/editor/ui/EditorSection.vue'
+import EditorTextarea from '@/components/editor/ui/EditorTextarea.vue'
+import { useConfirmDiscard } from '@/composables/useConfirmDiscard'
+import { useSaveShortcut } from '@/composables/useSaveShortcut'
 import { useToast } from '@/composables/useToast'
 import { useUnsavedGuard } from '@/composables/useUnsavedGuard'
+import { upsertMusicRaw } from '@/services/music'
 
 import type { Music } from '@/interfaces/Music'
 
@@ -106,13 +113,15 @@ interface Props {
   catalogue?: Music[]
   membership?: number
   deletable?: boolean
+  formId?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   entry: null,
   catalogue: () => [],
   membership: 0,
-  deletable: false
+  deletable: false,
+  formId: 'music-entry-form'
 })
 
 const emit = defineEmits<{
@@ -124,6 +133,7 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const toast = useToast()
+const confirmDiscard = useConfirmDiscard()
 
 const is_edit = computed(() => !!props.entry?.v)
 const saving = ref(false)
@@ -157,10 +167,10 @@ watch(
 )
 
 const dirty = computed(() => snapshot() !== baseline.value)
+const can_save = computed(() => !!form.v && !!form.title.trim() && dirty.value)
 
 useUnsavedGuard(dirty)
-
-const can_save = computed(() => !!form.v && !!form.title.trim())
+useSaveShortcut(save, { enabled: () => can_save.value && !saving.value })
 
 function onSelect(song: { v: string; title: string; artist?: string }): void {
   picker.value = false
@@ -183,6 +193,13 @@ function editExisting(): void {
   if (!duplicate.value) return
 
   emit('edit', duplicate.value.v)
+}
+
+function requestCancel(): void {
+  if (!confirmDiscard(dirty.value)) return
+
+  baseline.value = snapshot()
+  emit('cancel')
 }
 
 function requestDelete(): void {
@@ -239,13 +256,5 @@ async function save(): Promise<void> {
   }
 }
 
-function on_save_shortcut(event: KeyboardEvent): void {
-  if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== 's') return
-
-  event.preventDefault()
-  void save()
-}
-
-onMounted(() => window.addEventListener('keydown', on_save_shortcut))
-onBeforeUnmount(() => window.removeEventListener('keydown', on_save_shortcut))
+defineExpose({ requestCancel })
 </script>

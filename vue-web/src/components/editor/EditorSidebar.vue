@@ -11,29 +11,32 @@
       <RouterLink to="/" class="text-lg font-extrabold uppercase tracking-wide">
         grd0.net
       </RouterLink>
-      <button
-        class="rounded border border-accent/40 p-1 lg:hidden"
-        :aria-label="$t('editor.closeMenu')"
+      <EditorButton
+        variant="icon"
+        :label="$t('editor.closeMenu')"
+        class="lg:hidden"
         @click="$emit('close')"
       >
-        <Icon icon="mynaui:x" />
-      </button>
+        <Icon icon="mynaui:x"></Icon>
+      </EditorButton>
     </div>
 
     <nav class="flex flex-1 flex-col gap-6 overflow-y-auto px-3 pb-6">
       <div v-for="group in groups" :key="group.label">
-        <p class="px-2 pb-2 text-xs font-semibold uppercase tracking-widest text-secondary">
+        <p
+          class="px-2 pb-2 text-sm font-medium uppercase tracking-widest text-foreground/60"
+        >
           {{ $t(group.label) }}
         </p>
         <RouterLink
           v-for="item in group.items"
           :key="item.to"
           :to="item.to"
-          class="block rounded px-2 py-2 text-sm transition-colors"
+          class="block rounded px-2 py-2 text-lg font-medium transition-colors"
           :class="
             isActive(item)
-              ? 'bg-accent text-background font-semibold'
-              : 'text-foreground/70 hover:bg-accent/10 hover:text-foreground'
+              ? 'bg-accent font-semibold text-foreground'
+              : 'text-foreground/60 hover:bg-accent/10 hover:text-foreground'
           "
           :aria-current="isActive(item) ? 'page' : undefined"
         >
@@ -43,7 +46,10 @@
     </nav>
 
     <div class="border-t border-accent/20 p-3">
-      <RouterLink to="/" class="block rounded px-2 py-2 text-sm text-secondary hover:bg-accent/10">
+      <RouterLink
+        to="/"
+        class="block rounded px-2 py-2 text-lg font-medium text-foreground/60 hover:bg-accent/10"
+      >
         {{ $t('editor.viewSite') }}
       </RouterLink>
     </div>
@@ -53,6 +59,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+
+import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import Icon from '@/components/shared/Icon.vue'
 
 defineProps<{
   open: boolean
