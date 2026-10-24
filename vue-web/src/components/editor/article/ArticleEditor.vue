@@ -1,5 +1,5 @@
 <template>
-  <EditorPage full class="lg:h-[calc(100vh-3rem)] lg:min-h-0">
+  <EditorPage class="lg:h-[calc(100vh-3rem)] lg:min-h-0">
     <EditorPageHeader
       :title="article?.title || $t('article.editor.title')"
       title-sr-only

@@ -8,7 +8,7 @@ Defines the shared visual and verbal language of the authenticated editor consol
 
 ### Requirement: Shared editor page skeleton
 
-Every editor list and edit page SHALL render through one page skeleton: a vertical stack with consistent spacing, a page header region, and a content region. Pages SHALL NOT hand-roll their own top-level spacing, heading block, or action row. The article editing workspace MAY use the full available width because it is a split editor; every other page SHALL use the standard content width.
+Every editor list and edit page SHALL render through one page skeleton: a vertical stack with consistent spacing, a page header region, and a content region. Pages SHALL NOT hand-roll their own top-level spacing, heading block, or action row. Every editor page SHALL use the full available width.
 
 #### Scenario: List page structure
 - **WHEN** an author opens any section list page
@@ -18,11 +18,11 @@ Every editor list and edit page SHALL render through one page skeleton: a vertic
 #### Scenario: Edit page structure
 - **WHEN** an author opens any item edit page
 - **THEN** the page SHALL render the shared page header followed by the edit form
-- **THEN** the content width SHALL match the standard edit width
+- **THEN** the content SHALL use the full available width
 
-#### Scenario: Article workspace exception
+#### Scenario: Article workspace layout
 - **WHEN** an author opens an article edit route
-- **THEN** the split workspace MAY span the full available width
+- **THEN** the split workspace SHALL keep its editor and preview panes
 - **THEN** its header and actions SHALL still follow the shared header composition
 
 ### Requirement: Page header composition
