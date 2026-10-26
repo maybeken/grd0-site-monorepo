@@ -1,0 +1,14 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - air-tmp:/tmp/grd0-api-air
+    init: true
+
+volumes:
+  air-tmp:

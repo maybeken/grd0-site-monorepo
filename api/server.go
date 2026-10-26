@@ -35,10 +35,13 @@ func main() {
 	db := database.OpenDatabase(db_path)
 	database.AutoMigrate(db)
 
-	s3client, err := storage.InitiateClient(utils.GetEnv("S3_ENDPOINT"), utils.GetEnv("S3_ACCESS_KEY_ID"), utils.GetEnv("S3_SECRET_ACCESS_KEY"))
-
-	if err != nil {
-		panic(err)
+	var s3client *storage.S3
+	if !local_environment {
+		client, err := storage.InitiateClient(utils.GetEnv("S3_ENDPOINT"), utils.GetEnv("S3_ACCESS_KEY_ID"), utils.GetEnv("S3_SECRET_ACCESS_KEY"))
+		if err != nil {
+			panic(err)
+		}
+		s3client = client
 	}
 
 	blob_backend := utils.GetEnvWithFallback("BLOB_BACKEND", "local")

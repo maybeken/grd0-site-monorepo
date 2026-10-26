@@ -757,6 +757,10 @@ func (h *Handler) GenerateArticlePresignedUrl(c echo.Context) error {
 		return h.ErrorResponseConstructor(c, http.StatusBadRequest, "Invalid attachment key.")
 	}
 
+	if h.S3 == nil {
+		return h.ErrorResponseConstructor(c, http.StatusNotImplemented, "Attachment uploads are unavailable in local mode.")
+	}
+
 	s3 := h.S3
 	year := time.Now().UTC().Year()
 	month := time.Now().UTC().Format("01")

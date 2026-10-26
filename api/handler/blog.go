@@ -140,6 +140,10 @@ type PresignedUrlResponseBody struct {
 }
 
 func (h *Handler) GeneratePresignedUrl(c echo.Context) error {
+	if h.S3 == nil {
+		return h.ErrorResponseConstructor(c, http.StatusNotImplemented, "Attachment uploads are unavailable in local mode.")
+	}
+
 	key := c.Param("key")
 
 	s3 := h.S3

@@ -8,11 +8,32 @@ Go 1.26 BFF built with Echo v4, GORM/SQLite and the MinIO client for S3. Module 
 
 ```bash
 # From this directory
-go run .                              # listens on :80 by default
+
+# Development loop: rebuilds and restarts on Go changes, listens on :8080
+go tool air
+
+# Build and run once (requires the environment variables below; listens on :80 by default)
+go run .
+
 go build -o ../grd0_blog_api .
 ```
 
-The Docker image is built from the repository root: `cd api; go build -o ../grd0_blog_api`.
+`go tool air` is pinned in `go.mod` (`tool github.com/air-verse/air`) and reads `api/.air.toml`. It loads `api/.env.dev`, which sets `APP_ENV=LOCAL`, `PORT=:8080`, SQLite at `data/api.db` and the local blob backend at `data/scenes`. Air watches only `.go` files under `api/` and ignores `data/` and `.git`; its build output lives in `/tmp/grd0-api-air`, so the checkout stays clean.
+
+Point the frontend at it by setting `VITE_API_URL=http://localhost:8080` in `vue-web/.env`. Keep the dev server on `http://localhost:5173`, because the API CORS allowlist is fixed.
+
+### Docker development loop
+
+```bash
+# From this directory
+docker compose -f compose.dev.yaml up --build
+```
+
+The container bind-mounts `api/` and runs the same `.air.toml` and `.env.dev`, publishing `:8080`. Air's tmp directory is backed by a named volume at `/tmp/grd0-api-air`, so the container never creates root-owned paths in the checkout. `./local-test.sh` runs this command, and `./local-test.sh --no-docker` runs the native `go tool air` loop instead.
+
+File watching uses fsnotify, which works with Linux bind mounts. On Docker Desktop or another host that does not deliver inotify events into the container, set `poll = true` under `[build]` in `api/.air.toml` and restart the service.
+
+The production Docker image is built from the repository root: `cd api; go build -o ../grd0_blog_api`.
 
 ## Environment variables
 
@@ -50,7 +71,16 @@ LOCAL_AUTHOR_NAME=Local Author
 
 ### Local authentication bypass
 
-Set `APP_ENV=LOCAL` to skip OIDC initialization and authenticate every restricted route with a synthetic author (`LOCAL_AUTHOR_EMAIL` / `LOCAL_AUTHOR_NAME`, defaulting to `local@grd0.net` / `Local Author`). The bypass is intended only for local development and logs a warning at startup. Never set `APP_ENV=LOCAL` in a deployed environment. `/auth/login`, `/auth/callback`, and `/auth/refresh` return `404` while it is active. `local-test.sh` sets `APP_ENV=LOCAL` for the local Docker run.
+Set `APP_ENV=LOCAL` to skip OIDC initialization and authenticate every restricted route with a synthetic author (`LOCAL_AUTHOR_EMAIL` / `LOCAL_AUTHOR_NAME`, defaulting to `local@grd0.net` / `Local Author`). The bypass is intended only for local development and logs a warning at startup. Never set `APP_ENV=LOCAL` in a deployed environment. `/auth/login`, `/auth/callback`, and `/auth/refresh` return `404` while it is active. `local-test.sh` runs the Docker development loop, which loads `api/.env.dev` with `APP_ENV=LOCAL`.
+
+Local mode also skips the S3 client, so `S3_ENDPOINT`, `S3_ACCESS_KEY_ID` and `S3_SECRET_ACCESS_KEY` are not required. The presigned attachment endpoints are unavailable and return `501`:
+
+```bash
+curl -i -X PUT localhost:8080/blog/attachment/example     # 501 Not Implemented
+curl -i -X PUT localhost:8080/article/attachment/example  # 501 Not Implemented
+```
+
+Attachment uploads therefore only work outside local mode.
 
 ### Blob storage backends
 

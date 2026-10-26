@@ -1,0 +1,16 @@
+root = "."
+tmp_dir = "/tmp/grd0-api-air"
+env_files = [".env.dev"]
+
+[build]
+  cmd = "go build -o /tmp/grd0-api-air/main ."
+  entrypoint = ["/tmp/grd0-api-air/main"]
+  include_ext = ["go"]
+  exclude_dir = ["data", ".git"]
+  exclude_unchanged = true
+  delay = 300
+  stop_on_error = false
+  send_interrupt = true
+
+[misc]
+  clean_on_exit = true

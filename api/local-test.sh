@@ -1,12 +1,13 @@
 #!/bin/bash
-# Run the API locally.
+# Run the API development loop.
 #
-#   ./local-test.sh              build and run in Docker, or with the local Go
+#   ./local-test.sh              run Air in Docker, or with the local Go
 #                                toolchain when Docker is not available
-#   ./local-test.sh --no-docker  run directly with the local Go toolchain
+#   ./local-test.sh --no-docker  run Air directly with the local Go toolchain
 #
-# Both modes read ./api.env when it exists. Port 8080 is used outside Docker
-# so the server can run as a non-root user; set PORT in api.env to change it.
+# Both modes use .air.toml and .env.dev (APP_ENV=LOCAL, PORT=:8080), rebuilding
+# and restarting the API when Go sources change. Extra arguments are forwarded
+# to Docker Compose or Air.
 set -euo pipefail
 
 cd "$(dirname "$0")"
@@ -14,6 +15,7 @@ cd "$(dirname "$0")"
 run_local=false
 if [ "${1:-}" = "--no-docker" ]; then
 	run_local=true
+	shift
 elif ! command -v docker >/dev/null 2>&1; then
 	echo "docker not found; running with the local Go toolchain" >&2
 	run_local=true
@@ -25,22 +27,7 @@ if [ "$run_local" = true ]; then
 		exit 1
 	fi
 
-	if [ -f ./api.env ]; then
-		set -a
-		. ./api.env
-		set +a
-	fi
-
-	export APP_ENV=LOCAL
-	export PORT="${PORT:-:80}"
-
-	exec go run .
+	exec go tool air "$@"
 fi
 
-docker build -t grd0/api:latest . && \
-docker run --rm -p 80:80 \
-	-e APP_ENV=LOCAL \
-	-v ./data/api.db:/opt/app/data/api.db \
-	-v ./data/files/files.json:/opt/app/data/files/files.json \
-	--env-file ./api.env \
-	grd0/api
+exec docker compose -f compose.dev.yaml up --build "$@"
