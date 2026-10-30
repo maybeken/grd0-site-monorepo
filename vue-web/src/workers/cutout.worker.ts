@@ -25,6 +25,7 @@ const DARK: readonly [number, number, number] = [10, 10, 10]
 
 let segmenter: Segmenter | null = null
 let loading: Promise<Segmenter> | null = null
+let active_device: 'webgpu' | 'wasm' | null = null
 
 function post(message: unknown): void {
   scope.postMessage(message)
@@ -61,15 +62,16 @@ function needs_legacy_wasm(): boolean {
 async function load_segmenter(
   model_host: string,
   model_id: string,
-  runtime_host: string
+  runtime_host: string,
+  forced_device?: 'webgpu' | 'wasm'
 ): Promise<Segmenter> {
   if (segmenter) return segmenter
   if (loading) return loading
 
   loading = (async () => {
-    const device = await select_device()
+    const preferred = forced_device ?? (await select_device())
 
-    if (!device) {
+    if (!preferred) {
       post({ type: 'unsupported' })
       throw new Error('WebAssembly is unavailable in this browser.')
     }
@@ -89,20 +91,40 @@ async function load_segmenter(
       }
     }
 
-    const instance = await pipeline('background-removal', model_id, {
-      device,
-      dtype: 'q8',
-      progress_callback: (event: { status?: string; progress?: number }) => {
-        if (event.status === 'progress' && typeof event.progress === 'number') {
-          post({ type: 'progress', progress: Math.round(event.progress) })
-        }
+    const devices: ('webgpu' | 'wasm')[] = forced_device
+      ? [forced_device]
+      : preferred === 'webgpu'
+        ? ['webgpu', 'wasm']
+        : ['wasm']
+    let failure: unknown = null
+
+    for (const device of devices) {
+      try {
+        const instance = await pipeline('background-removal', model_id, {
+          device,
+          dtype: 'q8',
+          progress_callback: (event: { status?: string; progress?: number }) => {
+            if (event.status === 'progress' && typeof event.progress === 'number') {
+              post({ type: 'progress', progress: Math.round(event.progress) })
+            }
+          }
+        })
+
+        segmenter = instance as unknown as Segmenter
+        active_device = device
+        post({ type: 'ready', device })
+
+        return segmenter
+      } catch (error) {
+        failure = error
       }
-    })
+    }
 
-    segmenter = instance as unknown as Segmenter
-    post({ type: 'ready', device })
-
-    return segmenter
+    throw new Error(
+      `The segmentation runtime could not start (${preferred}): ${
+        failure instanceof Error ? failure.message : String(failure)
+      }`
+    )
   })()
 
   try {
@@ -255,13 +277,25 @@ function silhouette(
 
 async function segment(message: Extract<IncomingMessage, { type: 'segment' }>): Promise<void> {
   try {
-    const instance = await load_segmenter(
+    let source: RawImage
+
+    try {
+      source = await RawImage.fromBlob(message.blob)
+    } catch {
+      post({
+        type: 'error',
+        id: message.id,
+        message: 'That file could not be read as an image. Use a JPEG, PNG or WebP photo.'
+      })
+      return
+    }
+
+    let instance = await load_segmenter(
       message.model_host,
       message.model_id,
       message.runtime_host
     )
 
-    let source = await RawImage.fromBlob(message.blob)
     const longest = Math.max(source.width, source.height)
 
     if (longest > MAX_EDGE) {
@@ -272,7 +306,23 @@ async function segment(message: Extract<IncomingMessage, { type: 'segment' }>): 
       )
     }
 
-    const cutout = await instance(source)
+    let cutout: RawImage
+
+    try {
+      cutout = await instance(source)
+    } catch (error) {
+      if (active_device !== 'webgpu') throw error
+
+      segmenter = null
+      active_device = null
+      instance = await load_segmenter(
+        message.model_host,
+        message.model_id,
+        message.runtime_host,
+        'wasm'
+      )
+      cutout = await instance(source)
+    }
     const matte = extract_matte(cutout)
     const binary = binarize(matte)
 

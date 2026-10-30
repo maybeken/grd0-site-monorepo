@@ -39,9 +39,12 @@
       <p v-else-if="working" class="text-sm font-medium text-foreground/60" aria-live="polite">
         {{ $t('grandTour.editor.cover.generating') }}
       </p>
-      <p v-else-if="error_message" class="text-sm font-medium text-red-400" role="alert">
-        {{ error_message }}
-      </p>
+      <div v-else-if="error_message" role="alert">
+        <p class="text-sm font-medium text-red-400">{{ error_message }}</p>
+        <p v-if="error_detail" class="mt-1 break-words text-xs text-foreground/60">
+          {{ error_detail }}
+        </p>
+      </div>
       <p v-else-if="status === 'ready'" class="text-sm font-medium text-foreground/60">
         {{ $t('grandTour.editor.cover.modelReady') }}
       </p>
@@ -132,6 +135,7 @@ const working = ref(false)
 const progress = ref<number | null>(null)
 const status = ref<'idle' | 'ready' | 'unsupported'>('idle')
 const error_message = ref('')
+const error_detail = ref('')
 
 let worker: Worker | null = null
 let next_id = 0
@@ -148,9 +152,11 @@ function ensure_worker(): Worker {
   })
 
   instance.onmessage = (event: MessageEvent<WorkerMessage>) => on_message(event.data)
-  instance.onerror = () => {
+  instance.onerror = (error) => {
+    console.error('Cutout worker failed', error)
     working.value = false
     error_message.value = t('grandTour.editor.cover.generationFailed')
+    error_detail.value = error.message || 'The cutout worker stopped unexpectedly.'
   }
 
   worker = instance
@@ -255,12 +261,16 @@ async function onPhoto(event: Event): Promise<void> {
   working.value = true
   progress.value = null
   error_message.value = ''
+  error_detail.value = ''
 
   try {
     apply(await segment(file))
-  } catch {
+  } catch (error) {
+    console.error('Cutout generation failed', error)
+
     if (status.value !== 'unsupported') {
       error_message.value = t('grandTour.editor.cover.generationFailed')
+      error_detail.value = error instanceof Error ? error.message : String(error)
     }
   } finally {
     working.value = false
