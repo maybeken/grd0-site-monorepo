@@ -51,46 +51,7 @@
 
       <div v-if="generated" class="flex flex-col gap-3">
         <p class="text-lg font-medium">{{ $t('grandTour.editor.cover.variants') }}</p>
-        <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
-          <figure class="flex flex-col gap-1">
-            <div class="checker flex h-28 items-center justify-center rounded border border-accent/20">
-              <img
-                :src="generated.cutout_url"
-                :alt="$t('grandTour.editor.cover.cutout')"
-                class="h-full w-full object-contain"
-              />
-            </div>
-            <figcaption class="text-sm font-medium text-foreground/60">
-              {{ $t('grandTour.editor.cover.cutout') }}
-            </figcaption>
-          </figure>
-
-          <figure class="flex flex-col gap-1">
-            <div class="flex h-28 items-center justify-center rounded border border-accent/20 bg-background">
-              <img
-                :src="generated.silhouette_light_url"
-                :alt="$t('grandTour.editor.cover.silhouetteLight')"
-                class="h-full w-full object-contain"
-              />
-            </div>
-            <figcaption class="text-sm font-medium text-foreground/60">
-              {{ $t('grandTour.editor.cover.silhouetteLight') }}
-            </figcaption>
-          </figure>
-
-          <figure class="flex flex-col gap-1">
-            <div class="flex h-28 items-center justify-center rounded border border-accent/20 bg-foreground">
-              <img
-                :src="generated.silhouette_dark_url"
-                :alt="$t('grandTour.editor.cover.silhouetteDark')"
-                class="h-full w-full object-contain"
-              />
-            </div>
-            <figcaption class="text-sm font-medium text-foreground/60">
-              {{ $t('grandTour.editor.cover.silhouetteDark') }}
-            </figcaption>
-          </figure>
-        </div>
+        <CoverEraser :cover="generated" @update="onEdit"></CoverEraser>
       </div>
     </template>
   </div>
@@ -101,6 +62,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import EditorButton from '@/components/editor/ui/EditorButton.vue'
+import CoverEraser from '@/components/vehicle/CoverEraser.vue'
 import { CUTOUT_MODEL_HOST, CUTOUT_MODEL_ID, CUTOUT_RUNTIME_HOST } from '@/helpers/vehicle'
 
 import type { GeneratedCover } from '@/interfaces/Vehicle'
@@ -250,6 +212,10 @@ function discard(): void {
   emit('discarded')
 }
 
+function onEdit(cover: GeneratedCover): void {
+  emit('generated', cover)
+}
+
 async function onPhoto(event: Event): Promise<void> {
   const input = event.target as HTMLInputElement
   const file = input.files?.[0]
@@ -289,16 +255,3 @@ onBeforeUnmount(() => {
   pending.clear()
 })
 </script>
-
-<style scoped>
-.checker {
-  background-image: conic-gradient(
-    from 90deg at 50% 50%,
-    var(--color-shade) 25%,
-    var(--color-background) 0 50%,
-    var(--color-shade) 0 75%,
-    var(--color-background) 0
-  );
-  background-size: 16px 16px;
-}
-</style>

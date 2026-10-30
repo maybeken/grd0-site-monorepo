@@ -27,6 +27,7 @@ declare module 'vue' {
     BrewTimeInput: typeof import('./src/components/coffee/BrewTimeInput.vue')['default']
     CDNImage: typeof import('./src/components/shared/CDNImage.vue')['default']
     CountryField: typeof import('./src/components/vehicle/CountryField.vue')['default']
+    CoverEraser: typeof import('./src/components/vehicle/CoverEraser.vue')['default']
     CursorBlink: typeof import('./src/components/shared/CursorBlink.vue')['default']
     DropdownBtn: typeof import('./src/components/layout/DropdownBtn.vue')['default']
     DropdownSelection: typeof import('./src/components/gallery/DropdownSelection.vue')['default']

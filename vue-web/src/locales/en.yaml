@@ -2587,6 +2587,41 @@ grandTour:
         msgstr: 'Generated variants'
         msgctxt: 'Heading above the generated cover variants'
 
+      eraseHint:
+        msgid: 'grandTour.editor.cover.eraseHint'
+        msgstr: 'Drag on the image to erase leftovers such as the shadow under the car.'
+        msgctxt: 'Help text above the manual erase canvas'
+
+      brushSize:
+        msgid: 'grandTour.editor.cover.brushSize'
+        msgstr: 'Brush size'
+        msgctxt: 'Label for the erase brush size slider'
+
+      undoErase:
+        msgid: 'grandTour.editor.cover.undoErase'
+        msgstr: 'Undo'
+        msgctxt: 'Button that undoes the last erase stroke'
+
+      clearErase:
+        msgid: 'grandTour.editor.cover.clearErase'
+        msgstr: 'Clear erases'
+        msgctxt: 'Button that removes every erase stroke'
+
+      zoomIn:
+        msgid: 'grandTour.editor.cover.zoomIn'
+        msgstr: 'Zoom in'
+        msgctxt: 'Button that enlarges the erase canvas'
+
+      zoomOut:
+        msgid: 'grandTour.editor.cover.zoomOut'
+        msgstr: 'Zoom out'
+        msgctxt: 'Button that shrinks the erase canvas'
+
+      zoomFit:
+        msgid: 'grandTour.editor.cover.zoomFit'
+        msgstr: 'Fit'
+        msgctxt: 'Button that resets the erase canvas to fit its frame'
+
       cutout:
         msgid: 'grandTour.editor.cover.cutout'
         msgstr: 'Photographic cutout'
