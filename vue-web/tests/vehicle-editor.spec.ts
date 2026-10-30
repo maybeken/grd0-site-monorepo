@@ -188,7 +188,7 @@ test.describe('Vehicle editor', () => {
     )
 
     await page.goto('/editor/vehicles/11111111-1111-1111-1111-111111111111')
-    await expect(page.getByText('Generated silhouette is assigned.')).toBeVisible()
+    await expect(page.getByText('Generated cover is assigned.')).toBeVisible()
     await expect(page.locator('.silhouette')).toHaveCount(1)
   })
 })
@@ -275,5 +275,24 @@ test.describe('Country field', () => {
 
     await expect(field).toHaveValue('Japan')
     await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
+  })
+
+  test('previews the cutout when both cover assets exist', async ({ page }) => {
+    await page.route('http://localhost:8080/vehicles/11111111-1111-1111-1111-111111111111', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          ...vehicle,
+          cutout_key: 'vehicles/2026/10/cutout.png',
+          silhouette_key: 'vehicles/2026/10/silhouette.png'
+        })
+      })
+    )
+
+    await page.goto('/editor/vehicles/11111111-1111-1111-1111-111111111111')
+    await expect(page.getByText('Generated cover is assigned.')).toBeVisible()
+    await expect(page.locator('img[alt="Honda Civic Type R"]')).toHaveCount(1)
+    await expect(page.locator('.silhouette')).toHaveCount(0)
   })
 })

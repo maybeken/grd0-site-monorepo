@@ -69,9 +69,10 @@ const loading = ref(true)
 const load_failed = ref(false)
 
 function summary(vehicle: Vehicle): string {
-  const cover = vehicle.silhouette_key
-    ? t('grandTour.editor.coverAssigned')
-    : t('grandTour.editor.coverMissing')
+  const cover =
+    vehicle.cutout_key || vehicle.silhouette_key
+      ? t('grandTour.editor.coverAssigned')
+      : t('grandTour.editor.coverMissing')
   const location = [vehicle.country, vehicle.city].filter(Boolean).join(', ')
 
   return [vehicle.year, location, cover].filter(Boolean).join(' · ')

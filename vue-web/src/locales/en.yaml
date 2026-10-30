@@ -2524,8 +2524,8 @@ grandTour:
 
       generated:
         msgid: 'grandTour.editor.cover.generated'
-        msgstr: 'Generated silhouette is assigned.'
-        msgctxt: 'Cover preview status when a stored silhouette exists'
+        msgstr: 'Generated cover is assigned.'
+        msgctxt: 'Cover preview status when a stored cover exists'
 
       missing:
         msgid: 'grandTour.editor.cover.missing'

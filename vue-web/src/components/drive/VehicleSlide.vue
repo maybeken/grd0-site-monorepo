@@ -1,9 +1,16 @@
 <template>
   <article class="flex h-full w-full flex-col items-center justify-center gap-6 px-4 py-6 md:px-12 md:py-10">
     <div class="flex min-h-0 w-full flex-1 items-center justify-center text-foreground">
-      <div v-if="cover_src" class="h-full w-full max-w-4xl">
+      <div v-if="cover" class="flex h-full w-full max-w-4xl items-center justify-center">
+        <img
+          v-if="cover.kind === 'cutout'"
+          :src="cover.src"
+          :alt="`${vehicle.make} ${vehicle.model}`"
+          class="h-full w-full object-contain"
+        />
         <SilhouetteCover
-          :src="cover_src"
+          v-else
+          :src="cover.src"
           :alt="`${vehicle.make} ${vehicle.model}`"
         ></SilhouetteCover>
       </div>
@@ -71,9 +78,17 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
-const cover_src = computed(() =>
-  props.vehicle.silhouette_key ? assetUrl(props.vehicle.silhouette_key) : null
-)
+const cover = computed<{ src: string; kind: 'cutout' | 'silhouette' } | null>(() => {
+  if (props.vehicle.cutout_key) {
+    return { src: assetUrl(props.vehicle.cutout_key), kind: 'cutout' }
+  }
+
+  if (props.vehicle.silhouette_key) {
+    return { src: assetUrl(props.vehicle.silhouette_key), kind: 'silhouette' }
+  }
+
+  return null
+})
 const flag = computed(() => flagIcon(props.vehicle.country_code))
 
 const location_line = computed(() => {

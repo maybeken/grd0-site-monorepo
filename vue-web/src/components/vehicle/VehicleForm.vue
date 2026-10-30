@@ -156,11 +156,19 @@
           <div class="flex flex-col gap-4">
             <div class="flex flex-wrap items-center gap-4">
               <div class="h-24 w-40 shrink-0 text-foreground md:h-28 md:w-48">
-                <SilhouetteCover
-                  v-if="cover_src"
-                  :src="cover_src"
-                  :alt="`${form.make} ${form.model}`"
-                ></SilhouetteCover>
+                <div v-if="cover_preview" class="flex h-full w-full items-center justify-center">
+                  <img
+                    v-if="cover_preview.kind === 'cutout'"
+                    :src="cover_preview.src"
+                    :alt="`${form.make} ${form.model}`"
+                    class="h-full w-full object-contain"
+                  />
+                  <SilhouetteCover
+                    v-else
+                    :src="cover_preview.src"
+                    :alt="`${form.make} ${form.model}`"
+                  ></SilhouetteCover>
+                </div>
                 <div
                   v-else
                   class="flex h-full w-full items-center justify-center rounded border border-dashed border-accent/40 text-lg font-bold uppercase tracking-widest text-foreground/40"
@@ -316,10 +324,18 @@ watch(
 const dirty = computed(() => snapshot() !== baseline.value || pending_cover.value !== null)
 const can_save = computed(() => dirty.value)
 
-const cover_src = computed(() => {
-  if (pending_cover.value) return pending_cover.value.silhouette_light_url
+const cover_preview = computed<{ src: string; kind: 'cutout' | 'silhouette' } | null>(() => {
+  if (pending_cover.value) {
+    return { src: pending_cover.value.cutout_url, kind: 'cutout' }
+  }
 
-  if (form.silhouette_key) return assetUrl(form.silhouette_key)
+  if (form.cutout_key) {
+    return { src: assetUrl(form.cutout_key), kind: 'cutout' }
+  }
+
+  if (form.silhouette_key) {
+    return { src: assetUrl(form.silhouette_key), kind: 'silhouette' }
+  }
 
   return null
 })

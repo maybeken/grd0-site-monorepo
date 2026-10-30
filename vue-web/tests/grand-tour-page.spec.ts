@@ -186,4 +186,42 @@ test.describe('Grand Tour page', () => {
     await page.getByLabel('Previous vehicle').click()
     await expect(active).toContainText('Delta')
   })
+
+  test('renders the coloured cutout as the cover when present', async ({ page }) => {
+    await page.route('**/vehicles', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([
+          {
+            ...vehicles[0],
+            cutout_key: 'vehicles/2026/10/cutout.png',
+            silhouette_key: 'vehicles/2026/10/silhouette.png'
+          }
+        ])
+      })
+    )
+
+    await page.goto('/drive')
+    const article = page.locator('article').first()
+    await expect(article.locator('img')).toHaveCount(1)
+    await expect(article.locator('img')).toHaveAttribute('src', /cutout\.png$/)
+    await expect(article.locator('.silhouette')).toHaveCount(0)
+  })
+
+  test('falls back to the silhouette when no cutout exists', async ({ page }) => {
+    await page.route('**/vehicles', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([
+          { ...vehicles[0], cutout_key: null, silhouette_key: 'vehicles/2026/10/silhouette.png' }
+        ])
+      })
+    )
+
+    await page.goto('/drive')
+    await expect(page.locator('article .silhouette')).toHaveCount(1)
+    await expect(page.locator('article img')).toHaveCount(0)
+  })
 })
