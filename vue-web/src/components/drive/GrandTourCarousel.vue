@@ -1,6 +1,6 @@
 <template>
   <section
-    class="relative h-full w-full overflow-hidden"
+    class="relative h-full w-full cursor-pointer overflow-hidden"
     role="region"
     aria-roledescription="carousel"
     :aria-label="$t('grandTour.view.title')"
@@ -14,7 +14,7 @@
       <div
         v-for="(vehicle, index) in vehicles"
         :key="vehicle.id ?? index"
-        class="carousel-slide absolute inset-0 flex items-center justify-center"
+        class="carousel-slide absolute inset-0 flex select-none items-center justify-center"
         :style="slideStyle(index)"
         :aria-hidden="index === current ? 'false' : 'true'"
         :data-active="index === current ? 'true' : 'false'"

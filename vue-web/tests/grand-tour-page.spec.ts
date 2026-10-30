@@ -225,3 +225,51 @@ test.describe('Grand Tour page', () => {
     await expect(page.locator('article img')).toHaveCount(0)
   })
 })
+
+test.describe('Carousel pointer handling', () => {
+  const cover = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><rect width="100" height="60" fill="#888"/></svg>`
+
+  test('drags drive the deck and the cover ignores pointer input', async ({ page }) => {
+    await page.route('**/vehicles', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(
+          vehicles.map((entry) => ({
+            ...entry,
+            cutout_key: 'vehicles/cover.png',
+            silhouette_key: null
+          }))
+        )
+      })
+    )
+    await page.route('https://assets.grd0.net/**', (route) =>
+      route.fulfill({ status: 200, contentType: 'image/svg+xml', body: cover })
+    )
+
+    await page.goto('/drive')
+    const image = page.locator('article img').first()
+    await expect(image).toBeVisible()
+
+    expect(await image.getAttribute('draggable')).toBe('false')
+    expect(await image.evaluate((element) => getComputedStyle(element).pointerEvents)).toBe('none')
+
+    const box = (await image.boundingBox())!
+    const hit = await page.evaluate(
+      ({ x, y }) => document.elementFromPoint(x, y)?.tagName ?? '',
+      { x: box.x + box.width / 2, y: box.y + box.height / 2 }
+    )
+    expect(hit).not.toBe('IMG')
+
+    const active = page.locator('[data-active="true"]')
+    await expect(active).toContainText('Civic Type R')
+
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+    await page.mouse.down()
+    await page.mouse.move(box.x + box.width / 2 - 300, box.y + box.height / 2, { steps: 10 })
+    await page.mouse.up()
+
+    await expect(active).toContainText('Corolla')
+    expect(await page.evaluate(() => window.getSelection()?.toString() ?? '')).toBe('')
+  })
+})

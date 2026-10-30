@@ -1,12 +1,16 @@
 <template>
   <article class="flex h-full w-full flex-col items-center justify-center gap-6 px-4 py-6 md:px-12 md:py-10">
     <div class="flex min-h-0 w-full flex-1 items-center justify-center text-foreground">
-      <div v-if="cover" class="flex h-full w-full max-w-4xl items-center justify-center">
+      <div
+        v-if="cover"
+        class="pointer-events-none flex h-full w-full max-w-4xl select-none items-center justify-center"
+      >
         <img
           v-if="cover.kind === 'cutout'"
           :src="cover.src"
           :alt="`${vehicle.make} ${vehicle.model}`"
-          class="h-full w-full object-contain"
+          draggable="false"
+          class="h-full w-full select-none object-contain"
         />
         <SilhouetteCover
           v-else

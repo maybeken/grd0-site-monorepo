@@ -4,6 +4,8 @@
       {{ $t('grandTour.editor.cover.eraseHint') }}
     </p>
 
+    <p v-if="warning" class="text-sm font-medium text-red-400" role="alert">{{ warning }}</p>
+
     <div
       ref="viewport"
       class="erase-viewport checker relative h-[42vh] touch-none select-none overflow-auto rounded border border-accent/20"
@@ -132,6 +134,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import EditorButton from '@/components/editor/ui/EditorButton.vue'
 
@@ -147,6 +150,15 @@ interface Stroke {
   radius: number
 }
 
+interface Bounds {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+const OUTPUT_PADDING = 2
+
 const props = defineProps<{
   cover: GeneratedCover
 }>()
@@ -154,6 +166,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   update: [cover: GeneratedCover]
 }>()
+
+const { t } = useI18n()
 
 const canvas = ref<HTMLCanvasElement | null>(null)
 const viewport = ref<HTMLDivElement | null>(null)
@@ -168,6 +182,7 @@ const cursor_x = ref(0)
 const cursor_y = ref(0)
 const cursor_visible = ref(false)
 const panning = ref(false)
+const warning = ref('')
 
 let pan_start: { x: number; y: number; left: number; top: number } | null = null
 
@@ -410,14 +425,14 @@ function reset_urls(): void {
   dark_url.value = props.cover.silhouette_dark_url
 }
 
-function composite(image: HTMLImageElement): Promise<Blob> {
+function paint(image: HTMLImageElement): HTMLCanvasElement {
   const buffer = document.createElement('canvas')
   buffer.width = image.naturalWidth
   buffer.height = image.naturalHeight
 
   const context = buffer.getContext('2d')
 
-  if (!context) return Promise.reject(new Error('Canvas is unavailable.'))
+  if (!context) throw new Error('Canvas is unavailable.')
 
   context.drawImage(image, 0, 0)
 
@@ -427,6 +442,65 @@ function composite(image: HTMLImageElement): Promise<Blob> {
     context.globalCompositeOperation = 'source-over'
   }
 
+  return buffer
+}
+
+function content_bounds(buffer: HTMLCanvasElement): Bounds | null {
+  const context = buffer.getContext('2d')
+  if (!context) return null
+
+  const { width, height } = buffer
+  const { data } = context.getImageData(0, 0, width, height)
+  let min_x = width
+  let min_y = height
+  let max_x = -1
+  let max_y = -1
+
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      if (data[(y * width + x) * 4 + 3] === 0) continue
+
+      if (x < min_x) min_x = x
+      if (x > max_x) max_x = x
+      if (y < min_y) min_y = y
+      if (y > max_y) max_y = y
+    }
+  }
+
+  if (max_x < 0 || max_y < 0) return null
+
+  const x0 = Math.max(0, min_x - OUTPUT_PADDING)
+  const y0 = Math.max(0, min_y - OUTPUT_PADDING)
+  const x1 = Math.min(width - 1, max_x + OUTPUT_PADDING)
+  const y1 = Math.min(height - 1, max_y + OUTPUT_PADDING)
+
+  return { x: x0, y: y0, width: x1 - x0 + 1, height: y1 - y0 + 1 }
+}
+
+function crop_canvas(buffer: HTMLCanvasElement, bounds: Bounds): HTMLCanvasElement {
+  const cropped = document.createElement('canvas')
+  cropped.width = bounds.width
+  cropped.height = bounds.height
+
+  const context = cropped.getContext('2d')
+  if (!context) throw new Error('Canvas is unavailable.')
+
+  context.drawImage(
+    buffer,
+    bounds.x,
+    bounds.y,
+    bounds.width,
+    bounds.height,
+    0,
+    0,
+    bounds.width,
+    bounds.height
+  )
+
+  return cropped
+}
+
+function encode(buffer: HTMLCanvasElement): Promise<Blob> {
   return new Promise((resolve, reject) => {
     buffer.toBlob((blob) => {
       if (blob) resolve(blob)
@@ -440,15 +514,28 @@ async function rebuild(): Promise<void> {
 
   if (strokes.value.length === 0) {
     reset_urls()
+    warning.value = ''
     emit('update', props.cover)
     return
   }
 
   const sequence = (render_seq += 1)
+  const cutout_canvas = paint(cutout_image)
+  const light_canvas = paint(light_image)
+  const dark_canvas = paint(dark_image)
+  const bounds = content_bounds(light_canvas)
+
+  if (!bounds) {
+    warning.value = t('grandTour.editor.cover.nothingLeft')
+    return
+  }
+
+  warning.value = ''
+
   const [cutout, light, dark] = await Promise.all([
-    composite(cutout_image),
-    composite(light_image),
-    composite(dark_image)
+    encode(crop_canvas(cutout_canvas, bounds)),
+    encode(crop_canvas(light_canvas, bounds)),
+    encode(crop_canvas(dark_canvas, bounds))
   ])
 
   if (sequence !== render_seq) return
@@ -595,6 +682,7 @@ function clear(): void {
 
 async function prepare(): Promise<void> {
   strokes.value = []
+  warning.value = ''
   reset_urls()
 
   const [cutout, light, dark] = await Promise.all([

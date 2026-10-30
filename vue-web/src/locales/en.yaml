@@ -2622,6 +2622,11 @@ grandTour:
         msgstr: 'Fit'
         msgctxt: 'Button that resets the erase canvas to fit its frame'
 
+      nothingLeft:
+        msgid: 'grandTour.editor.cover.nothingLeft'
+        msgstr: 'Everything was erased. Undo an erasure to keep a cover.'
+        msgctxt: 'Warning shown when an erasure leaves nothing to save'
+
       cutout:
         msgid: 'grandTour.editor.cover.cutout'
         msgstr: 'Photographic cutout'
