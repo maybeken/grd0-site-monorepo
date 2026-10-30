@@ -98,7 +98,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import EditorButton from '@/components/editor/ui/EditorButton.vue'
-import { CUTOUT_MODEL_HOST, CUTOUT_MODEL_ID } from '@/helpers/vehicle'
+import { CUTOUT_MODEL_HOST, CUTOUT_MODEL_ID, CUTOUT_RUNTIME_HOST } from '@/helpers/vehicle'
 
 import type { GeneratedCover } from '@/interfaces/Vehicle'
 
@@ -204,7 +204,8 @@ function segment(blob: Blob): Promise<ResultMessage> {
       id,
       blob,
       model_host: CUTOUT_MODEL_HOST,
-      model_id: CUTOUT_MODEL_ID
+      model_id: CUTOUT_MODEL_ID,
+      runtime_host: CUTOUT_RUNTIME_HOST
     })
   })
 }

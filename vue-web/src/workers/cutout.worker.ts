@@ -1,9 +1,14 @@
 import { env, pipeline, RawImage } from '@huggingface/transformers'
-import ort_mjs from 'onnxruntime-web/ort-wasm-simd-threaded.jsep.mjs?url'
-import ort_wasm from 'onnxruntime-web/ort-wasm-simd-threaded.jsep.wasm?url'
 
 type IncomingMessage =
-  | { type: 'segment'; id: number; model_host: string; model_id: string; blob: Blob }
+  | {
+      type: 'segment'
+      id: number
+      model_host: string
+      model_id: string
+      runtime_host: string
+      blob: Blob
+    }
 
 type Segmenter = (image: RawImage) => Promise<RawImage>
 
@@ -42,7 +47,22 @@ async function select_device(): Promise<'webgpu' | 'wasm' | null> {
   return 'wasm'
 }
 
-async function load_segmenter(model_host: string, model_id: string): Promise<Segmenter> {
+function needs_legacy_wasm(): boolean {
+  const agent = navigator.userAgent
+  const is_safari = /Safari/.test(agent) && !/Chrome|Chromium|Edg|OPR|Firefox|Android/.test(agent)
+
+  if (!is_safari) return false
+
+  const version = Number(/Version\/(\d+)/.exec(agent)?.[1] ?? 0)
+
+  return version < 26 && !('gpu' in navigator)
+}
+
+async function load_segmenter(
+  model_host: string,
+  model_id: string,
+  runtime_host: string
+): Promise<Segmenter> {
   if (segmenter) return segmenter
   if (loading) return loading
 
@@ -59,8 +79,14 @@ async function load_segmenter(model_host: string, model_id: string): Promise<Seg
     env.useBrowserCache = true
     env.remoteHost = model_host
     env.remotePathTemplate = '{model}'
+
     if (env.backends.onnx.wasm) {
-      env.backends.onnx.wasm.wasmPaths = { mjs: ort_mjs, wasm: ort_wasm }
+      const suffix = needs_legacy_wasm() ? '' : '.asyncify'
+
+      env.backends.onnx.wasm.wasmPaths = {
+        mjs: `${runtime_host}ort-wasm-simd-threaded${suffix}.mjs`,
+        wasm: `${runtime_host}ort-wasm-simd-threaded${suffix}.wasm`
+      }
     }
 
     const instance = await pipeline('background-removal', model_id, {
@@ -229,7 +255,11 @@ function silhouette(
 
 async function segment(message: Extract<IncomingMessage, { type: 'segment' }>): Promise<void> {
   try {
-    const instance = await load_segmenter(message.model_host, message.model_id)
+    const instance = await load_segmenter(
+      message.model_host,
+      message.model_id,
+      message.runtime_host
+    )
 
     let source = await RawImage.fromBlob(message.blob)
     const longest = Math.max(source.width, source.height)

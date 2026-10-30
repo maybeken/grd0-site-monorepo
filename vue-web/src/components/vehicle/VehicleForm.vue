@@ -313,7 +313,7 @@ watch(
   { immediate: true }
 )
 
-const dirty = computed(() => snapshot() !== baseline.value)
+const dirty = computed(() => snapshot() !== baseline.value || pending_cover.value !== null)
 const can_save = computed(() => dirty.value)
 
 const cover_src = computed(() => {

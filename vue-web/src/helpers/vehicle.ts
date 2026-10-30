@@ -6,6 +6,10 @@ export const CUTOUT_MODEL_HOST =
   import.meta.env.VITE_CUTOUT_MODEL_HOST || `${ASSET_URL}/models/`
 export const CUTOUT_MODEL_ID = import.meta.env.VITE_CUTOUT_MODEL_ID || 'ormbg'
 
+export const CUTOUT_RUNTIME_HOST = `${(
+  import.meta.env.VITE_CUTOUT_RUNTIME_HOST || `${ASSET_URL}/onnxruntime/`
+).replace(/\/?$/, '/')}`
+
 export interface CountryOption {
   code: string
   name: string
