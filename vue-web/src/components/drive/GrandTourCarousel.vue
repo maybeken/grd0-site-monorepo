@@ -1,33 +1,35 @@
 <template>
   <section
-    class="relative h-full w-full cursor-grab overflow-hidden"
+    class="relative h-full w-full cursor-grab overflow-hidden pb-16 md:pb-20"
     role="region"
     aria-roledescription="carousel"
     :aria-label="$t('grandTour.view.title')"
   >
-    <div
-      class="carousel-stage relative h-full w-full"
-      @pointerdown="onPointerDown"
-      @pointerup="onPointerUp"
-      @pointercancel="onPointerCancel"
-    >
+    <div class="mx-auto h-full w-full max-w-screen-2xl">
       <div
-        v-for="(vehicle, index) in vehicles"
-        :key="vehicle.id ?? index"
-        class="carousel-slide absolute inset-0 flex select-none items-center justify-center"
-        :style="slideStyle(index)"
-        :aria-hidden="index === current ? 'false' : 'true'"
-        :data-active="index === current ? 'true' : 'false'"
-        @click="onSlideClick(index)"
+        class="carousel-stage relative h-full w-full"
+        @pointerdown="onPointerDown"
+        @pointerup="onPointerUp"
+        @pointercancel="onPointerCancel"
       >
-        <div class="h-full w-[82%] max-w-5xl text-foreground">
-          <VehicleSlide :vehicle="vehicle"></VehicleSlide>
+        <div
+          v-for="(vehicle, index) in vehicles"
+          :key="vehicle.id ?? index"
+          class="carousel-slide absolute inset-0 flex select-none items-center justify-center"
+          :style="slideStyle(index)"
+          :aria-hidden="index === current ? 'false' : 'true'"
+          :data-active="index === current ? 'true' : 'false'"
+          @click="onSlideClick(index)"
+        >
+          <div class="h-full w-[82%] max-w-5xl text-foreground">
+            <VehicleSlide :vehicle="vehicle" :active="index === current"></VehicleSlide>
+          </div>
         </div>
       </div>
     </div>
 
     <div
-      class="pointer-events-none absolute inset-x-0 bottom-2 z-40 flex items-center justify-center gap-4 md:bottom-4"
+      class="pointer-events-none absolute inset-x-0 bottom-6 z-40 flex items-center justify-center gap-4 md:bottom-8"
     >
       <button
         type="button"
@@ -87,7 +89,7 @@ function slideStyle(index: number): Record<string, string> {
   const hidden = distance > 2
 
   return {
-    transform: `translateX(${offset * 55}%) translateZ(${-distance * 210}px) rotateY(${offset * -28}deg)`,
+    transform: `translateX(calc(${offset} * var(--slide-spread-x))) translateZ(calc(${-distance} * var(--slide-depth-z))) rotateY(calc(${-offset} * var(--slide-rotate)))`,
     opacity: hidden ? '0' : String(distance === 0 ? 1 : distance === 1 ? 0.45 : 0.22),
     zIndex: String(30 - distance * 10),
     visibility: hidden ? 'hidden' : 'visible',
@@ -164,6 +166,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .carousel-stage {
+  touch-action: pan-y;
   perspective: 1500px;
   perspective-origin: 50% 45%;
   -webkit-mask-image: linear-gradient(
@@ -177,10 +180,21 @@ onBeforeUnmount(() => {
 }
 
 .carousel-slide {
+  --slide-spread-x: 55%;
+  --slide-depth-z: 210px;
+  --slide-rotate: 28deg;
   transition:
     transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 450ms ease;
   will-change: transform, opacity;
+}
+
+@media (max-width: 767px) {
+  .carousel-slide {
+    --slide-spread-x: 78%;
+    --slide-depth-z: 260px;
+    --slide-rotate: 32deg;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

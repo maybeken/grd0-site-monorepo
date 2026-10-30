@@ -1,6 +1,8 @@
 <template>
-  <article class="flex h-full w-full flex-col items-center justify-center gap-6 px-4 py-6 md:px-12 md:py-10">
-    <div class="flex min-h-0 w-full flex-1 items-center justify-center text-foreground">
+  <article class="flex h-full w-full flex-col items-center justify-center gap-10 px-4 py-6 md:gap-8 md:px-12 md:py-10">
+    <div
+      class="flex aspect-video w-full items-center justify-center text-foreground md:aspect-auto md:min-h-0 md:flex-1"
+    >
       <div
         v-if="cover"
         class="pointer-events-none flex h-full w-full max-w-4xl select-none items-center justify-center"
@@ -10,7 +12,8 @@
           :src="cover.src"
           :alt="`${vehicle.make} ${vehicle.model}`"
           draggable="false"
-          class="h-full w-full select-none object-contain"
+          class="cover-image h-full w-full select-none object-contain"
+          :class="{ 'drop-shadow-2xl drop-shadow-accent/50': active }"
         />
         <SilhouetteCover
           v-else
@@ -78,6 +81,7 @@ import type { Vehicle } from '@/interfaces/Vehicle'
 
 const props = defineProps<{
   vehicle: Vehicle
+  active?: boolean
 }>()
 
 const { t } = useI18n()
@@ -130,3 +134,27 @@ function formatDate(value?: string | null): string | null {
   return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short' })
 }
 </script>
+
+<style scoped>
+.cover-image {
+  padding-block: 0;
+}
+
+@media (min-width: 768px) {
+  .cover-image {
+    padding-block: 4rem;
+  }
+}
+
+@media (min-width: 768px) and (min-aspect-ratio: 2/1) {
+  .cover-image {
+    padding-block: 2rem;
+  }
+}
+
+@media (min-width: 768px) and (min-aspect-ratio: 21/9) {
+  .cover-image {
+    padding-block: 0.5rem;
+  }
+}
+</style>
