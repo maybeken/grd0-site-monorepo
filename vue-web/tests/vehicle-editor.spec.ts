@@ -295,4 +295,34 @@ test.describe('Country field', () => {
     await expect(page.locator('img[alt="Honda Civic Type R"]')).toHaveCount(1)
     await expect(page.locator('.silhouette')).toHaveCount(0)
   })
+
+  test('shows a cover thumbnail on each listing row', async ({ page }) => {
+    const cover = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><rect width="100" height="60" fill="#888"/></svg>`
+
+    await page.route('https://assets.grd0.net/**', (route) =>
+      route.fulfill({ status: 200, contentType: 'image/svg+xml', body: cover })
+    )
+
+    await page.route('http://localhost:8080/vehicles', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([
+          { ...vehicle, cutout_key: 'vehicles/cutout.png', silhouette_key: 'vehicles/sil.png' },
+          { ...vehicle, id: '22222222-2222-2222-2222-222222222222', cutout_key: null, silhouette_key: 'vehicles/sil.png' },
+          { ...vehicle, id: '33333333-3333-3333-3333-333333333333', cutout_key: null, silhouette_key: null }
+        ])
+      })
+    )
+
+    await page.goto('/editor/vehicles')
+    await expect(page.getByText('Honda Civic Type R').first()).toBeVisible()
+    await expect(page.locator('main img')).toHaveCount(1)
+    await expect(page.locator('main .silhouette')).toHaveCount(1)
+    await expect(page.getByText('Unknown')).toHaveCount(1)
+
+    const thumbnail = (await page.locator('main img').first().boundingBox())!
+    const title = (await page.getByText('Honda Civic Type R').first().boundingBox())!
+    expect(title.x - (thumbnail.x + thumbnail.width)).toBeLessThan(24)
+  })
 })

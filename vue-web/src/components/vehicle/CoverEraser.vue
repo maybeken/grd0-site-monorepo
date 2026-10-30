@@ -680,6 +680,17 @@ function clear(): void {
   void rebuild()
 }
 
+function onKeydown(event: KeyboardEvent): void {
+  const target = event.target as HTMLElement | null
+
+  if (target?.closest('input, textarea, select, [contenteditable="true"]')) return
+
+  if ((event.ctrlKey || event.metaKey) && !event.shiftKey && event.key.toLowerCase() === 'z') {
+    event.preventDefault()
+    undo()
+  }
+}
+
 async function prepare(): Promise<void> {
   strokes.value = []
   warning.value = ''
@@ -709,6 +720,8 @@ watch(() => props.cover, () => void prepare(), { immediate: true })
 let observer: ResizeObserver | null = null
 
 onMounted(() => {
+  window.addEventListener('keydown', onKeydown)
+
   if (!viewport.value) return
 
   observer = new ResizeObserver((entries) => {
@@ -725,6 +738,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeydown)
   observer?.disconnect()
   observer = null
 

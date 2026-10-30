@@ -2589,7 +2589,7 @@ grandTour:
 
       eraseHint:
         msgid: 'grandTour.editor.cover.eraseHint'
-        msgstr: 'Drag on the image to erase leftovers such as the shadow under the car.'
+        msgstr: 'Drag on the image to erase leftovers such as the shadow under the car. Ctrl+Z undoes the last stroke.'
         msgctxt: 'Help text above the manual erase canvas'
 
       brushSize:

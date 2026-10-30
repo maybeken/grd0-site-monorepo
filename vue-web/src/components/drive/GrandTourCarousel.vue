@@ -1,6 +1,6 @@
 <template>
   <section
-    class="relative h-full w-full cursor-pointer overflow-hidden"
+    class="relative h-full w-full cursor-grab overflow-hidden"
     role="region"
     aria-roledescription="carousel"
     :aria-label="$t('grandTour.view.title')"

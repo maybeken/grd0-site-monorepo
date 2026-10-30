@@ -27,6 +27,28 @@
         :to="`${LISTING_ROUTE}/${vehicle.id}`"
         @delete="remove(vehicle)"
       >
+        <template #leading>
+          <div class="flex h-10 w-16 shrink-0 items-center justify-center text-foreground">
+            <img
+              v-if="coverFor(vehicle)?.kind === 'cutout'"
+              :src="coverFor(vehicle)?.src"
+              alt=""
+              class="h-full w-full object-contain"
+            />
+            <SilhouetteCover
+              v-else-if="coverFor(vehicle)?.kind === 'silhouette'"
+              :src="coverFor(vehicle)?.src ?? ''"
+              alt=""
+            ></SilhouetteCover>
+            <div
+              v-else
+              class="flex h-full w-full items-center justify-center text-[10px] font-bold uppercase tracking-widest text-foreground/40"
+            >
+              {{ $t('grandTour.unknownCover') }}
+            </div>
+          </div>
+        </template>
+
         <span class="truncate text-sm font-medium text-foreground/60">
           {{ summary(vehicle) }}
         </span>
@@ -53,7 +75,9 @@ import EditorLoading from '@/components/editor/ui/EditorLoading.vue'
 import EditorPage from '@/components/editor/ui/EditorPage.vue'
 import EditorPageHeader from '@/components/editor/ui/EditorPageHeader.vue'
 import Icon from '@/components/shared/Icon.vue'
+import SilhouetteCover from '@/components/vehicle/SilhouetteCover.vue'
 import { useToast } from '@/composables/useToast'
+import { assetUrl } from '@/helpers/vehicle'
 import { deleteVehicleRaw, getVehicleCollection } from '@/services/vehicle'
 
 import type { Vehicle } from '@/interfaces/Vehicle'
@@ -76,6 +100,18 @@ function summary(vehicle: Vehicle): string {
   const location = [vehicle.country, vehicle.city].filter(Boolean).join(', ')
 
   return [vehicle.year, location, cover].filter(Boolean).join(' · ')
+}
+
+function coverFor(vehicle: Vehicle): { src: string; kind: 'cutout' | 'silhouette' } | null {
+  if (vehicle.cutout_key) {
+    return { src: assetUrl(vehicle.cutout_key), kind: 'cutout' }
+  }
+
+  if (vehicle.silhouette_key) {
+    return { src: assetUrl(vehicle.silhouette_key), kind: 'silhouette' }
+  }
+
+  return null
 }
 
 async function fetchVehicles(force = false): Promise<void> {

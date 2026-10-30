@@ -252,6 +252,11 @@ test.describe('Carousel pointer handling', () => {
     await expect(image).toBeVisible()
 
     expect(await image.getAttribute('draggable')).toBe('false')
+    expect(
+      await page
+        .locator('section[aria-roledescription="carousel"]')
+        .evaluate((element) => getComputedStyle(element).cursor)
+    ).toBe('grab')
     expect(await image.evaluate((element) => getComputedStyle(element).pointerEvents)).toBe('none')
 
     const box = (await image.boundingBox())!
