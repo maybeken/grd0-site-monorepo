@@ -9,11 +9,30 @@ import ParticleBackground from './components/layout/ParticleBackground.vue'
 const route = useRoute()
 
 const is_editor = computed(() => route.matched.some((record) => record.meta.layout === 'editor'))
+const is_immersive = computed(() =>
+  route.matched.some((record) => record.meta.layout === 'immersive')
+)
 </script>
 
 <template>
   <template v-if="is_editor">
     <RouterView />
+  </template>
+
+  <template v-else-if="is_immersive">
+    <ParticleBackground />
+
+    <div class="flex h-dvh flex-col">
+      <header
+        class="shrink-0 from-background from-90% bg-linear-to-b py-2 md:pb-4 px-2 md:px-0 z-50"
+      >
+        <Navbar></Navbar>
+      </header>
+
+      <main class="min-h-0 flex-1">
+        <RouterView />
+      </main>
+    </div>
   </template>
 
   <template v-else>

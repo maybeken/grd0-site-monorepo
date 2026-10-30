@@ -114,6 +114,10 @@ const groups: Group[] = [
   {
     label: 'editor.travel',
     items: [{ label: 'editor.mapLocations', to: '/editor/travel', match: '/editor/travel' }]
+  },
+  {
+    label: 'editor.grandTour',
+    items: [{ label: 'editor.vehicles', to: '/editor/vehicles', match: '/editor/vehicles' }]
   }
 ]
 

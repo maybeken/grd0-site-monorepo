@@ -1,0 +1,21 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/vehicles/attachment/:key",
+    "method": "PUT",
+    "body": {
+        "mimeType": "No Body"
+    },
+    "headers": [],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 5,
+    "pathParameters": [
+        {
+            "name": "key",
+            "value": "silhouette-light.png"
+        }
+    ]
+}

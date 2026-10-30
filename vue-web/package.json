@@ -15,6 +15,7 @@
     "size": "vite-bundle-visualizer"
   },
   "dependencies": {
+    "@huggingface/transformers": "^4.3.2",
     "@jsdevtools/rehype-url-inspector": "^2.0.2",
     "alova": "^3.5.5",
     "chart.js": "^4.5.1",
@@ -23,6 +24,7 @@
     "ol": "^10.11.0",
     "ol-contextmenu": "^5.5.0",
     "ol-ext": "^4.0.38",
+    "onnxruntime-web": "1.31.0-dev.20260914-8d85527a0",
     "overtype": "^2.6.1",
     "pinia": "^4.1.0",
     "rehype-external-links": "^3.0.0",

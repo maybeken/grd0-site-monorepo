@@ -1,0 +1,21 @@
+{
+    "_type": "request",
+    "url": "{{BASE_URL}}/vehicles",
+    "method": "PUT",
+    "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"make\": \"Honda\",\n    \"model\": \"Civic Type R\",\n    \"year\": 2019,\n    \"body_type\": \"hatchback\",\n    \"engine\": \"2.0L turbo\",\n    \"power\": \"320 hp\",\n    \"transmission\": \"6-speed manual\",\n    \"drivetrain\": \"FWD\",\n    \"fuel\": \"petrol\",\n    \"country_code\": \"JP\",\n    \"country\": \"Japan\",\n    \"city\": \"Tokyo\",\n    \"driven_at\": \"2019-05-01T00:00:00Z\",\n    \"notes\": \"Bought used with 42,000 km.\",\n    \"rating\": 5,\n    \"sort_order\": 1\n}"
+    },
+    "headers": [
+        {
+            "name": "Content-Type",
+            "value": "application/json"
+        }
+    ],
+    "parameters": [],
+    "authentication": {
+        "type": "bearer",
+        "token": "{{TOKEN}}"
+    },
+    "sortOrder": 3
+}

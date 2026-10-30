@@ -15,7 +15,7 @@ declare module 'vue-router' {
     url?: string
     requiresAuth?: boolean
     titleSuffix?: string
-    layout?: 'editor'
+    layout?: 'editor' | 'immersive'
   }
 }
 
@@ -136,6 +136,12 @@ const router = createRouter({
       redirect: '/editor/coffee/beans'
     },
     {
+      path: '/drive',
+      name: 'Drive',
+      meta: { title: 'router.grandTour', layout: 'immersive' },
+      component: () => import('@/views/DriveView.vue')
+    },
+    {
       path: '/editor',
       name: 'Editor',
       component: () => import('@/components/editor/EditorLayout.vue'),
@@ -242,6 +248,18 @@ const router = createRouter({
           name: 'Editor Map Location',
           component: () => import('@/views/editor/EditorMapLocationView.vue'),
           meta: { title: 'router.editorMapLocations' }
+        },
+        {
+          path: 'vehicles',
+          name: 'Editor Vehicles',
+          component: () => import('@/views/editor/EditorVehicleListView.vue'),
+          meta: { title: 'router.editorVehicles' }
+        },
+        {
+          path: 'vehicles/:id',
+          name: 'Editor Vehicle',
+          component: () => import('@/views/editor/EditorVehicleView.vue'),
+          meta: { title: 'router.editorVehicles' }
         }
       ]
     },

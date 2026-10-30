@@ -18,6 +18,7 @@ var tables = []interface{}{
 	&schema.Music{},
 	&schema.Playlist{},
 	&schema.TastingNote{},
+	&schema.Vehicle{},
 }
 
 func AutoMigrate(db *gorm.DB) {

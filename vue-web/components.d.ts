@@ -26,6 +26,7 @@ declare module 'vue' {
     BlogSummary: typeof import('./src/components/blog/BlogSummary.vue')['default']
     BrewTimeInput: typeof import('./src/components/coffee/BrewTimeInput.vue')['default']
     CDNImage: typeof import('./src/components/shared/CDNImage.vue')['default']
+    CountryField: typeof import('./src/components/vehicle/CountryField.vue')['default']
     CursorBlink: typeof import('./src/components/shared/CursorBlink.vue')['default']
     DropdownBtn: typeof import('./src/components/layout/DropdownBtn.vue')['default']
     DropdownSelection: typeof import('./src/components/gallery/DropdownSelection.vue')['default']
@@ -50,6 +51,7 @@ declare module 'vue' {
     GalleryGrid: typeof import('./src/components/gallery/GalleryGrid.vue')['default']
     GalleryPicker: typeof import('./src/components/editor/article/GalleryPicker.vue')['default']
     GalleryZoom: typeof import('./src/components/gallery/GalleryZoom.vue')['default']
+    GrandTourCarousel: typeof import('./src/components/drive/GrandTourCarousel.vue')['default']
     Icon: typeof import('./src/components/shared/Icon.vue')['default']
     IconSelector: typeof import('./src/components/editor/IconSelector.vue')['default']
     IdkToggle: typeof import('./src/components/coffee/IdkToggle.vue')['default']
@@ -76,6 +78,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBySideEditor: typeof import('./src/components/editor/SideBySideEditor.vue')['default']
+    SilhouetteCover: typeof import('./src/components/vehicle/SilhouetteCover.vue')['default']
     SiteFooter: typeof import('./src/components/layout/SiteFooter.vue')['default']
     Skeleton: typeof import('./src/components/shared/Skeleton.vue')['default']
     TasteRadarChart: typeof import('./src/components/coffee/TasteRadarChart.vue')['default']
@@ -83,6 +86,9 @@ declare module 'vue' {
     TastingForm: typeof import('./src/components/coffee/TastingForm.vue')['default']
     ToastContainer: typeof import('./src/components/layout/ToastContainer.vue')['default']
     UpdateNotification: typeof import('./src/components/layout/UpdateNotification.vue')['default']
+    VehicleCoverTool: typeof import('./src/components/vehicle/VehicleCoverTool.vue')['default']
+    VehicleForm: typeof import('./src/components/vehicle/VehicleForm.vue')['default']
+    VehicleSlide: typeof import('./src/components/drive/VehicleSlide.vue')['default']
     YouTubeEmbed: typeof import('./src/components/music/YouTubeEmbed.vue')['default']
   }
 }

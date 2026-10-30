@@ -95,6 +95,12 @@ func RegisterRouter(e *echo.Echo, h *Handler, auth_guard echo.MiddlewareFunc) {
 	restrictV1.PUT("/coffee/equipment", h.UpsertCoffeeEquipment)
 	restrictV1.DELETE("/coffee/equipment/:id", h.DeleteCoffeeEquipment)
 
+	v1.GET("/vehicles", h.GetVehicles)
+	v1.GET("/vehicles/:id", h.GetVehicle)
+	restrictV1.PUT("/vehicles", h.UpsertVehicle)
+	restrictV1.DELETE("/vehicles/:id", h.DeleteVehicle)
+	restrictV1.PUT("/vehicles/attachment/:key", h.GenerateVehiclePresignedUrl)
+
 	v1.GET("/coffee/tastings", h.GetCoffeeTastings)
 	v1.GET("/coffee/tasting/:id", h.GetCoffeeTasting)
 	restrictV1.PUT("/coffee/tasting", h.UpsertCoffeeTasting)

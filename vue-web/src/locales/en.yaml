@@ -37,6 +37,11 @@ nav:
     msgstr: 'LISTEN TO ME!'
     msgctxt: 'Navigation menu item for music section'
 
+  grandTour:
+    msgid: 'nav.grandTour'
+    msgstr: 'Grand Tour'
+    msgctxt: 'Navigation menu item for the vehicle showroom'
+
   instagram:
     msgid: 'nav.instagram'
     msgstr: 'Instagram'
@@ -2191,6 +2196,412 @@ coffee:
       msgstr: 'Other'
       msgctxt: 'Equipment type option'
 
+grandTour:
+  #. Placeholder shown where a vehicle has no silhouette cover
+  #: src/components/drive/VehicleSlide.vue
+  unknownCover:
+    msgid: 'grandTour.unknownCover'
+    msgstr: 'Unknown'
+    msgctxt: 'Placeholder shown in place of a missing silhouette cover'
+
+  #. Public Grand Tour page strings
+  #: src/views/DriveView.vue
+  view:
+    title:
+      msgid: 'grandTour.view.title'
+      msgstr: 'The Grand Tour'
+      msgctxt: 'Grand Tour page title'
+
+    subtitle:
+      msgid: 'grandTour.view.subtitle'
+      msgstr: 'Every vehicle I have driven, one silhouette at a time.'
+      msgctxt: 'Grand Tour page subtitle'
+
+    loading:
+      msgid: 'grandTour.view.loading'
+      msgstr: 'Warming up the garage…'
+      msgctxt: 'Shown while the vehicle collection loads'
+
+    empty:
+      msgid: 'grandTour.view.empty'
+      msgstr: 'No vehicles parked here yet.'
+      msgctxt: 'Shown when the vehicle collection is empty'
+
+    emptyHint:
+      msgid: 'grandTour.view.emptyHint'
+      msgstr: 'The tour is still being planned.'
+      msgctxt: 'Secondary line under the empty collection message'
+
+    slide:
+      msgid: 'grandTour.view.slide'
+      msgstr: 'Vehicle {index} of {total}'
+      msgctxt: 'Accessible label for a carousel slide, {index} and {total} are numbers'
+
+    previous:
+      msgid: 'grandTour.view.previous'
+      msgstr: 'Previous vehicle'
+      msgctxt: 'Accessible label for the previous slide button'
+
+    next:
+      msgid: 'grandTour.view.next'
+      msgstr: 'Next vehicle'
+      msgctxt: 'Accessible label for the next slide button'
+
+  #. Vehicle detail labels on a card
+  #: src/components/drive/VehicleSlide.vue
+  details:
+    engine:
+      msgid: 'grandTour.details.engine'
+      msgstr: 'Engine'
+      msgctxt: 'Vehicle detail label'
+
+    power:
+      msgid: 'grandTour.details.power'
+      msgstr: 'Power'
+      msgctxt: 'Vehicle detail label'
+
+    transmission:
+      msgid: 'grandTour.details.transmission'
+      msgstr: 'Transmission'
+      msgctxt: 'Vehicle detail label'
+
+    drivetrain:
+      msgid: 'grandTour.details.drivetrain'
+      msgstr: 'Drivetrain'
+      msgctxt: 'Vehicle detail label'
+
+    fuel:
+      msgid: 'grandTour.details.fuel'
+      msgstr: 'Fuel'
+      msgctxt: 'Vehicle detail label'
+
+    drivenAt:
+      msgid: 'grandTour.details.drivenAt'
+      msgstr: 'Driven'
+      msgctxt: 'Vehicle detail label for the drive date'
+
+    rating:
+      msgid: 'grandTour.details.rating'
+      msgstr: 'Rating'
+      msgctxt: 'Vehicle detail label for the rating'
+
+    specs:
+      msgid: 'grandTour.details.specs'
+      msgstr: 'Specifications'
+      msgctxt: 'Heading above the compact specification list'
+
+  #. Body-type options
+  #: src/helpers/vehicle.ts
+  bodyTypes:
+    sedan:
+      msgid: 'grandTour.bodyTypes.sedan'
+      msgstr: 'Sedan'
+      msgctxt: 'Vehicle body type option'
+
+    hatchback:
+      msgid: 'grandTour.bodyTypes.hatchback'
+      msgstr: 'Hatchback'
+      msgctxt: 'Vehicle body type option'
+
+    suv:
+      msgid: 'grandTour.bodyTypes.suv'
+      msgstr: 'SUV'
+      msgctxt: 'Vehicle body type option'
+
+    van:
+      msgid: 'grandTour.bodyTypes.van'
+      msgstr: 'Van'
+      msgctxt: 'Vehicle body type option'
+
+    pickup:
+      msgid: 'grandTour.bodyTypes.pickup'
+      msgstr: 'Pickup'
+      msgctxt: 'Vehicle body type option'
+
+    motorbike:
+      msgid: 'grandTour.bodyTypes.motorbike'
+      msgstr: 'Motorbike'
+      msgctxt: 'Vehicle body type option'
+
+    other:
+      msgid: 'grandTour.bodyTypes.other'
+      msgstr: 'Other'
+      msgctxt: 'Vehicle body type option'
+
+  #. Vehicle editor strings
+  #: src/views/editor/EditorVehicleListView.vue
+  editor:
+    newVehicle:
+      msgid: 'grandTour.editor.newVehicle'
+      msgstr: 'New vehicle'
+      msgctxt: 'Button that opens the new vehicle form'
+
+    noVehicles:
+      msgid: 'grandTour.editor.noVehicles'
+      msgstr: 'No vehicles yet.'
+      msgctxt: 'Empty state in the vehicle listing'
+
+    noVehiclesHint:
+      msgid: 'grandTour.editor.noVehiclesHint'
+      msgstr: 'Add the first vehicle to start the Grand Tour.'
+      msgctxt: 'Secondary line under the empty vehicle listing'
+
+    failedDelete:
+      msgid: 'grandTour.editor.failedDelete'
+      msgstr: 'Could not delete the vehicle.'
+      msgctxt: 'Toast shown when deleting a vehicle fails'
+
+    coverAssigned:
+      msgid: 'grandTour.editor.coverAssigned'
+      msgstr: 'Cover assigned'
+      msgctxt: 'Cover state label when a silhouette asset exists'
+
+    coverMissing:
+      msgid: 'grandTour.editor.coverMissing'
+      msgstr: 'No cover'
+      msgctxt: 'Cover state label when no silhouette asset is assigned'
+
+    notFound:
+      msgid: 'grandTour.editor.notFound'
+      msgstr: 'This vehicle could not be loaded.'
+      msgctxt: 'Workspace error for an unknown vehicle identifier'
+
+    #. Vehicle form strings
+    #: src/components/vehicle/VehicleForm.vue
+    form:
+      titleNew:
+        msgid: 'grandTour.editor.form.titleNew'
+        msgstr: 'New vehicle'
+        msgctxt: 'Form section title when creating a vehicle'
+
+      titleEdit:
+        msgid: 'grandTour.editor.form.titleEdit'
+        msgstr: 'Edit vehicle'
+        msgctxt: 'Form section title when editing a vehicle'
+
+      identity:
+        msgid: 'grandTour.editor.form.identity'
+        msgstr: 'Identity'
+        msgctxt: 'Form section heading for make, model and year'
+
+      make:
+        msgid: 'grandTour.editor.form.make'
+        msgstr: 'Make'
+        msgctxt: 'Vehicle form field label'
+
+      model:
+        msgid: 'grandTour.editor.form.model'
+        msgstr: 'Model'
+        msgctxt: 'Vehicle form field label'
+
+      year:
+        msgid: 'grandTour.editor.form.year'
+        msgstr: 'Year'
+        msgctxt: 'Vehicle form field label'
+
+      bodyType:
+        msgid: 'grandTour.editor.form.bodyType'
+        msgstr: 'Body type'
+        msgctxt: 'Vehicle form field label'
+
+      engine:
+        msgid: 'grandTour.editor.form.engine'
+        msgstr: 'Engine'
+        msgctxt: 'Vehicle form field label'
+
+      power:
+        msgid: 'grandTour.editor.form.power'
+        msgstr: 'Power'
+        msgctxt: 'Vehicle form field label'
+
+      transmission:
+        msgid: 'grandTour.editor.form.transmission'
+        msgstr: 'Transmission'
+        msgctxt: 'Vehicle form field label'
+
+      drivetrain:
+        msgid: 'grandTour.editor.form.drivetrain'
+        msgstr: 'Drivetrain'
+        msgctxt: 'Vehicle form field label'
+
+      fuel:
+        msgid: 'grandTour.editor.form.fuel'
+        msgstr: 'Fuel'
+        msgctxt: 'Vehicle form field label'
+
+      country:
+        msgid: 'grandTour.editor.form.country'
+        msgstr: 'Country'
+        msgctxt: 'Vehicle form field label for the combined country field'
+
+      countryHint:
+        msgid: 'grandTour.editor.form.countryHint'
+        msgstr: 'Start typing a country name or ISO code.'
+        msgctxt: 'Help text under the country field'
+
+      clearCountry:
+        msgid: 'grandTour.editor.form.clearCountry'
+        msgstr: 'Clear country'
+        msgctxt: 'Accessible label for the button that clears the country field'
+
+      city:
+        msgid: 'grandTour.editor.form.city'
+        msgstr: 'City'
+        msgctxt: 'Vehicle form field label'
+
+      drivenAt:
+        msgid: 'grandTour.editor.form.drivenAt'
+        msgstr: 'Driven on'
+        msgctxt: 'Vehicle form field label for the drive date'
+
+      notes:
+        msgid: 'grandTour.editor.form.notes'
+        msgstr: 'Notes'
+        msgctxt: 'Vehicle form field label'
+
+      rating:
+        msgid: 'grandTour.editor.form.rating'
+        msgstr: 'Rating'
+        msgctxt: 'Vehicle form field label'
+
+      sortOrder:
+        msgid: 'grandTour.editor.form.sortOrder'
+        msgstr: 'Sort order'
+        msgctxt: 'Vehicle form field label for explicit ordering'
+
+      sortOrderHint:
+        msgid: 'grandTour.editor.form.sortOrderHint'
+        msgstr: 'Lower numbers appear first. Leave empty to order by drive date.'
+        msgctxt: 'Help text under the sort order field'
+
+      none:
+        msgid: 'grandTour.editor.form.none'
+        msgstr: 'Not set'
+        msgctxt: 'Option label for an empty select value'
+
+      specs:
+        msgid: 'grandTour.editor.form.specs'
+        msgstr: 'Specifications'
+        msgctxt: 'Form section heading for the technical fields'
+
+      location:
+        msgid: 'grandTour.editor.form.location'
+        msgstr: 'Location and story'
+        msgctxt: 'Form section heading for country, city and notes'
+
+      makeRequired:
+        msgid: 'grandTour.editor.form.makeRequired'
+        msgstr: 'Make is required.'
+        msgctxt: 'Validation message for a missing make'
+
+      modelRequired:
+        msgid: 'grandTour.editor.form.modelRequired'
+        msgstr: 'Model is required.'
+        msgctxt: 'Validation message for a missing model'
+
+      yearRequired:
+        msgid: 'grandTour.editor.form.yearRequired'
+        msgstr: 'Year is required.'
+        msgctxt: 'Validation message for a missing year'
+
+      failedSave:
+        msgid: 'grandTour.editor.form.failedSave'
+        msgstr: 'Could not save the vehicle.'
+        msgctxt: 'Toast shown when saving a vehicle fails'
+
+    #. Cover generation and upload strings
+    #: src/components/vehicle/VehicleCoverTool.vue
+    cover:
+      title:
+        msgid: 'grandTour.editor.cover.title'
+        msgstr: 'Cover'
+        msgctxt: 'Form section heading for the vehicle cover'
+
+      current:
+        msgid: 'grandTour.editor.cover.current'
+        msgstr: 'Current cover'
+        msgctxt: 'Label above the cover preview'
+
+      generated:
+        msgid: 'grandTour.editor.cover.generated'
+        msgstr: 'Generated silhouette is assigned.'
+        msgctxt: 'Cover preview status when a stored silhouette exists'
+
+      missing:
+        msgid: 'grandTour.editor.cover.missing'
+        msgstr: 'No cover assigned.'
+        msgctxt: 'Cover preview status when no stored silhouette exists'
+
+      pending:
+        msgid: 'grandTour.editor.cover.pending'
+        msgstr: 'New cover ready. It is uploaded when you save.'
+        msgctxt: 'Cover preview status after generating a cover but before saving'
+
+      choosePhoto:
+        msgid: 'grandTour.editor.cover.choosePhoto'
+        msgstr: 'Choose a photo'
+        msgctxt: 'Button that opens the photo picker'
+
+      remove:
+        msgid: 'grandTour.editor.cover.remove'
+        msgstr: 'Remove new cover'
+        msgctxt: 'Button that discards a generated cover before saving'
+
+      generating:
+        msgid: 'grandTour.editor.cover.generating'
+        msgstr: 'Cutting out the vehicle…'
+        msgctxt: 'Status shown while segmentation runs'
+
+      generationFailed:
+        msgid: 'grandTour.editor.cover.generationFailed'
+        msgstr: 'Could not generate a cover from that photo.'
+        msgctxt: 'Error shown when segmentation fails'
+
+      uploadFailed:
+        msgid: 'grandTour.editor.cover.uploadFailed'
+        msgstr: 'The cover was generated but could not be uploaded. Save again to retry.'
+        msgctxt: 'Error shown when cover upload fails, assets remain available'
+
+      limitations:
+        msgid: 'grandTour.editor.cover.limitations'
+        msgstr: 'Best results come from side-on photos with the whole vehicle in frame. Shadows under the car may survive the cutout.'
+        msgctxt: 'Known limitations shown beside the photo picker'
+
+      modelProgress:
+        msgid: 'grandTour.editor.cover.modelProgress'
+        msgstr: 'Downloading the cutout model… {progress}%'
+        msgctxt: 'Model download progress, {progress} is a percentage'
+
+      modelReady:
+        msgid: 'grandTour.editor.cover.modelReady'
+        msgstr: 'Cutout model ready.'
+        msgctxt: 'Status shown once the model has loaded'
+
+      unsupported:
+        msgid: 'grandTour.editor.cover.unsupported'
+        msgstr: 'This browser cannot run the on-device cutout tool. Upload a prepared silhouette instead.'
+        msgctxt: 'Shown when neither WebGPU nor WebAssembly inference is available'
+
+      variants:
+        msgid: 'grandTour.editor.cover.variants'
+        msgstr: 'Generated variants'
+        msgctxt: 'Heading above the generated cover variants'
+
+      cutout:
+        msgid: 'grandTour.editor.cover.cutout'
+        msgstr: 'Photographic cutout'
+        msgctxt: 'Label for the transparent photographic cutout'
+
+      silhouetteLight:
+        msgid: 'grandTour.editor.cover.silhouetteLight'
+        msgstr: 'Silhouette (light)'
+        msgctxt: 'Label for the light silhouette variant'
+
+      silhouetteDark:
+        msgid: 'grandTour.editor.cover.silhouetteDark'
+        msgstr: 'Silhouette (dark)'
+        msgctxt: 'Label for the dark silhouette variant'
+
 notFound:
   #. 404 page strings
   #: src/components/shared/NotFound.vue
@@ -2301,6 +2712,16 @@ editor:
     msgstr: 'Travel'
     msgctxt: 'Sidebar group heading for travel content'
 
+  grandTour:
+    msgid: 'editor.grandTour'
+    msgstr: 'Grand Tour'
+    msgctxt: 'Sidebar group heading for vehicle content'
+
+  vehicles:
+    msgid: 'editor.vehicles'
+    msgstr: 'Vehicles'
+    msgctxt: 'Sidebar entry for the vehicle editor'
+
   articles:
     msgid: 'editor.articles'
     msgstr: 'Articles'
@@ -2398,6 +2819,16 @@ router:
     msgid: 'router.editorMapLocations'
     msgstr: 'Map Locations'
     msgctxt: 'Page title for the map location editor routes'
+
+  editorVehicles:
+    msgid: 'router.editorVehicles'
+    msgstr: 'Vehicles'
+    msgctxt: 'Page title for the vehicle editor routes'
+
+  grandTour:
+    msgid: 'router.grandTour'
+    msgstr: 'Grand Tour'
+    msgctxt: 'Page title for the Grand Tour route'
 
   editorGallery:
     msgid: 'router.editorGallery'

@@ -18,6 +18,14 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['/assets/pwa-192x192.png', '/assets/pwa-512x512.png', '/assets/pwa-maskable-192x192.png', '/assets/pwa-maskable-512x512.png'],
+      workbox: {
+        globIgnores: [
+          '**/cutout.worker-*.js',
+          '**/cutout-runtime-*.js',
+          '**/ort-wasm-*.wasm',
+          '**/ort-wasm-*.mjs'
+        ]
+      },
       manifest: {
         name: 'IDEA GROUND ZERO',
         short_name: 'grd0.net',
@@ -53,6 +61,21 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id: string) => {
+          if (
+            id.includes('@huggingface/transformers') ||
+            id.includes('onnxruntime-web') ||
+            id.includes('onnxruntime-common')
+          ) {
+            return 'cutout-runtime'
+          }
+        }
+      }
     }
   },
 })
