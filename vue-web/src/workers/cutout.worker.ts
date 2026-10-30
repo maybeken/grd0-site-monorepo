@@ -254,6 +254,65 @@ function remove_specks(binary: Uint8Array, width: number, height: number): void 
   }
 }
 
+interface Bounds {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+const OUTPUT_PADDING = 2
+
+function content_bounds(binary: Uint8Array, width: number, height: number): Bounds | null {
+  let min_x = width
+  let min_y = height
+  let max_x = -1
+  let max_y = -1
+
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      if (binary[y * width + x] === 0) continue
+
+      if (x < min_x) min_x = x
+      if (x > max_x) max_x = x
+      if (y < min_y) min_y = y
+      if (y > max_y) max_y = y
+    }
+  }
+
+  if (max_x < 0 || max_y < 0) return null
+
+  const x0 = Math.max(0, min_x - OUTPUT_PADDING)
+  const y0 = Math.max(0, min_y - OUTPUT_PADDING)
+  const x1 = Math.min(width - 1, max_x + OUTPUT_PADDING)
+  const y1 = Math.min(height - 1, max_y + OUTPUT_PADDING)
+
+  return { x: x0, y: y0, width: x1 - x0 + 1, height: y1 - y0 + 1 }
+}
+
+function crop_binary(binary: Uint8Array, width: number, bounds: Bounds): Uint8Array {
+  const cropped = new Uint8Array(bounds.width * bounds.height)
+
+  for (let row = 0; row < bounds.height; row += 1) {
+    const start = (bounds.y + row) * width + bounds.x
+    cropped.set(binary.subarray(start, start + bounds.width), row * bounds.width)
+  }
+
+  return cropped
+}
+
+function crop_image(image: RawImage, bounds: Bounds): RawImage {
+  const rgba = image.rgba()
+  const cropped = new Uint8ClampedArray(bounds.width * bounds.height * 4)
+
+  for (let row = 0; row < bounds.height; row += 1) {
+    const start = ((bounds.y + row) * rgba.width + bounds.x) * 4
+    cropped.set(rgba.data.subarray(start, start + bounds.width * 4), row * bounds.width * 4)
+  }
+
+  return new RawImage(cropped, bounds.width, bounds.height, 4)
+}
+
 function silhouette(
   binary: Uint8Array,
   width: number,
@@ -329,11 +388,25 @@ async function segment(message: Extract<IncomingMessage, { type: 'segment' }>): 
     fill_holes(binary, cutout.width, cutout.height)
     remove_specks(binary, cutout.width, cutout.height)
 
-    const light = silhouette(binary, cutout.width, cutout.height, LIGHT)
-    const dark = silhouette(binary, cutout.width, cutout.height, DARK)
+    const bounds = content_bounds(binary, cutout.width, cutout.height)
+
+    if (!bounds) {
+      post({
+        type: 'error',
+        id: message.id,
+        message: 'No subject was found in that photo.'
+      })
+      return
+    }
+
+    const trimmed_cutout = crop_image(cutout, bounds)
+    const trimmed_binary = crop_binary(binary, cutout.width, bounds)
+
+    const light = silhouette(trimmed_binary, bounds.width, bounds.height, LIGHT)
+    const dark = silhouette(trimmed_binary, bounds.width, bounds.height, DARK)
 
     const [cutout_blob, light_blob, dark_blob] = await Promise.all([
-      cutout.toBlob('image/png'),
+      trimmed_cutout.toBlob('image/png'),
       light.toBlob('image/png'),
       dark.toBlob('image/png')
     ])
@@ -344,8 +417,8 @@ async function segment(message: Extract<IncomingMessage, { type: 'segment' }>): 
       cutout: cutout_blob,
       silhouette_light: light_blob,
       silhouette_dark: dark_blob,
-      width: cutout.width,
-      height: cutout.height
+      width: bounds.width,
+      height: bounds.height
     })
   } catch (error) {
     post({
